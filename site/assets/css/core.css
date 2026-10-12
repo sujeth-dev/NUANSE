@@ -109,10 +109,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .s{display:inline-block;transition:transform .7s var(--ease),color var(--t-sm) var(--ease)}
 .rev{display:inline-block;transform:scaleX(-1)}
 
+/* The hero headline is the one exception, and it is deliberate. There the
+   turn is per-glyph: you hover one S and that S turns, nothing else. A hero
+   whose every S flips the moment the pointer crosses it reads as an effect;
+   one that answers the letter you are actually pointing at reads as an
+   invitation to look. See .hero .hero-h in home.css. */
 @media (hover:hover){
-  .h-split:hover .s,
+  .h-split:not(.hero-h):hover .s,
   .turn:hover .s{transform:scaleX(-1);color:var(--copper)}
-  [data-nav=dark] .h-split:hover .s,
+  [data-nav=dark] .h-split:not(.hero-h):hover .s,
   [data-nav=dark] .turn:hover .s,
   .footer .h-split:hover .s,
   .footer .turn:hover .s{color:var(--copper-l)}

@@ -1,0 +1,663 @@
+{
+ "meta": {
+  "corpus": "possah/identity",
+  "files": 33,
+  "sample": 128,
+  "threshold": 26.0,
+  "dL": 28.0,
+  "dH": 30.0,
+  "Cmin": 3.6,
+  "anchors": {
+   "ivory": "#F4ECDF",
+   "green": "#1F3A2D",
+   "rose": "#C99A99",
+   "orange": "#B35A2B",
+   "gold": "#C8973A"
+  },
+  "accent": [
+   "orange",
+   "gold"
+  ],
+  "generated": "2026-10-12",
+  "method": "gated nearest-anchor dE76 in CIELAB; see tools/sample-ratios.py"
+ },
+ "aggregate": {
+  "ivory": 0.8636,
+  "green": 0.1041,
+  "accent": 0.0323,
+  "coverage": 0.8316,
+  "raw": {
+   "ivory": 0.7182,
+   "green": 0.0866,
+   "rose": 0.0174,
+   "orange": 0.0157,
+   "gold": 0.0111,
+   "other": 0.1509
+  }
+ },
+ "gates": {
+  "coverage": {
+   "value": 83.2,
+   "threshold": 80.0,
+   "pass": true
+  },
+  "stability_pp": {
+   "ivory": 7.5,
+   "green": 1.0,
+   "accent": 8.5,
+   "threshold": 5.0,
+   "pass": false
+  },
+  "proximity_pp": {
+   "ivory": 26.4,
+   "green": -19.6,
+   "accent": -6.8,
+   "threshold": 12.0,
+   "pass": false
+  }
+ },
+ "ceiling": {
+  "min": 0.2,
+  "max": 16.4,
+  "limit": 10.0,
+  "over_limit": [
+   "a-color-palette-is-presented-with-primary-colors-atpcnid.jpg",
+   "this-mood-board-showcases-indian-fashion-with-a.jpg"
+  ]
+ },
+ "sweep": [
+  {
+   "th": 20.0,
+   "dl": 22.0,
+   "ivory": 0.8749,
+   "green": 0.1066,
+   "accent": 0.0185,
+   "coverage": 0.7923
+  },
+  {
+   "th": 20.0,
+   "dl": 28.0,
+   "ivory": 0.8749,
+   "green": 0.1066,
+   "accent": 0.0185,
+   "coverage": 0.7923
+  },
+  {
+   "th": 20.0,
+   "dl": 36.0,
+   "ivory": 0.8749,
+   "green": 0.1066,
+   "accent": 0.0185,
+   "coverage": 0.7923
+  },
+  {
+   "th": 26.0,
+   "dl": 22.0,
+   "ivory": 0.8624,
+   "green": 0.1049,
+   "accent": 0.0326,
+   "coverage": 0.8167
+  },
+  {
+   "th": 26.0,
+   "dl": 28.0,
+   "ivory": 0.8636,
+   "green": 0.1041,
+   "accent": 0.0323,
+   "coverage": 0.8316
+  },
+  {
+   "th": 26.0,
+   "dl": 36.0,
+   "ivory": 0.8636,
+   "green": 0.1041,
+   "accent": 0.0323,
+   "coverage": 0.8316
+  },
+  {
+   "th": 32.0,
+   "dl": 22.0,
+   "ivory": 0.8428,
+   "green": 0.1024,
+   "accent": 0.0548,
+   "coverage": 0.837
+  },
+  {
+   "th": 32.0,
+   "dl": 28.0,
+   "ivory": 0.8456,
+   "green": 0.1014,
+   "accent": 0.053,
+   "coverage": 0.8621
+  },
+  {
+   "th": 32.0,
+   "dl": 36.0,
+   "ivory": 0.8473,
+   "green": 0.1006,
+   "accent": 0.0521,
+   "coverage": 0.8747
+  },
+  {
+   "th": 40.0,
+   "dl": 22.0,
+   "ivory": 0.7995,
+   "green": 0.0971,
+   "accent": 0.1034,
+   "coverage": 0.8824
+  },
+  {
+   "th": 40.0,
+   "dl": 28.0,
+   "ivory": 0.8073,
+   "green": 0.0968,
+   "accent": 0.0958,
+   "coverage": 0.903
+  },
+  {
+   "th": 40.0,
+   "dl": 36.0,
+   "ivory": 0.8205,
+   "green": 0.0963,
+   "accent": 0.0832,
+   "coverage": 0.9194
+  }
+ ],
+ "frames": [
+  {
+   "file": "a-collage-features-an-instagram-profile-various.jpg",
+   "raw": {
+    "ivory": 0.4634,
+    "green": 0.0679,
+    "rose": 0.0548,
+    "orange": 0.0222,
+    "gold": 0.0116,
+    "other": 0.3801
+   },
+   "ivory": 0.82,
+   "green": 0.1202,
+   "accent": 0.0597,
+   "coverage": 0.5651
+  },
+  {
+   "file": "a-color-palette-is-presented-with-primary-colors-atpcnid.jpg",
+   "raw": {
+    "ivory": 0.7543,
+    "green": 0.0496,
+    "rose": 0.0501,
+    "orange": 0.0653,
+    "gold": 0.0688,
+    "other": 0.0118
+   },
+   "ivory": 0.8042,
+   "green": 0.0528,
+   "accent": 0.143,
+   "coverage": 0.938
+  },
+  {
+   "file": "a-flat-lay-composition-showcases-stationery-for.jpg",
+   "raw": {
+    "ivory": 0.8153,
+    "green": 0.0334,
+    "rose": 0.0005,
+    "orange": 0.0163,
+    "gold": 0.0103,
+    "other": 0.1242
+   },
+   "ivory": 0.9315,
+   "green": 0.0381,
+   "accent": 0.0304,
+   "coverage": 0.8753
+  },
+  {
+   "file": "a-still-life-composition-showcases-a-dark-green.jpg",
+   "raw": {
+    "ivory": 0.6895,
+    "green": 0.0867,
+    "rose": 0.0502,
+    "orange": 0.0033,
+    "gold": 0.0018,
+    "other": 0.1684
+   },
+   "ivory": 0.8824,
+   "green": 0.111,
+   "accent": 0.0066,
+   "coverage": 0.7814
+  },
+  {
+   "file": "in-a-brand-identity-guidelines-style-a.jpg",
+   "raw": {
+    "ivory": 0.8077,
+    "green": 0.0,
+    "rose": 0.0176,
+    "orange": 0.0071,
+    "gold": 0.0035,
+    "other": 0.1642
+   },
+   "ivory": 0.9871,
+   "green": 0.0,
+   "accent": 0.0129,
+   "coverage": 0.8182
+  },
+  {
+   "file": "in-a-chic-minimalist-style-a-phone-displays-a.jpg",
+   "raw": {
+    "ivory": 0.6352,
+    "green": 0.0,
+    "rose": 0.0291,
+    "orange": 0.0013,
+    "gold": 0.0009,
+    "other": 0.3336
+   },
+   "ivory": 0.9966,
+   "green": 0.0,
+   "accent": 0.0034,
+   "coverage": 0.6374
+  },
+  {
+   "file": "in-a-clean-minimalist-style-this-graphic.jpg",
+   "raw": {
+    "ivory": 0.9213,
+    "green": 0.0,
+    "rose": 0.0007,
+    "orange": 0.0079,
+    "gold": 0.0232,
+    "other": 0.0469
+   },
+   "ivory": 0.9673,
+   "green": 0.0,
+   "accent": 0.0327,
+   "coverage": 0.9525
+  },
+  {
+   "file": "in-a-fashion-editorial-style-this-instagram-feed.jpg",
+   "raw": {
+    "ivory": 0.7194,
+    "green": 0.0427,
+    "rose": 0.0135,
+    "orange": 0.064,
+    "gold": 0.0023,
+    "other": 0.1581
+   },
+   "ivory": 0.8685,
+   "green": 0.0515,
+   "accent": 0.08,
+   "coverage": 0.8283
+  },
+  {
+   "file": "in-a-fashion-photography-style-a-woman-with-dark.jpg",
+   "raw": {
+    "ivory": 0.6055,
+    "green": 0.0309,
+    "rose": 0.0019,
+    "orange": 0.0176,
+    "gold": 0.0061,
+    "other": 0.338
+   },
+   "ivory": 0.9173,
+   "green": 0.0468,
+   "accent": 0.036,
+   "coverage": 0.6602
+  },
+  {
+   "file": "in-a-graphic-design-style-the-image-displays-a.jpg",
+   "raw": {
+    "ivory": 0.7288,
+    "green": 0.0347,
+    "rose": 0.0801,
+    "orange": 0.0272,
+    "gold": 0.0457,
+    "other": 0.0835
+   },
+   "ivory": 0.8713,
+   "green": 0.0415,
+   "accent": 0.0872,
+   "coverage": 0.8364
+  },
+  {
+   "file": "in-a-graphic-design-style-this-image-presents-a.jpg",
+   "raw": {
+    "ivory": 0.8958,
+    "green": 0.0662,
+    "rose": 0.0041,
+    "orange": 0.0073,
+    "gold": 0.009,
+    "other": 0.0176
+   },
+   "ivory": 0.9156,
+   "green": 0.0677,
+   "accent": 0.0167,
+   "coverage": 0.9783
+  },
+  {
+   "file": "in-a-graphic-design-style-this-visual-displays-a.jpg",
+   "raw": {
+    "ivory": 0.9544,
+    "green": 0.0,
+    "rose": 0.0024,
+    "orange": 0.0004,
+    "gold": 0.0019,
+    "other": 0.041
+   },
+   "ivory": 0.9976,
+   "green": 0.0,
+   "accent": 0.0024,
+   "coverage": 0.9567
+  },
+  {
+   "file": "in-a-minimal-elegant-style-this-image-displays.jpg",
+   "raw": {
+    "ivory": 0.9091,
+    "green": 0.0,
+    "rose": 0.0001,
+    "orange": 0.0009,
+    "gold": 0.0035,
+    "other": 0.0864
+   },
+   "ivory": 0.9952,
+   "green": 0.0,
+   "accent": 0.0048,
+   "coverage": 0.9135
+  },
+  {
+   "file": "in-a-minimalist-brand-identity-style-the-text.jpg",
+   "raw": {
+    "ivory": 0.0084,
+    "green": 0.9426,
+    "rose": 0.0,
+    "orange": 0.0115,
+    "gold": 0.012,
+    "other": 0.0255
+   },
+   "ivory": 0.0086,
+   "green": 0.9673,
+   "accent": 0.0241,
+   "coverage": 0.9745
+  },
+  {
+   "file": "in-a-minimalist-fashion-magazine-style-a-dark.jpg",
+   "raw": {
+    "ivory": 0.7472,
+    "green": 0.1505,
+    "rose": 0.0168,
+    "orange": 0.0032,
+    "gold": 0.0043,
+    "other": 0.0781
+   },
+   "ivory": 0.8255,
+   "green": 0.1663,
+   "accent": 0.0082,
+   "coverage": 0.9052
+  },
+  {
+   "file": "in-a-minimalist-graphic-design-style-a-grid-of.jpg",
+   "raw": {
+    "ivory": 0.9091,
+    "green": 0.0034,
+    "rose": 0.0001,
+    "orange": 0.0006,
+    "gold": 0.0029,
+    "other": 0.0839
+   },
+   "ivory": 0.9925,
+   "green": 0.0037,
+   "accent": 0.0038,
+   "coverage": 0.916
+  },
+  {
+   "file": "in-a-minimalist-graphic-design-style-this-2.jpg",
+   "raw": {
+    "ivory": 0.9515,
+    "green": 0.0,
+    "rose": 0.0,
+    "orange": 0.0006,
+    "gold": 0.0015,
+    "other": 0.0463
+   },
+   "ivory": 0.9978,
+   "green": 0.0,
+   "accent": 0.0022,
+   "coverage": 0.9537
+  },
+  {
+   "file": "in-a-minimalist-graphic-design-style-this-3.jpg",
+   "raw": {
+    "ivory": 0.9164,
+    "green": 0.0,
+    "rose": 0.0002,
+    "orange": 0.0003,
+    "gold": 0.0012,
+    "other": 0.0819
+   },
+   "ivory": 0.9984,
+   "green": 0.0,
+   "accent": 0.0016,
+   "coverage": 0.9178
+  },
+  {
+   "file": "in-a-minimalist-graphic-design-style-this-image.jpg",
+   "raw": {
+    "ivory": 0.9255,
+    "green": 0.0,
+    "rose": 0.0004,
+    "orange": 0.0142,
+    "gold": 0.0209,
+    "other": 0.039
+   },
+   "ivory": 0.9635,
+   "green": 0.0,
+   "accent": 0.0365,
+   "coverage": 0.9606
+  },
+  {
+   "file": "in-a-minimalist-graphic-design-style-this-layout.jpg",
+   "raw": {
+    "ivory": 0.9836,
+    "green": 0.0,
+    "rose": 0.0,
+    "orange": 0.0007,
+    "gold": 0.0019,
+    "other": 0.0139
+   },
+   "ivory": 0.9974,
+   "green": 0.0,
+   "accent": 0.0026,
+   "coverage": 0.9861
+  },
+  {
+   "file": "in-a-minimalist-graphic-design-style-this.jpg",
+   "raw": {
+    "ivory": 0.9729,
+    "green": 0.0,
+    "rose": 0.0,
+    "orange": 0.0009,
+    "gold": 0.0025,
+    "other": 0.0237
+   },
+   "ivory": 0.9965,
+   "green": 0.0,
+   "accent": 0.0035,
+   "coverage": 0.9763
+  },
+  {
+   "file": "in-a-modern-graphic-design-style-a-stylized.jpg",
+   "raw": {
+    "ivory": 0.9637,
+    "green": 0.0,
+    "rose": 0.0005,
+    "orange": 0.0052,
+    "gold": 0.0093,
+    "other": 0.0212
+   },
+   "ivory": 0.9852,
+   "green": 0.0,
+   "accent": 0.0148,
+   "coverage": 0.9783
+  },
+  {
+   "file": "in-a-modern-minimalist-style-a-well-lit-atelier.jpg",
+   "raw": {
+    "ivory": 0.6289,
+    "green": 0.0014,
+    "rose": 0.0091,
+    "orange": 0.0092,
+    "gold": 0.0027,
+    "other": 0.3487
+   },
+   "ivory": 0.9793,
+   "green": 0.0022,
+   "accent": 0.0185,
+   "coverage": 0.6422
+  },
+  {
+   "file": "in-a-photographic-style-the-left-side-of-the.jpg",
+   "raw": {
+    "ivory": 0.5983,
+    "green": 0.0044,
+    "rose": 0.0491,
+    "orange": 0.0338,
+    "gold": 0.0033,
+    "other": 0.3111
+   },
+   "ivory": 0.9351,
+   "green": 0.0069,
+   "accent": 0.058,
+   "coverage": 0.6398
+  },
+  {
+   "file": "in-a-photorealistic-style-a-sophisticated.jpg",
+   "raw": {
+    "ivory": 0.6072,
+    "green": 0.0629,
+    "rose": 0.0022,
+    "orange": 0.0261,
+    "gold": 0.0376,
+    "other": 0.264
+   },
+   "ivory": 0.8276,
+   "green": 0.0857,
+   "accent": 0.0868,
+   "coverage": 0.7338
+  },
+  {
+   "file": "in-a-refined-editorial-style-a-woman-in-a-dusty.jpg",
+   "raw": {
+    "ivory": 0.6324,
+    "green": 0.0618,
+    "rose": 0.0151,
+    "orange": 0.0018,
+    "gold": 0.0009,
+    "other": 0.2881
+   },
+   "ivory": 0.9074,
+   "green": 0.0886,
+   "accent": 0.0039,
+   "coverage": 0.6969
+  },
+  {
+   "file": "in-a-sophisticated-still-life-a-dark-green.jpg",
+   "raw": {
+    "ivory": 0.4553,
+    "green": 0.1439,
+    "rose": 0.0868,
+    "orange": 0.0048,
+    "gold": 0.0032,
+    "other": 0.306
+   },
+   "ivory": 0.7498,
+   "green": 0.237,
+   "accent": 0.0132,
+   "coverage": 0.6072
+  },
+  {
+   "file": "the-image-displays-brand-identity-guidelines-for.jpg",
+   "raw": {
+    "ivory": 0.9171,
+    "green": 0.0,
+    "rose": 0.0038,
+    "orange": 0.0089,
+    "gold": 0.0193,
+    "other": 0.051
+   },
+   "ivory": 0.9702,
+   "green": 0.0,
+   "accent": 0.0298,
+   "coverage": 0.9453
+  },
+  {
+   "file": "this-mood-board-showcases-indian-fashion-with-a.jpg",
+   "raw": {
+    "ivory": 0.4691,
+    "green": 0.0125,
+    "rose": 0.0133,
+    "orange": 0.0748,
+    "gold": 0.0195,
+    "other": 0.4108
+   },
+   "ivory": 0.8145,
+   "green": 0.0217,
+   "accent": 0.1637,
+   "coverage": 0.5759
+  },
+  {
+   "file": "this-page-displays-a-minimalist-design-detailing.jpg",
+   "raw": {
+    "ivory": 0.9213,
+    "green": 0.0081,
+    "rose": 0.0103,
+    "orange": 0.0089,
+    "gold": 0.0129,
+    "other": 0.0385
+   },
+   "ivory": 0.9686,
+   "green": 0.0085,
+   "accent": 0.023,
+   "coverage": 0.9512
+  },
+  {
+   "file": "this-typographic-guide-showcases-font-families.jpg",
+   "raw": {
+    "ivory": 0.0027,
+    "green": 0.9608,
+    "rose": 0.0,
+    "orange": 0.0017,
+    "gold": 0.001,
+    "other": 0.0338
+   },
+   "ivory": 0.0028,
+   "green": 0.9944,
+   "accent": 0.0028,
+   "coverage": 0.9662
+  },
+  {
+   "file": "three-distinct-mobile-screens-display-reel-covers-nzihtsv.jpg",
+   "raw": {
+    "ivory": 0.5764,
+    "green": 0.027,
+    "rose": 0.0039,
+    "orange": 0.0225,
+    "gold": 0.0048,
+    "other": 0.3654
+   },
+   "ivory": 0.9139,
+   "green": 0.0429,
+   "accent": 0.0433,
+   "coverage": 0.6307
+  },
+  {
+   "file": "three-smartphone-screens-display-various-fashion.jpg",
+   "raw": {
+    "ivory": 0.5585,
+    "green": 0.0302,
+    "rose": 0.0614,
+    "orange": 0.038,
+    "gold": 0.0106,
+    "other": 0.3013
+   },
+   "ivory": 0.8764,
+   "green": 0.0473,
+   "accent": 0.0763,
+   "coverage": 0.6373
+  }
+ ]
+}

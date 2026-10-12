@@ -77,7 +77,7 @@
     $('.hero-h-wrap', clone).insertAdjacentHTML('beforeend',
       '<span class="an an-h1">H1 · Gloock 400 · tracking −0.045em</span>' +
       '<span class="an an-h2">Cap height · 0.94 lead · balanced rag</span>' +
-      '<span class="an an-h3">Every S, turned</span>');
+      '<span class="an an-h3">Hover one S. Only that one turns.</span>');
     $('.hero-ctas', clone).insertAdjacentHTML('beforeend',
       '<span class="an an-cta">Copper · 3% of any page</span>');
     /* the grounds are classes, not style attributes — the CSP blocks those */
@@ -89,6 +89,33 @@
       '</div>');
     lensScale.appendChild(clone);
     lensNotes = $$('.an,.swatches', lensScale);
+    wireHeroS();
+  }
+
+  /* --- the hero's S, one letter at a time ---
+     The base layer turns its own glyph through CSS :hover. The lens is an
+     opaque clone sitting on top of it, so an S inside the circle is being
+     looked at in the clone while the one that turns is the original hidden
+     underneath — it would read as doing nothing. The clone was made from the
+     same markup, so the two lists of glyphs are in the same order: hovering
+     base glyph n marks clone glyph n.
+
+     One delegated listener on the headline rather than one per letter. */
+  function wireHeroS() {
+    const base = $('.hero .base .hero-h');
+    const mirror = $('.hero .lens .hero-h');
+    if (!base || !mirror) return;
+    const bs = $$('.s', base);
+    const ms = $$('.s', mirror);
+    if (bs.length !== ms.length) return;   /* never guess at an alignment */
+    const mark = (e, on) => {
+      const t = e.target;
+      if (!t || !t.classList || !t.classList.contains('s')) return;
+      const i = bs.indexOf(t);
+      if (i > -1) ms[i].classList.toggle('is-turn', on);
+    };
+    base.addEventListener('pointerover', (e) => mark(e, true));
+    base.addEventListener('pointerout', (e) => mark(e, false));
   }
 
   const LR = { x: 0, y: 0, tx: 0, ty: 0, r: 0, tr: 0, locked: false };
@@ -118,6 +145,14 @@
     lensScale.style.transformOrigin = `${LR.x.toFixed(1)}px ${LR.y.toFixed(1)}px`;
   }
 
+  /* The bubble recedes while the lens is open and floats back when it closes.
+     `away` is a class, not a tween, so this still works with no GSAP. */
+  let idleTimer = null;
+  function bubble(away) {
+    if (!lensToggle) return;
+    lensToggle.classList.toggle('away', !!away);
+  }
+
   function wireLens() {
     if (!hero || !lens || !lensScale) return;
     if (!RM && lensNotes.length) gsap.set(lensNotes, { opacity: 0 });
@@ -129,8 +164,24 @@
         LR.ty = e.clientY - b.top;
         if (!LR.locked) LR.tr = window.innerWidth < 700 ? 120 : 175;
         if (LR.r < 1) { LR.x = LR.tx; LR.y = LR.ty; }
+        if (!LR.locked) {
+          bubble(true);
+          /* going still is as good as leaving: the lens is a thing you move,
+             so a parked pointer should get the resting state back */
+          clearTimeout(idleTimer);
+          idleTimer = setTimeout(() => {
+            if (LR.locked) return;
+            LR.tr = 0;
+            bubble(false);
+          }, 1200);
+        }
       });
-      hero.addEventListener('pointerleave', () => { if (!LR.locked) LR.tr = 0; });
+      hero.addEventListener('pointerleave', () => {
+        if (LR.locked) return;
+        clearTimeout(idleTimer);
+        LR.tr = 0;
+        bubble(false);
+      });
       gsap.ticker.add(() => {
         /* the lens stops clipping once the hero is off-screen: the single
            most expensive thing on the page when idle */
@@ -150,12 +201,17 @@
         applyLens();
       });
     }
-    /* touch and reduced motion: a button, because there is no pointer to
-       follow and nothing here may depend on hover to be usable */
+    /* The bubble is also the button. Clicking it latches the lens open, which
+       is the only path on touch and under reduced motion, and the keyboard
+       path everywhere. Latched, it stops receding and stops floating back —
+       an object that keeps moving after you have pressed it feels broken. */
     let lensOn = false;
     if (lensToggle) {
       lensToggle.addEventListener('click', () => {
         lensOn = !lensOn;
+        LR.locked = lensOn;
+        clearTimeout(idleTimer);
+        bubble(false);
         if (lensOn) lensFirstUse();
         lensToggle.setAttribute('aria-pressed', String(lensOn));
         lensToggle.classList.toggle('on', lensOn);
@@ -166,11 +222,19 @@
           gsap.to(lens, { autoAlpha: lensOn ? 1 : 0, duration: 0.35, ease: 'none' });
           return;
         }
-        LR.x = b.width - 60;
-        LR.y = 110;
+        /* the lens opens from the bubble itself, wherever the bubble is */
+        const t = lensToggle.getBoundingClientRect();
+        LR.x = LR.tx = t.left - b.left + t.width / 2;
+        LR.y = LR.ty = t.top - b.top + t.height / 2;
+        /* Both drivers are given the same target rather than one of them
+           being switched off. On a pointer device the ticker is running and
+           would otherwise drag the radius back while the tween pushed it out;
+           on touch there is no ticker and the tween is the only thing moving
+           it. Agreeing on the target makes the two harmless to each other. */
+        LR.tr = lensOn ? Math.hypot(b.width, b.height) : 0;
         const st = { r: LR.r };
         gsap.to(st, {
-          r: lensOn ? Math.hypot(b.width, b.height) : 0,
+          r: LR.tr,
           duration: 1.1,
           onUpdate: () => { LR.r = st.r; applyLens(); }
         });
@@ -193,7 +257,13 @@
     gsap.timeline()
       .to(bw, { yPercent: 0, rotation: 0, duration: 1.1, stagger: 0.06 }, 0)
       .to(lw, { yPercent: 0, rotation: 0, duration: 1.1, stagger: 0.06 }, 0)
-      .to(bits, { opacity: 1, duration: 0.9, stagger: 0.08 }, 0.6);
+      .to(bits, {
+        opacity: 1, duration: 0.9, stagger: 0.08,
+        /* The intro leaves an inline opacity:1 behind, and an inline style
+           outranks .lens-toggle.away — so the bubble would never recede
+           again. Hand the property back to the stylesheet. */
+        onComplete: () => { if (lensToggle) gsap.set(lensToggle, { clearProps: 'opacity' }); }
+      }, 0.6);
   }
 
   /* ======================================= the S hand-off, hero -> nav slot
@@ -736,9 +806,29 @@
     });
   }
 
-  /* ============================================ 9 · AUDIT: annotation trail */
-  const MARKS = [['A', 'ring'], ['B', 'ring'], ['C', 'ring'], ['→', 'big'], ['0.94 lead', ''],
-    ['−0.02em', ''], ['Kerning', ''], ['✓', 'big'], ['#B56528', ''], ['46ch', '']];
+  /* ============================================ 9 · AUDIT: annotation trail
+
+     "Find the detail" has to reveal details worth finding. These are the
+     things an audit actually looks at — the type, the colour discipline, the
+     surfaces a mark has to survive, the drawing, and the listings most
+     brands forget they own. Every one of them is either true of this page or
+     documented in a client's kit; none is decoration.
+
+     The pool is grouped so consecutive marks differ in kind. Sweeping the
+     section should feel like being shown around a system, not like watching
+     one list repeat. */
+  const MARK_SETS = [
+    ['type', [['Gloock 400', ''], ['Plex Mono · +0.14em', ''], ['0.94 lead', ''],
+      ['−0.02em', ''], ['Kerning', ''], ['46ch', '']]],
+    ['colour', [['#B56528', ''], ['Copper · 3%', ''], ['#0D1A41', ''],
+      ['60 / 20 / 10', ''], ['✓', 'big']]],
+    ['app', [['Menu', ''], ['Packaging', ''], ['Signage', ''],
+      ['Delivery bag', ''], ['Card · 20mm', ''], ['Favicon 32px', '']]],
+    ['design', [['Clear space', ''], ['Optical centre', ''], ['Grid · 12', ''],
+      ['Baseline', ''], ['→', 'big']]],
+    ['listing', [['Google Maps', ''], ['Swiggy', ''], ['Zomato', ''],
+      ['Petpooja', ''], ['A', 'ring'], ['B', 'ring'], ['C', 'ring']]]
+  ];
   function wireTrail() {
     const auditSec = $('#audit');
     const trail = $('.trail');
@@ -746,6 +836,15 @@
     let lx = -999;
     let ly = -999;
     let mi = 0;
+    /* walk the categories round-robin, and each category's own list in turn,
+       so nothing repeats until everything has been seen once */
+    const cursors = MARK_SETS.map(() => 0);
+    function nextMark() {
+      const si = mi++ % MARK_SETS.length;
+      const [cat, list] = MARK_SETS[si];
+      const m = list[cursors[si]++ % list.length];
+      return [m[0], `${m[1]} tm-${cat}`.trim()];
+    }
     auditSec.addEventListener('pointermove', (e) => {
       const r = auditSec.getBoundingClientRect();
       const x = e.clientX - r.left;
@@ -753,7 +852,7 @@
       if (Math.hypot(x - lx, y - ly) < 120) return;
       lx = x;
       ly = y;
-      const m = MARKS[mi++ % MARKS.length];
+      const m = nextMark();
       const el = document.createElement('span');
       el.className = `tmark ${m[1]}`;
       el.textContent = m[0];

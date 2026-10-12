@@ -1,0 +1,684 @@
+{
+ "meta": {
+  "corpus": "possah/campaign",
+  "files": 33,
+  "sample": 128,
+  "threshold": 26.0,
+  "dL": 28.0,
+  "dH": 30.0,
+  "Cmin": 3.6,
+  "anchors": {
+   "ivory": "#F4ECDF",
+   "green": "#1F3A2D",
+   "rose": "#C99A99",
+   "orange": "#B35A2B",
+   "gold": "#C8973A"
+  },
+  "accent": [
+   "orange",
+   "gold"
+  ],
+  "generated": "2026-10-12",
+  "method": "gated nearest-anchor dE76 in CIELAB; see tools/sample-ratios.py"
+ },
+ "aggregate": {
+  "ivory": 0.7424,
+  "green": 0.0126,
+  "accent": 0.2449,
+  "coverage": 0.3448,
+  "raw": {
+   "ivory": 0.256,
+   "green": 0.0044,
+   "rose": 0.0211,
+   "orange": 0.0536,
+   "gold": 0.0309,
+   "other": 0.6341
+  }
+ },
+ "gates": {
+  "coverage": {
+   "value": 34.5,
+   "threshold": 80.0,
+   "pass": false
+  },
+  "stability_pp": {
+   "ivory": 29.6,
+   "green": 0.5,
+   "accent": 30.0,
+   "threshold": 5.0,
+   "pass": false
+  },
+  "proximity_pp": {
+   "ivory": 14.2,
+   "green": -28.7,
+   "accent": 14.5,
+   "threshold": 12.0,
+   "pass": false
+  }
+ },
+ "ceiling": {
+  "min": 2.0,
+  "max": 95.1,
+  "limit": 10.0,
+  "over_limit": [
+   "blouse-14-look-1-look-1-b-14-4.jpg",
+   "blouse-15-look-1-look-1-b-15.jpg",
+   "blouse-20-blouse-20-1.jpg",
+   "blouse-20-blouse-20-look-2-1.jpg",
+   "blouse-20-blouse-20-look-2-4.jpg",
+   "blouse-21-blouse-21-1.jpg",
+   "blouse-28-blouse-28-look-2-3.jpg",
+   "blouse-29-blouse-29-1.jpg",
+   "blouse-29-blouse-29-2.jpg",
+   "blouse-30-blouse-30-2.jpg",
+   "blouse-32-blouse-32-2.jpg",
+   "blouse-42-blouse-42-3.jpg",
+   "blouse-42-blouse-42-4.jpg",
+   "blouse-43-blouse-43-1.jpg",
+   "blouse-44-blouse-44-1.jpg",
+   "blouse-45-blouse-45-1.jpg",
+   "blouse-45-blouse-45-2.jpg",
+   "blouse-45-blouse-45-4.jpg",
+   "peach-art-deco-dress-1-1.jpg",
+   "peach-art-deco-dress-3-1.jpg",
+   "possah-1-insta-outdoor-1.jpg",
+   "possah-1-insta-outdoor-2.jpg",
+   "rose-gold-mandarin-3.jpg"
+  ]
+ },
+ "sweep": [
+  {
+   "th": 20.0,
+   "dl": 22.0,
+   "ivory": 0.8251,
+   "green": 0.0121,
+   "accent": 0.1629,
+   "coverage": 0.2689
+  },
+  {
+   "th": 20.0,
+   "dl": 28.0,
+   "ivory": 0.8251,
+   "green": 0.0121,
+   "accent": 0.1629,
+   "coverage": 0.2689
+  },
+  {
+   "th": 20.0,
+   "dl": 36.0,
+   "ivory": 0.8251,
+   "green": 0.0121,
+   "accent": 0.1629,
+   "coverage": 0.2689
+  },
+  {
+   "th": 26.0,
+   "dl": 22.0,
+   "ivory": 0.737,
+   "green": 0.0116,
+   "accent": 0.2514,
+   "coverage": 0.3356
+  },
+  {
+   "th": 26.0,
+   "dl": 28.0,
+   "ivory": 0.7424,
+   "green": 0.0126,
+   "accent": 0.2449,
+   "coverage": 0.3448
+  },
+  {
+   "th": 26.0,
+   "dl": 36.0,
+   "ivory": 0.7424,
+   "green": 0.0126,
+   "accent": 0.2449,
+   "coverage": 0.3448
+  },
+  {
+   "th": 32.0,
+   "dl": 22.0,
+   "ivory": 0.6469,
+   "green": 0.0099,
+   "accent": 0.3431,
+   "coverage": 0.3916
+  },
+  {
+   "th": 32.0,
+   "dl": 28.0,
+   "ivory": 0.6671,
+   "green": 0.0117,
+   "accent": 0.3212,
+   "coverage": 0.4153
+  },
+  {
+   "th": 32.0,
+   "dl": 36.0,
+   "ivory": 0.6755,
+   "green": 0.0125,
+   "accent": 0.3121,
+   "coverage": 0.4271
+  },
+  {
+   "th": 40.0,
+   "dl": 22.0,
+   "ivory": 0.5289,
+   "green": 0.0081,
+   "accent": 0.463,
+   "coverage": 0.4795
+  },
+  {
+   "th": 40.0,
+   "dl": 28.0,
+   "ivory": 0.5565,
+   "green": 0.0097,
+   "accent": 0.4338,
+   "coverage": 0.4984
+  },
+  {
+   "th": 40.0,
+   "dl": 36.0,
+   "ivory": 0.5944,
+   "green": 0.0119,
+   "accent": 0.3937,
+   "coverage": 0.5182
+  }
+ ],
+ "frames": [
+  {
+   "file": "amber-glow-button-top-1.jpg",
+   "raw": {
+    "ivory": 0.7773,
+    "green": 0.0002,
+    "rose": 0.0044,
+    "orange": 0.0472,
+    "gold": 0.0061,
+    "other": 0.1649
+   },
+   "ivory": 0.9356,
+   "green": 0.0002,
+   "accent": 0.0642,
+   "coverage": 0.8307
+  },
+  {
+   "file": "amber-glow-button-top-3.jpg",
+   "raw": {
+    "ivory": 0.4897,
+    "green": 0.0,
+    "rose": 0.0155,
+    "orange": 0.0217,
+    "gold": 0.0096,
+    "other": 0.4635
+   },
+   "ivory": 0.9399,
+   "green": 0.0,
+   "accent": 0.0601,
+   "coverage": 0.521
+  },
+  {
+   "file": "amber-glow-button-top-5.jpg",
+   "raw": {
+    "ivory": 0.7425,
+    "green": 0.0,
+    "rose": 0.0053,
+    "orange": 0.053,
+    "gold": 0.0067,
+    "other": 0.1925
+   },
+   "ivory": 0.9256,
+   "green": 0.0,
+   "accent": 0.0744,
+   "coverage": 0.8022
+  },
+  {
+   "file": "amber-glow-button-top-6.jpg",
+   "raw": {
+    "ivory": 0.4635,
+    "green": 0.0,
+    "rose": 0.0196,
+    "orange": 0.0293,
+    "gold": 0.0125,
+    "other": 0.4752
+   },
+   "ivory": 0.9174,
+   "green": 0.0,
+   "accent": 0.0826,
+   "coverage": 0.5052
+  },
+  {
+   "file": "blouse-14-look-1-look-1-b-14-4.jpg",
+   "raw": {
+    "ivory": 0.0125,
+    "green": 0.0011,
+    "rose": 0.0064,
+    "orange": 0.0204,
+    "gold": 0.0054,
+    "other": 0.9542
+   },
+   "ivory": 0.3182,
+   "green": 0.0269,
+   "accent": 0.655,
+   "coverage": 0.0394
+  },
+  {
+   "file": "blouse-15-look-1-look-1-b-15.jpg",
+   "raw": {
+    "ivory": 0.0004,
+    "green": 0.0002,
+    "rose": 0.0022,
+    "orange": 0.0004,
+    "gold": 0.0,
+    "other": 0.9969
+   },
+   "ivory": 0.4167,
+   "green": 0.1667,
+   "accent": 0.4167,
+   "coverage": 0.0009
+  },
+  {
+   "file": "blouse-20-blouse-20-1.jpg",
+   "raw": {
+    "ivory": 0.0016,
+    "green": 0.0285,
+    "rose": 0.1483,
+    "orange": 0.0633,
+    "gold": 0.0082,
+    "other": 0.7501
+   },
+   "ivory": 0.016,
+   "green": 0.2802,
+   "accent": 0.7038,
+   "coverage": 0.1016
+  },
+  {
+   "file": "blouse-20-blouse-20-look-2-1.jpg",
+   "raw": {
+    "ivory": 0.0342,
+    "green": 0.0026,
+    "rose": 0.0068,
+    "orange": 0.0578,
+    "gold": 0.0005,
+    "other": 0.8982
+   },
+   "ivory": 0.3596,
+   "green": 0.0274,
+   "accent": 0.613,
+   "coverage": 0.0951
+  },
+  {
+   "file": "blouse-20-blouse-20-look-2-2.jpg",
+   "raw": {
+    "ivory": 0.0374,
+    "green": 0.0029,
+    "rose": 0.0108,
+    "orange": 0.0008,
+    "gold": 0.0,
+    "other": 0.9481
+   },
+   "ivory": 0.9085,
+   "green": 0.0714,
+   "accent": 0.0201,
+   "coverage": 0.0412
+  },
+  {
+   "file": "blouse-20-blouse-20-look-2-4.jpg",
+   "raw": {
+    "ivory": 0.012,
+    "green": 0.0007,
+    "rose": 0.0043,
+    "orange": 0.0608,
+    "gold": 0.0015,
+    "other": 0.9207
+   },
+   "ivory": 0.1594,
+   "green": 0.0098,
+   "accent": 0.8308,
+   "coverage": 0.075
+  },
+  {
+   "file": "blouse-21-blouse-21-1.jpg",
+   "raw": {
+    "ivory": 0.0043,
+    "green": 0.0002,
+    "rose": 0.0032,
+    "orange": 0.0425,
+    "gold": 0.0437,
+    "other": 0.9062
+   },
+   "ivory": 0.0476,
+   "green": 0.0018,
+   "accent": 0.9506,
+   "coverage": 0.0907
+  },
+  {
+   "file": "blouse-26-blouse-26-1.jpg",
+   "raw": {
+    "ivory": 0.1547,
+    "green": 0.0033,
+    "rose": 0.0054,
+    "orange": 0.0093,
+    "gold": 0.0037,
+    "other": 0.8236
+   },
+   "ivory": 0.9048,
+   "green": 0.019,
+   "accent": 0.0762,
+   "coverage": 0.171
+  },
+  {
+   "file": "blouse-26-blouse-26-3.jpg",
+   "raw": {
+    "ivory": 0.2217,
+    "green": 0.0016,
+    "rose": 0.0033,
+    "orange": 0.0002,
+    "gold": 0.0048,
+    "other": 0.7684
+   },
+   "ivory": 0.9711,
+   "green": 0.0071,
+   "accent": 0.0217,
+   "coverage": 0.2283
+  },
+  {
+   "file": "blouse-28-blouse-28-look-2-3.jpg",
+   "raw": {
+    "ivory": 0.1101,
+    "green": 0.0253,
+    "rose": 0.0081,
+    "orange": 0.0742,
+    "gold": 0.0431,
+    "other": 0.7392
+   },
+   "ivory": 0.4356,
+   "green": 0.1001,
+   "accent": 0.4643,
+   "coverage": 0.2528
+  },
+  {
+   "file": "blouse-29-blouse-29-1.jpg",
+   "raw": {
+    "ivory": 0.2951,
+    "green": 0.0005,
+    "rose": 0.0623,
+    "orange": 0.0436,
+    "gold": 0.0289,
+    "other": 0.5696
+   },
+   "ivory": 0.8017,
+   "green": 0.0013,
+   "accent": 0.197,
+   "coverage": 0.3681
+  },
+  {
+   "file": "blouse-29-blouse-29-2.jpg",
+   "raw": {
+    "ivory": 0.1895,
+    "green": 0.0,
+    "rose": 0.1169,
+    "orange": 0.0339,
+    "gold": 0.0839,
+    "other": 0.5758
+   },
+   "ivory": 0.6167,
+   "green": 0.0,
+   "accent": 0.3833,
+   "coverage": 0.3072
+  },
+  {
+   "file": "blouse-30-blouse-30-2.jpg",
+   "raw": {
+    "ivory": 0.1714,
+    "green": 0.0002,
+    "rose": 0.0994,
+    "orange": 0.0252,
+    "gold": 0.004,
+    "other": 0.6997
+   },
+   "ivory": 0.8533,
+   "green": 0.0012,
+   "accent": 0.1455,
+   "coverage": 0.2008
+  },
+  {
+   "file": "blouse-32-blouse-32-2.jpg",
+   "raw": {
+    "ivory": 0.0076,
+    "green": 0.051,
+    "rose": 0.0041,
+    "orange": 0.0425,
+    "gold": 0.0137,
+    "other": 0.8811
+   },
+   "ivory": 0.066,
+   "green": 0.4443,
+   "accent": 0.4897,
+   "coverage": 0.1148
+  },
+  {
+   "file": "blouse-42-blouse-42-3.jpg",
+   "raw": {
+    "ivory": 0.0285,
+    "green": 0.0,
+    "rose": 0.0003,
+    "orange": 0.0332,
+    "gold": 0.2182,
+    "other": 0.7199
+   },
+   "ivory": 0.1018,
+   "green": 0.0,
+   "accent": 0.8982,
+   "coverage": 0.2799
+  },
+  {
+   "file": "blouse-42-blouse-42-4.jpg",
+   "raw": {
+    "ivory": 0.0408,
+    "green": 0.0003,
+    "rose": 0.0016,
+    "orange": 0.0531,
+    "gold": 0.1602,
+    "other": 0.744
+   },
+   "ivory": 0.1604,
+   "green": 0.0011,
+   "accent": 0.8385,
+   "coverage": 0.2544
+  },
+  {
+   "file": "blouse-43-blouse-43-1.jpg",
+   "raw": {
+    "ivory": 0.0083,
+    "green": 0.0013,
+    "rose": 0.0366,
+    "orange": 0.0747,
+    "gold": 0.081,
+    "other": 0.7982
+   },
+   "ivory": 0.0501,
+   "green": 0.0079,
+   "accent": 0.942,
+   "coverage": 0.1652
+  },
+  {
+   "file": "blouse-44-blouse-44-1.jpg",
+   "raw": {
+    "ivory": 0.005,
+    "green": 0.0209,
+    "rose": 0.0001,
+    "orange": 0.1554,
+    "gold": 0.0352,
+    "other": 0.7834
+   },
+   "ivory": 0.0233,
+   "green": 0.0966,
+   "accent": 0.8801,
+   "coverage": 0.2166
+  },
+  {
+   "file": "blouse-45-blouse-45-1.jpg",
+   "raw": {
+    "ivory": 0.0182,
+    "green": 0.0,
+    "rose": 0.0023,
+    "orange": 0.1847,
+    "gold": 0.0081,
+    "other": 0.7868
+   },
+   "ivory": 0.0861,
+   "green": 0.0,
+   "accent": 0.9139,
+   "coverage": 0.2109
+  },
+  {
+   "file": "blouse-45-blouse-45-2.jpg",
+   "raw": {
+    "ivory": 0.0801,
+    "green": 0.0,
+    "rose": 0.0003,
+    "orange": 0.0727,
+    "gold": 0.0074,
+    "other": 0.8395
+   },
+   "ivory": 0.5003,
+   "green": 0.0,
+   "accent": 0.4997,
+   "coverage": 0.1602
+  },
+  {
+   "file": "blouse-45-blouse-45-4.jpg",
+   "raw": {
+    "ivory": 0.0206,
+    "green": 0.0,
+    "rose": 0.0037,
+    "orange": 0.1961,
+    "gold": 0.0181,
+    "other": 0.7615
+   },
+   "ivory": 0.0877,
+   "green": 0.0,
+   "accent": 0.9123,
+   "coverage": 0.2349
+  },
+  {
+   "file": "golden-hour-top-peach-1.jpg",
+   "raw": {
+    "ivory": 0.8177,
+    "green": 0.0003,
+    "rose": 0.001,
+    "orange": 0.0251,
+    "gold": 0.0209,
+    "other": 0.1351
+   },
+   "ivory": 0.9464,
+   "green": 0.0004,
+   "accent": 0.0532,
+   "coverage": 0.8639
+  },
+  {
+   "file": "peach-art-deco-dress-1-1.jpg",
+   "raw": {
+    "ivory": 0.7971,
+    "green": 0.0,
+    "rose": 0.0002,
+    "orange": 0.0736,
+    "gold": 0.0976,
+    "other": 0.0316
+   },
+   "ivory": 0.8232,
+   "green": 0.0,
+   "accent": 0.1768,
+   "coverage": 0.9683
+  },
+  {
+   "file": "peach-art-deco-dress-2-1.jpg",
+   "raw": {
+    "ivory": 0.8588,
+    "green": 0.0,
+    "rose": 0.0009,
+    "orange": 0.0535,
+    "gold": 0.0228,
+    "other": 0.064
+   },
+   "ivory": 0.9184,
+   "green": 0.0,
+   "accent": 0.0816,
+   "coverage": 0.9351
+  },
+  {
+   "file": "peach-art-deco-dress-3-1.jpg",
+   "raw": {
+    "ivory": 0.7615,
+    "green": 0.0,
+    "rose": 0.0002,
+    "orange": 0.1158,
+    "gold": 0.0365,
+    "other": 0.086
+   },
+   "ivory": 0.8333,
+   "green": 0.0,
+   "accent": 0.1667,
+   "coverage": 0.9138
+  },
+  {
+   "file": "possah-1-insta-indoor-3.jpg",
+   "raw": {
+    "ivory": 0.0708,
+    "green": 0.0,
+    "rose": 0.0407,
+    "orange": 0.0048,
+    "gold": 0.002,
+    "other": 0.8816
+   },
+   "ivory": 0.9122,
+   "green": 0.0,
+   "accent": 0.0878,
+   "coverage": 0.0777
+  },
+  {
+   "file": "possah-1-insta-outdoor-1.jpg",
+   "raw": {
+    "ivory": 0.2039,
+    "green": 0.0,
+    "rose": 0.0135,
+    "orange": 0.0397,
+    "gold": 0.0136,
+    "other": 0.7293
+   },
+   "ivory": 0.7927,
+   "green": 0.0,
+   "accent": 0.2073,
+   "coverage": 0.2572
+  },
+  {
+   "file": "possah-1-insta-outdoor-2.jpg",
+   "raw": {
+    "ivory": 0.2547,
+    "green": 0.0,
+    "rose": 0.0231,
+    "orange": 0.0254,
+    "gold": 0.0097,
+    "other": 0.6871
+   },
+   "ivory": 0.879,
+   "green": 0.0,
+   "accent": 0.121,
+   "coverage": 0.2898
+  },
+  {
+   "file": "rose-gold-mandarin-3.jpg",
+   "raw": {
+    "ivory": 0.6973,
+    "green": 0.0,
+    "rose": 0.0401,
+    "orange": 0.0296,
+    "gold": 0.0486,
+    "other": 0.1843
+   },
+   "ivory": 0.8992,
+   "green": 0.0,
+   "accent": 0.1008,
+   "coverage": 0.7756
+  }
+ ]
+}

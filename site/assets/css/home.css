@@ -44,8 +44,18 @@
 .lens .hero-facts{color:var(--mute-d)}
 .lens .hero-facts dt{color:var(--cream)}
 .lens .hero-facts>div{border-left-color:var(--hair-c)}
-.lens .s{transform:scaleX(-1);color:var(--copper-l);outline:1px dashed rgba(213,138,78,.55);
+/* Inside the lens every S is measured — outlined and in copper — but none of
+   them is turned. The turn belongs to the glyph under the pointer and nothing
+   else; .is-turn is put there by home.js on the clone of whichever base glyph
+   is being hovered, so the letter reads the same inside the circle and out. */
+.lens .s{color:var(--copper-l);outline:1px dashed rgba(213,138,78,.55);
   outline-offset:1px}
+.lens .s.is-turn{transform:scaleX(-1)}
+
+/* The hero's own turn: one letter at a time. */
+@media (hover:hover){
+  .hero .hero-h .s:hover{transform:scaleX(-1);color:var(--copper)}
+}
 .lens .btn.solid{background:var(--cream);color:var(--navy);border-color:var(--cream)}
 .lens .btn{color:var(--cream)}
 .lens .hero-h-wrap{outline:1px dashed var(--copper-l);outline-offset:14px}
@@ -72,13 +82,40 @@
 .hero-hint{position:absolute;right:var(--gut);top:clamp(104px,14vh,150px);color:var(--mute);
   z-index:2;margin:0;display:flex;align-items:center;gap:10px}
 .hero-hint i{width:9px;height:9px;border-radius:50%;border:1px solid var(--copper)}
-/* touch and reduced motion get a button instead of a pointer-driven lens */
-.lens-toggle{display:none;position:absolute;right:var(--gut);top:clamp(96px,12vh,130px);z-index:5;
-  border:1px solid var(--navy);border-radius:999px;padding:9px 14px 8px;background:var(--cream);
-  color:var(--navy);align-items:center;gap:8px}
+/* The bubble: the lens at rest.
+
+   This used to be a button shown only to touch and reduced motion, because a
+   pointer could drive the lens directly. It is now the resting state of the
+   lens on every device — a bubble floating at the right of the hero. Move into
+   the hero and it recedes while the lens opens under the pointer; leave, or go
+   still, and the lens closes and the bubble floats back. One object with two
+   states, rather than an effect that appears from nowhere.
+
+   It recedes to a quarter opacity rather than to nothing, because it stays
+   focusable the whole time and a focusable control you cannot see is a
+   WCAG 2.4.7 failure. Centring is done with margin-top, not translate, so the
+   transform is free for the float and the recede.
+
+   margin-top is half the height. If one changes, change the other. */
+.lens-toggle{display:inline-flex;position:absolute;right:var(--gut);top:50%;margin-top:-46px;
+  z-index:5;width:92px;height:92px;border-radius:50%;
+  border:1px solid var(--navy);background:var(--cream);color:var(--navy);
+  flex-direction:column;align-items:center;justify-content:center;gap:7px;
+  font-size:9px;line-height:1.3;text-align:center;padding:0}
+.lens-toggle span{display:block;max-width:64px}
 .lens-toggle i{width:8px;height:8px;border-radius:50%;background:var(--copper)}
-.lens-toggle.on{background:var(--cream)}
-.touch .lens-toggle,.rm .lens-toggle{display:inline-flex}
+.lens-toggle.on{background:var(--navy);color:var(--cream);border-color:var(--cream)}
+.lens-toggle.on i{background:var(--copper-l)}
+/* The float and the recede are both pure CSS, using the independent `translate`
+   and `scale` properties so they compose without fighting over one transform.
+   Nothing here needs GSAP: on a page where it never loads, the bubble still
+   floats, still recedes and still opens the lens. */
+@keyframes lens-bob{50%{translate:0 -11px}}
+.lens-toggle{animation:lens-bob 4.2s var(--ease) infinite;
+  transition:scale var(--t-mid) var(--ease),opacity var(--t-mid) var(--ease)}
+.lens-toggle.away{opacity:.25;scale:.82}
+.rm .lens-toggle{animation:none}
+.rm .lens-toggle.away{opacity:1;scale:1}
 .touch .hero-hint,.rm .hero-hint{display:none}
 
 /* ============ 2 · MARQUEE ============ */
@@ -469,6 +506,15 @@
 .tmark.ring{width:34px;height:34px;border:1px dashed var(--copper-l);border-radius:50%;
   font-size:13px}
 .tmark.big{font-family:var(--sans);font-size:24px;letter-spacing:0}
+/* Two inks, not five. The marks say what kind of detail they are by how they
+   are set: the system's own rules in copper, the surfaces it has to survive
+   in the quieter ink, and a colour value carries its own swatch. Five tints
+   would read as a legend nobody was given. */
+.tmark.tm-colour{color:var(--cream);display:flex;align-items:center;gap:7px}
+.tmark.tm-colour::before{content:"";width:9px;height:9px;border-radius:50%;
+  background:currentColor;opacity:.75}
+.tmark.tm-colour.big::before{display:none}
+.tmark.tm-app,.tmark.tm-listing{color:var(--mute-d)}
 
 /* --- audit modal --- */
 .modal{position:fixed;inset:0;z-index:260;background:rgba(8,17,46,.6);display:grid;
@@ -553,7 +599,7 @@
   .an-h1{top:-34px}
   .lens .hero-h-wrap{outline-offset:8px}
   .lens .hero-facts,.lens .hero-ctas{outline-offset:6px}
-  .lens-toggle{top:auto;bottom:clamp(40px,7vh,72px)}
+  .lens-toggle{top:auto;margin-top:0;bottom:clamp(40px,7vh,72px);width:78px;height:78px}
 }
 /* The letter has to FIT the stage. .mf-stage is one viewport tall with
    overflow:hidden, so at full size the letter is taller than the stage on any
