@@ -379,8 +379,19 @@ section{position:relative}
    is the copper master under brightness(), because the set ships no dark tint
    and a filter gets there exactly. Every layer points at one of two files, so
    it is two downloads rather than eighteen. */
-.s3d-l{position:absolute;inset:0;display:grid;place-items:center;backface-visibility:visible}
-.s3d-l .mark{width:auto;height:100%}
+.s3d-l{position:absolute;inset:0;backface-visibility:visible}
+/* Absolute centring, not grid. Inside a grid the single implicit row is
+   auto-sized, which makes BOTH height:100% and max-height:100% on the image
+   circular — the row sizes to the image and the image sizes to the row. The
+   browser resolves that to auto, the image takes its intrinsic 256x369
+   capped only by max-width, and renders ~64px taller than its layer, landing
+   on top of the "Drag it" caption below.
+
+   inset:0 with margin:auto centres an absolutely positioned replaced element
+   on both axes, and the percentage caps then resolve against .s3d-l, whose
+   height is definite because it is itself inset:0 in a sized parent. */
+.s3d-l .mark{position:absolute;inset:0;margin:auto;
+  width:auto;height:auto;max-width:100%;max-height:100%}
 .ft-bot{display:flex;justify-content:space-between;gap:16px;color:var(--mute-d);
   border-top:1px solid var(--hair-c);padding-top:var(--s3);flex-wrap:wrap}
 

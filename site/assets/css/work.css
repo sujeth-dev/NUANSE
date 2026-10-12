@@ -1,0 +1,165 @@
+/* ============================================================================
+   NUANSE — work.css · the project-page shared layer
+
+   Loaded after core.css by every page under /work/. This is the spine from
+   brief/02-project-pages.md, and it is identical on every project page:
+
+     1 opening frame   2 the problem   3 the signature   4 the work
+     5 the numbers     6 scope         7 next project
+
+   What is shared is everything structural. What a page is free to change is
+   its accent, its signature element, the structure of its proof section, its
+   imagery and the texture of its copy — nothing else. That is the deal that
+   lets the set read as one studio while each page still feels made for the
+   project it describes.
+
+   THE ACCENT. A project page overrides --accent and --accent-l and nothing
+   else. The accent is taken from the client's own identity, and it appears in
+   exactly three places: the opening frame, the signature element and the
+   next-project link. The same 3% discipline copper gets on the home page. A
+   page with the accent in seven places has nothing accented.
+
+   --accent-ink is the same rule as core.css's --copper-ink: a darkened
+   variant for the accent as SMALL TEXT on a light ground, because most brand
+   colours do not clear 4.5:1 at 11px. A page sets all three.
+   ========================================================================== */
+
+/* the page sets these three; these are a visible fallback, not a default */
+.pj{--accent:var(--copper); --accent-l:var(--copper-l); --accent-ink:var(--copper-ink)}
+
+/* ============ 1 · OPENING FRAME ============
+   Client name, sector, year, one-line verdict. The accent enters here and
+   nowhere earlier — the nav and loader stay NUANSE's own copper. */
+.pj-open{min-height:92vh;min-height:92svh;display:flex;flex-direction:column;
+  justify-content:space-between;padding:clamp(120px,18vh,190px) var(--gut) clamp(40px,7vh,72px);
+  background:var(--pj-ground,var(--night));color:var(--cream);position:relative;overflow:hidden}
+.pj-open-eyebrow{display:flex;align-items:center;gap:12px;margin:0;color:var(--accent-l)}
+.pj-open-eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.pj-title{font-family:var(--serif);font-weight:400;font-size:clamp(54px,11vw,170px);
+  line-height:.88;letter-spacing:-.045em;margin:clamp(20px,4vh,44px) 0 0;max-width:11ch;
+  text-wrap:balance}
+.pj-verdict{font-family:var(--serif);font-size:clamp(24px,3.2vw,44px);line-height:1.1;
+  letter-spacing:-.025em;margin:0;max-width:22ch;text-wrap:balance}
+.pj-open-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:clamp(24px,5vw,64px);
+  flex-wrap:wrap}
+/* sector / year / role, as a measured row rather than a paragraph */
+.pj-meta{display:flex;margin:0;color:var(--mute-d);flex-wrap:wrap}
+.pj-meta>div{padding:0 clamp(16px,1.6vw,24px);border-left:1px solid var(--hair-c)}
+.pj-meta>div:first-child{padding-left:0;border-left:0}
+.pj-meta dt{margin:0;color:var(--cream)}
+.pj-meta dd{margin:5px 0 0}
+/* a single accent rule under the title: the one place the client's colour
+   touches the opening frame as a block rather than as text */
+.pj-rule{height:3px;width:min(280px,34vw);background:var(--accent);margin:clamp(28px,5vh,52px) 0 0}
+
+/* ============ 2 · THE PROBLEM ============
+   Two or three sentences, plainly. The section that has to resist becoming
+   marketing copy, so it gets no decoration to hide behind. */
+.pj-problem{background:var(--cream);color:var(--navy);padding:var(--sec-y) var(--gut)}
+.pj-problem-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm)}
+.pj-problem p{margin:0 0 18px;font-size:clamp(19px,2vw,26px);line-height:1.45;max-width:38ch}
+.pj-problem p:last-child{margin-bottom:0}
+.pj-problem strong{font-weight:500}
+
+/* ============ 3 · SIGNATURE ============
+   One per page. The container is shared; what goes inside is not. */
+.pj-sig{position:relative;padding:var(--sec-y) var(--gut);
+  background:var(--pj-sig-bg,var(--stone));color:var(--pj-sig-ink,var(--navy))}
+.pj-sig-head{max-width:46ch;margin-bottom:var(--gap-md)}
+.pj-sig-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,86px);
+  line-height:.92;letter-spacing:-.04em;margin:14px 0 18px;text-wrap:balance}
+
+/* ============ 4 · THE WORK ============
+   Evidence, not a list. The boards are presentation renders — pages of a
+   document — so they are shown as made things: framed, captioned, on their
+   own dominant-colour ground so nothing reflows while they load. */
+.pj-work{background:var(--night);color:var(--cream);padding:var(--sec-y) var(--gut)}
+.pj-ev-list{display:flex;flex-direction:column;gap:clamp(60px,9vw,130px);margin:var(--gap-md) 0 0}
+.ev{margin:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);
+  gap:clamp(20px,3vw,48px);align-items:start}
+.ev:nth-child(even){grid-template-columns:minmax(0,2.4fr) minmax(0,1fr)}
+.ev:nth-child(even) .ev-frame{order:-1}
+.ev-frame{position:relative;overflow:hidden;border:1px solid var(--hair-c)}
+.ev-frame img{width:100%;height:auto;display:block}
+.ev figcaption{color:var(--mute-d);align-self:end}
+.ev figcaption b{display:block;color:var(--cream);font-weight:500;margin-bottom:8px}
+.ev figcaption span{display:block;font-family:var(--sans);font-size:15px;letter-spacing:0;
+  text-transform:none;line-height:1.5;margin-top:10px;max-width:34ch}
+
+/* ============ 5 · THE NUMBERS ============
+   Three results, figure and label. If a project has no defensible numbers the
+   section is omitted entirely — an omitted section is more credible than a
+   vague one. */
+.pj-numbers{background:var(--cream);color:var(--navy);padding:var(--sec-y) var(--gut)}
+.pj-nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:rgba(13,26,65,.15);border:1px solid rgba(13,26,65,.15);margin-top:var(--gap-md)}
+.pj-nums div{background:var(--cream);padding:clamp(24px,3vw,40px) clamp(18px,2vw,28px)}
+.pj-nums strong{display:block;font-family:var(--serif);font-weight:400;
+  font-size:clamp(34px,4.4vw,64px);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
+.pj-nums span{display:block;margin-top:12px;font-size:15px;color:var(--mute)}
+.pj-nums .src{margin-top:14px;color:var(--mute);font-family:var(--mono);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase}
+
+/* ============ 6 · SCOPE ============
+   Deliverables as a plain list. This is where a prospect works out whether
+   their own job looks like this one. */
+.pj-scope{background:var(--cream);color:var(--navy);padding:0 var(--gut) var(--sec-y)}
+.pj-scope-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm);
+  border-top:1px solid var(--navy);padding-top:var(--s3)}
+.pj-scope ul{list-style:none;margin:0;padding:0;columns:2;column-gap:var(--gap-sm)}
+.pj-scope li{padding:11px 0;border-bottom:1px solid rgba(13,26,65,.14);break-inside:avoid;
+  display:flex;gap:12px;align-items:baseline}
+.pj-scope li::before{content:"";flex:0 0 14px;height:1px;background:var(--accent);
+  transform:translateY(-.35em)}
+
+/* ============ 7 · NEXT PROJECT ============
+   Edge to edge, in the NEXT project's accent, so the set reads as a sequence
+   rather than a row of dead ends. */
+.pj-next{display:block;text-decoration:none;background:var(--next-accent,var(--navy));
+  color:var(--cream);padding:clamp(70px,11vw,150px) var(--gut);position:relative;overflow:hidden}
+.pj-next-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,4vw,48px);
+  align-items:end}
+.pj-next .mono{opacity:.8;margin:0}
+.pj-next b{display:block;font-family:var(--serif);font-weight:400;
+  font-size:clamp(44px,7.4vw,124px);line-height:.92;letter-spacing:-.035em;margin-top:14px;
+  max-width:14ch}
+.pj-next .go{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid currentColor;border-radius:100px;padding:14px 22px;white-space:nowrap}
+/* the ground slides up on hover, the way the home page's teaser does */
+.pj-next::before{content:"";position:absolute;inset:0;background:var(--night);
+  transform:translateY(101%);transition:transform .8s var(--ease);z-index:0}
+@media (hover:hover){.pj-next:hover::before{transform:none}}
+.pj-next-in{position:relative;z-index:1}
+
+/* a figure we do not have yet, carried over from home.css so project pages
+   can mark a gap the same ugly way */
+.needs{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:none;
+  background:#FFE8A3;color:#6B4E00;border:1px dashed #6B4E00;padding:2px 6px;
+  display:inline-block;white-space:normal;line-height:1.4}
+.pj-nums strong .needs{font-size:12px}
+
+/* a note that qualifies what is being shown, rather than a caption that
+   describes it. Used where honesty costs a line. */
+.pj-note{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mute);display:flex;gap:10px;align-items:baseline;margin:14px 0 0}
+.pj-note::before{content:"";flex:0 0 14px;height:1px;background:currentColor;
+  transform:translateY(-.35em)}
+[data-nav=dark] .pj-note{color:var(--mute-d)}
+
+/* ============ REDUCED MOTION ============ */
+.rm .pj-next::before{display:none}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .pj-problem-in,.pj-scope-in{grid-template-columns:1fr}
+  .ev,.ev:nth-child(even){grid-template-columns:1fr}
+  .ev:nth-child(even) .ev-frame{order:0}
+  .pj-nums{grid-template-columns:1fr}
+  .pj-next-in{grid-template-columns:1fr}
+  .pj-scope ul{columns:1}
+}
+@media (max-width:600px){
+  .pj-open{min-height:auto;padding-top:clamp(100px,16vh,150px)}
+  .pj-meta{flex-direction:column;gap:14px}
+  .pj-meta>div{padding:0;border-left:0}
+}

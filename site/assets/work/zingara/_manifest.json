@@ -1,0 +1,37 @@
+{
+  "logo-system": {
+    "w": 1800,
+    "h": 1005,
+    "ground": "#402B23",
+    "src": "zingara/identity/in-a-graphic-design-presentation-style-this.jpg",
+    "alt": "Zingara logo system: the wordmark, a stacked lockup with a spice ornament, and the mark reversed out of true red, shown beside the palette and type hierarchy."
+  },
+  "typography": {
+    "w": 1800,
+    "h": 1005,
+    "ground": "#332A28",
+    "src": "zingara/identity/this-is-a-typography-guide-showcasing-a-primary.jpg",
+    "alt": "The Zingara type specimen. A display serif and a sans in three weights, a four-level hierarchy, and a wordmark letterspacing study comparing tight against wide tracking at +200 optical spacing."
+  },
+  "palette": {
+    "w": 1800,
+    "h": 1005,
+    "ground": "#573E32",
+    "src": "zingara/identity/this-image-showcases-a-brands-color-palette-and.jpg",
+    "alt": "The Zingara colour system: true red, charcoal, cream and burnished gold with their tints and shades, a 60/20/10/10 usage ratio, and a grid of approved and rejected colour pairings."
+  },
+  "patterns": {
+    "w": 1800,
+    "h": 1005,
+    "ground": "#81766D",
+    "src": "zingara/identity/a-pattern-and-texture-library-displays-eight.jpg",
+    "alt": "Eight-pattern texture library: Spice Geometry, Steam Abstraction, Rice Grain Field, Karnataka Line Weave, Handi Silhouette, Arabesque Spice, Saffron Scatter and Nineteen Cipher."
+  },
+  "ammas-breakfast": {
+    "w": 1400,
+    "h": 1400,
+    "ground": "#F0ECE1",
+    "src": "client-logos/ammas-breakfast.jpg",
+    "alt": "Amma's Breakfast by Zingara: the sub-brand logo, set in a warm script quite unlike the Zingara wordmark."
+  }
+}

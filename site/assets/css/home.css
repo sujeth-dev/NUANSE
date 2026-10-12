@@ -322,10 +322,14 @@
 .ra-a{left:30%;top:13%;--w:52cqw;--h:15cqw}
 .ra-b{left:24%;top:32.5%;--w:42cqw;--h:8cqw}
 .ra-c{left:89%;top:52%;--w:12cqw;--h:44cqw}
-.rl-range{position:absolute;inset:auto 0 -40px 0;width:100%;opacity:0;height:30px;cursor:ew-resize}
-.rl-range:focus-visible + .rl-help{outline:1px dashed var(--copper);outline-offset:4px}
-.rl-help{position:absolute;left:0;right:0;bottom:-34px;display:flex;justify-content:space-between;
-  color:var(--mute)}
+/* The home page carries a STILL. The control moved to work/zingara.html,
+   where the correction is that page's one signature element. What is kept
+   here is the half that needs no control: the before fidgets, the after
+   never moves, and the redlines write on as you reach them. */
+.rl-static{cursor:default}
+.rl-tagline{position:absolute;left:0;right:0;bottom:-30px;display:flex;
+  justify-content:space-between;color:var(--mute);margin:0}
+.rl-more{margin:30px 0 0}
 
 /* ============ 6 · SERVICES ============ */
 .services{background:var(--navy);color:var(--cream)}

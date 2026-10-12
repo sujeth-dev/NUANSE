@@ -1,0 +1,209 @@
+/* ============================================================================
+   NUANSE — work/zingara.css · ONE signature element
+
+   "The menu, re-set." The home page carries a reduced before/after that links
+   here; this is the full argument.
+
+   The mechanism is a single menu, not two stacked copies, driven entirely by
+   one custom property --p (0 = before, 1 = after) set on .zm by the script.
+   Everything else is CSS interpolating off it:
+
+     - the prices physically slide into one aligned column
+     - "Rs." and "/-" fade out
+     - the dish names cross-fade from four competing faces to one
+     - the colour chaos resolves to a single accent
+     - the TODAY SPECIAL burst lets go
+
+   Doing it as one property means the reduced-motion path is simply --p:1, and
+   the script never touches a style attribute, which the CSP forbids.
+
+   The prices moving IS the argument. A clip-path reveal would show two
+   outcomes; this shows the correction happening.
+
+   TYPEFACES. The "before" uses system faces only — that is the chaos, and
+   nothing is loaded for it. The "after" is set in Gloock, NUANSE's own
+   display face, standing in for the Cormorant Garamond that shipped. Per
+   brief/02 we do not load a client's typeface; it appears inside the boards
+   in section 4, where it belongs.
+   ========================================================================== */
+
+/* ============ THE PAGE'S ACCENT ============
+   Zingara's own, documented on its palette board: true red #C8332A primary,
+   charcoal #1C1A18 secondary, cream #F5EDD8, burnished gold #C9933A accent.
+
+   Which one goes where is a contrast decision, not a taste one:
+     true red on cream     4.97:1  -> fine as text on light, so --accent-ink
+     true red on charcoal  3.27:1  -> large type and rules only
+     gold on charcoal      6.38:1  -> the small text on the dark opening frame
+     gold on cream         2.55:1  -> never as text on light
+
+   The home page's case art uses oxblood #8A2B1D. That was our invention, not
+   Zingara's colour, and it is not used here. */
+.pj-zingara{
+  --accent:#C8332A;
+  --accent-l:#C9933A;
+  --accent-ink:#C8332A;
+  --pj-ground:#1C1A18;
+  /* Zingara's own documented cream. Also the accessible choice: true red
+     on it is 4.54:1, where the warmer grey I had first reached only 4.27. */
+  --pj-sig-bg:#F5EDD8;
+}
+/* the next-project panel wears the NEXT brand's colour: Possah forest green */
+.pj-next-possah{--next-accent:#1F3A2D}
+
+.zm{--p:0;position:relative;max-width:900px;margin:0 auto;user-select:none;
+  -webkit-user-select:none}
+
+/* Per-row price offsets — how far each price had wandered from the column.
+   Classes rather than style attributes, because style-src has no
+   'unsafe-inline'. The values are deliberately uneven; a regular stagger
+   would read as a pattern rather than as a mess. */
+.w1{--wander:-38}
+.w2{--wander:26}
+.w3{--wander:-14}
+.w4{--wander:41}
+.w5{--wander:-29}
+.w6{--wander:12}
+.w7{--wander:-47}
+
+.zm-stage{position:relative;background:#FFFDF6;border:1px solid rgba(28,26,24,.22);
+  padding:clamp(26px,4.6vw,64px) clamp(22px,4vw,56px);overflow:hidden;
+  container-type:inline-size;cursor:ew-resize;touch-action:pan-y}
+
+/* the sheet discolours as it is corrected: a yellowed print becoming paper */
+.zm-stage::before{content:"";position:absolute;inset:0;background:#FFF6CF;
+  opacity:calc(1 - var(--p));pointer-events:none;transition:opacity .12s linear}
+
+.zm-head{position:relative;text-align:center;margin-bottom:clamp(22px,3.4cqi,38px)}
+.zm-wordmark{display:block;line-height:1;
+  font-family:"Arial Black",Impact,sans-serif;font-size:clamp(30px,7cqi,62px);
+  letter-spacing:calc(.02em + (1 - var(--p)) * .3em);
+  color:color-mix(in srgb, #D7263D calc((1 - var(--p)) * 100%), var(--accent));
+  text-shadow:calc((1 - var(--p)) * 4px) calc((1 - var(--p)) * 4px) 0
+              rgba(255,183,3,calc(1 - var(--p)))}
+/* the real face takes over the moment the correction is more than half made */
+.zm[data-settled="1"] .zm-wordmark{font-family:var(--serif);font-weight:400}
+.zm-sub{display:block;margin-top:8px;font-style:italic;font-weight:700;color:#217D72;
+  font-size:clamp(11px,2cqi,15px);opacity:calc(1 - var(--p) * 2)}
+.zm-sub-after{position:absolute;left:0;right:0;margin-top:8px;
+  opacity:calc((var(--p) - .5) * 2);
+  font-family:var(--mono);font-size:clamp(9px,1.5cqi,11px);letter-spacing:.18em;
+  text-transform:uppercase;color:#6B655C}
+
+/* position:relative is load-bearing. .zm-stage::before is the yellowed
+   ground, absolutely positioned; a positioned ::before paints above every
+   NON-positioned sibling. .zm-head and .zm-row are already relative, so they
+   sat above it and these did not — the section headers were being painted
+   over by the paper. */
+.zm-sec{position:relative;display:flex;justify-content:space-between;align-items:baseline;
+  margin:clamp(20px,3cqi,34px) 0 clamp(8px,1.4cqi,14px);
+  padding-bottom:calc(6px + var(--p) * 4px);
+  border-bottom:1px solid color-mix(in srgb, #E76F51 calc((1 - var(--p)) * 100%), rgba(28,26,24,.5))}
+/* The asterisks belong to the bad menu, so the label cannot simply restyle —
+   it has to be replaced. Same two-layer handoff as the dish names. */
+.zm-sec b{position:relative;display:inline-block;font-weight:700;
+  font-size:clamp(12px,2.2cqi,17px);line-height:1.3}
+/* LEGIBILITY OF THE 'BEFORE'. The old menu is meant to look bad, and it
+   does — four clashing faces, a drop shadow, a starburst, prices adrift. It
+   is not meant to be unreadable. Three of its colours were under 4.5:1 on
+   the yellowed ground, so each is darkened just enough to clear AA while
+   keeping exactly the same clashing hue. Depicting bad design is fine;
+   shipping inaccessible text to depict it is not. */
+.zm-sec-before{display:block;font-family:"Courier New",monospace;letter-spacing:.02em;
+  color:#B1553E;opacity:calc(1 - var(--p) * 2)}
+.zm-sec-after{position:absolute;left:0;top:0;white-space:nowrap;display:block;
+  font-family:var(--mono);font-weight:400;letter-spacing:.16em;text-transform:uppercase;
+  font-size:.86em;color:var(--accent-ink);opacity:calc((var(--p) - .5) * 2)}
+.zm-sec-meta{font-family:var(--mono);font-size:clamp(9px,1.5cqi,11px);color:#8A857C;
+  opacity:calc((var(--p) - .5) * 2)}
+
+.zm-list{position:relative;list-style:none;margin:0;padding:0}
+.zm-row{position:relative;display:grid;grid-template-columns:1fr auto;
+  gap:0 clamp(12px,3cqi,32px);align-items:baseline;
+  padding:calc(5px + var(--p) * 5px) 0;
+  border-bottom:1px dotted rgba(28,26,24,calc(.18 + var(--p) * .12))}
+
+/* the two name layers cross-fade: a typeface cannot be interpolated */
+.zm-name{position:relative;display:block;min-width:0}
+.zm-before,.zm-after{display:block}
+.zm-after{position:absolute;inset:0}
+/* The handoff is deliberately STEEP, not linear. Cross-fading two typefaces
+   linearly leaves both half-visible through the middle of the move, which
+   reads as a rendering fault rather than as a correction. Each layer owns
+   half the range: the old face is gone by 0.5, the new one starts there.
+   CSS clamps opacity to 0..1, so the negative half of each calc costs
+   nothing. */
+.zm-before{opacity:calc(1 - var(--p) * 2);text-transform:uppercase;font-weight:700;
+  font-size:clamp(11px,2.1cqi,16px);line-height:1.3;color:#1D3557}
+.zm-after{opacity:calc((var(--p) - .5) * 2);font-family:var(--serif);font-weight:400;
+  font-size:clamp(13px,2.4cqi,19px);line-height:1.25;color:#1C1A18;white-space:nowrap}
+/* the four competing faces, one per row, exactly as the audit found them */
+.f1 .zm-before{font-family:"Times New Roman",serif}
+.f2 .zm-before{font-family:"Comic Sans MS","Trebuchet MS",sans-serif;text-transform:none}
+.f3 .zm-before{font-family:"Courier New",monospace}
+.f4 .zm-before{font-family:"Trebuchet MS",Arial,sans-serif;font-style:italic}
+
+/* THE ARGUMENT. Each price starts at its own wandered offset and arrives in
+   one column. --wander is per row, set in the markup as a plain number. */
+.zm-price{font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end;
+  transform:translateX(calc(var(--wander, 0) * (1 - var(--p)) * 1px));
+  font-size:clamp(12px,2.2cqi,17px);
+  color:color-mix(in srgb, #C1121F calc((1 - var(--p)) * 100%), var(--accent));
+  font-family:"Comic Sans MS","Trebuchet MS",sans-serif;font-weight:700}
+.zm[data-settled="1"] .zm-price{font-family:var(--mono);font-weight:500}
+.zm-cur,.zm-suf{opacity:calc(1 - var(--p));display:inline-block;
+  width:calc(var(--p) * 0px + (1 - var(--p)) * var(--w, 2.4em));overflow:hidden;
+  vertical-align:bottom}
+.zm-suf{--w:1.6em}
+
+/* the description only exists in the corrected menu */
+.zm-desc{grid-column:1;display:block;font-size:clamp(10px,1.7cqi,13px);color:#8A857C;
+  line-height:1.4;opacity:calc((var(--p) - .6) * 2.5);
+  max-height:calc(var(--p) * 3em);overflow:hidden;font-family:var(--sans)}
+
+.zm-burst{position:absolute;right:clamp(10px,3cqi,34px);top:clamp(80px,17cqi,190px);
+  width:clamp(62px,13cqi,116px);aspect-ratio:1;border-radius:50%;background:#FFB703;
+  color:#A40F1A;display:grid;place-items:center;text-align:center;font-weight:900;
+  font-size:clamp(9px,1.7cqi,13px);line-height:1.1;border:3px dotted #D7263D;
+  opacity:calc(1 - var(--p));
+  transform:rotate(calc(-14deg + var(--p) * 26deg)) scale(calc(1 - var(--p) * .35));
+  pointer-events:none}
+
+.zm-foot{position:relative;display:flex;justify-content:space-between;gap:16px;
+  margin-top:clamp(18px,3cqi,30px);font-family:var(--mono);
+  font-size:clamp(9px,1.5cqi,11px);letter-spacing:.14em;text-transform:uppercase;
+  color:#8A857C;opacity:var(--p)}
+
+/* ---- the control ---- */
+.zm-ctrl{position:relative;margin-top:26px}
+.zm-track{position:relative;height:1px;background:rgba(28,26,24,.22)}
+.zm-fill{position:absolute;inset:0;background:var(--accent);transform-origin:left;
+  transform:scaleX(var(--p))}
+.zm-knob{position:absolute;top:50%;left:calc(var(--p) * 100%);width:46px;height:46px;
+  margin:-23px 0 0 -23px;border-radius:50%;background:#1C1A18;color:#F5EDD8;display:grid;
+  place-items:center;font-size:15px;pointer-events:none}
+.zm-range{position:absolute;inset:-18px 0;width:100%;height:46px;opacity:0;cursor:ew-resize;
+  margin:0}
+.zm-range:focus-visible ~ .zm-knob{outline:2px dashed var(--accent);outline-offset:3px}
+.zm-legend{display:flex;justify-content:space-between;margin-top:18px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mute)}
+.zm-legend b{font-weight:400;transition:color .3s}
+.zm-legend .is-on{color:var(--accent-ink)}
+
+/* the running count of what the correction touches */
+.zm-readout{display:flex;gap:clamp(20px,4vw,52px);flex-wrap:wrap;margin-top:28px;
+  padding-top:22px;border-top:1px solid rgba(28,26,24,.16)}
+.zm-readout div{min-width:0}
+.zm-readout b{display:block;font-family:var(--serif);font-weight:400;
+  font-size:clamp(26px,3.4vw,44px);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
+.zm-readout span{display:block;margin-top:8px;font-size:14px;color:var(--mute)}
+
+@media (max-width:600px){
+  .zm-after{white-space:normal}
+  .zm-burst{top:auto;bottom:clamp(60px,14cqi,110px)}
+}
+/* Reduced motion: no scrub theatre. The corrected state is the useful one,
+   so the page simply presents it, and the control still works if used. */
+.rm .zm{--p:1}
+.rm .zm-stage::before,.rm .zm-burst{display:none}

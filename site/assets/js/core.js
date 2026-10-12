@@ -256,6 +256,7 @@
     }
     if (navMark) navMark.style.opacity = 1;
     if (navSlot) navSlot.classList.add('filled');
+    buildS3D();          /* decorative, but an empty 220px box is worse */
     window.NU = { RM, TOUCH, $, $$, clamp, esc, wrapS, wrapWords, markS, dead: true };
     return;
   }
@@ -652,10 +653,14 @@
      the layer count can drop under reduced motion, and so no `style`
      attribute is ever written into innerHTML — the CSP would block it. */
   const s3dObj = $('.s3d-obj');
+  /* Queries its own host rather than closing over the const above, so it can
+     also be called from the no-GSAP branch, which runs earlier. Building the
+     mark needs no animation library — it is img elements and a transform. */
   function buildS3D() {
-    if (!s3dObj) return;
-    const base = s3dObj.dataset.copper;
-    const tip = s3dObj.dataset.cream;
+    const host = $('.s3d-obj');
+    if (!host) return;
+    const base = host.dataset.copper;
+    const tip = host.dataset.cream;
     if (!base || !tip) return;
     const n = RM ? 6 : 18;
     const frag = document.createDocumentFragment();
@@ -684,7 +689,7 @@
       layer.appendChild(img);
       frag.appendChild(layer);
     }
-    s3dObj.replaceChildren(frag);
+    host.replaceChildren(frag);
   }
 
   function wireS3D() {

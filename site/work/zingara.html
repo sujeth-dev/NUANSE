@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zingara — NUANSE</title>
+<meta name="description" content="189 items in four typefaces and prices that wandered. We kept every dish and changed how the page reads. The Zingara identity, menu system and listings, by NUANSE.">
+<meta name="theme-color" content="#1C1A18">
+<link rel="canonical" href="https://www.thenuanse.com/work/zingara">
+
+<link rel="icon" href="../assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../assets/brand/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="../assets/brand/favicon-180.png">
+<link rel="manifest" href="../site.webmanifest">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="NUANSE">
+<meta property="og:title" content="Zingara — the menu was costing them">
+<meta property="og:description" content="189 items in four typefaces and prices that wandered. We kept every dish and changed how the page reads.">
+<meta property="og:url" content="https://www.thenuanse.com/work/zingara">
+<meta property="og:image" content="https://www.thenuanse.com/assets/brand/og-zingara.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Zingara, a case from NUANSE.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Zingara — the menu was costing them">
+<meta name="twitter:description" content="189 items in four typefaces and prices that wandered.">
+<meta name="twitter:image" content="https://www.thenuanse.com/assets/brand/og-zingara.png">
+
+<link rel="preload" href="../assets/fonts/gloock-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/hanken-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" crossorigin>
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" crossorigin>
+
+<script src="../assets/js/boot.js"></script>
+
+<link rel="stylesheet" href="../assets/css/core.css">
+<link rel="stylesheet" href="../assets/css/work.css">
+<link rel="stylesheet" href="../assets/css/work/zingara.css">
+<link rel="stylesheet" href="../assets/work/zingara/_placeholders.css">
+</head>
+<body>
+
+<a class="skip" href="#page">Skip to content</a>
+
+<!-- LOADER + PAGE-CHANGE CURTAIN · identical to every other page -->
+<div class="curtain" aria-hidden="true">
+  <canvas class="curtain-foil" aria-hidden="true"></canvas>
+  <div class="curtain-cover"></div>
+  <div class="curtain-mark">
+    <span class="cm-flip">
+      <img class="mark cm-navy" src="../assets/brand/monogram-navy-512.png" width="512" height="738" alt="" decoding="async" fetchpriority="high">
+      <img class="mark cm-copper" src="../assets/brand/monogram-copper-512.png" width="512" height="738" alt="" decoding="async">
+    </span>
+  </div>
+  <div class="curtain-marks" aria-hidden="true"><i class="cmk tl"></i><i class="cmk tr"></i><i class="cmk bl"></i><i class="cmk br"></i></div>
+  <p class="curtain-label mono"><span>Registering</span><span class="cl-rule"></span><span>NUANSE · Bangalore</span></p>
+</div>
+<div class="page-dim" aria-hidden="true"></div>
+<div class="cur" aria-hidden="true"><i></i><b>Look closer</b></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="toast mono" role="status" aria-live="polite"></div>
+
+<!-- NAV · the same chassis. Links reach back to the home page's sections, so
+     they are ordinary cross-page links and the curtain carries them. -->
+<header class="nav">
+  <div class="nav-in">
+    <a href="../index.html" class="nav-brand" aria-label="NUANSE, home">
+      <span class="nav-slot" aria-hidden="true"><span class="nav-spin"><img class="mark nav-mark" src="../assets/brand/monogram-copper-128.png" width="128" height="185" alt="" decoding="async"></span></span>
+      <span class="wordmark" aria-hidden="true">NUAN<span class="rev">S</span>E</span>
+    </a>
+    <div class="nav-bar">
+      <span class="nav-ind" aria-hidden="true"></span>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#process">Process</a>
+        <a href="../index.html#team">Team</a>
+      </nav>
+    </div>
+    <div class="nav-end">
+      <span class="turned mono" title="Letters you have turned on this visit. Hover any heading.">
+        <img class="mark" src="../assets/brand/monogram-copper-128.png" width="128" height="185" alt="" decoding="async">
+        <b class="turned-n">00</b><span class="turned-label">turned</span>
+      </span>
+      <a class="nav-cta" href="../index.html#audit">Free audit</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+</header>
+<div class="menu" id="menu" aria-hidden="true">
+  <a href="../index.html#work">Work</a>
+  <a href="../index.html#services">Services</a>
+  <a href="../index.html#process">Process</a>
+  <a href="../index.html#team">Team</a>
+  <a href="../index.html#audit">Audit</a>
+  <p class="mono">Bangalore · hello@nuanse.studio</p>
+</div>
+
+<main class="page pj pj-zingara" id="page">
+
+  <!-- 1 · OPENING FRAME -->
+  <section class="pj-open" data-nav="dark" data-nav-anchor aria-label="Zingara, overview">
+    <div>
+      <p class="mono pj-open-eyebrow">Case 01 · Restaurant · Bangalore</p>
+      <h1 class="pj-title h-split">The menu was costing them.</h1>
+      <div class="pj-rule" aria-hidden="true"></div>
+    </div>
+    <div class="pj-open-foot">
+      <dl class="pj-meta mono">
+        <div><dt>Mysore white biryani</dt><dd>Sector</dd></div>
+        <div><dt>2025</dt><dd>Year</dd></div>
+        <div><dt>Identity · menu · listings</dt><dd>Scope</dd></div>
+      </dl>
+      <p class="pj-verdict">Every dish stayed. We changed how the page reads.</p>
+    </div>
+  </section>
+
+  <!-- 2 · THE PROBLEM -->
+  <section class="pj-problem" data-nav="light" aria-label="The problem">
+    <div class="pj-problem-in">
+      <p class="mono eyebrow">The problem</p>
+      <div>
+        <p class="ink">Our first client, won on a cold call. The food was better than the room suggested, and far better than the menu.</p>
+        <p class="ink"><strong>189 items set in four typefaces,</strong> prices that wandered down the page, and delivery listings that looked like three different restaurants.</p>
+        <p class="ink">Diners were spending their attention finding dishes instead of wanting them. Nothing was wrong with the kitchen. Everything was wrong with the page in front of it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE SIGNATURE · the menu, re-set -->
+  <section class="pj-sig" data-nav="light" aria-label="The menu, re-set">
+    <div class="pj-sig-head">
+      <p class="mono eyebrow">The fix</p>
+      <h2 class="h-split">The menu, re-set.</h2>
+      <p class="lede ink">Drag the line. The prices find one column, the four faces become one, and the shouting stops. Nothing is removed — it is the same menu, read differently.</p>
+    </div>
+
+    <div class="zm" data-cursor="Drag to correct">
+      <div class="zm-stage">
+        <div class="zm-head">
+          <span class="zm-wordmark">ZINGARA</span>
+          <span class="zm-sub">Multi Cuisine Restaurant &amp; Bar</span>
+          <span class="zm-sub-after mono">Mysore white biryani · Bangalore</span>
+        </div>
+
+        <div class="zm-sec">
+          <b><span class="zm-sec-before">*** STARTERS ***</span><span class="zm-sec-after">Small plates</span></b>
+          <span class="zm-sec-meta">₹</span>
+        </div>
+        <ol class="zm-list">
+          <li class="zm-row f1 w1">
+            <span class="zm-name">
+              <span class="zm-before">Charred Corn Lime Butter</span>
+              <span class="zm-after">Charred corn</span>
+            </span>
+            <span class="zm-price"><span class="zm-cur">Rs.</span>249<span class="zm-suf">/-</span></span>
+            <small class="zm-desc">Lime butter, chilli salt</small>
+          </li>
+          <li class="zm-row f2 w2">
+            <span class="zm-name">
+              <span class="zm-before">Burrata Smoked Tomato</span>
+              <span class="zm-after">Burrata</span>
+            </span>
+            <span class="zm-price"><span class="zm-cur">Rs.</span>420<span class="zm-suf">/-</span></span>
+            <small class="zm-desc">Smoked tomato, basil oil</small>
+          </li>
+          <li class="zm-row f3 w3">
+            <span class="zm-name">
+              <span class="zm-before">Pepper Prawns Curry Leaf</span>
+              <span class="zm-after">Pepper prawns</span>
+            </span>
+            <span class="zm-price"><span class="zm-cur">Rs.</span>460<span class="zm-suf">/-</span></span>
+            <small class="zm-desc">Curry leaf, coconut</small>
+          </li>
+          <li class="zm-row f4 w4">
+            <span class="zm-name">
+              <span class="zm-before">Mushroom On Toast</span>
+              <span class="zm-after">Mushroom on toast</span>
+            </span>
+            <span class="zm-price"><span class="zm-cur">Rs.</span>310<span class="zm-suf">/-</span></span>
+            <small class="zm-desc">Thyme, aged cheese</small>
+          </li>
+        </ol>
+
+        <div class="zm-sec">
+          <b><span class="zm-sec-before">*** MAINS ***</span><span class="zm-sec-after">From the fire</span></b>
+          <span class="zm-sec-meta">₹</span>
+        </div>
+        <ol class="zm-list">
+          <li class="zm-row f2 w5">
+            <span class="zm-name">
+              <span class="zm-before">Ghee Roast Chicken</span>
+              <span class="zm-after">Ghee roast chicken</span>
+            </span>
+            <span class="zm-price"><span class="zm-cur">Rs.</span>540<span class="zm-suf">/-</span></span>
+            <small class="zm-desc">Mangalore spice, appam</small>
+          </li>
+          <li class="zm-row f1 w6">
+            <span class="zm-name">
+              <span class="zm-before">Lamb Shoulder Mint</span>
+              <span class="zm-after">Lamb shoulder</span>
+            </span>
+            <span class="zm-price"><span class="zm-cur">Rs.</span>720<span class="zm-suf">/-</span></span>
+            <small class="zm-desc">Mint, slow fire</small>
+          </li>
+          <li class="zm-row f3 w7">
+            <span class="zm-name">
+              <span class="zm-before">Mysore White Biryani</span>
+              <span class="zm-after">Mysore white biryani</span>
+            </span>
+            <span class="zm-price"><span class="zm-cur">Rs.</span>480<span class="zm-suf">/-</span></span>
+            <small class="zm-desc">Nineteen spices. No colour.</small>
+          </li>
+        </ol>
+
+        <div class="zm-burst" aria-hidden="true">TODAY<br>SPECIAL</div>
+        <p class="zm-foot"><span>Read it top to bottom.</span><span>Nothing shouts.</span></p>
+      </div>
+
+      <div class="zm-ctrl">
+        <div class="zm-track" aria-hidden="true"><span class="zm-fill"></span></div>
+        <input class="zm-range" type="range" min="0" max="100" value="0" step="1"
+               aria-label="Correction slider. Move right to re-set the menu: prices align, the four typefaces become one.">
+        <span class="zm-knob" aria-hidden="true">⟷</span>
+      </div>
+      <p class="zm-legend" aria-hidden="true"><b class="zm-l-before is-on">Before</b><b>Drag</b><b class="zm-l-after">After</b></p>
+    </div>
+
+    <p class="pj-note">Reconstruction · the original menu is not ours to publish, and the dishes shown are indicative · what is real is the problem: 189 items, four typefaces, prices that wandered</p>
+
+    <div class="zm-readout">
+      <div><b>189</b><span>Items kept. None cut.</span></div>
+      <div><b>4 → 1</b><span>Typefaces on the page</span></div>
+      <div><b>1</b><span>Column the prices live in</span></div>
+    </div>
+  </section>
+
+  <!-- 4 · THE WORK -->
+  <section class="pj-work" data-nav="dark" aria-label="The work">
+    <div class="sec-head">
+      <p class="mono eyebrow">The work</p>
+      <div>
+        <h2 class="h2 h-split">What was made.</h2>
+        <p class="lede">A menu is not a document, it is a system that has to survive a sign, a delivery bag and a phone screen. Five pieces of it.</p>
+      </div>
+    </div>
+    <div class="pj-ev-list">
+        <figure class="ev">
+          <div class="ev-frame ph-logo-system">
+            <picture>
+              <source type="image/avif" srcset="../assets/work/zingara/logo-system-480.b6c2660c.avif 480w, ../assets/work/zingara/logo-system-960.b987da3e.avif 960w, ../assets/work/zingara/logo-system-1440.e7fa58f7.avif 1440w, ../assets/work/zingara/logo-system-1800.e5674edb.avif 1800w" sizes="(max-width:900px) 92vw, 60vw">
+              <source type="image/webp" srcset="../assets/work/zingara/logo-system-480.cc608fc0.webp 480w, ../assets/work/zingara/logo-system-960.c02e1107.webp 960w, ../assets/work/zingara/logo-system-1440.22f0185a.webp 1440w, ../assets/work/zingara/logo-system-1800.bdf2456b.webp 1800w" sizes="(max-width:900px) 92vw, 60vw">
+              <img src="../assets/work/zingara/logo-system-1800.b779a463.jpg" width="1800" height="1005"
+                   decoding="async" fetchpriority="high" alt="Zingara logo system: the wordmark, a stacked lockup with a spice ornament, and the mark reversed out of true red, shown beside the palette and type hierarchy.">
+            </picture>
+          </div>
+          <figcaption class="mono"><b>01 · The mark</b><span>One wordmark, a stacked lockup for tight spaces, and a reversed treatment for red grounds. Three versions, not three logos.</span></figcaption>
+        </figure>
+        <figure class="ev">
+          <div class="ev-frame ph-typography">
+            <picture>
+              <source type="image/avif" srcset="../assets/work/zingara/typography-480.e3dfc98a.avif 480w, ../assets/work/zingara/typography-960.85b2aadd.avif 960w, ../assets/work/zingara/typography-1440.a098ed50.avif 1440w, ../assets/work/zingara/typography-1800.88b48117.avif 1800w" sizes="(max-width:900px) 92vw, 60vw">
+              <source type="image/webp" srcset="../assets/work/zingara/typography-480.5c49bfca.webp 480w, ../assets/work/zingara/typography-960.c69b1931.webp 960w, ../assets/work/zingara/typography-1440.7badd23a.webp 1440w, ../assets/work/zingara/typography-1800.2cf2bd8f.webp 1800w" sizes="(max-width:900px) 92vw, 60vw">
+              <img src="../assets/work/zingara/typography-1800.4c4ab616.jpg" width="1800" height="1005"
+                   loading="lazy" decoding="async" alt="The Zingara type specimen. A display serif and a sans in three weights, a four-level hierarchy, and a wordmark letterspacing study comparing tight against wide tracking at +200 optical spacing.">
+            </picture>
+          </div>
+          <figcaption class="mono"><b>02 · Kerned by hand</b><span>The letterspacing study is the fix itself: tracked +200 with optical spacing, set against the tight and wide alternatives that were rejected. This is what "one display face, kerned by hand" means in practice.</span></figcaption>
+        </figure>
+        <figure class="ev">
+          <div class="ev-frame ph-palette">
+            <picture>
+              <source type="image/avif" srcset="../assets/work/zingara/palette-480.f1dbd504.avif 480w, ../assets/work/zingara/palette-960.de6f8c02.avif 960w, ../assets/work/zingara/palette-1440.b634f04e.avif 1440w, ../assets/work/zingara/palette-1800.0bea5ab8.avif 1800w" sizes="(max-width:900px) 92vw, 60vw">
+              <source type="image/webp" srcset="../assets/work/zingara/palette-480.2aaba762.webp 480w, ../assets/work/zingara/palette-960.0f68c6e9.webp 960w, ../assets/work/zingara/palette-1440.faa6af86.webp 1440w, ../assets/work/zingara/palette-1800.8b0dc18f.webp 1800w" sizes="(max-width:900px) 92vw, 60vw">
+              <img src="../assets/work/zingara/palette-1800.79dbc019.jpg" width="1800" height="1005"
+                   loading="lazy" decoding="async" alt="The Zingara colour system: true red, charcoal, cream and burnished gold with their tints and shades, a 60/20/10/10 usage ratio, and a grid of approved and rejected colour pairings.">
+            </picture>
+          </div>
+          <figcaption class="mono"><b>03 · One accent</b><span>Four colours with their tints and shades, fixed at 60% charcoal, 20% true red, 10% cream, 10% burnished gold — and a grid of pairings that are approved and pairings that are not. The decision was made once so it never has to be made again.</span></figcaption>
+        </figure>
+        <figure class="ev">
+          <div class="ev-frame ph-patterns">
+            <picture>
+              <source type="image/avif" srcset="../assets/work/zingara/patterns-480.54a727b0.avif 480w, ../assets/work/zingara/patterns-960.5e39bb08.avif 960w, ../assets/work/zingara/patterns-1440.9a675da2.avif 1440w, ../assets/work/zingara/patterns-1800.9ad9f504.avif 1800w" sizes="(max-width:900px) 92vw, 60vw">
+              <source type="image/webp" srcset="../assets/work/zingara/patterns-480.33b517f3.webp 480w, ../assets/work/zingara/patterns-960.cfeeff8d.webp 960w, ../assets/work/zingara/patterns-1440.8aadc4d0.webp 1440w, ../assets/work/zingara/patterns-1800.c1c67e27.webp 1800w" sizes="(max-width:900px) 92vw, 60vw">
+              <img src="../assets/work/zingara/patterns-1800.74ea2d1a.jpg" width="1800" height="1005"
+                   loading="lazy" decoding="async" alt="Eight-pattern texture library: Spice Geometry, Steam Abstraction, Rice Grain Field, Karnataka Line Weave, Handi Silhouette, Arabesque Spice, Saffron Scatter and Nineteen Cipher.">
+            </picture>
+          </div>
+          <figcaption class="mono"><b>04 · Eight textures</b><span>Spice Geometry, Steam Abstraction, Rice Grain Field, Karnataka Line Weave, Handi Silhouette, Arabesque Spice, Saffron Scatter, Nineteen Cipher. Enough surface for packaging, signage and delivery livery without ever repeating a motif.</span></figcaption>
+        </figure>
+        <figure class="ev">
+          <div class="ev-frame ph-ammas-breakfast">
+            <picture>
+              <source type="image/avif" srcset="../assets/work/zingara/ammas-breakfast-480.7e52f942.avif 480w, ../assets/work/zingara/ammas-breakfast-960.59614cf3.avif 960w, ../assets/work/zingara/ammas-breakfast-1400.f6c89fa3.avif 1400w" sizes="(max-width:900px) 92vw, 60vw">
+              <source type="image/webp" srcset="../assets/work/zingara/ammas-breakfast-480.94d70b81.webp 480w, ../assets/work/zingara/ammas-breakfast-960.f5e22402.webp 960w, ../assets/work/zingara/ammas-breakfast-1400.11b6c342.webp 1400w" sizes="(max-width:900px) 92vw, 60vw">
+              <img src="../assets/work/zingara/ammas-breakfast-1400.e70aac11.jpg" width="1400" height="1400"
+                   loading="lazy" decoding="async" alt="Amma's Breakfast by Zingara: the sub-brand logo, set in a warm script quite unlike the Zingara wordmark.">
+            </picture>
+          </div>
+          <figcaption class="mono"><b>05 · It extends</b><span>Amma's Breakfast by Zingara, in a warm script nothing like the parent wordmark. A system that can carry a sub-brand without being diluted by it is the real test, and this is the one we would point at first.</span></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <!-- 5 · THE NUMBERS -->
+  <section class="pj-numbers" data-nav="light" aria-label="Results">
+    <div class="sec-head">
+      <p class="mono eyebrow">The numbers</p>
+      <div>
+        <h2 class="h2 h-split">What it did.</h2>
+        <p class="lede ink">A beautiful brand that does not sell is decoration. Two of these are still being confirmed with the client and are marked as such rather than rounded into something that reads well.</p>
+      </div>
+    </div>
+    <div class="pj-nums">
+      <div>
+        <strong><span class="needs">[[NEEDS: average order value, Zingara, pre/post]]</span></strong>
+        <span>Average order value</span>
+      </div>
+      <div>
+        <strong><span class="needs">[[NEEDS: cost per reservation, Zingara, pre/post]]</span></strong>
+        <span>Cost per reservation</span>
+      </div>
+      <div>
+        <strong>3 → 1</strong>
+        <span>Looks across dine-in, Swiggy and Zomato</span>
+        <span class="src">Counted from the delivered listings</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · SCOPE -->
+  <section class="pj-scope" data-nav="light" aria-label="Scope">
+    <div class="pj-scope-in">
+      <p class="mono eyebrow">Scope</p>
+      <ul>
+        <li>Brand audit</li>
+        <li>Identity &amp; wordmark</li>
+        <li>Type and colour system</li>
+        <li>Menu system · 189 items</li>
+        <li>Eight-pattern texture library</li>
+        <li>Packaging &amp; delivery livery</li>
+        <li>Signage</li>
+        <li>Swiggy &amp; Zomato listings</li>
+        <li>Petpooja item names</li>
+        <li>Reels &amp; social</li>
+        <li>Amma's Breakfast sub-brand</li>
+        <li>Guidelines people use</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<!-- 7 · NEXT PROJECT · in the next project's accent.
+     Wrapped in a nav: it is a route onward, and content outside every
+     landmark is a WCAG structure failure. -->
+<nav class="pj-next-nav" aria-label="Next case">
+<a class="pj-next pj-next-possah" href="the-possah.html" data-nav="dark" data-cursor="Read the case">
+  <span class="pj-next-in">
+    <span>
+      <span class="mono">Next case · Haute couture</span>
+      <b class="turn">She wants what she wants.</b>
+    </span>
+    <span class="go">The Possah →</span>
+  </span>
+</a>
+</nav>
+
+<!-- FOOTER · shared -->
+<footer class="footer" id="footer" data-nav="dark">
+  <div class="ft-in">
+    <div class="ft-top">
+      <div><p class="mono">Studio</p><p>Bangalore, India</p></div>
+      <div><p class="mono">Write</p><a href="mailto:hello@nuanse.studio">hello@nuanse.studio</a></div>
+      <div><p class="mono">Start</p><a href="../index.html#audit">The two-minute audit</a></div>
+      <div><p class="mono"><span class="rev">s</span>till there?</p><button class="to-top" data-goto="#top">Back to the top</button></div>
+    </div>
+    <div class="ft-mid">
+      <div class="ft-word turn">NUAN<span class="rev">S</span>E</div>
+      <div class="s3d-wrap">
+        <div class="s3d" tabindex="0" role="img" aria-label="The NUANSE mark in three dimensions. Drag it; it springs back." data-cursor="Drag the mark">
+          <div class="s3d-obj" data-copper="../assets/brand/monogram-copper-256.png" data-cream="../assets/brand/monogram-cream-256.png"></div>
+        </div>
+        <span class="mono">Drag it. It comes back.</span>
+      </div>
+    </div>
+    <div class="ft-bot mono"><span>© 2026 NUANSE</span><span>The S is reversed on purpose</span><span>Type “nuanse” anywhere</span></div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script src="../assets/js/core.js"></script>
+<script src="../assets/js/work/zingara.js"></script>
+</body>
+</html>

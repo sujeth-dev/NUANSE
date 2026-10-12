@@ -615,7 +615,7 @@
     pos = clamp(p, 0, 100);
     after.style.clipPath = `inset(0 ${(100 - pos).toFixed(2)}% 0 0)`;
     handle.style.left = `${pos.toFixed(2)}%`;
-    range.value = String(Math.round(pos));
+    if (range) range.value = String(Math.round(pos));
     annos.forEach((a) => {
       const on = pos >= a.x;
       if (on !== a.on) { a.on = on; if (on) writeOn(a); else unwrite(a); }
@@ -644,14 +644,22 @@
     });
   }
 
+  /* The home page now carries a STILL of this, not the control. The full
+     interaction moved to work/zingara.html, where it is that page's one
+     signature element and has room to be the argument rather than a widget.
+     What stays here is the part that makes the point without a control: the
+     before fidgets, the after never moves, and the redlines write on. */
+  const isStatic = !!(stage && stage.classList.contains('rl-static'));
+
   function wireRedline() {
-    if (!stage || !after || !handle || !range) return;
+    if (!stage || !after || !handle) return;
     annos = $$('.ra').map((a, i) => ({
       el: a, x: +a.dataset.x, txt: a.dataset.txt, on: false,
       path: $('path', a), badge: $('.badge', a), t: $('.t', a), li: $$('.rl-fixes li')[i]
     }));
     annos.forEach((a) => gsap.set(a.path, { drawSVG: '0%' }));
-    setPos(10);
+    /* a split that shows enough of both to be legible at a glance */
+    setPos(isStatic ? 52 : 10);
 
     /* The 'before' cannot sit still — four typefaces, Rs.249/- and a TODAY
        SPECIAL burst. The 'after' never moves. That is the whole argument,
@@ -666,6 +674,8 @@
       });
       if (!beforeFidget.getChildren().length) beforeFidget = null;
     }
+
+    if (isStatic) return;          /* no control, so nothing to drag */
 
     let down = false;
     const fromEvent = (e) => {
@@ -1050,7 +1060,7 @@
     /* --- 5 · the slider's automatic drivers ---
        After the sweep the line drifts with scroll until the visitor takes
        over, relative to where the sweep left it so there is no jump. */
-    if (stage) {
+    if (stage && !isStatic) {
       rlDrift = ScrollTrigger.create({
         trigger: '#redline', start: 'top bottom', end: 'bottom top',
         onUpdate: (s) => {
@@ -1077,7 +1087,14 @@
             .to(o, { p: 34, duration: 1, onUpdate: () => { if (!dragged) setPos(o.p); } }, '+=.3');
         }
       });
+    }
+    if (stage) {
       ScrollTrigger.create({ trigger: '.rl-results', start: 'top 88%', once: true, onEnter: countResults });
+      /* the fidget is the argument, with or without a control */
+      ScrollTrigger.create({
+        trigger: '#redline', start: 'top bottom', end: 'bottom top',
+        onToggle: (sT) => { NU.MOTION.rl = sT.isActive; syncBefore(); }
+      });
     }
 
     /* --- the hero's ground sleeps once the hero is gone --- */
