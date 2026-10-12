@@ -1,0 +1,863 @@
+[
+ {
+  "out": "clients/nuozone-logo.png",
+  "src": "Logos/Nuozone Logo.png",
+  "orig_px": "10000x5001",
+  "out_px": "1400x700",
+  "out_kb": 60
+ },
+ {
+  "out": "clients/tulipss-logo-7x.png",
+  "src": "Logos/Tulipss Logo@7x.png",
+  "orig_px": "14000x7000",
+  "out_px": "1400x700",
+  "out_kb": 70
+ },
+ {
+  "out": "clients/velmont-logo.png",
+  "src": "Logos/Velmont Logo.jpg",
+  "orig_px": "10001x5001",
+  "out_px": "1400x700",
+  "out_kb": 39
+ },
+ {
+  "out": "clients/amas-breakfast-logo.png",
+  "src": "Logos/amas breakfast logo.jpg",
+  "orig_px": "4096x4096",
+  "out_px": "1400x1400",
+  "out_kb": 2175
+ },
+ {
+  "out": "clients/aware-acoustics-logo-2.png",
+  "src": "Logos/aware acoustics logo  (2).png",
+  "orig_px": "1764x1013",
+  "out_px": "1400x804",
+  "out_kb": 88
+ },
+ {
+  "out": "clients/signature-green-bg-2.png",
+  "src": "Logos/signature green bg - 2.jpg",
+  "orig_px": "4096x4096",
+  "out_px": "1400x1400",
+  "out_kb": 125
+ },
+ {
+  "out": "clients/zingara-monogram-logo.png",
+  "src": "Logos/zingara monogram-logo.jpg",
+  "orig_px": "2608x1632",
+  "out_px": "1400x876",
+  "out_kb": 117
+ },
+ {
+  "out": "zingara/identity/a-pattern-and-texture-library-displays-eight.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/001_A_pattern_and_texture_library_displays_eight_qcJyuFqk.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 298
+ },
+ {
+  "out": "zingara/identity/a-restaurant-exterior-at-night-is-presented.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/001_A_restaurant_exterior_at_night_is_presented_u_GxBIGU.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 224
+ },
+ {
+  "out": "zingara/identity/in-a-dark-luxurious-packaging-design-style-a.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/001_In_a_dark_luxurious_packaging_design_style_a_t_V9weuC.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 175
+ },
+ {
+  "out": "zingara/identity/in-a-graphic-design-presentation-style-this.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/001_In_a_graphic_design_presentation_style_this_b0Dj-4aV.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 189
+ },
+ {
+  "out": "zingara/identity/in-a-photographic-style-this-media-presents-a.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/001_In_a_photographic_style_this_media_presents_a_rwPwPwca.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 212
+ },
+ {
+  "out": "zingara/identity/in-a-dark-luxurious-ui-design-style-this.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/002_In_a_dark_luxurious_UI_design_style_this_H9-9r9zo.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 195
+ },
+ {
+  "out": "zingara/identity/in-a-minimalist-graphic-design-style-a.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/002_In_a_minimalist_graphic_design_style_a_f_4VDFM2.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 141
+ },
+ {
+  "out": "zingara/identity/in-a-modern-restaurant-interior-the-dining-room.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/002_In_a_modern_restaurant_interior_the_dining_room_wPzDTjcf.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 206
+ },
+ {
+  "out": "zingara/identity/in-a-sophisticated-branding-style-this-scene.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/002_In_a_sophisticated_branding_style_this_scene_ynOBMzn4.jpg",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 214
+ },
+ {
+  "out": "zingara/identity/this-image-displays-various-iterations-and-usage.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/002_This_image_displays_various_iterations_and_usage_PkPOBdn5.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 173
+ },
+ {
+  "out": "zingara/identity/a-collection-of-branded-merchandise-including-a.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/003_A_collection_of_branded_merchandise_including_a_WRDiYdik.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 198
+ },
+ {
+  "out": "zingara/identity/in-a-fine-art-photography-style-a-hand-lifts-the.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/003_In_a_fine_art_photography_style_a_hand_lifts_the_42AKleHr.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 222
+ },
+ {
+  "out": "zingara/identity/in-a-photorealistic-style-a-steaming-bowl-of.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/003_In_a_photorealistic_style_a_steaming_bowl_of_Xy1GDoWm.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 205
+ },
+ {
+  "out": "zingara/identity/in-a-realistic-cinematic-style-this-image.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/003_In_a_realistic_cinematic_style_this_image_0Jy9M1hg.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 227
+ },
+ {
+  "out": "zingara/identity/this-image-showcases-a-brands-color-palette-and.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/003_This_image_showcases_a_brands_color_palette_and_z_PYbBRW.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 174
+ },
+ {
+  "out": "zingara/identity/this-is-a-typography-guide-showcasing-a-primary.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/004_This_is_a_typography_guide_showcasing_a_primary_yf5ojKqD.png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 241
+ },
+ {
+  "out": "zingara/identity/1-1.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/1 (1).png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 165
+ },
+ {
+  "out": "zingara/identity/1-2.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/1 (2).png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 227
+ },
+ {
+  "out": "zingara/identity/1-3.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/1 (3).png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 154
+ },
+ {
+  "out": "zingara/identity/1-4.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/1 (4).png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 238
+ },
+ {
+  "out": "zingara/identity/1-5.jpg",
+  "src": "Brand identity/Zingara brand identity/Folder (1)/1 (5).png",
+  "orig_px": "5504x3072",
+  "out_px": "1800x1005",
+  "out_kb": 157
+ },
+ {
+  "out": "possah/identity/a-collage-features-an-instagram-profile-various.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (7)/Possah IG Grid/001_A_collage_features_an_Instagram_profile_various_AsZl0Vtx.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 376
+ },
+ {
+  "out": "possah/identity/in-a-brand-identity-guidelines-style-a.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Brand Foundation Pages (4)/001_In_a_brand_identity_guidelines_style_a_IMHodjkr.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 242
+ },
+ {
+  "out": "possah/identity/in-a-minimalist-graphic-design-style-this.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Brand Foundation Pages (4)/002_In_a_minimalist_graphic_design_style_this_GjskX72Z.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 167
+ },
+ {
+  "out": "possah/identity/in-a-minimalist-graphic-design-style-this-2.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Brand Foundation Pages (4)/003_In_a_minimalist_graphic_design_style_this_k8ftmwCP.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 205
+ },
+ {
+  "out": "possah/identity/this-page-displays-a-minimalist-design-detailing.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Brand Foundation Pages (4)/004_This_page_displays_a_minimalist_design_detailing_4r3ZzqD8.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 248
+ },
+ {
+  "out": "possah/identity/in-a-minimalist-fashion-magazine-style-a-dark.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Extended Applications (7 pages)/001_In_a_minimalist_fashion_magazine_style_a_dark_ury5VR5o.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 176
+ },
+ {
+  "out": "possah/identity/in-a-photorealistic-style-a-sophisticated.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Extended Applications (7 pages)/002_In_a_photorealistic_style_a_sophisticated_KNfjc47I.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 261
+ },
+ {
+  "out": "possah/identity/in-a-modern-minimalist-style-a-well-lit-atelier.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Extended Applications (7 pages)/003_In_a_modern_minimalist_style_a_well-lit_atelier_bfrjRKH0.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 242
+ },
+ {
+  "out": "possah/identity/in-a-photographic-style-the-left-side-of-the.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Imagery Discipline Pages (2)/001_In_a_photographic_style_the_left_side_of_the_0IqzKAH4.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 248
+ },
+ {
+  "out": "possah/identity/in-a-graphic-design-style-this-image-presents-a.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Imagery Discipline Pages (2)/002_In_a_graphic_design_style_this_image_presents_a_15aymnq0.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 146
+ },
+ {
+  "out": "possah/identity/in-a-minimalist-graphic-design-style-this-image.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Logo Discipline Pages (3)/001_In_a_minimalist_graphic_design_style_this_image_xs44U6-x.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 216
+ },
+ {
+  "out": "possah/identity/in-a-clean-minimalist-style-this-graphic.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Logo Discipline Pages (3)/002_In_a_clean_minimalist_style_this_graphic_mWNHV0ms.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 216
+ },
+ {
+  "out": "possah/identity/the-image-displays-brand-identity-guidelines-for.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Logo Discipline Pages (3)/003_The_image_displays_brand_identity_guidelines_for_1Yc8pjlQ.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 228
+ },
+ {
+  "out": "possah/identity/in-a-minimalist-graphic-design-style-this-layout.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Visual Language Pages (3)/001_In_a_minimalist_graphic_design_style_this_layout_fk-i3oxt.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 168
+ },
+ {
+  "out": "possah/identity/in-a-graphic-design-style-the-image-displays-a.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Visual Language Pages (3)/002_In_a_graphic_design_style_the_image_displays_a_7KpNyCK0.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 325
+ },
+ {
+  "out": "possah/identity/in-a-minimalist-graphic-design-style-a-grid-of.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Visual Language Pages (3)/003_In_a_minimalist_graphic_design_style_a_grid_of_ZuKrSphu.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 185
+ },
+ {
+  "out": "possah/identity/in-a-minimalist-graphic-design-style-this-3.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Voice and Naming Pages (2)/001_In_a_minimalist_graphic_design_style_this_HCkoBRph.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 251
+ },
+ {
+  "out": "possah/identity/in-a-graphic-design-style-this-visual-displays-a.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (8)/Voice and Naming Pages (2)/002_In_a_graphic_design_style_this_visual_displays_a_B4jbRoyu.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 223
+ },
+ {
+  "out": "possah/identity/in-a-minimal-elegant-style-this-image-displays.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Brand Book Cover + Index/001_In_a_minimal_elegant_style_this_image_displays_I3vtOejp.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 264
+ },
+ {
+  "out": "possah/identity/this-mood-board-showcases-indian-fashion-with-a.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Brand Moodboard + Content Style Direction/001_This_mood_board_showcases_Indian_fashion_with_a_dhkeSPXb.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 356
+ },
+ {
+  "out": "possah/identity/in-a-fashion-photography-style-a-woman-with-dark.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Brand Moodboard + Content Style Direction/002_In_a_fashion_photography_style_a_woman_with_dark_elSHZ5Ek.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 335
+ },
+ {
+  "out": "possah/identity/a-flat-lay-composition-showcases-stationery-for.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Business Card and Stationery/001_A_flat_lay_composition_showcases_stationery_for_CO8KilOQ.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 491
+ },
+ {
+  "out": "possah/identity/a-color-palette-is-presented-with-primary-colors-atpcnid.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Foundations_ Palette + Typography Pages/001_A_color_palette_is_presented_with_primary_colors_atpCniD.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 143
+ },
+ {
+  "out": "possah/identity/in-a-fashion-editorial-style-this-instagram-feed.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Instagram Set/001_In_a_fashion_editorial_style_this_Instagram_feed_ILOX5LDN.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 230
+ },
+ {
+  "out": "possah/identity/three-smartphone-screens-display-various-fashion.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Instagram Set/002_Three_smartphone_screens_display_various_fashion_85YPou0h.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 227
+ },
+ {
+  "out": "possah/identity/three-distinct-mobile-screens-display-reel-covers-nzihtsv.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Instagram Set/003_Three_distinct_mobile_screens_display_reel_covers_NzIhtSV.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 241
+ },
+ {
+  "out": "possah/identity/in-a-sophisticated-still-life-a-dark-green.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Packaging Suite/001_In_a_sophisticated_still_life_a_dark_green_7xlzaPem.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 350
+ },
+ {
+  "out": "possah/identity/a-still-life-composition-showcases-a-dark-green.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Packaging Suite/002_A_still_life_composition_showcases_a_dark_green_M96BhDKi.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 216
+ },
+ {
+  "out": "possah/identity/in-a-refined-editorial-style-a-woman-in-a-dusty.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Website Homepage Concept/001_In_a_refined_editorial_style_a_woman_in_a_dusty_7gCGwkD7.png",
+  "orig_px": "3392x5056",
+  "out_px": "1208x1800",
+  "out_kb": 185
+ },
+ {
+  "out": "possah/identity/in-a-chic-minimalist-style-a-phone-displays-a.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Folder (9)/Website Homepage Concept/002_In_a_chic_minimalist_style_a_phone_displays_a_E6csD1Am.png",
+  "orig_px": "3392x5056",
+  "out_px": "1208x1800",
+  "out_kb": 147
+ },
+ {
+  "out": "possah/identity/in-a-modern-graphic-design-style-a-stylized.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Logo system and typo/001_In_a_modern_graphic_design_style_a_stylized_SD0yw7KY.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 104
+ },
+ {
+  "out": "possah/identity/this-typographic-guide-showcases-font-families.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Logo system and typo/002_This_typographic_guide_showcases_font_families_qOyaesG5.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 279
+ },
+ {
+  "out": "possah/identity/in-a-minimalist-brand-identity-style-the-text.jpg",
+  "src": "Brand identity/Possah Brand identity/Possah_identity_kit/Logo system and typo/003_In_a_minimalist_brand_identity_style_the_text_jrQQ9HUv.png",
+  "orig_px": "4096x4096",
+  "out_px": "1800x1800",
+  "out_kb": 146
+ },
+ {
+  "out": "zingara/food/2.jpg",
+  "src": "Pics/photoshoot/2.jpg",
+  "orig_px": "2294x2868",
+  "out_px": "1280x1600",
+  "out_kb": 218
+ },
+ {
+  "out": "zingara/food/3.jpg",
+  "src": "Pics/photoshoot/3.jpg",
+  "orig_px": "4803x6004",
+  "out_px": "1280x1600",
+  "out_kb": 195
+ },
+ {
+  "out": "zingara/food/4.jpg",
+  "src": "Pics/photoshoot/4.jpg",
+  "orig_px": "3427x4284",
+  "out_px": "1280x1600",
+  "out_kb": 185
+ },
+ {
+  "out": "zingara/food/chicken-lollipop.jpg",
+  "src": "Pics/photoshoot/Chicken lollipop.jpg",
+  "orig_px": "1792x2390",
+  "out_px": "1200x1600",
+  "out_kb": 142
+ },
+ {
+  "out": "zingara/food/mushroom-pepper-fry.jpg",
+  "src": "Pics/photoshoot/Mushroom Pepper Fry.jpg",
+  "orig_px": "1856x2304",
+  "out_px": "1289x1600",
+  "out_kb": 224
+ },
+ {
+  "out": "zingara/food/mushroom-biryani.jpg",
+  "src": "Pics/photoshoot/Mushroom biryani.jpg",
+  "orig_px": "1856x2304",
+  "out_px": "1289x1600",
+  "out_kb": 217
+ },
+ {
+  "out": "zingara/food/shahi-tukda.jpg",
+  "src": "Pics/photoshoot/Shahi Tukda.jpg",
+  "orig_px": "1856x2304",
+  "out_px": "1289x1600",
+  "out_kb": 182
+ },
+ {
+  "out": "zingara/food/tandoor-chicken.jpg",
+  "src": "Pics/photoshoot/Tandoor chicken.jpg",
+  "orig_px": "1856x2304",
+  "out_px": "1289x1600",
+  "out_kb": 218
+ },
+ {
+  "out": "zingara/food/white-mysore-mutton-biryani.jpg",
+  "src": "Pics/photoshoot/White mysore Mutton biryani.jpg",
+  "orig_px": "1792x2390",
+  "out_px": "1200x1600",
+  "out_kb": 144
+ },
+ {
+  "out": "zingara/food/dosa.jpg",
+  "src": "Pics/photoshoot/dosa.png",
+  "orig_px": "3584x4800",
+  "out_px": "1195x1600",
+  "out_kb": 235
+ },
+ {
+  "out": "zingara/food/khara-bath.jpg",
+  "src": "Pics/photoshoot/khara bath.png",
+  "orig_px": "3584x4800",
+  "out_px": "1195x1600",
+  "out_kb": 224
+ },
+ {
+  "out": "zingara/food/order-page-1.jpg",
+  "src": "Pics/photoshoot/order page #1.jpg",
+  "orig_px": "2528x1684",
+  "out_px": "1600x1066",
+  "out_kb": 299
+ },
+ {
+  "out": "zingara/food/podi-dosa.jpg",
+  "src": "Pics/photoshoot/podi dosa.png",
+  "orig_px": "3584x4800",
+  "out_px": "1195x1600",
+  "out_kb": 279
+ },
+ {
+  "out": "zingara/food/possah-insta-2-5.jpg",
+  "src": "Pics/photoshoot/possah insta 2  (5).jpg",
+  "orig_px": "4284x5712",
+  "out_px": "1200x1600",
+  "out_kb": 429
+ },
+ {
+  "out": "zingara/food/ven-pongal.jpg",
+  "src": "Pics/photoshoot/ven pongal.png",
+  "orig_px": "3584x4800",
+  "out_px": "1195x1600",
+  "out_kb": 187
+ },
+ {
+  "out": "zingara/food/zingara-kebab.jpg",
+  "src": "Pics/photoshoot/zingara kebab.jpg",
+  "orig_px": "1856x2304",
+  "out_px": "1289x1600",
+  "out_kb": 209
+ },
+ {
+  "out": "possah/campaign/amber-glow-button-top-1.jpg",
+  "src": "Pics/campaigns and studio shoots/Amber glow button top (1).png",
+  "orig_px": "1792x2400",
+  "out_px": "1195x1600",
+  "out_kb": 81
+ },
+ {
+  "out": "possah/campaign/amber-glow-button-top-3.jpg",
+  "src": "Pics/campaigns and studio shoots/Amber glow button top (3).png",
+  "orig_px": "1792x2400",
+  "out_px": "1195x1600",
+  "out_kb": 86
+ },
+ {
+  "out": "possah/campaign/amber-glow-button-top-5.jpg",
+  "src": "Pics/campaigns and studio shoots/Amber glow button top (5).png",
+  "orig_px": "1792x2400",
+  "out_px": "1195x1600",
+  "out_kb": 79
+ },
+ {
+  "out": "possah/campaign/amber-glow-button-top-6.jpg",
+  "src": "Pics/campaigns and studio shoots/Amber glow button top (6).png",
+  "orig_px": "1792x2400",
+  "out_px": "1195x1600",
+  "out_kb": 79
+ },
+ {
+  "out": "possah/campaign/possah-1-insta-indoor-3.jpg",
+  "src": "Pics/campaigns and studio shoots/Possah_1_insta_indoor (3).jpg",
+  "orig_px": "1200x1500",
+  "out_px": "1200x1500",
+  "out_kb": 180
+ },
+ {
+  "out": "possah/campaign/possah-1-insta-outdoor-1.jpg",
+  "src": "Pics/campaigns and studio shoots/Possah_1_insta_outdoor (1).jpg",
+  "orig_px": "1200x1500",
+  "out_px": "1200x1500",
+  "out_kb": 338
+ },
+ {
+  "out": "possah/campaign/possah-1-insta-outdoor-2.jpg",
+  "src": "Pics/campaigns and studio shoots/Possah_1_insta_outdoor (2).jpg",
+  "orig_px": "1200x1500",
+  "out_px": "1200x1500",
+  "out_kb": 301
+ },
+ {
+  "out": "possah/campaign/blouse-14-look-1-look-1-b-14-4.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 14_look - 1_look 1 - b - 14 (4).png",
+  "orig_px": "1086x1448",
+  "out_px": "1086x1448",
+  "out_kb": 175
+ },
+ {
+  "out": "possah/campaign/blouse-15-look-1-look-1-b-15.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 15_look 1_look - 1 b - 15.png",
+  "orig_px": "1122x1402",
+  "out_px": "1122x1402",
+  "out_kb": 178
+ },
+ {
+  "out": "possah/campaign/blouse-20-blouse-20-1.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 20_blouse 20 (1).png",
+  "orig_px": "1086x1448",
+  "out_px": "1086x1448",
+  "out_kb": 316
+ },
+ {
+  "out": "possah/campaign/blouse-20-blouse-20-look-2-1.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 20_blouse 20 look 2  (1).png",
+  "orig_px": "1085x1450",
+  "out_px": "1085x1450",
+  "out_kb": 271
+ },
+ {
+  "out": "possah/campaign/blouse-20-blouse-20-look-2-2.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 20_blouse 20 look 2  (2).png",
+  "orig_px": "1023x1537",
+  "out_px": "1023x1537",
+  "out_kb": 255
+ },
+ {
+  "out": "possah/campaign/blouse-20-blouse-20-look-2-4.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 20_blouse 20 look 2  (4).png",
+  "orig_px": "1086x1448",
+  "out_px": "1086x1448",
+  "out_kb": 280
+ },
+ {
+  "out": "possah/campaign/blouse-21-blouse-21-1.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 21_blouse 21 (1).png",
+  "orig_px": "1086x1448",
+  "out_px": "1086x1448",
+  "out_kb": 238
+ },
+ {
+  "out": "possah/campaign/blouse-26-blouse-26-1.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 26_blouse 26 (1).png",
+  "orig_px": "896x1200",
+  "out_px": "896x1200",
+  "out_kb": 174
+ },
+ {
+  "out": "possah/campaign/blouse-26-blouse-26-3.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 26_blouse 26 (3).png",
+  "orig_px": "896x1200",
+  "out_px": "896x1200",
+  "out_kb": 153
+ },
+ {
+  "out": "possah/campaign/blouse-28-blouse-28-look-2-3.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 28_blouse 28 look 2  (3).png",
+  "orig_px": "896x1200",
+  "out_px": "896x1200",
+  "out_kb": 152
+ },
+ {
+  "out": "possah/campaign/blouse-29-blouse-29-1.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 29_blouse 29 (1).png",
+  "orig_px": "1792x2390",
+  "out_px": "1200x1600",
+  "out_kb": 382
+ },
+ {
+  "out": "possah/campaign/blouse-29-blouse-29-2.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 29_blouse 29 (2).png",
+  "orig_px": "1382x1843",
+  "out_px": "1200x1600",
+  "out_kb": 263
+ },
+ {
+  "out": "possah/campaign/blouse-30-blouse-30-2.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 30_blouse 30 (2).jpg",
+  "orig_px": "1792x2390",
+  "out_px": "1200x1600",
+  "out_kb": 289
+ },
+ {
+  "out": "possah/campaign/blouse-32-blouse-32-2.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 32_blouse 32 (2).png",
+  "orig_px": "1122x1402",
+  "out_px": "1122x1402",
+  "out_kb": 244
+ },
+ {
+  "out": "possah/campaign/blouse-42-blouse-42-3.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 42_blouse 42 (3).png",
+  "orig_px": "1023x1537",
+  "out_px": "1023x1537",
+  "out_kb": 237
+ },
+ {
+  "out": "possah/campaign/blouse-42-blouse-42-4.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 42_blouse 42 (4).png",
+  "orig_px": "1023x1537",
+  "out_px": "1023x1537",
+  "out_kb": 226
+ },
+ {
+  "out": "possah/campaign/blouse-43-blouse-43-1.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 43_blouse 43 (1).png",
+  "orig_px": "1122x1402",
+  "out_px": "1122x1402",
+  "out_kb": 251
+ },
+ {
+  "out": "possah/campaign/blouse-44-blouse-44-1.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 44_blouse 44 (1).png",
+  "orig_px": "1086x1448",
+  "out_px": "1086x1448",
+  "out_kb": 282
+ },
+ {
+  "out": "possah/campaign/blouse-45-blouse-45-1.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 45_blouse 45 (1).png",
+  "orig_px": "1122x1402",
+  "out_px": "1122x1402",
+  "out_kb": 184
+ },
+ {
+  "out": "possah/campaign/blouse-45-blouse-45-2.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 45_blouse 45 (2).png",
+  "orig_px": "1023x1537",
+  "out_px": "1023x1537",
+  "out_kb": 167
+ },
+ {
+  "out": "possah/campaign/blouse-45-blouse-45-4.jpg",
+  "src": "Pics/campaigns and studio shoots/blouse 45_blouse 45 (4).png",
+  "orig_px": "1086x1448",
+  "out_px": "1086x1448",
+  "out_kb": 189
+ },
+ {
+  "out": "possah/campaign/golden-hour-top-peach-1.jpg",
+  "src": "Pics/campaigns and studio shoots/golden hour top (peach) (1).png",
+  "orig_px": "928x1152",
+  "out_px": "928x1152",
+  "out_kb": 58
+ },
+ {
+  "out": "possah/campaign/peach-art-deco-dress-1-1.jpg",
+  "src": "Pics/campaigns and studio shoots/peach art deco dress (1) (1).png",
+  "orig_px": "1792x2400",
+  "out_px": "1195x1600",
+  "out_kb": 103
+ },
+ {
+  "out": "possah/campaign/peach-art-deco-dress-2-1.jpg",
+  "src": "Pics/campaigns and studio shoots/peach art deco dress (2) (1).png",
+  "orig_px": "1792x2400",
+  "out_px": "1195x1600",
+  "out_kb": 88
+ },
+ {
+  "out": "possah/campaign/peach-art-deco-dress-3-1.jpg",
+  "src": "Pics/campaigns and studio shoots/peach art deco dress (3) (1).png",
+  "orig_px": "1792x2400",
+  "out_px": "1195x1600",
+  "out_kb": 124
+ },
+ {
+  "out": "possah/campaign/rose-gold-mandarin-3.jpg",
+  "src": "Pics/campaigns and studio shoots/rose gold mandarin  (3).png",
+  "orig_px": "1792x2400",
+  "out_px": "1195x1600",
+  "out_kb": 93
+ },
+ {
+  "out": "social/2.jpg",
+  "src": "Pics/social creatives/2.png",
+  "orig_px": "1086x1448",
+  "out_px": "1086x1448",
+  "out_kb": 319
+ },
+ {
+  "out": "social/3.jpg",
+  "src": "Pics/social creatives/3.png",
+  "orig_px": "1086x1448",
+  "out_px": "1086x1448",
+  "out_kb": 192
+ },
+ {
+  "out": "social/post-1-01.jpg",
+  "src": "Pics/social creatives/Post-1_01.jpg",
+  "orig_px": "1080x1350",
+  "out_px": "1080x1350",
+  "out_kb": 211
+ },
+ {
+  "out": "social/post-1-02.jpg",
+  "src": "Pics/social creatives/Post-1_02.jpg",
+  "orig_px": "1080x1350",
+  "out_px": "1080x1350",
+  "out_kb": 200
+ },
+ {
+  "out": "social/post-1-03.jpg",
+  "src": "Pics/social creatives/Post-1_03.jpg",
+  "orig_px": "1080x1350",
+  "out_px": "1080x1350",
+  "out_kb": 199
+ },
+ {
+  "out": "social/post-1-04.jpg",
+  "src": "Pics/social creatives/Post-1_04.jpg",
+  "orig_px": "1080x1350",
+  "out_px": "1080x1350",
+  "out_kb": 224
+ },
+ {
+  "out": "social/personal-01.jpg",
+  "src": "Pics/social creatives/personal_01.jpg",
+  "orig_px": "1080x1350",
+  "out_px": "1080x1350",
+  "out_kb": 347
+ },
+ {
+  "out": "social/personal-02.jpg",
+  "src": "Pics/social creatives/personal_02.jpg",
+  "orig_px": "1080x1350",
+  "out_px": "1080x1350",
+  "out_kb": 333
+ },
+ {
+  "out": "social/personal-03.jpg",
+  "src": "Pics/social creatives/personal_03.jpg",
+  "orig_px": "1080x1350",
+  "out_px": "1080x1350",
+  "out_kb": 251
+ },
+ {
+  "out": "social/post-3.jpg",
+  "src": "Pics/social creatives/post 3.jpg",
+  "orig_px": "2700x3375",
+  "out_px": "1280x1600",
+  "out_kb": 182
+ },
+ {
+  "out": "social/post-1-01-2.jpg",
+  "src": "Pics/social creatives/post---1_01.jpg",
+  "orig_px": "1080x1350",
+  "out_px": "1080x1350",
+  "out_kb": 57
+ },
+ {
+  "out": "social/post-1-02-2.jpg",
+  "src": "Pics/social creatives/post---1_02.jpg",
+  "orig_px": "1080x1350",
+  "out_px": "1080x1350",
+  "out_kb": 81
+ },
+ {
+  "out": "social/post-1-03-2.jpg",
+  "src": "Pics/social creatives/post---1_03.jpg",
+  "orig_px": "1080x1350",
+  "out_px": "1080x1350",
+  "out_kb": 104
+ }
+]

@@ -1,0 +1,22 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.swp
+.idea/
+.vscode/
+
+# tooling
+node_modules/
+*.log
+__pycache__/
+*.pyc
+
+# Vercel
+.vercel/
+
+# The 1.6 GB master asset set is never committed. `assets/` holds the
+# web-sized, de-duplicated derivative; ASSET-INDEX.md maps each file back to
+# its original path in website-n-assets/Website/.
+website-n-assets/

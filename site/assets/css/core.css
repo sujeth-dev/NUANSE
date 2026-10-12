@@ -1,0 +1,425 @@
+/* ============================================================================
+   NUANSE — core.css · the shared chassis
+
+   Everything that is on every page: tokens, type, the grain, the loader
+   curtain, the cursor, the nav in both states and both themes, buttons, the
+   page shell, the footer, the motion contract and the reduced-motion path.
+
+   Section CSS does NOT live here. The home page's eleven sections are in
+   home.css; the project-page layer is in work.css. Rule of thumb: if a
+   project page would never use it, it is not core.
+
+   Conventions this file holds to (brief/05-conventions.md):
+   - Spacing comes from tokens, never literals. A hardcoded 42px is a bug.
+   - Three speeds, one curve. --ease is cubic-bezier(.7,0,.2,1) everywhere.
+   - Copper is ~3% of any page. It marks the one thing that matters.
+   - No `style` attributes anywhere, so the CSP can drop 'unsafe-inline'.
+   ========================================================================== */
+
+@import url("../fonts/fonts.css");
+
+/* ============ TOKENS ============
+   navy, copper and cream are sampled pixel-exact from the logo master.
+   Do not adjust them. */
+:root{
+  --cream:#FCF7F1; --navy:#0D1A41; --night:#08112E; --copper:#B56528; --copper-l:#D58A4E;
+  --stone:#E6DED2; --mute:#5D6278; --mute-d:#9AA0BC;
+  --ox:#8A2B1D; --blush:#E8CFC4; --olive:#3F4A2E; --royal:#16245A;
+  --ease:cubic-bezier(.7,0,.2,1);
+  /* three speeds: big moments, state changes, hovers and reveals */
+  --t-big:1.1s; --t-mid:.6s; --t-sm:.4s;
+  --maxw:1320px; --gut-in:clamp(22px,4vw,64px);
+  --gut:max(clamp(22px,4vw,64px), (100vw - var(--maxw)) / 2);
+  --s1:8px; --s2:16px; --s3:28px; --s4:48px; --s5:80px; --s6:128px;
+  --gap-sm:clamp(28px,4vw,48px); --gap-md:clamp(48px,6vw,80px); --gap-lg:clamp(80px,10vw,128px);
+  --sec-y:clamp(120px,15vw,220px);
+  --serif:"Gloock","Times New Roman",serif;
+  --sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --hair-n:rgba(13,26,65,.9);
+  --hair-c:rgba(252,247,241,.28);
+  /* Copper as SMALL TEXT on a light ground, and as a fill carrying small
+     cream text. Not a new brand colour and not a palette change: --copper
+     itself is untouched and still the only copper on the mark, the rules, the
+     fills and every large accent.
+
+     The reason it exists: #B56528 on cream is 4.06:1 and on stone 3.24:1,
+     both short of the 4.5:1 that WCAG AA asks for text under 24px. Those
+     ratios are a property of the brand copper, not of the markup, so copper
+     11px labels fail wherever they appear — the "Output →" line, the brief
+     lane label, the case-overlay fix badges. Darkened 18% to #945220 it
+     clears AA on both light grounds (5.65 and 4.52) and reads as the same
+     copper. Cream on it is 5.65:1, which fixes the filled badges too. */
+  --copper-ink:#945220;
+  /* The client accent. core ships the house copper; a project page overrides
+     these two and nothing else, so the accent reaches exactly the places the
+     chassis already accents and no further. */
+  --accent:#B56528; --accent-l:#D58A4E;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--night)}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{margin:0;font-family:var(--sans);font-size:17px;line-height:1.55;color:var(--navy);
+  background:var(--night);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html.loading body{overflow:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+::selection{background:var(--copper);color:var(--cream)}
+:focus-visible{outline:1px dashed var(--copper);outline-offset:4px}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* skip link — keyboard reaches the content without walking the nav first */
+.skip{position:absolute;left:var(--gut);top:-100px;z-index:500;background:var(--navy);color:var(--cream);
+  padding:12px 18px;border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none;transition:top var(--t-sm) var(--ease)}
+.skip:focus-visible{top:16px}
+
+/* ============ TYPE ============ */
+.mono{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em;
+  text-transform:uppercase;line-height:1.5}
+.display{font-family:var(--serif);font-weight:400;letter-spacing:-.04em;line-height:.92;text-wrap:balance}
+.h2{font-family:var(--serif);font-weight:400;font-size:clamp(46px,7.6vw,104px);line-height:.9;
+  letter-spacing:-.04em;margin:0;text-wrap:balance}
+.lede{max-width:46ch;margin:0;color:var(--mute)}
+[data-nav=dark] .lede{color:var(--mute-d)}
+.eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 18px}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.6}
+
+/* split headings: words rise out of a mask */
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:.1em .03em .14em;margin:-.1em -.03em -.14em}
+.wi{display:inline-block;transform-origin:0 100%;will-change:transform}
+.nw{white-space:nowrap}
+
+/* ============ THE S ============
+   Requirement 3. Two different things wear an S and they are not
+   interchangeable:
+
+   .s    is the letter s inside a real word — "Most brandS are one detail
+         away". It stays live text for selection, search and screen readers,
+         and keeps the Gloock-mirrored treatment.
+   .mark is the logo. It is always the real asset, never a glyph.
+
+   The turn is pure CSS, as in nuanse-house: hover the container, every S in
+   it turns; leave, they turn back over .7s. The transition sits on .s itself
+   so both directions are eased, and no JS holds any state. */
+.s{display:inline-block;transition:transform .7s var(--ease),color var(--t-sm) var(--ease)}
+.rev{display:inline-block;transform:scaleX(-1)}
+
+@media (hover:hover){
+  .h-split:hover .s,
+  .turn:hover .s{transform:scaleX(-1);color:var(--copper)}
+  [data-nav=dark] .h-split:hover .s,
+  [data-nav=dark] .turn:hover .s,
+  .footer .h-split:hover .s,
+  .footer .turn:hover .s{color:var(--copper-l)}
+}
+/* `nuanse` typed anywhere latches every S at once. That one is meant to
+   stick, so it outranks hover. */
+.allturn .s{transform:scaleX(-1)!important;color:var(--copper)!important}
+[data-nav=dark].allturn .s,
+.allturn [data-nav=dark] .s,
+.allturn .footer .s{color:var(--copper-l)!important}
+/* the latched state reaches small text too, and a button label is 11.5px —
+   so it takes the accessible ink, exactly as its hover state does */
+.allturn .btn-label .s{color:var(--copper-ink)!important}
+[data-nav=dark].allturn .btn-label .s,
+.allturn [data-nav=dark] .btn-label .s{color:var(--copper-l)!important}
+
+/* ============ THE MARK ============
+   The real asset, everywhere the S stands in for the logo. One file per tint,
+   sized by its slot.
+
+   The nav mark on a dark ground wants copper-light (#D58A4E), and the set
+   ships copper, cream and navy — no copper-light. brightness(1.22) on the
+   copper master lands on it almost exactly, which keeps the design as drawn
+   and keeps one file in cache instead of four. */
+.mark{display:block;width:100%;height:auto}
+.mark-lift{filter:brightness(1.22)}
+
+/* ============ GRAIN ============ */
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:600;opacity:.07;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation:grain 2.4s steps(3) infinite}
+@keyframes grain{
+  0%{transform:translate(0,0)}
+  33%{transform:translate(-3%,2%)}
+  66%{transform:translate(2%,-3%)}
+  100%{transform:translate(1%,3%)}
+}
+.rm .grain{animation:none}
+
+/* ============ CURTAIN / LOADER ============
+   One element, reused for the opener and for page changes. */
+.curtain{position:fixed;inset:0;z-index:300;background:var(--navy);display:grid;place-items:center;
+  pointer-events:none}
+.curtain-cover{position:absolute;inset:0;background:var(--cream);z-index:1}
+.curtain-mark{position:relative;z-index:2;width:min(22vmin,190px);display:grid;place-items:center}
+.cm-flip{display:grid;width:100%}
+/* The two tints sit on top of one another and cross-fade, so the turn is one
+   transform plus one opacity rather than a filter animating through mud. */
+.cm-flip .mark{grid-area:1/1}
+.cm-copper{opacity:0}
+.curtain-foil{position:absolute;inset:0;z-index:0;width:100%;height:100%;display:block;opacity:.42;
+  pointer-events:none}
+.touch .curtain-foil,.rm .curtain-foil{display:none}
+/* pre-press crop marks and a measuring rule: the page is being registered */
+.curtain-marks{position:absolute;inset:clamp(16px,3vw,34px);z-index:2;pointer-events:none;opacity:0}
+.cmk{position:absolute;width:20px;height:20px}
+.cmk::before,.cmk::after{content:"";position:absolute;background:var(--copper-l)}
+.cmk::before{left:0;right:0;top:50%;height:1px}
+.cmk::after{top:0;bottom:0;left:50%;width:1px}
+.cmk.tl{left:0;top:0}
+.cmk.tr{right:0;top:0}
+.cmk.bl{left:0;bottom:0}
+.cmk.br{right:0;bottom:0}
+.curtain-label{position:absolute;z-index:2;left:50%;bottom:28px;transform:translateX(-50%);
+  color:var(--mute-d);margin:0;opacity:0;display:flex;align-items:center;gap:14px;white-space:nowrap}
+.cl-rule{display:block;width:clamp(56px,13vw,140px);height:1px;background:var(--copper);
+  transform:scaleX(0);transform-origin:left}
+.page-dim{position:fixed;inset:0;background:var(--night);opacity:0;pointer-events:none;z-index:120}
+
+/* ============ THE FLYER ============
+   The hero headline's S flies into the nav slot. It starts as the live glyph
+   and swaps to the asset partway through the travel, under cover of the scale
+   change — not at the endpoint, where the two silhouettes differ enough to
+   pop. */
+.flyer{position:fixed;top:0;left:0;z-index:150;pointer-events:none;font-family:var(--serif);
+  line-height:.9;display:none;transform-origin:50% 50%;color:var(--navy)}
+.fly-in{display:grid;place-items:center;width:100%;height:100%}
+.fly-lo,.fly-up{grid-area:1/1}
+.fly-up{opacity:0;display:grid;place-items:center;width:100%;height:100%}
+.fly-up .mark{width:auto;height:100%}
+
+/* ============ CURSOR ============
+   Requirement 2, ported from nuanse-house. The cursor is always present and
+   has two states: a 40px copper ring at rest, swelling to a 100px filled
+   copper disc with a label over a [data-cursor] target. The follow stays on
+   GSAP quickTo, which is smoother than the reference's; only the state
+   machine comes across. */
+.cur{position:fixed;left:0;top:0;z-index:400;pointer-events:none;display:none;opacity:1;
+  transition:opacity var(--t-sm) var(--ease)}
+.cur i{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;
+  border:1px solid var(--copper);
+  transition:width var(--t-sm) var(--ease),height var(--t-sm) var(--ease),
+             margin var(--t-sm) var(--ease),background var(--t-sm) var(--ease),
+             border-color var(--t-sm) var(--ease)}
+.cur b{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-weight:500;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);opacity:0;
+  transition:opacity .25s var(--ease);white-space:nowrap}
+.cur.big i{width:100px;height:100px;margin:-50px 0 0 -50px;background:var(--copper-ink);
+  border-color:var(--copper-ink)}
+.cur.big b{opacity:1}
+/* over a text field the ring fights the I-beam, so it stands down */
+.cur.hide{opacity:0}
+@media (pointer:fine){.cur{display:block}}
+/* reduced motion has no cursor at all — not a disc, and not a rest ring */
+.rm .cur,.touch .cur{display:none!important}
+
+/* ============ NAV ============
+   Requirement 4. Complete on the first slide, half once you scroll.
+
+   One container, .nav-in, is the whole chrome. Expanded it runs the full
+   width, transparent, with the links in their own backed pill carrying a
+   sliding indicator. Compact it closes rightward into a single blurred pill:
+   mark, Menu, CTA. Flip animates between the two, which is what Flip is for —
+   width and padding transitions alone look cheap.
+
+   Both states carry both themes. .nav.dark means the nav is sitting on a dark
+   section, so its ink is cream and its pill is navy; otherwise the ink is navy
+   and the pill is cream. The reference pill is navy and assumes dark; the
+   cream mirror is the other half of the requirement. */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px var(--gut);
+  color:var(--navy);transition:color var(--t-mid) var(--ease)}
+.nav::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(var(--cream),rgba(252,247,241,0));opacity:0;
+  transition:opacity var(--t-mid) var(--ease),background var(--t-mid);pointer-events:none}
+.nav.scrolled::before{opacity:.85}
+/* the compact pill is its own ground and does not want the wash behind it */
+.nav.compact::before{opacity:0}
+.nav.dark{color:var(--cream)}
+.nav.dark::before{background:linear-gradient(var(--navy),rgba(13,26,65,0))}
+
+.nav-in{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border-radius:100px;padding:0;background:transparent;box-shadow:none;
+  transition:background var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease),
+             padding var(--t-mid) var(--ease)}
+
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:0 0 auto}
+.nav-slot{width:34px;height:34px;display:grid;place-items:center;position:relative;flex:0 0 auto}
+.nav-slot::after{content:"";position:absolute;inset:2px;border:1px dashed currentColor;
+  border-radius:50%;opacity:.35;transition:opacity var(--t-mid) var(--ease)}
+.nav-slot.filled::after{opacity:0}
+.nav-spin{display:grid;place-items:center;width:100%;height:100%}
+/* the mark lands here from the hero, so it starts invisible */
+.nav-mark{width:22px;opacity:0}
+.nav.dark .nav-mark{filter:brightness(1.22)}
+.wordmark{font-family:var(--serif);font-size:22px;letter-spacing:.02em;line-height:1;white-space:nowrap}
+
+/* the links, in their own pill with a sliding indicator */
+.nav-bar{position:relative;display:flex;align-items:center;border-radius:100px;padding:5px;
+  background:rgba(13,26,65,.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:background var(--t-mid) var(--ease)}
+.nav.dark .nav-bar{background:rgba(252,247,241,.08)}
+.nav-ind{position:absolute;z-index:0;top:5px;bottom:5px;left:0;width:0;border-radius:100px;
+  background:rgba(13,26,65,.1);opacity:0;
+  transition:transform .7s var(--ease),width .7s var(--ease),opacity var(--t-sm) var(--ease)}
+.nav-ind.on{opacity:1}
+.nav.dark .nav-ind{background:rgba(252,247,241,.14)}
+.nav-links{display:flex;align-items:center}
+.nav-links a{position:relative;z-index:1;padding:9px 16px;border-radius:100px;text-decoration:none;
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  transition:color var(--t-sm) var(--ease),opacity var(--t-sm) var(--ease)}
+@media (hover:hover){
+  .nav-links a:hover{color:var(--copper-ink)}
+  .nav.dark .nav-links a:hover{color:var(--copper-l)}
+}
+
+.nav-end{display:flex;align-items:center;gap:14px;flex:0 0 auto}
+/* letters turned on this visit. The flip reverts; the count does not. */
+.turned{display:flex;align-items:center;gap:8px;opacity:.75}
+.turned b{font-weight:500;display:inline-block;min-width:2.2ch;text-align:right}
+.turned .mark{width:11px}
+.nav.dark .turned .mark{filter:brightness(1.22)}
+.nav-cta,.menu-btn{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid currentColor;border-radius:999px;padding:8px 14px 7px;text-decoration:none;
+  white-space:nowrap}
+.menu-btn{display:none}
+
+/* --- compact: the pill closes around the mark --- */
+.nav.compact .nav-in{margin-left:auto;justify-content:flex-end;padding:5px;
+  background:rgba(252,247,241,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 10px 30px -12px rgba(8,17,46,.5)}
+.nav.compact.dark .nav-in{background:rgba(13,26,65,.92)}
+.nav.compact .nav-bar{display:none}
+.nav.compact .wordmark,
+.nav.compact .turned{display:none}
+.nav.compact .nav-brand{gap:0;padding-left:6px}
+.nav.compact .menu-btn{display:inline-block}
+.nav.compact .nav-slot::after{opacity:0}
+/* inside the pill the CTA has its own ground to read against */
+.nav.compact .nav-cta{background:var(--copper-ink);border-color:var(--copper-ink);color:var(--cream)}
+
+/* The full-screen menu owns every destination while the nav is collapsed, so
+   nothing becomes unreachable by keyboard. */
+.menu{position:fixed;inset:0;z-index:95;background:var(--navy);color:var(--cream);display:flex;
+  flex-direction:column;justify-content:flex-end;padding:96px var(--gut) 40px;
+  clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease);visibility:hidden}
+.menu.open{clip-path:inset(0 0 0 0);visibility:visible}
+.menu a{font-family:var(--serif);font-size:clamp(44px,13vw,84px);line-height:1.02;
+  letter-spacing:-.04em;text-decoration:none;display:block}
+.menu .mono{margin-top:28px;color:var(--mute-d)}
+
+/* ============ BUTTONS (arrow-swap) ============ */
+.btn{--h:52px;display:inline-flex;align-items:stretch;height:var(--h);border:1px solid currentColor;
+  text-decoration:none;font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;white-space:nowrap;will-change:transform}
+.btn-label{display:flex;align-items:center;padding:0 22px}
+.btn-ar{width:var(--h);display:grid;place-items:center;overflow:hidden;font-family:var(--sans);
+  font-size:16px;letter-spacing:0;
+  transition:width var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease)}
+.btn-ar.r{border-left:1px solid currentColor}
+.btn-ar.l{width:0;border-right:1px solid transparent}
+.btn-label .s{transition:transform var(--t-mid) var(--ease),color var(--t-mid) var(--ease)}
+@media (hover:hover){
+  .btn:hover .btn-ar.l{width:var(--h);border-right-color:currentColor}
+  .btn:hover .btn-ar.r{width:0;border-left-color:transparent}
+  .btn:hover .btn-label .s{transform:scaleX(-1);color:var(--copper-ink)}
+  [data-nav=dark] .btn:hover .btn-label .s{color:var(--copper-l)}
+  .btn.solid:hover .btn-label .s{color:var(--copper-l)}
+  [data-nav=dark] .btn.solid:hover .btn-label .s{color:var(--copper-ink)}
+}
+.btn.solid{background:var(--navy);color:var(--cream);border-color:var(--navy)}
+.btn.solid .btn-ar{border-color:rgba(252,247,241,.3)}
+[data-nav=dark] .btn.solid{background:var(--cream);color:var(--navy);border-color:var(--cream)}
+[data-nav=dark] .btn.solid .btn-ar{border-color:rgba(13,26,65,.25)}
+
+/* ============ PAGE SHELL ============ */
+.page{position:relative;z-index:2;background:var(--cream);
+  border-radius:0 0 clamp(18px,3vw,40px) clamp(18px,3vw,40px);overflow:clip;
+  box-shadow:0 30px 60px rgba(8,17,46,.45)}
+section{position:relative}
+.sec{padding:var(--sec-y) var(--gut)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm);
+  align-items:end;margin-bottom:var(--gap-md)}
+.sec-head .lede{margin-top:22px}
+[data-nav=dark]{color:var(--cream)}
+
+/* ============ TOAST ============ */
+.toast{position:fixed;left:50%;bottom:24px;z-index:350;transform:translate(-50%,20px);opacity:0;
+  background:var(--navy);color:var(--cream);padding:11px 16px 10px;border-radius:999px;
+  pointer-events:none;white-space:nowrap;max-width:calc(100vw - 32px)}
+
+/* ============ FOOTER ============
+   Revealed under the page. The 3D S is draggable and springs back. */
+.footer{position:fixed;left:0;right:0;bottom:0;z-index:1;height:100vh;height:100svh;
+  background:var(--night);color:var(--cream);overflow:hidden}
+.ft-in{height:100%;display:flex;flex-direction:column;justify-content:space-between;
+  padding:clamp(80px,12vh,120px) var(--gut) 26px}
+.ft-top{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.ft-top .mono{color:var(--mute-d);margin:0 0 8px}
+.ft-top p,.ft-top a{margin:0;font-size:16px;text-decoration:none}
+.ft-top a{border-bottom:1px solid var(--hair-c)}
+.ft-top button{border-bottom:1px solid var(--hair-c);text-align:left}
+.ft-mid{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.ft-word{font-family:var(--serif);font-size:clamp(80px,19.5vw,360px);line-height:.8;
+  letter-spacing:-.045em;white-space:nowrap}
+.ft-word .rev{color:var(--copper-l)}
+.s3d-wrap{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:10px;
+  color:var(--mute-d)}
+.s3d{width:clamp(130px,15vw,220px);height:clamp(150px,17vw,250px);perspective:900px;display:grid;
+  place-items:center;touch-action:none;cursor:grab;outline:none}
+.s3d:active{cursor:grabbing}
+.s3d-obj{position:relative;width:100%;height:100%;transform-style:preserve-3d}
+/* Eighteen stacked copies of the real mark make the extrusion. The ramp runs
+   dark, through copper, to a cream highlight on the front face; the dark end
+   is the copper master under brightness(), because the set ships no dark tint
+   and a filter gets there exactly. Every layer points at one of two files, so
+   it is two downloads rather than eighteen. */
+.s3d-l{position:absolute;inset:0;display:grid;place-items:center;backface-visibility:visible}
+.s3d-l .mark{width:auto;height:100%}
+.ft-bot{display:flex;justify-content:space-between;gap:16px;color:var(--mute-d);
+  border-top:1px solid var(--hair-c);padding-top:var(--s3);flex-wrap:wrap}
+
+/* ============ REDUCED MOTION ============
+   A real path, not a disabled one. Every reveal must still reach its final
+   state — content stranded at opacity:0 is the failure mode that ships. */
+.rm *,.rm *::before,.rm *::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+.rm .s{transition:color .3s!important}
+.rm .menu{transition:opacity .3s!important;clip-path:none;opacity:0}
+.rm .menu.open{opacity:1}
+.rm .nav-in,.rm .nav-ind{transition:none!important}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1100px){
+  .nav-links a{padding:9px 12px}
+}
+@media (max-width:900px){
+  /* Below this the nav is compact at every scroll position: there is no room
+     for four links, and the overlay is the better affordance anyway. */
+  .nav-bar,.turned{display:none}
+  .menu-btn{display:inline-block}
+  .nav-in{margin-left:auto;justify-content:flex-end;padding:5px;
+    background:rgba(252,247,241,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    box-shadow:0 10px 30px -12px rgba(8,17,46,.5)}
+  .nav.dark .nav-in{background:rgba(13,26,65,.92)}
+  .wordmark{display:none}
+  .nav-brand{gap:0;padding-left:6px}
+  .nav-slot::after{opacity:0}
+  .nav-cta{background:var(--copper-ink);border-color:var(--copper-ink);color:var(--cream)}
+  .nav::before{opacity:0!important}
+  .sec-head{grid-template-columns:1fr}
+  .ft-top{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .nav{padding:12px var(--gut)}
+  .nav-cta{display:none}
+  .btn{--h:48px}
+  .btn-label{padding:0 16px}
+  .ft-mid{flex-direction:column-reverse;align-items:flex-start}
+  .ft-word{font-size:22vw}
+}
