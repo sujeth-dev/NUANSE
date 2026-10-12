@@ -1,37 +1,122 @@
 {
   "logo-system": {
-    "w": 1800,
-    "h": 1005,
+    "w": 1440,
+    "h": 804,
     "ground": "#402B23",
     "src": "zingara/identity/in-a-graphic-design-presentation-style-this.jpg",
-    "alt": "Zingara logo system: the wordmark, a stacked lockup with a spice ornament, and the mark reversed out of true red, shown beside the palette and type hierarchy."
+    "alt": "Zingara logo system: the wordmark, a stacked lockup with a spice ornament, and the mark reversed out of true red, shown beside the palette and type hierarchy.",
+    "kind": "ev"
   },
   "typography": {
-    "w": 1800,
-    "h": 1005,
+    "w": 1440,
+    "h": 804,
     "ground": "#332A28",
     "src": "zingara/identity/this-is-a-typography-guide-showcasing-a-primary.jpg",
-    "alt": "The Zingara type specimen. A display serif and a sans in three weights, a four-level hierarchy, and a wordmark letterspacing study comparing tight against wide tracking at +200 optical spacing."
+    "alt": "The Zingara type specimen. A display serif and a sans in three weights, a four-level hierarchy, and a wordmark letterspacing study comparing tight against wide tracking at +200 optical spacing.",
+    "kind": "ev"
   },
   "palette": {
-    "w": 1800,
-    "h": 1005,
+    "w": 1440,
+    "h": 804,
     "ground": "#573E32",
     "src": "zingara/identity/this-image-showcases-a-brands-color-palette-and.jpg",
-    "alt": "The Zingara colour system: true red, charcoal, cream and burnished gold with their tints and shades, a 60/20/10/10 usage ratio, and a grid of approved and rejected colour pairings."
+    "alt": "The Zingara colour system: true red, charcoal, cream and burnished gold with their tints and shades, a 60/20/10/10 usage ratio, and a grid of approved and rejected colour pairings.",
+    "kind": "ev"
   },
   "patterns": {
-    "w": 1800,
-    "h": 1005,
+    "w": 1440,
+    "h": 804,
     "ground": "#81766D",
     "src": "zingara/identity/a-pattern-and-texture-library-displays-eight.jpg",
-    "alt": "Eight-pattern texture library: Spice Geometry, Steam Abstraction, Rice Grain Field, Karnataka Line Weave, Handi Silhouette, Arabesque Spice, Saffron Scatter and Nineteen Cipher."
+    "alt": "Eight-pattern texture library: Spice Geometry, Steam Abstraction, Rice Grain Field, Karnataka Line Weave, Handi Silhouette, Arabesque Spice, Saffron Scatter and Nineteen Cipher.",
+    "kind": "ev"
   },
   "ammas-breakfast": {
     "w": 1400,
     "h": 1400,
     "ground": "#F0ECE1",
     "src": "client-logos/ammas-breakfast.jpg",
-    "alt": "Amma's Breakfast by Zingara: the sub-brand logo, set in a warm script quite unlike the Zingara wordmark."
+    "alt": "Amma's Breakfast by Zingara: the sub-brand logo, set in a warm script quite unlike the Zingara wordmark.",
+    "kind": "ev"
+  },
+  "logo-rules": {
+    "w": 1440,
+    "h": 804,
+    "ground": "#372C2A",
+    "src": "zingara/identity/this-image-displays-various-iterations-and-usage.jpg",
+    "alt": "The expanded Zingara logo system: primary wordmark, a secondary lockup carrying \"Not Your Usual Biryani\", and a Z monogram with a star-anise flourish; eight colour versions; clear space set to the height of the Z; minimum sizes of 50, 30 and 15 millimetres; and three do-nots \u2014 do not stretch, do not recolour, do not rotate.",
+    "kind": "grid"
+  },
+  "specimen": {
+    "w": 1440,
+    "h": 804,
+    "ground": "#271D1A",
+    "src": "zingara/identity/1-4.jpg",
+    "alt": "The Zingara type specimen. Cormorant Garamond in light, regular, semibold and bold as the primary face; DM Sans in regular, medium and bold as the secondary; and a wordmark letterspacing study setting the chosen +200 optical tracking against tight and wide alternatives.",
+    "kind": "grid"
+  },
+  "icons": {
+    "w": 1440,
+    "h": 804,
+    "ground": "#392D24",
+    "src": "zingara/identity/in-a-minimalist-graphic-design-style-a.jpg",
+    "alt": "Twelve line icons in two colourways \u2014 mortar and pestle, steam, cardamom, handi, fire, star anise, nutmeg, cinnamon, the numeral 19, a covered dish, cutlery, and a Zingara Mysore roundel \u2014 with rule dividers and corner ornaments.",
+    "kind": "grid"
+  },
+  "collateral": {
+    "w": 1440,
+    "h": 804,
+    "ground": "#4C3D3B",
+    "src": "zingara/identity/in-a-sophisticated-branding-style-this-scene.jpg",
+    "alt": "Menu and print collateral: a hardback menu book open on a spread, business cards in charcoal and true red, letterhead with a wax-sealed envelope, a compliments voucher, a numbered table tent and a leather menu folder.",
+    "kind": "ev"
+  },
+  "packaging": {
+    "w": 1440,
+    "h": 804,
+    "ground": "#3E2E29",
+    "src": "zingara/identity/in-a-dark-luxurious-packaging-design-style-a.jpg",
+    "alt": "The packaging system: a charcoal presentation box with a gold seal, a patterned carrier bag, a delivery container with a red wax-seal label reading Mysore White Biryani, and spice jars \u2014 shown beside the four palette chips they are built from.",
+    "kind": "ev"
+  },
+  "signage": {
+    "w": 1440,
+    "h": 804,
+    "ground": "#3B2D28",
+    "src": "zingara/identity/a-restaurant-exterior-at-night-is-presented.jpg",
+    "alt": "Exterior and signage at night: an illuminated facade sign, frosted window etching, an A-frame sidewalk board reading \"Not your usual biryani\", and an awning over the street frontage.",
+    "kind": "half"
+  },
+  "interior": {
+    "w": 1440,
+    "h": 804,
+    "ground": "#31251D",
+    "src": "zingara/identity/in-a-modern-restaurant-interior-the-dining-room.jpg",
+    "alt": "The interior: a dining room under pendant lights, a branded feature wall reading Zingara, Mysore White Biryani, 19 Spice Blend, a table setting with a numbered marker and a menu card, and the counter and takeaway area.",
+    "kind": "half"
+  },
+  "delivery": {
+    "w": 1440,
+    "h": 804,
+    "ground": "#3B2C28",
+    "src": "zingara/identity/in-a-realistic-cinematic-style-this-image.jpg",
+    "alt": "Delivery and outdoor presence: a rider with an insulated Zingara bag, a bus-shelter advertisement, a food-festival pop-up stall, and a branded scooter wrap.",
+    "kind": "ev"
+  },
+  "web-ui": {
+    "w": 1440,
+    "h": 804,
+    "ground": "#322925",
+    "src": "zingara/identity/in-a-dark-luxurious-ui-design-style-this.jpg",
+    "alt": "Website and app interface: a desktop homepage with the wordmark over a biryani photograph, a mobile hero and order app, an online menu page laid out in three columns, and an order-confirmation screen reading \"Your Zingara is on the way.\"",
+    "kind": "ev"
+  },
+  "social": {
+    "w": 1440,
+    "h": 804,
+    "ground": "#372421",
+    "src": "zingara/identity/in-a-photographic-style-this-media-presents-a.jpg",
+    "alt": "Social identity: a nine-post Instagram grid alternating food photography with typographic panels reading \"Not your usual biryani\" and \"19 spices. Built, not coated.\", two Stories frames, and the Z brand avatar on true red.",
+    "kind": "half"
   }
 }

@@ -51,6 +51,15 @@
 /* the next-project panel wears the NEXT brand's colour: Possah forest green */
 .pj-next-possah{--next-accent:#1F3A2D}
 
+/* The documented palette, as chips. Classes setting --sw, never style
+   attributes: style-src has no 'unsafe-inline'. The chip is hidden from the
+   accessibility tree and the hex beside it is real text, so the value is the
+   accessible name and nothing depends on seeing the colour. */
+.sw-z-red{--sw:#C8332A}
+.sw-z-charcoal{--sw:#1C1A18}
+.sw-z-cream{--sw:#F5EDD8}
+.sw-z-gold{--sw:#C9933A}
+
 .zm{--p:0;position:relative;max-width:900px;margin:0 auto;user-select:none;
   -webkit-user-select:none}
 

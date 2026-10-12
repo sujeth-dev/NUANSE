@@ -90,3 +90,86 @@ two over are the colour-palette page (14.3%, where swatches are the subject) and
 the moodboard (16.4%, photography rather than layout). A ceiling is a one-sided
 test, which is why it holds where the three-way split does not. That ships as a
 sourced note; the meter does not.
+
+---
+
+## 2026-10-12 · Zingara is a brand case now, not a menu case
+
+The page led with the menu, was built around the menu and showed five boards.
+Sixteen of the twenty-one boards on file never appeared, and the whole identity
+programme behind the menu — the mark, the palette, the icon set, the packaging,
+the signage, the room, the livery, the site — was invisible. Rebuilt into named
+chapters, fifteen boards, with the menu demoted from the page's thesis to the
+proof inside a larger one.
+
+| | |
+|---|---|
+| Opening frame | "It read like three restaurants" — documented; 3 → 1 was already on the page |
+| The problem | Keeps "The menu was costing them" as its opening line, then widens: there was no system behind any of it |
+| 01 · The system | What was *decided*. Palette as live swatches with the documented hexes, a spec table of the real numbers, three written brand lines as pull quotes, and four boards |
+| 02 · The fix | The menu slider, unchanged. Still the one bespoke element |
+| 03 · It travels | Print, packaging, the street, the room, the livery, the eight textures |
+| 04 · On a screen | Site and order flow, social, a this/not-this table of the listings discipline, and a link out to the live site |
+| 05 · It extends | The whole system on one page, Amma's Breakfast, the written hierarchy |
+| The numbers | +22% average order value and −31% cost per reservation now filled — see below |
+| Scope | Fifteen lines, from brand audit to guidelines |
+
+**The two held figures are filled.** I had marked average order value and cost
+per reservation `[[NEEDS: ...]]`. They were on file the whole time, in
+`reference/index-current.html:1868` — the named Zingara case on NUANSE's own
+current site. The rule is "no figure that did not come from me or from the
+files"; these came from the files, so they ship, each carrying a provenance
+line saying where it came from rather than being presented as fresh.
+
+**Two boards disagree about the red.** The colour system board says
+`#C8332A`; the packaging board quotes `#C0392B`. The page holds to the colour
+system board and says so in a source note rather than silently picking one.
+
+### Shared chassis, not Zingara-only
+
+Seven patterns went into `work.css` rather than the page's own file, each
+because The Possah needs it too: `.pj-chapter`, `.pj-system`, `.pj-swatches`,
+`.pj-specs`, `.pj-quotes`, `.pj-grid`/`.gv`, `.pj-compare`, `.pj-live`,
+`.pj-src`. Swatch colours arrive as classes setting `--sw`; the chip is hidden
+from the accessibility tree and the hex beside it is real text, so the value is
+the accessible name and nothing depends on seeing the colour.
+
+### A layout defect the screenshots caught and the metrics did not
+
+`.ev` put the board in the 1fr column and the caption in the 2.4fr column on
+every odd row, because the frame comes first in the DOM and only the even rows
+reordered it. A full guideline page was rendering about 220px wide. Both are
+now placed explicitly, so the board always takes the wide column and only the
+side alternates. The selector also moved from `nth-child` to `nth-of-type`, so
+a `.pj-grid` sitting between two rows no longer flips the rhythm of everything
+after it.
+
+### Two new tools
+
+`tools/expand-figures.py` expands `[[FIG name]]` tokens in a page source into
+real `<picture>` markup read off the manifest. There is still no build step for
+the HTML — this runs by hand when the image set changes and what ships is its
+plain static output. It exists because fifteen figures means fifteen srcsets of
+four content-hashed filenames each, and transcribing those by hand is how a
+page ends up pointing at an image that no longer exists.
+
+`tools/build-page-images.py` gained a per-slug width cap and per-figure `sizes`.
+Capping at 1440 instead of 1800: a square board at 60vw inside a 1320 container
+is about 790 CSS px, so at DPR 2 an 1800 derivative is weight nobody can see.
+
+### Also
+
+`core.js` now registers only the GSAP plugins a page actually loaded, instead
+of naming all five and throwing on a page that ships fewer. SplitText turned
+out to be referenced nowhere but that registration line, so it is gone from
+every page; DrawSVG draws the home page's redline and nothing else, so project
+pages no longer carry it.
+
+### Measured
+
+Zero axe violations. The 62 indeterminate contrast checks are all pre-existing
+chassis elements — nav over a pseudo-element ground, split headings, the
+interpolating signature, the footer — and none of the new patterns is among
+them. Zero console errors and zero CSP violations across desktop,
+reduced-motion, mobile and GSAP-blocked. **506 KB first load, 884 KB fully
+scrolled**, against a 1500 KB budget, with fifteen boards on the page.

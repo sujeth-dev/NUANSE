@@ -261,7 +261,18 @@
     return;
   }
 
-  gsap.registerPlugin(ScrollTrigger, SplitText, Flip, DrawSVGPlugin, CustomEase);
+  /* Register what this page actually loaded, rather than naming every plugin
+     and throwing a ReferenceError on a page that does not need them all.
+     DrawSVG draws the home page's redline and nothing else, so a project page
+     has no reason to carry it; ScrollTrigger, Flip and CustomEase are chassis
+     and every page loads them. A missing plugin is a page that chose not to
+     ship it, not a fault. */
+  gsap.registerPlugin.apply(gsap, [
+    typeof ScrollTrigger !== 'undefined' && ScrollTrigger,
+    typeof Flip !== 'undefined' && Flip,
+    typeof DrawSVGPlugin !== 'undefined' && DrawSVGPlugin,
+    typeof CustomEase !== 'undefined' && CustomEase
+  ].filter(Boolean));
   /* One curve rules everything: cubic-bezier(.7,0,.2,1) */
   CustomEase.create('nu', 'M0,0 C0.7,0 0.2,1 1,1');
   const EASE = 'nu';

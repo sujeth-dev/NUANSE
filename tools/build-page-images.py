@@ -28,6 +28,24 @@ SRC = os.path.join(ROOT, 'assets')
 OUT = os.path.join(ROOT, 'site', 'assets', 'work')
 
 WIDTHS = [480, 960, 1440, 1920]
+
+# Per-slug cap. A square guideline board shown at 60vw inside a 1320px
+# container is about 790 CSS pixels; at device-pixel-ratio 2 that is 1580, so
+# an 1800-wide derivative is weight nobody can see — about 79 KB against 57 KB
+# in AVIF, on every board on the page.
+WIDTHS_BY_SLUG = {
+    'zingara': [480, 960, 1440],
+    'possah': [480, 960, 1440],
+}
+
+# A figure in a three-up grid renders at roughly 30vw, not 60vw. Left on the
+# wide string it would fetch a 1440 where a 480 would do, three times over —
+# the single easiest way to blow the page budget.
+SIZES = {
+    'ev': '(max-width:900px) 92vw, 60vw',
+    'grid': '(max-width:900px) 92vw, 30vw',
+    'half': '(max-width:900px) 92vw, 46vw',
+}
 # AVIF first, WebP second, JPEG last: the browser takes the first it can read.
 FORMATS = [
     ('avif', 'AVIF', {'quality': 52}),
@@ -36,6 +54,8 @@ FORMATS = [
 ]
 
 # slug -> list of (output name, source path relative to assets/, alt text)
+# with an optional fourth element naming the layout the figure sits in, which
+# only decides its `sizes` string and the class on the emitted <figure>.
 PAGES = {
     'zingara': [
         ('logo-system',
@@ -62,6 +82,78 @@ PAGES = {
          'client-logos/ammas-breakfast.jpg',
          "Amma's Breakfast by Zingara: the sub-brand logo, set in a warm "
          'script quite unlike the Zingara wordmark.'),
+
+        # --- the identity, beyond the menu ---
+        ('logo-rules',
+         'zingara/identity/this-image-displays-various-iterations-and-usage.jpg',
+         'The expanded Zingara logo system: primary wordmark, a secondary '
+         'lockup carrying "Not Your Usual Biryani", and a Z monogram with a '
+         'star-anise flourish; eight colour versions; clear space set to the '
+         'height of the Z; minimum sizes of 50, 30 and 15 millimetres; and '
+         'three do-nots — do not stretch, do not recolour, do not rotate.',
+         'grid'),
+        ('specimen',
+         'zingara/identity/1-4.jpg',
+         'The Zingara type specimen. Cormorant Garamond in light, regular, '
+         'semibold and bold as the primary face; DM Sans in regular, medium '
+         'and bold as the secondary; and a wordmark letterspacing study '
+         'setting the chosen +200 optical tracking against tight and wide '
+         'alternatives.',
+         'grid'),
+        ('icons',
+         'zingara/identity/in-a-minimalist-graphic-design-style-a.jpg',
+         'Twelve line icons in two colourways — mortar and pestle, steam, '
+         'cardamom, handi, fire, star anise, nutmeg, cinnamon, the numeral '
+         '19, a covered dish, cutlery, and a Zingara Mysore roundel — with '
+         'rule dividers and corner ornaments.',
+         'grid'),
+
+        # --- it travels ---
+        ('collateral',
+         'zingara/identity/in-a-sophisticated-branding-style-this-scene.jpg',
+         'Menu and print collateral: a hardback menu book open on a spread, '
+         'business cards in charcoal and true red, letterhead with a '
+         'wax-sealed envelope, a compliments voucher, a numbered table tent '
+         'and a leather menu folder.'),
+        ('packaging',
+         'zingara/identity/in-a-dark-luxurious-packaging-design-style-a.jpg',
+         'The packaging system: a charcoal presentation box with a gold seal, '
+         'a patterned carrier bag, a delivery container with a red wax-seal '
+         'label reading Mysore White Biryani, and spice jars — shown beside '
+         'the four palette chips they are built from.'),
+        ('signage',
+         'zingara/identity/a-restaurant-exterior-at-night-is-presented.jpg',
+         'Exterior and signage at night: an illuminated facade sign, frosted '
+         'window etching, an A-frame sidewalk board reading "Not your usual '
+         'biryani", and an awning over the street frontage.',
+         'half'),
+        ('interior',
+         'zingara/identity/in-a-modern-restaurant-interior-the-dining-room.jpg',
+         'The interior: a dining room under pendant lights, a branded feature '
+         'wall reading Zingara, Mysore White Biryani, 19 Spice Blend, a table '
+         'setting with a numbered marker and a menu card, and the counter and '
+         'takeaway area.',
+         'half'),
+        ('delivery',
+         'zingara/identity/in-a-realistic-cinematic-style-this-image.jpg',
+         'Delivery and outdoor presence: a rider with an insulated Zingara '
+         'bag, a bus-shelter advertisement, a food-festival pop-up stall, and '
+         'a branded scooter wrap.'),
+
+        # --- on a screen ---
+        ('web-ui',
+         'zingara/identity/in-a-dark-luxurious-ui-design-style-this.jpg',
+         'Website and app interface: a desktop homepage with the wordmark '
+         'over a biryani photograph, a mobile hero and order app, an online '
+         'menu page laid out in three columns, and an order-confirmation '
+         'screen reading "Your Zingara is on the way."'),
+        ('social',
+         'zingara/identity/in-a-photographic-style-this-media-presents-a.jpg',
+         'Social identity: a nine-post Instagram grid alternating food '
+         'photography with typographic panels reading "Not your usual '
+         'biryani" and "19 spices. Built, not coated.", two Stories frames, '
+         'and the Z brand avatar on true red.',
+         'half'),
     ],
 }
 
@@ -85,7 +177,11 @@ def build(slug):
     manifest, css, markup = {}, [], []
     total = 0
 
-    for name, rel, alt in items:
+    wanted = WIDTHS_BY_SLUG.get(slug, WIDTHS)
+
+    for item in items:
+        name, rel, alt = item[0], item[1], item[2]
+        kind = item[3] if len(item) > 3 else 'ev'
         path = os.path.join(SRC, rel)
         if not os.path.exists(path):
             print(f'  MISSING  {rel}', file=sys.stderr)
@@ -94,8 +190,8 @@ def build(slug):
         im = im.convert('RGB')
         sw, sh = im.size
         ground = dominant(im)
-        widths = [w for w in WIDTHS if w <= sw] or [sw]
-        if sw not in widths and sw < max(WIDTHS):
+        widths = [w for w in wanted if w <= sw] or [sw]
+        if sw not in widths and sw < max(wanted):
             widths.append(sw)
         widths = sorted(set(widths))
 
@@ -124,18 +220,21 @@ def build(slug):
 
         ratio_h = round(sh * widths[-1] / sw)
         manifest[name] = {'w': widths[-1], 'h': ratio_h, 'ground': ground,
-                          'src': rel, 'alt': alt}
+                          'src': rel, 'alt': alt, 'kind': kind}
         css.append(f'.ph-{name}{{background:{ground}}}')
+
+        sizes = SIZES.get(kind, SIZES['ev'])
+        fig = 'ev' if kind == 'ev' else 'gv'
 
         def srcset(ext):
             return ', '.join(f'../assets/work/{slug}/{f} {w}w' for w, f in sorted(made[ext]))
         fallback = sorted(made['jpg'])[-1][1]
         markup.append(
-            f'<figure class="ev">\n'
+            f'<figure class="{fig}">\n'
             f'  <div class="ev-frame ph-{name}">\n'
             f'    <picture>\n'
-            f'      <source type="image/avif" srcset="{srcset("avif")}" sizes="(max-width:900px) 92vw, 60vw">\n'
-            f'      <source type="image/webp" srcset="{srcset("webp")}" sizes="(max-width:900px) 92vw, 60vw">\n'
+            f'      <source type="image/avif" srcset="{srcset("avif")}" sizes="{sizes}">\n'
+            f'      <source type="image/webp" srcset="{srcset("webp")}" sizes="{sizes}">\n'
             f'      <img src="../assets/work/{slug}/{fallback}" width="{widths[-1]}" height="{ratio_h}"\n'
             f'           loading="lazy" decoding="async" alt="{alt}">\n'
             f'    </picture>\n'
@@ -143,7 +242,7 @@ def build(slug):
             f'  <figcaption class="mono">CAPTION</figcaption>\n'
             f'</figure>'
         )
-        print(f'  {name:18} {sw}x{sh}  {ground}  widths={widths}')
+        print(f'  {name:18} {sw}x{sh}  {ground}  widths={widths}  {kind}')
 
     with open(os.path.join(outdir, '_manifest.json'), 'w', encoding='utf-8') as f:
         json.dump(manifest, f, indent=2)

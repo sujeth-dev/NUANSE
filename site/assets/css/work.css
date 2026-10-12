@@ -75,10 +75,22 @@
    own dominant-colour ground so nothing reflows while they load. */
 .pj-work{background:var(--night);color:var(--cream);padding:var(--sec-y) var(--gut)}
 .pj-ev-list{display:flex;flex-direction:column;gap:clamp(60px,9vw,130px);margin:var(--gap-md) 0 0}
+/* The board always gets the wide column and the caption always gets the
+   narrow one; what alternates is which side they are on. Placing both
+   explicitly rather than reordering one of them is what makes that true —
+   the frame comes first in the DOM, so leaving it to source order put the
+   board in the 1fr column on every odd row and shrank a full guideline page
+   to about 220px.
+
+   nth-of-type, not nth-child: a chapter can put a .pj-grid between two rows,
+   and a non-figure sibling must not flip the rhythm of the rows around it. */
 .ev{margin:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);
   gap:clamp(20px,3vw,48px);align-items:start}
-.ev:nth-child(even){grid-template-columns:minmax(0,2.4fr) minmax(0,1fr)}
-.ev:nth-child(even) .ev-frame{order:-1}
+.ev .ev-frame{grid-column:2;grid-row:1}
+.ev figcaption{grid-column:1;grid-row:1}
+.ev:nth-of-type(even){grid-template-columns:minmax(0,2.4fr) minmax(0,1fr)}
+.ev:nth-of-type(even) .ev-frame{grid-column:1}
+.ev:nth-of-type(even) figcaption{grid-column:2}
 .ev-frame{position:relative;overflow:hidden;border:1px solid var(--hair-c)}
 .ev-frame img{width:100%;height:auto;display:block}
 .ev figcaption{color:var(--mute-d);align-self:end}
@@ -146,17 +158,158 @@
   transform:translateY(-.35em)}
 [data-nav=dark] .pj-note{color:var(--mute-d)}
 
+/* ============ SHARED CHAPTER PATTERNS ============
+   Added when the two case pages stopped being "a menu" and "a campaign" and
+   became what they actually are: whole identity programmes. A page that runs
+   eight chapters needs more than one evidence layout, and every pattern here
+   earns its place by being needed on BOTH pages — a pattern used once belongs
+   in that page's own file.
+
+   The grounds alternate chapter by chapter, light and dark, so the page reads
+   as chapters rather than as one long scroll. */
+
+/* --- a titled chapter inside a run of evidence --- */
+.pj-chapter{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);
+  gap:var(--gap-sm);align-items:end;margin:0 0 var(--gap-md)}
+.pj-chapter .eyebrow{margin:0;color:var(--accent-l)}
+.pj-chapter h2{font-family:var(--serif);font-weight:400;
+  font-size:clamp(34px,5vw,68px);line-height:1;letter-spacing:-.035em;margin:0 0 14px}
+.pj-chapter p{margin:0;max-width:52ch}
+
+/* --- THE SYSTEM · the rules, on a light ground ---
+   .pj-work shows what was MADE. This shows what was DECIDED. Those are
+   different claims and they should not look the same. */
+.pj-system{background:var(--cream);color:var(--navy);padding:var(--sec-y) var(--gut)}
+.pj-system .pj-chapter .eyebrow{color:var(--accent-ink)}
+.pj-system .pj-chapter p{color:var(--mute)}
+
+/* --- documented palette ---
+   The chip is decoration; the hex is the accessible name, so the value stays
+   real text and the chip is hidden from the tree. Chip colours arrive as
+   classes setting --sw, never as style attributes: the CSP drops
+   'unsafe-inline' from style-src. */
+.pj-swatches{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:1px;
+  background:rgba(13,26,65,.14);border:1px solid rgba(13,26,65,.14)}
+.pj-swatches li{background:var(--cream);padding:clamp(18px,2vw,26px);
+  display:flex;flex-direction:column;gap:12px}
+.pj-swatches .sw{width:100%;height:58px;background:var(--sw,#999);
+  border:1px solid rgba(13,26,65,.14)}
+.pj-swatches b{font-weight:500;font-size:17px;display:block}
+.pj-swatches code{font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  color:var(--mute);display:block;margin-top:5px}
+.pj-swatches span{font-size:14px;line-height:1.5;color:var(--mute);max-width:30ch}
+
+/* --- documented numbers: tracking, minimum sizes, ratios --- */
+.pj-specs{margin:0;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,215px),1fr));
+  gap:1px;background:rgba(13,26,65,.14);border:1px solid rgba(13,26,65,.14)}
+.pj-specs>div{background:var(--cream);padding:clamp(18px,2vw,26px)}
+.pj-specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute);margin:0}
+.pj-specs dd{margin:10px 0 0;font-family:var(--serif);font-size:clamp(21px,2vw,29px);
+  line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+.pj-specs dd small{display:block;font-family:var(--sans);font-size:14px;
+  letter-spacing:0;line-height:1.5;color:var(--mute);margin-top:9px}
+[data-nav=dark] .pj-specs,[data-nav=dark] .pj-swatches{background:var(--hair-c);
+  border-color:var(--hair-c)}
+[data-nav=dark] .pj-specs>div,[data-nav=dark] .pj-swatches li{background:var(--night)}
+[data-nav=dark] .pj-specs dt,[data-nav=dark] .pj-swatches code,
+[data-nav=dark] .pj-swatches span,[data-nav=dark] .pj-specs dd small{color:var(--mute-d)}
+
+/* --- the client's own lines, quoted ---
+   brief/02 asks for the written brand lines to be used as pull quotes rather
+   than paraphrased into new copy. They are quotations, so they are marked up
+   as quotations. */
+.pj-quotes{list-style:none;margin:var(--gap-md) 0 0;padding:0;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:clamp(24px,3vw,44px)}
+.pj-quotes blockquote{margin:0;font-family:var(--serif);font-weight:400;
+  font-size:clamp(21px,2.1vw,29px);line-height:1.18;letter-spacing:-.02em;
+  padding-left:18px;border-left:2px solid var(--accent)}
+.pj-system .pj-quotes blockquote{border-left-color:var(--accent-ink)}
+
+/* --- a grid of evidence, where the 1 : 2.4 alternation is wrong ---
+   Three boards of the same kind are a set, and a set reads as a grid. The
+   explicit aspect-ratio matters: a 1208x1800 beside an 1800x1800 in one row
+   jumps the layout as they load. */
+.pj-grid{display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));
+  gap:clamp(22px,3vw,40px);margin:var(--gap-md) 0 0}
+.pj-grid.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.gv{margin:0}
+.gv .ev-frame{aspect-ratio:16/9;border-color:rgba(13,26,65,.18)}
+.gv .ev-frame img{width:100%;height:100%;object-fit:cover;display:block}
+.gv.tall .ev-frame{aspect-ratio:2/3}
+.gv.square .ev-frame{aspect-ratio:1}
+[data-nav=dark] .gv .ev-frame{border-color:var(--hair-c)}
+.gv figcaption{margin-top:14px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+[data-nav=dark] .gv figcaption{color:var(--mute-d)}
+.gv figcaption b{display:block;font-weight:500;margin-bottom:7px;color:var(--navy)}
+[data-nav=dark] .gv figcaption b{color:var(--cream)}
+.gv figcaption span{display:block;font-family:var(--sans);font-size:14px;
+  letter-spacing:0;text-transform:none;line-height:1.5;margin-top:8px}
+
+/* --- this, not that --- */
+.pj-compare{display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:1px;margin:var(--gap-md) 0 0;background:rgba(13,26,65,.14);
+  border:1px solid rgba(13,26,65,.14)}
+.pj-compare>div{background:var(--cream);padding:clamp(20px,2.4vw,30px)}
+.pj-compare h3{margin:0 0 14px;font-family:var(--mono);font-size:10px;font-weight:400;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.pj-compare ul{list-style:none;margin:0;padding:0}
+.pj-compare li{padding:9px 0;font-size:16px;line-height:1.45;
+  border-bottom:1px solid rgba(13,26,65,.1);display:flex;gap:10px}
+.pj-compare li:last-child{border-bottom:0}
+.pj-compare li::before{content:"-";flex:0 0 auto;color:var(--mute)}
+.pj-compare .yes li::before{content:"\2713";color:var(--accent-ink)}
+.pj-compare .no li::before{content:"\2715";color:var(--mute)}
+.pj-compare .no li{color:var(--mute)}
+
+/* --- the live site ---
+   An outbound link, and it says so: the destination is not ours, so it opens
+   in a new context and carries rel=noopener. */
+.pj-live{display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:14px clamp(18px,3vw,40px);margin:var(--gap-md) 0 0;
+  padding:clamp(22px,2.6vw,34px) 0;
+  border-top:1px solid var(--hair-c);border-bottom:1px solid var(--hair-c)}
+.pj-system .pj-live{border-color:rgba(13,26,65,.18)}
+.pj-live .mono{margin:0;color:var(--mute-d);flex:0 0 auto}
+.pj-system .pj-live .mono{color:var(--mute)}
+.pj-live a{font-family:var(--serif);font-size:clamp(22px,2.6vw,36px);line-height:1;
+  letter-spacing:-.02em;color:inherit;text-decoration:none;
+  border-bottom:1px solid var(--accent);padding-bottom:4px}
+.pj-live a .ext{font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  margin-left:10px;vertical-align:middle;color:var(--accent-l)}
+.pj-system .pj-live a .ext{color:var(--accent-ink)}
+@media (hover:hover){.pj-live a:hover{border-bottom-width:2px}}
+.pj-live p{margin:0;flex:1 1 260px;min-width:0;font-size:15px;line-height:1.5;
+  color:var(--mute-d)}
+.pj-system .pj-live p{color:var(--mute)}
+
+/* a sourced figure or claim, set small and quiet under what it qualifies */
+.pj-src{font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mute);margin:14px 0 0;line-height:1.6;
+  max-width:72ch}
+[data-nav=dark] .pj-src{color:var(--mute-d)}
+
 /* ============ REDUCED MOTION ============ */
 .rm .pj-next::before{display:none}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:900px){
   .pj-problem-in,.pj-scope-in{grid-template-columns:1fr}
-  .ev,.ev:nth-child(even){grid-template-columns:1fr}
-  .ev:nth-child(even) .ev-frame{order:0}
+  .ev,.ev:nth-of-type(even){grid-template-columns:1fr}
+  .ev .ev-frame,.ev:nth-of-type(even) .ev-frame{grid-column:1;grid-row:1}
+  .ev figcaption,.ev:nth-of-type(even) figcaption{grid-column:1;grid-row:2}
   .pj-nums{grid-template-columns:1fr}
   .pj-next-in{grid-template-columns:1fr}
   .pj-scope ul{columns:1}
+  .pj-chapter{grid-template-columns:1fr}
+  .pj-grid,.pj-grid.two{grid-template-columns:1fr}
+  .pj-live{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:600px){
   .pj-open{min-height:auto;padding-top:clamp(100px,16vh,150px)}
