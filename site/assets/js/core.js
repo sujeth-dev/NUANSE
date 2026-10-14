@@ -991,6 +991,12 @@
   function markPage() {
     $$('.h-split').forEach((h) => {
       if (h.dataset.split === '1') return;
+      /* A heading can opt out and do its own splitting. The home page's
+         headline does: it is written as five lines, one of which is a slot
+         whose word changes, and flattening it to text would throw that slot
+         away. Nothing else uses this, and a page that takes it on owes its
+         own masks, its own wrapS and its own aria-label. */
+      if (h.dataset.split === 'skip') return;
       h.dataset.split = '1';
       const label = h.textContent.replace(/\s+/g, ' ').trim();
       if (!h.closest('[aria-hidden=true]')) h.setAttribute('aria-label', label);

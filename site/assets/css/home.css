@@ -24,8 +24,23 @@
   padding:clamp(104px,14vh,150px) var(--gut) clamp(40px,7vh,72px);
   display:flex;flex-direction:column;justify-content:space-between}
 .hero-h-wrap{position:relative;align-self:flex-start}
-.hero-h{font-family:var(--serif);font-weight:400;font-size:clamp(50px,10vw,148px);line-height:.9;
-  letter-spacing:-.045em;margin:0;max-width:12.5ch;text-wrap:balance}
+/* Five written lines, not a paragraph left to wrap: the second line is a slot
+   whose word changes, and a slot that shares a line with other words would
+   push them sideways four times a rotation. No max-width and no balance —
+   the line breaks are the typography here, and the browser has no say. */
+/* Five lines are a vertical constraint as much as a horizontal one, so the
+   size is bound by both: 12vw is what the longest line ("We design") can take
+   before it reaches the gutter, 13.5vh is what five lines can take before they
+   reach the CTAs on a short window. Measured at 390, 430, 768, 1024, 1440 and
+   1920 — the widest line is 54% of the available width at every one of them. */
+.hero-h{font-family:var(--serif);font-weight:400;font-size:clamp(44px,min(12vw,13.5vh),118px);
+  line-height:.92;letter-spacing:-.045em;margin:0}
+.hl{display:block}
+/* the slot: the word rides in its own mask, and the line holds its height
+   whichever of the four is in it */
+.hl-rot{color:var(--copper)}
+.hl-rot .w{display:block}
+.rot{display:inline-block;will-change:transform}
 .hero-eyebrow{position:relative;align-self:flex-start}
 .hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
 /* a measured fact row carries the lower left, not a paragraph */
@@ -52,10 +67,12 @@
   outline-offset:1px}
 .lens .s.is-turn{transform:scaleX(-1)}
 
-/* The hero's own turn: one letter at a time. */
-@media (hover:hover){
-  .hero .hero-h .s:hover{transform:scaleX(-1);color:var(--copper)}
-}
+/* The hero's own turn: one letter at a time, and driven by home.js rather
+   than by :hover. The reason is the lens — an opaque clone of this layer that
+   follows the pointer. A :hover turn happens on the layer underneath, where
+   it cannot be seen; .is-turn is put on the glyph and on its twin in the
+   clone, so the letter reads the same whichever layer you are looking at. */
+.hero .hero-h .s.is-turn{transform:scaleX(-1);color:var(--copper)}
 .lens .btn.solid{background:var(--cream);color:var(--navy);border-color:var(--cream)}
 .lens .btn{color:var(--cream)}
 .lens .hero-h-wrap{outline:1px dashed var(--copper-l);outline-offset:14px}

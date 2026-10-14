@@ -265,6 +265,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    its nav from the first frame, including with GSAP blocked. */
 .nav-mark{width:22px}
 .nav.mark-flies .nav-mark{opacity:0}
+/* Below 900px the wordmark is gone and the mark is the whole brand, so an
+   empty slot is not a hand-off waiting to happen — it is a nav with no logo
+   in it. The hero's S keeps its flight on the screens that have room for the
+   wordmark; here the mark is simply there. home.js holds the same line. */
+@media (max-width:900px){
+  .nav.mark-flies .nav-mark{opacity:1}
+}
 .nav.dark .nav-mark{filter:brightness(1.22)}
 .wordmark{font-family:var(--serif);font-size:22px;letter-spacing:.02em;line-height:1;white-space:nowrap}
 

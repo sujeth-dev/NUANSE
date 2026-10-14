@@ -29,6 +29,89 @@
   let heroS = null;
   let lensNotes = [];
 
+  /* --- the headline, split by hand ---
+     core.js splits every .h-split into masked words and wraps its S's. This
+     one opts out (data-split="skip") because it is not a sentence that wraps:
+     it is five written lines, and the second is a slot whose word changes. So
+     the same two jobs are done here, per line, and the slot is left alone.
+
+     The slot's own word is never S-wrapped. It is replaced four times a
+     rotation and the lens clone is matched to the base glyph by index — a
+     word list whose S count changes under that would quietly break the
+     alignment check in wireHeroS. The turn belongs to the four lines that
+     stay put. */
+  const ROT_WORDS = ['identities', 'campaigns', 'websites', 'brands'];
+
+  function splitHeadline() {
+    const h = $('.hero .base .hero-h');
+    if (!h || h.dataset.split === '1') return;
+    h.dataset.split = '1';
+    $$('.hl', h).forEach((line) => {
+      const slot = $('.rot', line);
+      if (slot) {
+        /* the slot keeps its own span and gets one mask around it */
+        const w = document.createElement('span');
+        w.className = 'w';
+        const wi = document.createElement('span');
+        wi.className = 'wi';
+        wi.appendChild(slot);
+        w.appendChild(wi);
+        line.textContent = '';
+        line.appendChild(w);
+        return;
+      }
+      line.innerHTML = line.textContent.trim().split(' ')
+        .map((word) => `<span class="w" aria-hidden="true"><span class="wi">${wrapS(word)}</span></span>`)
+        .join(' ');
+    });
+  }
+
+  /* --- the word that changes ---
+     Out the top, in from the bottom, on the same curve and the same mask the
+     hero's other words rise out of. The line is a line of its own, so nothing
+     around it moves; only the slot does. The lens clone is handed the same
+     word at the same moment, because it is an opaque copy sitting on top and
+     two layers showing two different words is the one thing that would give
+     the whole device away. */
+  let rotTl = null;
+  let rotSync = null;
+  function wireRotator() {
+    /* both slots: the base layer's and the lens clone's. This runs after
+       buildLens for that reason — a rotator wired before the clone exists
+       would drive one layer and leave the other reading its first word for
+       ever. */
+    const slots = $$('.hero .rot');
+    if (!slots.length) return;
+    const set = (word) => slots.forEach((s) => { s.textContent = word; });
+    set(ROT_WORDS[0]);
+    if (RM) return;                 /* one word, no rotation; the label reads all four */
+
+    rotTl = gsap.timeline({ repeat: -1, paused: true });
+    ROT_WORDS.forEach((_, i) => {
+      const next = ROT_WORDS[(i + 1) % ROT_WORDS.length];
+      rotTl
+        .to(slots, { yPercent: -115, rotation: -2, duration: 0.5, ease: EASE }, `+=2.2`)
+        .add(() => set(next))
+        /* immediateRender:false, or a paused timeline writes its from-state
+           into the DOM the moment it is built: the slots would start life
+           pushed out of their mask, and the inline style attribute that puts
+           them there is one the CSP blocks when the lens clone re-parses it. */
+        .fromTo(slots,
+          { yPercent: 115, rotation: 2 },
+          { yPercent: 0, rotation: 0, duration: 0.6, ease: EASE, immediateRender: false });
+    });
+
+    /* One moving thing per screen: it sleeps when the hero is off-screen and
+       when a pin has claimed the stage. */
+    const sync = () => {
+      if (!rotTl) return;
+      if (NU.MOTION.hero && !NU.calm()) rotTl.play();
+      else rotTl.pause();
+    };
+    NU.onIdleChange(sync);
+    rotSync = sync;
+  }
+
   function buildLens() {
     const baseInner = $('.hero .base .hero-inner');
     if (!baseInner || !lensScale) return;
@@ -89,6 +172,8 @@
     const mark = (e, on) => {
       const t = e.target;
       if (!t || !t.classList || !t.classList.contains('s')) return;
+      /* the glyph you are pointing at, and nothing else on the line */
+      t.classList.toggle('is-turn', on);
       const i = bs.indexOf(t);
       if (i > -1) ms[i].classList.toggle('is-turn', on);
     };
@@ -140,10 +225,17 @@
         const b = hero.getBoundingClientRect();
         LR.tx = e.clientX - b.left;
         LR.ty = e.clientY - b.top;
-        if (!LR.locked) LR.tr = window.innerWidth < 700 ? 120 : 175;
+        /* The loupe is 350px of opaque navy and the headline is the one thing
+           on this screen you are meant to touch: pointing at an S has to turn
+           that S on the page, not under a disc. So over the headline the
+           loupe closes and the letters answer for themselves. Everywhere else
+           in the hero it behaves exactly as it did. Latched open by the
+           button, it ignores all of this - that is a mode you chose. */
+        const overHead = !!(e.target && e.target.closest && e.target.closest('.hero-h-wrap'));
+        if (!LR.locked) LR.tr = overHead ? 0 : (window.innerWidth < 700 ? 120 : 175);
         if (LR.r < 1) { LR.x = LR.tx; LR.y = LR.ty; }
         if (!LR.locked) {
-          bubble(true);
+          bubble(!overHead);
           /* going still is as good as leaving: the lens is a thing you move,
              so a parked pointer should get the resting state back */
           clearTimeout(idleTimer);
@@ -260,8 +352,20 @@
 
   const spinRot = () => (NU.navSpin ? +gsap.getProperty(NU.navSpin, 'rotation') || 0 : 0);
 
+  /* The flight belongs to the screens that have a wordmark beside the slot.
+     Below 900px core.css hides the wordmark, the mark is the entire brand,
+     and a slot that stays empty until you scroll is simply a nav with no logo
+     in it. Same line as the media query in core.css. */
+  const flies = () => window.innerWidth > 900;
+
   function fly(toNav) {
     if (!heroS || !flyer || !navSlot || !navMark) return;
+    if (!flies()) {
+      markState = toNav ? 'nav' : 'hero';
+      navMark.style.opacity = 1;
+      navSlot.classList.add('filled');
+      return;
+    }
     const want = toNav ? 'nav' : 'hero';
     if (markState === want) return;
     markState = want;
@@ -632,9 +736,12 @@
 
   /* ========================================================== build phase */
   NU.onBuild(() => {
-    /* order matters: the lens clone copies the already-split headline, the
-       letter is split before its pin reads word positions */
+    /* order matters: the headline is split before the lens clones it, so the
+       clone carries the same masks and the same slot; the letter is split
+       before its pin reads word positions */
+    splitHeadline();
     buildLens();
+    wireRotator();
     wireLens();
     splitLetter();
     buildMarquee();
@@ -763,6 +870,22 @@
       });
     }
 
+    /* --- 5 · the still one is driven by the scroll ---
+       No handle here: the page is the control. The split travels left to
+       right as the section crosses the screen and travels back when you
+       scroll up, and setPos does the rest — it clips the after, moves the
+       rule, and writes each redline on as the split passes it and unwrites
+       it on the way back. Scrubbed on the same 0.45 the manifesto uses: it
+       still eases, but it answers the wheel rather than running a second
+       behind it. Reduced motion keeps the still 52% split it has always had. */
+    if (stage && isStatic && !RM) {
+      ScrollTrigger.create({
+        trigger: '#redline', start: 'top 75%', end: 'bottom 60%',
+        scrub: 0.45, invalidateOnRefresh: true,
+        onUpdate: (s) => setPos(8 + s.progress * 84)
+      });
+    }
+
     /* --- the hero's ground sleeps once the hero is gone --- */
     ScrollTrigger.create({
       trigger: '#top', start: 'top bottom', end: 'bottom top',
@@ -792,9 +915,20 @@
   NU.onReady(() => {
     /* a deep link or a restored scroll position lands past the hand-off */
     if (window.pageYOffset > window.innerHeight * 0.22) fly(true);
+    /* the slot starts turning once the curtain is up, not under it */
+    if (rotSync) rotSync();
   });
   NU.onResize(() => {
     /* the flyer's endpoints were measured at the old size */
     if (markState === 'nav' && navMark) navMark.style.opacity = 1;
+    /* crossing 900px either way: below it the mark is always there, and above
+       it the mark belongs to whichever side of the hand-off we are on */
+    if (!flies() && navMark && navSlot) {
+      navMark.style.opacity = 1;
+      navSlot.classList.add('filled');
+    } else if (navMark && markState === 'hero') {
+      navMark.style.opacity = 0;
+      if (navSlot) navSlot.classList.remove('filled');
+    }
   });
 })();

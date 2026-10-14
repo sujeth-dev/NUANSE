@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NUANSE — Brand studio, Bangalore</title>
-<meta name="description" content="NUANSE is a Bangalore brand studio. Most brands are one detail away from looking expensive. Strategy, identity, websites, content, film and performance.">
+<meta name="description" content="NUANSE is a Bangalore brand studio. We design identities, campaigns, websites and brands for businesses that refuse to be ordinary. Strategy, identity, websites, content, film and performance.">
 <meta name="theme-color" content="#0D1A41">
 <link rel="canonical" href="https://www.thenuanse.com/">
 
@@ -20,7 +20,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="NUANSE">
 <meta property="og:title" content="NUANSE — Brand studio, Bangalore">
-<meta property="og:description" content="Most brands are one detail away from looking expensive. Strategy, identity, websites, content, film and performance, held to one standard.">
+<meta property="og:description" content="We design identities, campaigns, websites and brands for businesses that refuse to be ordinary. Strategy, identity, websites, content, film and performance, held to one standard.">
 <meta property="og:url" content="https://www.thenuanse.com/">
 <meta property="og:image" content="https://www.thenuanse.com/assets/brand/og-default.png">
 <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
 <meta property="og:image:alt" content="The NUANSE wordmark in cream on navy.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="NUANSE — Brand studio, Bangalore">
-<meta name="twitter:description" content="Most brands are one detail away from looking expensive.">
+<meta name="twitter:description" content="For businesses that refuse to be ordinary.">
 <meta name="twitter:image" content="https://www.thenuanse.com/assets/brand/og-default.png">
 
 <!-- The fonts are ours now, so they are same-origin and can be preloaded
@@ -128,7 +128,21 @@
     <div class="hero-layer base">
       <div class="hero-inner">
         <div class="hero-h-wrap">
-          <h1 class="hero-h h-split">Most brands are one detail away from looking expensive.</h1>
+          <!-- Five lines, written as five lines rather than left to wrap. The
+               second one is a slot: one word at a time, and because it is a
+               line of its own, swapping it cannot move the four around it.
+               data-split="skip" keeps core.js off it — home.js splits this
+               headline itself, so the slot survives the split. The aria-label
+               is the whole sentence with every word in it, so a screen reader
+               reads a sentence rather than a word that keeps changing. -->
+          <h1 class="hero-h h-split" data-split="skip"
+              aria-label="We design identities, campaigns, websites and brands, for businesses that refuse to be ordinary.">
+            <span class="hl">We design</span>
+            <span class="hl hl-rot"><span class="rot" aria-hidden="true">identities</span></span>
+            <span class="hl">for businesses</span>
+            <span class="hl">that refuse to</span>
+            <span class="hl">be ordinary.</span>
+          </h1>
         </div>
         <div class="hero-foot">
           <div class="hero-ctas">
