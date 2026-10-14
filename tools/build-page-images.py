@@ -155,6 +155,168 @@ PAGES = {
          'and the Z brand avatar on true red.',
          'half'),
     ],
+    'possah': [
+        # --- the campaign: two location frames, three on the seamless ---
+        ('campaign-courtyard',
+         'possah/campaign/possah-1-insta-outdoor-1.jpg',
+         'A campaign frame shot in a colonnaded stone courtyard: arched bays, '
+         'clipped olive trees in terracotta pots and a low fountain, with the '
+         'model in a rust silk blouse and an ivory block-printed skirt.',
+         'half'),
+        ('campaign-interior',
+         'possah/campaign/possah-1-insta-indoor-3.jpg',
+         'A campaign frame in a panelled interior: a gilt mirror and a wall '
+         'sconce behind the model, who stands in window light in a rust halter '
+         'and the same ivory printed skirt, looking up and away.',
+         'half'),
+        ('campaign-amber',
+         'possah/campaign/amber-glow-button-top-5.jpg',
+         'The amber button-through top over a chocolate bias skirt, on a '
+         'seamless ivory ground, a diagonal patch of window light falling '
+         'across the floor behind her.',
+         'grid'),
+        ('campaign-peach',
+         'possah/campaign/peach-art-deco-dress-1-1.jpg',
+         'The peach art-deco dress with embroidered bell sleeves, one sleeve '
+         'lifted to show the fall, full length on a warm seamless ground.',
+         'grid'),
+        ('campaign-rose',
+         'possah/campaign/rose-gold-mandarin-3.jpg',
+         'The rose-gold mandarin-collar top over an ivory bias skirt, on a '
+         "warm seamless ground - the palette's dusty rose and warm ivory "
+         'worn together.',
+         'grid'),
+
+        # --- the system ---
+        ('contents',
+         'possah/identity/in-a-minimal-elegant-style-this-image-displays.jpg',
+         'The contents page of the Possah brand guidelines: eleven numbered '
+         'sections from Brand Story to Tone of Voice, with page numbers, set '
+         'beside the four taglines.',
+         'grid'),
+        ('logo',
+         'possah/identity/in-a-modern-graphic-design-style-a-stylized.jpg',
+         'The Possah lockup: a hand-drawn diamond symbol in a warm '
+         'orange-to-gold gradient beside the wordmark THE POSSAH with HAUTE '
+         'COUTURE set beneath it.',
+         'grid'),
+        ('logo-discipline',
+         'possah/identity/in-a-minimalist-graphic-design-style-this-image.jpg',
+         'Logo construction and clear space, drawn on a grid: symbol height '
+         'is 1X, the gap between symbol and wordmark 0.5X, the gap between '
+         'the serif and sans lines 0.25X, and the exclusion zone on every '
+         'side is half the symbol height.',
+         'grid'),
+        ('palette',
+         'possah/identity/a-color-palette-is-presented-with-primary-colors-atpcnid.jpg',
+         'The Possah colour palette: Dusty Rose Pink, Deep Forest Green and '
+         'Warm Ivory as primaries, Burnt Orange and Muted Mustard Gold as '
+         'accents, each with its hex and RGB values.',
+         'grid'),
+        ('typography',
+         'possah/identity/this-typographic-guide-showcases-font-families.jpg',
+         'The Possah type specification on a forest-green ground: three '
+         'families — a hand-drawn display sans, a grotesque for body and a '
+         'monospace accent — with a weight spectrum, a seven-step scale from '
+         '72pt display to a 9pt label, and the tracking, leading and minimum '
+         'size rules.'),
+        ('ratios',
+         'possah/identity/in-a-graphic-design-style-this-image-presents-a.jpg',
+         'The colour ratio page: a bar divided 60 per cent warm ivory, 30 per '
+         'cent deep forest green and 10 per cent accent, shown applied to a '
+         'web hero, an Instagram post and a packaging panel, under the line '
+         '"Restraint is the brand. Accent should feel earned, never '
+         'decorative."'),
+        ('scale',
+         'possah/identity/in-a-clean-minimalist-style-this-graphic.jpg',
+         'The sizing page: the lockup drawn at four sizes with a measuring '
+         'rule under each - large for print and signage at a minimum of 60 '
+         'millimetres, medium for lookbook and packaging at 35, small for a '
+         'business card or hangtag at 20, and minimum digital for an Instagram '
+         'avatar or favicon at 24 pixels - then the symbol alone at avatar, '
+         'favicon and app-icon sizes, with the instruction to pixel-snap it to '
+         'the grid and never render it below 24 pixels or use the full lockup '
+         'at favicon scale.',
+         'grid'),
+        ('patterns',
+         'possah/identity/in-a-graphic-design-style-the-image-displays-a.jpg',
+         'The pattern system: three tessellations drawn from the brand mark - '
+         'Pattern A in dusty rose on ivory for tissue paper, Pattern B in deep '
+         'forest green for lookbook endpapers, and Pattern C in the '
+         'orange-to-gold gradient for the hero campaign band - under the line '
+         '"Inspired by the brand mark, repeated as a quiet textile rhythm - '
+         'never overpowering."',
+         'grid'),
+        ('icons',
+         'possah/identity/in-a-minimalist-graphic-design-style-a-grid-of.jpg',
+         'Sixteen hairline icons on a 24-pixel grid — atelier, drape, fit, '
+         'tailoring, embroidery, fabric, hanger, garment bag, shipping, care, '
+         'iron, hand-wash, concierge, appointment, gift and sustainability — '
+         'for product care, web interface and packaging callouts.',
+         'grid'),
+        ('moodboard',
+         'possah/identity/this-mood-board-showcases-indian-fashion-with-a.jpg',
+         'The moodboard: draped silk and handloom in rose, ivory and gold, '
+         'close detail of gold embroidery on forest green, light through a '
+         'jali screen, and marigolds beside a swatch of burnt orange.'),
+
+        # --- voice and naming ---
+        ('naming',
+         'possah/identity/in-a-minimalist-graphic-design-style-this-3.jpg',
+         'Taglines and naming: the master line "she wants what she wants." '
+         'with three supporting lines; the collection convention POSSAH, '
+         'season, year, theme word, worked through as Spring 26 Veil, '
+         'Festive 26 Ember and Resort 27 Drift; and four sub-lines — The '
+         'Atelier for couture, The Edit for ready-to-wear, The Drape for '
+         'sarees, The Vault for archive.',
+         'half'),
+
+        # --- it travels ---
+        ('stationery',
+         'possah/identity/a-flat-lay-composition-showcases-stationery-for.jpg',
+         'The stationery suite photographed as a flat lay: letterhead, a '
+         "founder's card in forest green, an invoice, a note card reading "
+         '"she wants what she wants", and an envelope closed with a green wax '
+         'seal, with a brass seal stamp and marigolds alongside.'),
+        ('packaging',
+         'possah/identity/in-a-sophisticated-still-life-a-dark-green.jpg',
+         'The packaging system: a forest-green carrier bag with rope handles, '
+         'a box lined with rose-pink patterned tissue and closed with a '
+         'green band, a drawstring dust bag, swing tags and a card.'),
+        ('atelier',
+         'possah/identity/in-a-modern-minimalist-style-a-well-lit-atelier.jpg',
+         'The atelier interior: rails of rose and ivory garments under a '
+         'tall mirror, a forest-green velvet bench, terracotta floor, and the '
+         'mark etched into a frosted glass door.',
+         'half'),
+
+        # --- on a screen ---
+        ('web',
+         'possah/identity/in-a-refined-editorial-style-a-woman-in-a-dusty.jpg',
+         'The homepage concept: a full-width campaign image carrying "she '
+         'wants what she wants" over it, a line of supporting copy, a '
+         'three-piece edit with names and prices, and a made-to-measure panel '
+         'on forest green.',
+         'half'),
+        ('web-mobile',
+         'possah/identity/in-a-chic-minimalist-style-a-phone-displays-a.jpg',
+         'The same homepage on a phone: the campaign image and tagline, the '
+         'supporting line beneath it, and the edit reflowed to two across.',
+         'half'),
+        ('instagram',
+         'possah/identity/in-a-fashion-editorial-style-this-instagram-feed.jpg',
+         'The Instagram feed designed as a grid: campaign photography '
+         'alternating with typographic tiles carrying the master tagline, a '
+         'burnt-orange panel and a forest-green panel reading "haute '
+         'couture".',
+         'grid'),
+        ('reels',
+         'possah/identity/three-distinct-mobile-screens-display-reel-covers-nzihtsv.jpg',
+         'Three reel covers — The Drape Series, Behind the Stitch, and She '
+         'Wears Possah — each a campaign still with the title set over it and '
+         'the mark at the foot.',
+         'grid'),
+    ],
 }
 
 

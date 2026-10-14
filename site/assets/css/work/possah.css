@@ -1,0 +1,200 @@
+/* ============================================================================
+   NUANSE — work/possah.css · ONE signature element
+
+   "The voice, held."
+
+   WHAT THIS WAS GOING TO BE, AND WHY IT ISN'T
+   brief/02-project-pages.md specifies a live 60/30/10 ratio meter: a bar that
+   tracks the real ivory / green / accent proportion of the campaign imagery as
+   you scroll, and holds at the brand's stated ratio. We built the sampler
+   (tools/sample-ratios.py) and ran it before writing a line of this file. It
+   fails on both candidate corpora, and the numbers are committed next to it in
+   site/assets/work/_ratios-possah-*.json so anyone can check:
+
+     campaign frames   coverage 34.5%   drift +-30pp   proximity 28.7pp
+     identity boards   coverage 83.2%   drift +-8.5pp  proximity 26.4pp
+
+   60/30/10 is a LAYOUT rule. The board that states it illustrates it on a web
+   hero, an Instagram post and a packaging panel — three compositions the
+   studio controls pixel by pixel, under the line "Restraint is the brand."
+   The campaign frames are photographs of garments on a person in a room.
+   Nobody specified the proportion of her hair. Tuning the classifier until the
+   number agreed would have been fabrication with extra steps.
+
+   brief/02 names the fallback: the tone-of-voice matrix. This is it, built as
+   a live element rather than a picture of one, so it carries the weight the
+   Zingara slider carries on the other page.
+
+   HOW IT WORKS
+   The matrix is the control, not an illustration. Possah sits at Bold +
+   Composed, where its own guidelines put it. Drag the point away and the six
+   lines the brand writes dissolve into the six it refuses to write. The
+   argument is that a brand's position on that matrix is a CHOICE, and you can
+   feel what the other choices cost.
+
+   Every line on both sides is quoted verbatim from the tone-of-voice page
+   of the guidelines.
+   The off-quadrant lines are the client's own "we don't write" list — they are
+   not alternative Possah voices, and the page says so in a note rather than
+   letting the interaction imply it.
+
+   THE PROPERTIES
+   The script writes exactly two: --x (soft 0 -> bold 1) and --y (playful 0 ->
+   composed 1). Everything else is CSS reading them, as on the Zingara page.
+   --drift is derived in CSS with max(), so the distance from Possah's plotted
+   position never has to make the round trip through JavaScript:
+
+     --drift: max(0, (.75 - x)/.75, (.75 - y)/.75)
+
+   0 at Possah's position, 1 at the soft/playful corner, and 0 again anywhere
+   bolder or more composed than Possah — which is the honest reading of a
+   matrix whose two far sides are the brand's own direction of travel.
+
+   The one thing that cannot interpolate is which quadrant you are standing in,
+   because that is a text swap rather than a value. It rides on data-q, exactly
+   as Zingara's typeface swap rides on data-settled.
+   ========================================================================== */
+
+/* ============ THE PAGE'S ACCENT ============
+   The documented palette, with hex and RGB, is on the colour board:
+   Dusty Rose Pink #C99A99, Deep Forest Green #1F3A2D, Warm Ivory #F4ECDF,
+   Burnt Orange #B35A2B, Muted Mustard Gold #C8973A.
+
+   Which one goes where is a contrast decision, measured, not a taste one.
+   Against the forest-green opening frame:
+
+     burnt orange on green   2.59:1  -> unusable as text. Rules and blocks only
+     mustard gold on green   4.67:1  -> passes, but thin
+     dusty rose on green     5.03:1  -> the clear winner, and a documented
+                                        PRIMARY rather than an accent stretched
+                                        into a job it was not given
+
+   So rose takes --accent-l, the ink for small text on the dark frame.
+
+   --accent-ink is #A05026: burnt orange darkened until it clears 4.5:1 as
+   small text on ivory (4.88:1) and on the chassis cream (5.37:1). Same
+   derivation, and the same reason, as core.css's --copper-ink.
+
+   ONE DELIBERATE RESTRAINT. Possah's burnt orange #B35A2B and NUANSE's copper
+   #B56528 are nearly the same colour, and the nav stays NUANSE copper on every
+   page. So green carries this page's signal and orange is held to the accent
+   rule and the signature — which is what the brand's own 10% ceiling asks for
+   anyway. Two near-identical oranges competing for the same meaning would read
+   as a mistake even to someone who could not name why. */
+.pj-possah{
+  --accent:#B35A2B;
+  --accent-l:#C99A99;
+  --accent-ink:#A05026;
+  --pj-ground:#1F3A2D;
+  --pj-sig-bg:#F4ECDF;
+}
+/* the next-project panel wears the NEXT brand's colour: Zingara true red */
+.pj-next-zingara{--next-accent:#C8332A}
+
+/* The documented palette as chips. Classes setting --sw, never style
+   attributes: style-src has no 'unsafe-inline'. The chip is hidden from the
+   accessibility tree and the hex beside it is real text. */
+.sw-p-rose{--sw:#C99A99}
+.sw-p-green{--sw:#1F3A2D}
+.sw-p-ivory{--sw:#F4ECDF}
+.sw-p-orange{--sw:#B35A2B}
+.sw-p-gold{--sw:#C8973A}
+
+/* the opening frame is the brand's own ground, not the chassis night */
+.pj-possah .pj-open{background:var(--pj-ground)}
+
+/* ============================================================================
+   THE VOICE MATRIX
+   ========================================================================== */
+.pv{
+  --x:.75; --y:.75;
+  /* Possah's plotted position, read off the tone-of-voice page: inside the
+     Bold + Composed quadrant, not at its corner. A brand at the corner of its
+     own matrix would be a caricature of itself, and the board does not draw
+     one there.
+
+     Drift is the Chebyshev distance from that point, one-sided: moving SOFTER
+     or more PLAYFUL than Possah is drift, moving bolder or more composed is
+     not. max() rather than a real hypotenuse because CSS has no sqrt - and
+     because this reaches 1 along either axis alone, which is the honest
+     reading: drifting on one axis is already drifting. */
+  --drift:max(0, calc((.75 - var(--x)) / .75), calc((.75 - var(--y)) / .75));
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(28px,4vw,64px);align-items:start;
+  margin:var(--gap-md) 0 0}
+
+/* --- the pad --- */
+.pv-pad{position:relative;aspect-ratio:1;border:1px solid rgba(31,58,45,.28);
+  background:var(--pj-sig-bg);touch-action:none;cursor:grab}
+.pv-pad:active{cursor:grabbing}
+.pv-pad::before,.pv-pad::after{content:"";position:absolute;background:rgba(31,58,45,.22)}
+.pv-pad::before{left:50%;top:0;bottom:0;width:1px}
+.pv-pad::after{top:50%;left:0;right:0;height:1px}
+
+/* axis labels. Set in the chassis mono, on the brand's ivory. */
+.pv-ax{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:#4A6356;margin:0}
+.pv-ax.n{top:10px;left:50%;transform:translateX(-50%)}
+.pv-ax.s{bottom:10px;left:50%;transform:translateX(-50%)}
+.pv-ax.w{left:10px;top:50%;transform:translateY(-50%)}
+.pv-ax.e{right:10px;top:50%;transform:translateY(-50%)}
+
+/* where the brand sits, marked permanently so the drift has a reference */
+.pv-home{position:absolute;right:calc(25% - 19px);top:calc(25% - 19px);
+  width:38px;height:38px;border-radius:50%;border:1px dashed var(--accent);
+  opacity:.75}
+.pv-home-label{position:absolute;right:12%;top:calc(25% - 34px);margin:0;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent-ink);text-align:right;
+  line-height:1.4;max-width:44%}
+
+/* the point itself. left/top off --x and --y; nothing else moves it. */
+.pv-dot{position:absolute;width:24px;height:24px;margin:-12px 0 0 -12px;
+  border-radius:50%;background:var(--accent);
+  left:calc(var(--x) * 100%);top:calc((1 - var(--y)) * 100%);
+  box-shadow:0 0 0 6px rgba(179,90,43,.14);pointer-events:none}
+.pv-pad:focus-within .pv-dot{box-shadow:0 0 0 6px rgba(179,90,43,.3)}
+
+/* the two range inputs are the keyboard and screen-reader path. Visually
+   hidden rather than display:none, because display:none is not focusable. */
+.pv-ctrl{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);
+  white-space:nowrap}
+
+/* --- the lines --- */
+.pv-read{min-height:0}
+.pv-q{margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-ink)}
+.pv-col{position:relative}
+.pv-list{list-style:none;margin:0;padding:0}
+.pv-list li{margin:0 0 10px}
+.pv-list p{margin:0;font-family:var(--serif);font-weight:400;
+  font-size:clamp(20px,2.2vw,31px);line-height:1.22;letter-spacing:-.02em}
+
+/* The cross-fade. Each layer owns half the drift range, so the two are never
+   both at full strength in the middle — a straight linear fade muddles into an
+   unreadable overlap, which is the same correction the Zingara typefaces
+   needed. The second layer is stacked on the first and takes over. */
+.pv-write{opacity:calc(1 - var(--drift) * 2)}
+.pv-dont{position:absolute;inset:0;opacity:calc((var(--drift) - .5) * 2)}
+.pv-dont .pv-list p{font-style:italic;color:#6E6257}
+
+.pv-words{margin:clamp(22px,2.6vw,34px) 0 0;padding-top:16px;
+  border-top:1px solid rgba(31,58,45,.2);font-family:var(--mono);font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:#5B5146;line-height:1.7}
+.pv-words b{color:var(--accent-ink);font-weight:400}
+
+/* The announcement for assistive technology. The visual cross-fade says
+   nothing to a screen reader, so the state is also stated in words. */
+.pv-say{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+
+/* --- reduced motion ---
+   The dot is placed explicitly at Possah's position at init by the script;
+   here we simply remove the easing so nothing slides. There is no reveal to
+   forget the end state of, because the end state IS the default. */
+.rm .pv-dot{transition:none}
+.rm .pv-write,.rm .pv-dont{transition:none}
+
+@media (max-width:900px){
+  .pv{grid-template-columns:1fr}
+  .pv-pad{max-width:420px}
+}

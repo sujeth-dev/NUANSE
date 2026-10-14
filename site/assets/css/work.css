@@ -188,10 +188,15 @@
    real text and the chip is hidden from the tree. Chip colours arrive as
    classes setting --sw, never as style attributes: the CSP drops
    'unsafe-inline' from style-src. */
+/* same hairline rule as .pj-specs below, and for the same reason: five
+   swatches do not fill a four-wide row either */
 .pj-swatches{list-style:none;margin:0;padding:0;display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:1px;
-  background:rgba(13,26,65,.14);border:1px solid rgba(13,26,65,.14)}
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:0;
+  border-top:1px solid rgba(13,26,65,.14);
+  border-left:1px solid rgba(13,26,65,.14)}
 .pj-swatches li{background:var(--cream);padding:clamp(18px,2vw,26px);
+  border-right:1px solid rgba(13,26,65,.14);
+  border-bottom:1px solid rgba(13,26,65,.14);
   display:flex;flex-direction:column;gap:12px}
 .pj-swatches .sw{width:100%;height:58px;background:var(--sw,#999);
   border:1px solid rgba(13,26,65,.14)}
@@ -201,18 +206,27 @@
 .pj-swatches span{font-size:14px;line-height:1.5;color:var(--mute);max-width:30ch}
 
 /* --- documented numbers: tracking, minimum sizes, ratios --- */
+/* The hairlines are drawn ON the cells, not bled through a 1px gap over a
+   coloured container. auto-fit leaves empty tracks whenever the count does not
+   fill the last row - eight specs in a six-wide grid - and the bleed trick
+   paints those empty tracks as a solid slab. Per-cell borders simply stop
+   where the content stops. */
 .pj-specs{margin:0;display:grid;
   grid-template-columns:repeat(auto-fit,minmax(min(100%,215px),1fr));
-  gap:1px;background:rgba(13,26,65,.14);border:1px solid rgba(13,26,65,.14)}
-.pj-specs>div{background:var(--cream);padding:clamp(18px,2vw,26px)}
+  gap:0;border-top:1px solid rgba(13,26,65,.14);
+  border-left:1px solid rgba(13,26,65,.14)}
+.pj-specs>div{background:var(--cream);padding:clamp(18px,2vw,26px);
+  border-right:1px solid rgba(13,26,65,.14);
+  border-bottom:1px solid rgba(13,26,65,.14)}
 .pj-specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--mute);margin:0}
 .pj-specs dd{margin:10px 0 0;font-family:var(--serif);font-size:clamp(21px,2vw,29px);
   line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
 .pj-specs dd small{display:block;font-family:var(--sans);font-size:14px;
   letter-spacing:0;line-height:1.5;color:var(--mute);margin-top:9px}
-[data-nav=dark] .pj-specs,[data-nav=dark] .pj-swatches{background:var(--hair-c);
-  border-color:var(--hair-c)}
+[data-nav=dark] .pj-swatches,[data-nav=dark] .pj-swatches li{border-color:var(--hair-c)}
+[data-nav=dark] .pj-specs{border-color:var(--hair-c)}
+[data-nav=dark] .pj-specs>div{border-color:var(--hair-c)}
 [data-nav=dark] .pj-specs>div,[data-nav=dark] .pj-swatches li{background:var(--night)}
 [data-nav=dark] .pj-specs dt,[data-nav=dark] .pj-swatches code,
 [data-nav=dark] .pj-swatches span,[data-nav=dark] .pj-specs dd small{color:var(--mute-d)}
@@ -242,6 +256,9 @@
 .gv .ev-frame img{width:100%;height:100%;object-fit:cover;display:block}
 .gv.tall .ev-frame{aspect-ratio:2/3}
 .gv.square .ev-frame{aspect-ratio:1}
+/* 4:5 is the campaign frames' own ratio. Giving them 2/3 would crop a
+   seventh off the width of a photograph someone composed. */
+.gv.p45 .ev-frame{aspect-ratio:4/5}
 [data-nav=dark] .gv .ev-frame{border-color:var(--hair-c)}
 .gv figcaption{margin-top:14px;font-family:var(--mono);font-size:10px;
   letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
