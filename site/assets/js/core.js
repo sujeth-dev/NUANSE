@@ -409,7 +409,6 @@
       h.addEventListener('mouseenter', () => {
         const n = $$('.s', h).length;
         if (n) bump(n);
-        if (turns && turns <= 3) toast('One turned. There are more.');
       });
     });
   }
@@ -422,8 +421,7 @@
     keybuf = '';
     const on = !document.body.classList.contains('allturn');
     document.body.classList.toggle('allturn', on);
-    if (on) { bump($$('.s').length); toast('Every S, turned. That is the detail.'); }
-    else toast('Back to normal. Mostly.');
+    if (on) bump($$('.s').length);
   });
   /* Touch has no hover, so the device would simply be absent there. A
      triple-tap on the mark is the nuanse-house answer and it is three lines. */
@@ -437,7 +435,6 @@
       taps = [];
       const on = !document.body.classList.contains('allturn');
       document.body.classList.toggle('allturn', on);
-      toast(on ? 'Every S, turned. That is the detail.' : 'Back to normal. Mostly.');
     });
   }
 

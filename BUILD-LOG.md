@@ -5,6 +5,50 @@ matters — what was measured rather than assumed.
 
 ---
 
+## 2026-10-14 · The home page stops explaining itself
+
+A copy pass, classified and approved line by line before anything was
+touched: 35 strings cut from the home page, nothing rewritten yet. Three
+kinds of text went.
+
+**Labels that explain the interaction.** "Move slowly. Look closer.",
+"Open a proof to read the case", "Hover a card to turn it", "Founder eyes on
+everything. Pick a need and watch who joins.", "Read it slowly. It's short on
+purpose.", and the two footer lines that gave away the easter eggs ("The S is
+reversed on purpose", "Type “nuanse” anywhere"). A page that captions its own
+gestures reads as unsure of them. "Look closer" alone appeared six times
+across the cursor, the hero section, the toggle and the hint; the toggle keeps
+it and the other five are gone.
+
+**The numbered mono eyebrows.** `02 · Disciplines` through `09 · Audit`, plus
+`03 · A letter` and `05 · Case · Zingara`. Where a section needs naming it gets
+a real heading in the display face rather than an 11px mono tag above one, so
+`.sec-head` now spans its single remaining child across the grid instead of
+leaving the h2 in the narrow first column.
+
+**Facts said twice.** `8 people · 5 disciplines` stood in the hero, the letter
+sign-off and as the Team heading; it survives once, in Team. "Every job ends
+with numbers" is still made by the letter, Process 04 and the whole audit
+section. `Stage 01`–`04` duplicated both the ordered list and the readout
+panel, and that panel restated the stage you were already reading, so it is
+gone and the stage timings stand alone. Also cut: the duplicate `Before ·
+After` tagline under the tags that already say it, the S-counter in the nav
+and its three toasts, and "Registering" from the loader.
+
+**Deliberately not done.** The audit trail's mark vocabulary stays as built
+two days ago. The list approved for this pass called for cutting its spec
+strings, but that pool has since been rebuilt into five documented categories
+where `Menu`, `Signage`, `Swiggy` and `Zomato` are plainly client-legible;
+undoing that unseen was the wrong call, so it is back with the author. The
+lens annotations keep their type specs for the same reason — only `an-eb` went,
+because its anchor, the hero eyebrow, no longer exists.
+
+`bump()` and `toast()` are left intact in `core.js` though nothing now calls
+them from the home page. They are shared chassis, and leaving them means the
+counter is restored by putting its markup back.
+
+---
+
 ## 2026-10-12 · Hero S per glyph, the bubble, and a brand vocabulary for the audit
 
 Three of the five corrections raised against the Phase 2 review.

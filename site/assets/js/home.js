@@ -71,9 +71,6 @@
       h1c.parentNode.replaceChild(h1d, h1c);
     }
 
-    /* the type specs the lens reveals */
-    $('.hero-eyebrow', clone).insertAdjacentHTML('beforeend',
-      '<span class="an an-eb">Plex Mono · 11px · +0.14em</span>');
     $('.hero-h-wrap', clone).insertAdjacentHTML('beforeend',
       '<span class="an an-h1">H1 · Gloock 400 · tracking −0.045em</span>' +
       '<span class="an an-h2">Cap height · 0.94 lead · balanced rag</span>' +
@@ -253,7 +250,7 @@
        different point in the reveal than the layer under it */
     const bw = $$('.hero .base .wi');
     const lw = $$('.hero .lens .wi');
-    const bits = $$('.hero .hero-eyebrow, .hero .hero-facts, .hero .hero-ctas, .hero-hint, .lens-toggle');
+    const bits = $$('.hero .hero-ctas, .lens-toggle');
     gsap.timeline()
       .to(bw, { yPercent: 0, rotation: 0, duration: 1.1, stagger: 0.06 }, 0)
       .to(lw, { yPercent: 0, rotation: 0, duration: 1.1, stagger: 0.06 }, 0)
@@ -976,7 +973,7 @@
     /* the hero's words start below their masks */
     if (!RM) {
       gsap.set($$('.hero .wi'), { yPercent: 115, rotation: 2 });
-      gsap.set($$('.hero .hero-eyebrow, .hero .hero-facts, .hero .hero-ctas, .hero-hint, .lens-toggle'), { opacity: 0 });
+      gsap.set($$('.hero .hero-ctas, .lens-toggle'), { opacity: 0 });
     }
 
     /* --- 3 · MANIFESTO: the letter rises out of the envelope and sharpens --- */

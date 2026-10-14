@@ -351,6 +351,10 @@ section{position:relative}
 .sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm);
   align-items:end;margin-bottom:var(--gap-md)}
 .sec-head .lede{margin-top:22px}
+/* The numbered mono eyebrows are gone, so the heading is the section's
+   entry. A head left with one child spans the grid instead of sitting in
+   the narrow first column; .lede keeps its own 46ch measure. */
+.sec-head > :only-child{grid-column:1 / -1}
 [data-nav=dark]{color:var(--cream)}
 
 /* ============ TOAST ============ */
