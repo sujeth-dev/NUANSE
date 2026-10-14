@@ -276,6 +276,19 @@
   }
   markCurrentPage();
 
+  /* ------------------------------------------------------- THE NAV'S MARK
+     The slot holds the logo on every page. The home page is the exception and
+     it is the reason the slot exists: there, the hero's S flies up into it on
+     scroll, so the mark starts invisible and the dashed ring stands empty
+     until it lands. A page that flies it is a page with a .flyer; everything
+     else simply has its logo, ring filled, from the first frame — which is
+     also what the no-GSAP path below has always done. */
+  if (nav && $('.flyer')) {
+    nav.classList.add('mark-flies');
+  } else if (navSlot) {
+    navSlot.classList.add('filled');
+  }
+
   /* ------------------------------------------------ graceful no-GSAP exit
      The page must still read. Lift the curtain, give the menu button a plain
      class toggle so every destination stays reachable, and stop. */
@@ -582,11 +595,25 @@
   const cRule = $('.cl-rule');
   let busy = false;
 
+  /* The mark on the curtain is two stacked copies of the real asset, and
+     which one shows is a question about the ground under it. The first-visit
+     opener starts on the cream cover, where the navy copy is the logo and the
+     copper one fades up as the cover lifts. Every other time the curtain is
+     shown — a page change, an anchor jump, a return visit — there is no
+     cover, the ground is navy, and the navy copy reads as a flat blue S on
+     navy rather than as the mark. So every one of those paths asks for copper
+     before it shows anything. */
+  function markOnNavy() {
+    if (cmNavy) gsap.set(cmNavy, { opacity: 0 });
+    if (cmCopper) gsap.set(cmCopper, { opacity: 1 });
+  }
+
   /* an in-page anchor: curtain down, jump, curtain up */
   function goAnchor(target) {
     if (busy) return;
     busy = true;
     FOIL.setActive('open', true);
+    markOnNavy();
     const wasMenu = menu && menu.classList.contains('open');
     if (RM) {
       gsap.timeline({ onComplete: () => { busy = false; } })
@@ -614,6 +641,7 @@
     if (busy) return;
     busy = true;
     FOIL.setActive('open', true);
+    markOnNavy();
     const leave = () => { window.location.href = url; };
     if (RM) {
       gsap.timeline({ onComplete: leave })
@@ -657,6 +685,7 @@
   function loader(done) {
     if (!curtain) { done(); return; }
     if (RM || SEEN) {
+      markOnNavy();
       gsap.timeline({ onComplete: done })
         .to(curtain, { opacity: 0, duration: RM ? 0.5 : 0.3, ease: 'none' }, RM ? 0.2 : 0)
         .set(curtain, { visibility: 'hidden', opacity: 1 })

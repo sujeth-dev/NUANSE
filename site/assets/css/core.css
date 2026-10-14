@@ -259,8 +259,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   border-radius:50%;opacity:.35;transition:opacity var(--t-mid) var(--ease)}
 .nav-slot.filled::after{opacity:0}
 .nav-spin{display:grid;place-items:center;width:100%;height:100%}
-/* the mark lands here from the hero, so it starts invisible */
-.nav-mark{width:22px;opacity:0}
+/* The mark is simply here. It starts invisible only on a page that flies it
+   in from somewhere — the home page, whose hero S lands in this slot — and
+   core.js marks that page with .mark-flies. Every other page has a logo in
+   its nav from the first frame, including with GSAP blocked. */
+.nav-mark{width:22px}
+.nav.mark-flies .nav-mark{opacity:0}
 .nav.dark .nav-mark{filter:brightness(1.22)}
 .wordmark{font-family:var(--serif);font-size:22px;letter-spacing:.02em;line-height:1;white-space:nowrap}
 
