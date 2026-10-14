@@ -981,7 +981,7 @@
     /* scroll */
     lenis, stopScroll, startScroll, jumpTo,
     /* chrome */
-    nav, setNav, setMenu, moveInd, toast, cursorRest, sizeFooter,
+    nav, setNav, setMenu, moveInd, toast, cursorRest, sizeFooter, goPage,
     navSlot, navMark, navSpin,
     /* lifecycle: page scripts hook in rather than racing boot */
     onBuild: (fn) => buildHooks.push(fn),

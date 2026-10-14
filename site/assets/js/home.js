@@ -512,19 +512,7 @@
      it becomes a NEEDS placeholder — the markup for which is already here. */
   const CASES = [
     {
-      name: 'Zingara', sector: 'Restaurant · Bangalore', cc: '#8A2B1D',
-      title: 'The menu was costing them.',
-      brief: 'Our first client, won on a cold call. The food was better than the room suggested and far better than the menu. 189 items in four typefaces, prices that wandered, and delivery listings that looked like three different restaurants.',
-      fixes: [
-        'One display face, kerned by hand. The name reads as a place, not a font sample.',
-        'Oxblood as the only accent. Four competing colours became one decision.',
-        'Prices aligned in one column, no “Rs.” and no “/-”. Diners read dishes first, numbers second.'
-      ],
-      results: [['+22%', 'Average order value'], ['−31%', 'Cost per reservation'], ['3 → 1', 'Looks across dine-in, Swiggy and Zomato']],
-      scope: ['Brand audit', 'Identity', 'Menu system · 189 items', 'Swiggy & Zomato listings', 'Petpooja item names', 'Reels']
-    },
-    {
-      name: '24 SKUs. One shoot.', sector: 'D2C fashion · India', cc: '#3F4A2E',
+      no: 2, name: '24 SKUs. One shoot.', sector: 'D2C fashion · India', cc: '#3F4A2E',
       title: 'One light. One day. Every SKU.',
       brief: 'A fabric-first label with product people kept and photos nobody shared. Every SKU had been shot on a different day in a different light, so the store looked like a marketplace of its own.',
       fixes: [
@@ -536,7 +524,7 @@
       scope: ['Shoot direction', 'Product photography', 'Reels', 'Shopify product pages', 'Meta ads']
     },
     {
-      name: 'A GCC, Bangalore', sector: 'Global capability centre', cc: '#16245A',
+      no: 3, name: 'A GCC, Bangalore', sector: 'Global capability centre', cc: '#16245A',
       title: 'We redlined “leveraging synergies”.',
       brief: 'A new global capability centre needed a strategy people could repeat, a name system for six teams and a website that helps it hire. The first draft of the strategy used “leveraging synergies” four times.',
       fixes: [
@@ -564,7 +552,7 @@
     const c = CASES[i];
     ov.style.setProperty('--cc', c.cc);
     ovIn.innerHTML =
-      `<div class="case-top case-x"><div><p class="mono">Case 0${i + 1} · ${esc(c.sector)}</p>` +
+      `<div class="case-top case-x"><div><p class="mono">Case 0${c.no} · ${esc(c.sector)}</p>` +
       `<h2 class="case-title">${wrapWords(c.title)}</h2></div>` +
       `<p class="case-brief">${esc(c.brief)}</p></div>` +
       '<div class="case-grid case-x"><div><p class="mono">The redline</p><ol class="fixes">' +
@@ -656,7 +644,7 @@
   let beforeFidget = null;
 
   function writeOn(a) {
-    a.li.classList.add('on');
+    if (a.li) a.li.classList.add('on');
     if (RM) {
       gsap.set(a.path, { drawSVG: '100%' });
       a.t.textContent = a.txt;
@@ -673,7 +661,7 @@
     });
   }
   function unwrite(a) {
-    a.li.classList.remove('on');
+    if (a.li) a.li.classList.remove('on');
     gsap.killTweensOf([a.path, a.badge, a.t]);
     gsap.to(a.path, { drawSVG: '0%', duration: 0.5 });
     gsap.to([a.badge, a.t], { opacity: 0, duration: 0.4, onComplete: () => { a.t.textContent = ''; } });
@@ -692,23 +680,6 @@
     if (!beforeFidget) return;
     if (NU.MOTION.rl && !NU.calm()) beforeFidget.play();
     else beforeFidget.pause();
-  }
-  /* The numbers climb from zero, once. */
-  function countResults() {
-    if (RM) return;
-    $$('.rl-results strong').forEach((el, i) => {
-      const m = el.textContent.trim().match(/^([^\d]*)(\d+(?:\.\d+)?)(.*)$/);
-      if (!m) return;
-      const pre = m[1];
-      const target = parseFloat(m[2]);
-      const post = m[3];
-      const dec = m[2].indexOf('.') >= 0 ? 1 : 0;
-      const o = { v: 0 };
-      gsap.to(o, {
-        v: target, duration: 0.9, delay: i * 0.12, ease: 'power2.out',
-        onUpdate: () => { el.textContent = pre + o.v.toFixed(dec) + post; }
-      });
-    });
   }
 
   /* The home page now carries a STILL of this, not the control. The full
@@ -1185,7 +1156,6 @@
       });
     }
     if (stage) {
-      ScrollTrigger.create({ trigger: '.rl-results', start: 'top 88%', once: true, onEnter: countResults });
       /* the fidget is the argument, with or without a control */
       ScrollTrigger.create({
         trigger: '#redline', start: 'top bottom', end: 'bottom top',
@@ -1210,7 +1180,10 @@
 
   /* ------------------------------------------------------------ wiring up */
   $$('.print').forEach((p) => {
-    const open = () => openCase(+p.dataset.case, p);
+    const open = () => {
+      if (p.dataset.href) { NU.goPage(p.dataset.href); return; }
+      openCase(+p.dataset.case, p);
+    };
     p.addEventListener('click', open);
     p.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return;

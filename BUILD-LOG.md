@@ -129,6 +129,43 @@ so it is reported rather than changed.
 
 ---
 
+## 2026-10-14 · Zingara is told once
+
+The second half of the approved copy pass. Zingara was being told four times
+— proof print 01, the redline section, the case overlay and its own page —
+with the same headline, the same three fixes and, in two of them, conflicting
+numbers. It is now told once, on its page.
+
+**The redline section keeps the argument and drops the retelling.** The
+before/after mock stays, because that comparison is the point and makes it
+without copy. The `A B C` fixes list and the results pair go: both are on
+`work/zingara.html` in full, and the button under the lede has always gone
+there. The three annotation labels stop reciting specifications —
+`A · Gloock · kerning −0.02em` becomes `A · One typeface, kerned by hand`,
+and the hex value and the `no Rs. no /-` note go the same way. A founder can
+act on the second phrasing.
+
+**This resolves a contradiction, not just a duplication.** The home page
+stated `+22%` average order value and `−31%` cost per reservation as fact,
+while the case page carried those same two figures as `[[NEEDS]]`
+placeholders awaiting confirmation. One of the two pages had to be wrong.
+Removing the home page's claim leaves the case page as the single answer, and
+it says plainly that the figures are pending.
+
+**Proof 01 is now a route, not a dialog.** It carries `data-href` instead of
+`data-case`, and the print wiring sends a print with an href through
+`NU.goPage` — the curtain page-change, now exported from the chassis rather
+than private to `core.js`. The overlay keeps the two cases that have no page
+yet, and each carries its own `no:` so the card still reads `Case 02` and
+`Case 03` against the prints they belong to rather than renumbering to fill
+the gap.
+
+`countResults()` and its ScrollTrigger are gone with the figures they
+animated, and `writeOn`/`unwrite` now guard `a.li`, since the list item each
+annotation used to light no longer exists on this page.
+
+---
+
 ## 2026-10-14 · The home page stops explaining itself
 
 A copy pass, classified and approved line by line before anything was

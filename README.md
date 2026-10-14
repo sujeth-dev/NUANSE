@@ -8,6 +8,30 @@ in a browser and it runs.
 
 ---
 
+## More than one agent works in here
+
+Several Claude sessions edit this repo at the same time, so the working tree
+is not necessarily yours alone. The rules that keep that from hurting:
+
+1. **Read this section first, and `git log --oneline -5`.** A file can change
+   between reading it and editing it. If a line number from an earlier survey
+   no longer matches, re-read the file rather than trusting the number.
+2. **Stage your own paths by name.** Never `git commit -a` and never
+   `git add .` — you will take someone else's half-finished work with you.
+   `git status --short` tells you which changes are not yours.
+3. **Claim what you are about to touch** by adding a line to the table below,
+   and delete the line when you have committed.
+4. **Do not revert work you did not do**, even if a task list says to. If an
+   instruction conflicts with a commit that landed since, say so and leave it.
+
+### In flight
+
+| Area | Session | State |
+|---|---|---|
+| _(nothing claimed)_ | | |
+
+---
+
 ## Layout
 
 ```
@@ -187,9 +211,13 @@ that looked cream under review measured `rgb(17,25,53)`.
 ## Still open
 
 - Naming permission per client, and confirmation of the case figures carried
-  over from the previous build (`+22%` AOV, `−31%` cost per reservation,
-  `2.4×` ROAS, `+38%` product page conversion). Unconfirmed figures become
-  visible `[[NEEDS: ...]]` placeholders rather than shipping as fact.
+  over from the previous build (`2.4×` ROAS and `+38%` product page conversion,
+  both still live in the overlay cases). Unconfirmed figures become visible
+  `[[NEEDS: ...]]` placeholders rather than shipping as fact. The two Zingara
+  figures are no longer among them: the home page asserted `+22%` AOV and
+  `−31%` cost per reservation as fact while `work/zingara.html` carried the
+  same two as `[[NEEDS]]` placeholders. The home page no longer states them,
+  so the case page is the single answer and it says the figures are pending.
 - The Zingara "before" in the redline slider is a reconstruction, not a
   photograph of the client's original menu. Fine as rhetoric on the home page;
   it needs labelling before it carries a project page.
