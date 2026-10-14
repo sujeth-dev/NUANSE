@@ -1,16 +1,18 @@
 /* ============================================================================
-   NUANSE — work-index.js · the proofs, marked up
+   NUANSE — proofs.js · the proofs, marked up
 
    The three pinned proof prints, and the case overlay the two unnamed ones
-   open. Moved off the home page verbatim, where it was section 4 of eleven.
+   open. Shared by the home page and work/index.html: both carry the same
+   section.work markup, and the stack swaps print for print in one place as
+   you scroll.
 
    A print carrying data-href is a route to a real case page and goes there
    instead; the overlay is for the cases that have no page of their own.
 
-   Loaded after core.js and only by work/index.html. Everything shared — the loader,
-   nav, cursor, scroll, footer, the focus trap — is core's. It registers through
-   NU rather than racing core's boot: NU.onBuild for anything that creates a
-   ScrollTrigger, NU.onReady for after the curtain has lifted.
+   Loaded after core.js. Everything shared — the loader, nav, cursor, scroll,
+   footer, the focus trap — is core's. It registers through NU rather than
+   racing core's boot: NU.onBuild for anything that creates a ScrollTrigger,
+   NU.onReady for after the curtain has lifted.
    ========================================================================== */
 (() => {
   'use strict';
@@ -205,10 +207,24 @@
       wcN.textContent = t;
       gsap.to(wcBar, { scaleX: (i + 1) / 3, duration: 0.6 });
     }
-    if (!RM && prints.length === 3) {
+    /* the pin is the section the stack sits in, whatever its id is: the
+       home page calls it #work, the work index #proofs */
+    const sec = prints.length ? prints[0].closest('.work') : null;
+    if (!RM && sec && prints.length === 3) {
       gsap.set(prints[1], { rotation: 2.5, y: 12, scale: 0.965 });
       gsap.set(prints[2], { rotation: -2, y: 24, scale: 0.93 });
-      const wtl = gsap.timeline({ defaults: { ease: EASE } });
+      /* the counter follows the scrubbed timeline, not the scroll position,
+         so it changes when the print does rather than a beat before */
+      const wtl = gsap.timeline({
+        defaults: { ease: EASE },
+        onUpdate: () => {
+          let idx = 0;
+          prints.forEach((p, i) => {
+            if (i > 0 && gsap.getProperty(prints[i - 1], 'yPercent') > 60) idx = i;
+          });
+          setCount(idx);
+        }
+      });
       prints.forEach((p, i) => {
         const paths = $$('.redline path', p);
         const tags = $$('.redline .tag', p);
@@ -221,15 +237,8 @@
       });
       wtl.to({}, { duration: 0.3 });
       ScrollTrigger.create({
-        trigger: '#work', start: 'top top', end: '+=120%', pin: '.work-stage',
-        scrub: 1, animation: wtl, invalidateOnRefresh: true, onToggle: NU.pinClaim,
-        onUpdate: () => {
-          let idx = 0;
-          prints.forEach((p, i) => {
-            if (i > 0 && gsap.getProperty(prints[i - 1], 'yPercent') > 60) idx = i;
-          });
-          setCount(idx);
-        }
+        trigger: sec, start: 'top top', end: '+=120%', pin: $('.work-stage', sec),
+        scrub: 1, animation: wtl, invalidateOnRefresh: true, onToggle: NU.pinClaim
       });
     }
   });

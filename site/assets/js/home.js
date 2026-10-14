@@ -618,7 +618,7 @@
      Everything above this line that touches the DOM needs no animation
      library, so it runs either way. The two builders that used to run here -
      the team portraits and the proof photographs - went with their sections
-     to team.js and work-index.js, and each one still runs above that file's
+     to team.js and proofs.js, and each one still runs above that file's
      own guard for the same reason. */
   if (NU.dead) return;                  /* no GSAP: core already lifted the curtain */
 
