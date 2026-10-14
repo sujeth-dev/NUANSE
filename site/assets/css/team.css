@@ -1,8 +1,15 @@
 /* ============================================================================
-   NUANSE — team.css · eight people
+   NUANSE — team.css · ten people
 
    The brief builder, the lane, the scattered portraits and the hiring
-   line. Moved off the home page verbatim.
+   line.
+
+   The portraits used to be eight unnamed roles, so the caption was one mono
+   line and the grid was four across. They are ten named people now, which
+   changes both: the caption carries a name in Hanken 500 with the role in
+   mono beneath it, and the scatter is five across, because the founder is
+   always pinned into the lane and nine in a four-column grid lands 4-4-1 —
+   a last row of one reads as a remainder, not as a scatter.
 
    Loaded after core.css and only by team.html. The chassis — tokens, type,
    nav, cursor, opening frame, next-page link, footer — is in core.css.
@@ -29,33 +36,55 @@
 .lane-label{margin:0;color:var(--copper-ink)}
 .lane-note{margin:10px 0 0;color:var(--mute);font-size:15px;max-width:30ch}
 .lane-row{display:flex;flex-wrap:wrap;gap:14px;min-height:160px;align-content:flex-start}
-.scatter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+.scatter{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
   gap:clamp(18px,3vw,48px) clamp(14px,2.6vw,40px);align-items:start}
 .tm{margin:0;position:relative}
-.scatter .tm:nth-child(4n+2){margin-top:56px}
-.scatter .tm:nth-child(4n+3){margin-top:var(--s2)}
-.scatter .tm:nth-child(4n+4){margin-top:88px}
+.scatter .tm:nth-child(5n+2){margin-top:52px}
+.scatter .tm:nth-child(5n+3){margin-top:var(--s2)}
+.scatter .tm:nth-child(5n+4){margin-top:78px}
+.scatter .tm:nth-child(5n+5){margin-top:26px}
 .lane .tm{width:100px}
 .tm-in{will-change:transform}
 .tm-ph{aspect-ratio:4/5;background:var(--cream);border:1px solid var(--navy);overflow:hidden}
 .tm-ph svg{width:100%;height:100%}
-.tm figcaption{margin-top:10px;min-height:3em;font-family:var(--mono);font-size:10.5px;
-  letter-spacing:.1em;text-transform:uppercase;line-height:1.45;display:flex;gap:8px}
-.tm figcaption::before{content:"";flex:0 0 14px;height:1px;background:var(--copper);margin-top:.7em}
-.lane .tm figcaption{font-size:8.5px;min-height:0}
-.lane .tm figcaption .t-role{display:none}
-.t-role{color:var(--mute)}
+/* a grid and not a flex row: the rule, the name and the role are three
+   things in two columns, and the rule has to stay level with the first line
+   of the name whatever the name wraps to. */
+.tm figcaption{margin-top:12px;min-height:3.4em;display:grid;
+  grid-template-columns:14px minmax(0,1fr);gap:3px 8px;align-items:start}
+.tm figcaption::before{content:"";height:1px;background:var(--copper);margin-top:.62em;
+  grid-column:1;grid-row:1}
+/* the name is the content now, so it is set in the body face, not in mono.
+   min-height holds the line while typeNames() writes it on from empty —
+   without it every caption jumps as its first character lands. */
+.t-name{grid-column:2;grid-row:1;font-family:var(--sans);font-weight:500;font-size:14px;
+  line-height:1.25;letter-spacing:0;text-transform:none;min-height:1.25em;color:var(--navy)}
+.t-role{grid-column:2;grid-row:2;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;line-height:1.45;color:var(--mute)}
+/* in the lane the cards are 100px wide: the name still has to read, the role
+   is already implied by the chip you pressed to get them there */
+.lane .tm figcaption{min-height:0;gap:0 6px;grid-template-columns:10px minmax(0,1fr)}
+.lane .tm figcaption::before{margin-top:.55em}
+.lane .tm .t-name{font-size:10.5px;line-height:1.3;min-height:0}
+.lane .tm .t-role{display:none}
 .hiring{margin-top:var(--gap-md);display:flex;justify-content:space-between;align-items:center;
   gap:20px;flex-wrap:wrap;border-top:1px solid var(--navy);padding-top:var(--s3)}
 .hiring p{margin:0;font-family:var(--serif);font-size:clamp(26px,3vw,40px);letter-spacing:-.03em;
   line-height:1}
 
 /* ============ RESPONSIVE ============ */
+@media (max-width:1180px){
+  .scatter{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .scatter .tm:nth-child(n){margin-top:0}
+  .scatter .tm:nth-child(3n+2){margin-top:44px}
+  .scatter .tm:nth-child(3n+3){margin-top:var(--s2)}
+}
 @media (max-width:900px){
   .builder,.lane{grid-template-columns:1fr}
   .scatter{grid-template-columns:repeat(2,minmax(0,1fr))}
   .scatter .tm:nth-child(n){margin-top:0}
   .scatter .tm:nth-child(2n){margin-top:48px}
+  .t-name{font-size:13px}
 }
 @media (max-width:600px){
   .lane .tm{width:76px}
