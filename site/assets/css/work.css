@@ -37,12 +37,65 @@
 
 /* ============ 2 · THE PROBLEM ============
    Two or three sentences, plainly. The section that has to resist becoming
-   marketing copy, so it gets no decoration to hide behind. */
+   marketing copy, so it gets no decoration to hide behind.
+
+   It had stopped being two or three sentences. Zingara ran to four paragraphs
+   and The Possah to three, both at clamp(19px,2vw,26px) over a 38ch measure,
+   as the second thing on the page — a full minute of reading before either
+   page showed anything.
+
+   So the section leads with the one sentence it was already building to (the
+   line each already set in strong), puts the numbers from the cut paragraphs
+   beside it as facts, and folds the rest behind a details. Nothing true is
+   deleted: "The whole of it" is the whole of it, every paragraph exactly as
+   it was written, the promoted sentence included so the long read still
+   scans as one piece of prose.
+
+   A details and not a JS disclosure: it is keyboard-reachable, screen-reader
+   correct and findable by in-page search by construction, and it works on the
+   no-GSAP path for free. */
 .pj-problem{background:var(--cream);color:var(--navy);padding:var(--sec-y) var(--gut)}
 .pj-problem-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm)}
 .pj-problem p{margin:0 0 18px;font-size:clamp(19px,2vw,26px);line-height:1.45;max-width:38ch}
 .pj-problem p:last-child{margin-bottom:0}
 .pj-problem strong{font-weight:500}
+/* the line that lands. Same size the section always used — the point is that
+   it is alone, not that it is bigger. */
+.pj-lead{margin:0;max-width:30ch}
+/* the facts beside it, in the pj-meta idiom of the opening frame, re-grounded
+   for a cream section: every number here is one the cut paragraphs already
+   carried. */
+.pj-facts{display:flex;flex-wrap:wrap;margin:var(--s4) 0 0;color:var(--mute)}
+.pj-facts>div{padding:0 clamp(16px,1.6vw,24px);border-left:1px solid rgba(13,26,65,.18)}
+.pj-facts>div:first-child{padding-left:0;border-left:0}
+.pj-facts dt{margin:0;font-family:var(--serif);font-size:clamp(30px,3.4vw,46px);line-height:1;
+  letter-spacing:-.03em;color:var(--navy)}
+.pj-facts dd{margin:10px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;max-width:19ch}
+/* core's .eyebrow is display:flex with align-items:center. As a grid item it
+   stretches to the row, so its text rides to the vertical middle of whatever
+   sits beside it — which is why "The problem" used to float halfway down four
+   paragraphs. Not introduced here, but this section is short enough now that
+   it reads as a mistake rather than as air. Pinned to the top, in work.css,
+   because core.css is not this session's to touch. */
+.pj-problem .eyebrow{align-self:start}
+/* the rest, folded */
+.pj-more{margin:var(--s4) 0 0;border-top:1px solid rgba(13,26,65,.18)}
+.pj-more>summary{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-ink);padding:18px 0 0;cursor:pointer;
+  list-style:none;display:flex;align-items:center;gap:12px}
+.pj-more>summary::-webkit-details-marker{display:none}
+.pj-more>summary::before{content:"";width:28px;height:1px;background:currentColor;opacity:.6}
+/* the affordance says which way it goes, and changes once it has gone
+   there. The plan asked for one "The whole of it ->", but an arrow that
+   points the same way open and shut tells the reader nothing the second
+   time they look at it. */
+.pj-more>summary::after{content:"\2193";opacity:.7;margin-left:auto}
+.pj-more[open]>summary::after{content:"\2191"}
+.pj-more>summary:focus-visible{outline:1px dashed var(--accent-ink);outline-offset:6px}
+@media (hover:hover){.pj-more>summary:hover{color:var(--navy)}}
+.pj-more[open]>summary{color:var(--mute)}
+.pj-more-in{padding-top:var(--s3)}
 
 /* ============ 3 · SIGNATURE ============
    One per page. The container is shared; what goes inside is not. */
