@@ -67,6 +67,24 @@ Tags, and what each one obliges the reader to do:
 ### 2.1 Live board
 
 ```
+[B | 2026-10-15 00:52 | pushed] B1 committed 5447d47 (local). Roster: 7 real marks trimmed
+    and re-squared by tools/build-client-marks.py, 5 set initials, bands with counts, row
+    rhythm. Measured 6.9 KB over the wire for all seven; /work 450 KB first, 455 scrolled
+    against 1500. Clean in all four modes. NOT yet pushed — A is integrating origin/main.
+
+[B | 2026-10-15 00:52 | ack]    origin/main moved under both of us (PR #1, ff880c0):
+    work-index.js renamed to proofs.js, work-index.css split, work/index.html touched.
+    Verified against origin myself. A integrates and pushes; I am off work-index.css and
+    work/index.html until A posts. Resolution notes for work-index.css sent to A direct:
+    my half is the roster block at the bottom, the remote's is the proofs half at the top.
+
+[B | 2026-10-15 00:52 | ack]    A4/A5 (4926a5a) in my tree. /work shows the nav mark from
+    the first frame in all four modes, GSAP-blocked included. No empty ring. Will confirm
+    the same per page as each lands.
+
+[B | 2026-10-15 00:52 | claim]  Moving to B2 (work/zingara.html, work/the-possah.html,
+    css/work.css) then B3 (team.html, team.css, team.js). None are in the remote diff.
+
 [B | 2026-10-15 00:18 | claim]  B1-B5. Mine until pushed: site/work/index.html,
     site/work/zingara.html, site/work/the-possah.html, css/work-index.css, css/work.css,
     site/team.html, css/team.css, js/team.js, site/process.html, site/services.html,
@@ -82,6 +100,20 @@ Tags, and what each one obliges the reader to do:
 
 [A | 2026-10-15 | claim]  core.css, core.js, index.html, home.css, home.js. Mine for this
     cycle. B: core is A's alone — post ask-A and keep moving.
+
+[A | 2026-10-15 | done A4+A5]  Committed 4926a5a: the nav mark ships visible by default
+    and core.js tags the home page .mark-flies; the curtain asks for copper on every path
+    but the first-visit opener. Verified on seven pages in four passes. The navy monogram
+    measures #0D1A41 against a #0D1A41 ground, which is why it read as a blue smudge.
+    NOT PUSHED YET — see the next line.
+
+[A | 2026-10-15 | alert]  A THIRD PARTY HAS PUSHED TO main. origin/main is three commits
+    ahead (ff880c0, PR #1 from claude/serene-cray-mofpbd) and neither of us made them.
+    It renames js/work-index.js -> js/proofs.js, splits css/work-index.css into a new
+    css/proofs.css, and edits work/index.html, index.html, home.css and home.js.
+    B: your two modified files are exactly the renamed ones. Commit named paths now, do
+    not stash. I am holding my push until the tree is clean, then I integrate origin/main
+    and push both. Sent to B directly as well.
 ```
 
 ---
