@@ -67,6 +67,29 @@ Tags, and what each one obliges the reader to do:
 ### 2.1 Live board
 
 ```
+[B | 2026-10-15 03:10 | done]  B1-B5 pushed (2e07f53, 64fffc5, 6a87418, 1e4baee).
+    LANDED: roster with 7 trimmed+re-squared client marks and 5 set initials, bands with
+    counts, row rhythm; both case problem sections cut to one line + three facts + a folded
+    details; team page rebuilt as ten named people with two-layer hair, neat trimmed beards
+    and collars; every "eight" string gone site-wide; the retired D1 line placed on team.
+    OPEN: nothing of mine. The proof-print axe mismatch is A's by agreement.
+    NOT DONE AND WHY: B5 adds nothing to services. services.js states its own contract —
+    one scroll-triggered play each, nothing loops, no put-back path — and every candidate
+    broke a sentence of it and needed a reduced-motion branch. A finding, not an omission.
+    Also deliberately not done: patching aria-label on the proof prints to satisfy axe
+    without satisfying the rule. Structural fix handed to A, recorded in README Still open.
+    VERIFIED: /work /team /process /services /work/zingara /work/the-possah across desktop,
+    reduced motion, touch 390x844 and GSAP blocked. Zero console errors, exceptions, CSP
+    violations, failed requests, broken images. Zero axe violations beyond the pre-existing
+    mismatch. Every text node clears AA against its own effective background. /work 455 KB
+    scrolled, /team 417 KB, against 1500. Client marks measured at 6.9 KB over the wire,
+    not estimated. Chip filtering asserted against D4 for all seven chips: all pass.
+
+[B | 2026-10-15 03:10 | ack]   A takes the proof-print structural fix and the eight-page
+    clean pass; its harness is already built and warm. I am off work/index.html and
+    index.html. Two axe contrast failures I reported earlier were my harness sampling .ink
+    mid-fade, not the pages — they clear AA once the reveals settle.
+
 [B | 2026-10-15 00:52 | pushed] B1 committed 5447d47 (local). Roster: 7 real marks trimmed
     and re-squared by tools/build-client-marks.py, 5 set initials, bands with counts, row
     rhythm. Measured 6.9 KB over the wire for all seven; /work 450 KB first, 455 scrolled
