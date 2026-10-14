@@ -119,6 +119,71 @@ are built above that guard, so they appear either way.
 
 ---
 
+## More than one agent works in this repo
+
+Two or more Claude sessions edit this working tree, sometimes at the same
+time. There is no branch per agent and no lock, so the rules are social and
+they are these.
+
+**Before you start, read the top of `BUILD-LOG.md` and `git log --oneline -5`.**
+Between them they say what the last session changed and, more usefully, what it
+deliberately did not. A commit here is the handoff note; the message is written
+to be read by whoever picks the file up next, not by a reviewer.
+
+**Commit named paths, never `git add -A`.** The tree may hold another agent's
+half-finished edits. Stage the files you actually touched and leave everything
+else dirty. If `git status` shows a file you did not edit, that file is someone
+else's work in progress — do not stage it, do not revert it, do not rebuild it.
+
+**Do not undo another agent's work unseen.** If something committed earlier
+looks wrong, say so in your own commit message and leave it, the way `6874637`
+left the audit-trail mark vocabulary with its author. Reverting work you have
+not read is the one thing that loses real effort here.
+
+**`BUILD-LOG.md` is newest first.** New entries go directly under the header,
+not appended to the end. Both agents append to this file, so an edit to it
+should be purely additive — check `git diff --stat BUILD-LOG.md` shows
+insertions only before you commit.
+
+**Push when a milestone is verified**, so the other session can fetch rather
+than guess. Pull before you start a long pass.
+
+**Who owns what, currently.** `site/index.html`, `home.css`, `home.js` and the
+home half of `core.js` are the copy pass. `site/work/`, `work.css`,
+`css/work/*`, `js/work/*` and `tools/` are the project pages. When you need to
+cross that line, say so in the commit message.
+
+**The constraints do not move.** Static, no framework, no bundler, runs from
+`file://`. Three typefaces. The brand marks in `site/assets/brand/` are not
+redrawn or recoloured. No client fact that did not come from the user or the
+files — a missing figure renders as a visible `[[NEEDS: ...]]`, never as a
+plausible guess. If you think something in the design is wrong, say so and wait
+for an answer rather than changing it alone.
+
+---
+
+## Verifying
+
+The harness is not in the repo; it is rebuilt per session in the scratchpad.
+What it checks, per page, over `/`, `/work/zingara` and `/work/the-possah`, in
+four passes — desktop, `prefers-reduced-motion`, mobile 390x844 with touch, and
+GSAP blocked:
+
+| Check | What it proves |
+|---|---|
+| `serve.js` | Serves with the real `vercel.json` headers and `cleanUrls`, not `npx serve`. A CSP violation only appears under the real CSP. |
+| `check.js` | Zero console errors, exceptions, CSP violations and failed requests. `--block-cdn` is the no-GSAP pass. |
+| `a11y.js` | axe-core, injected via `Runtime.evaluate` so it is exempt from the page CSP. |
+| `contrast.js` | Every text node against its own effective background, which catches what axe records as "incomplete". |
+| `css-applied.js` | Every linked sheet produced rules, a load-bearing rule from each computes on a real element, and the `@font-face` families loaded. Over HTTP **and** `file://`. |
+| `weight.js` | First load and fully-scrolled KB against the 1500 KB budget. |
+| `shot.js` | Screenshots at given scroll offsets. **Read them.** Several defects so far were visible only in a rendered frame and in no metric. |
+
+Sample the PNG pixels rather than trusting a glance at a screenshot — a frame
+that looked cream under review measured `rgb(17,25,53)`.
+
+---
+
 ## Still open
 
 - Naming permission per client, and confirmation of the case figures carried
@@ -128,4 +193,20 @@ are built above that guard, so they appear either way.
 - The Zingara "before" in the redline slider is a reconstruction, not a
   photograph of the client's original menu. Fine as rhetoric on the home page;
   it needs labelling before it carries a project page.
-- Project pages: Zingara, then the work index, then The Possah.
+- Project pages: Zingara and The Possah are built. The work index
+  (`site/work/index.html`) is not, so there is no page listing the cases;
+  both project pages currently reach each other through their next-case
+  panel only.
+- One axe finding, on the home page: `.ink` body copy starts its entrance
+  animation at `opacity:0.2`, which computes to 1.41:1 before it reveals. A
+  transient state of a 0.7s fade, and with JS off no rule sets it at all.
+  Changing the reveal is a design decision, so it is reported, not changed.
+- `assets/zingara/food/possah-insta-2-5.jpg` is a Possah frame filed under
+  Zingara. Unused by either page; left where it is rather than moved.
+- The Possah has two marks: an orange diamond on the guideline boards, and a
+  green-ground signature lockup in `assets/client-logos/`. Both ship as
+  delivered; neither is picked over the other.
+- Home page proof 02 is "D2C fashion · 24 SKUs" and may be Possah, but
+  `reference/index-current.html:1870` describes a one-day studio shoot on
+  Shopify, which contradicts Possah's "no budget for a studio". Left
+  anonymous, and none of its numbers borrowed.
