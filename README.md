@@ -8,30 +8,6 @@ in a browser and it runs.
 
 ---
 
-## More than one agent works in here
-
-Several Claude sessions edit this repo at the same time, so the working tree
-is not necessarily yours alone. The rules that keep that from hurting:
-
-1. **Read this section first, and `git log --oneline -5`.** A file can change
-   between reading it and editing it. If a line number from an earlier survey
-   no longer matches, re-read the file rather than trusting the number.
-2. **Stage your own paths by name.** Never `git commit -a` and never
-   `git add .` — you will take someone else's half-finished work with you.
-   `git status --short` tells you which changes are not yours.
-3. **Claim what you are about to touch** by adding a line to the table below,
-   and delete the line when you have committed.
-4. **Do not revert work you did not do**, even if a task list says to. If an
-   instruction conflicts with a commit that landed since, say so and leave it.
-
-### In flight
-
-| Area | Session | State |
-|---|---|---|
-| _(nothing claimed)_ | | |
-
----
-
 ## Layout
 
 ```
@@ -153,6 +129,13 @@ they are these.
 Between them they say what the last session changed and, more usefully, what it
 deliberately did not. A commit here is the handoff note; the message is written
 to be read by whoever picks the file up next, not by a reviewer.
+
+**A line number from an earlier survey may already be stale.** This tree
+moves under you: a page can be rewritten between the read that produced your
+task list and the edit that acts on it. Match on the text you mean to change,
+assert it occurs exactly once, and write nothing at all if any target in the
+batch fails to match — that is how a stale list announces itself instead of
+silently cutting the wrong line. Re-read the file, then re-plan.
 
 **Commit named paths, never `git add -A`.** The tree may hold another agent's
 half-finished edits. Stage the files you actually touched and leave everything
