@@ -285,6 +285,110 @@ counter is restored by putting its markup back.
 
 ---
 
+## 2026-10-14 · Four pages, and a home page that stops doing all the work
+
+The nav said Work, Services, Process, Team and all four were anchors into one
+page. `work/zingara.html` had to point its nav back at `../index.html#services`
+to say the same four things, which is the smell that says the information
+architecture had outgrown the file. They are pages now.
+
+| Page | Carries | From |
+|---|---|---|
+| `/work` | Opening frame, the three pinned proofs and their case overlay, every client named | home sections 4 + overlay |
+| `/services` | Five disciplines, one drawn artifact each | home section 6, rebuilt |
+| `/process` | The four stages, the rail, the docking panels | home section 7, verbatim |
+| `/team` | The story, the brief builder, eight drawn portraits, hiring | home section 8, verbatim |
+
+The home page keeps the hero, the marquee, the letter, a two-row work teaser,
+the still redline and the audit. **481 → 311 lines**, nine sections to six.
+
+### The fan is gone, and five artifacts replace it
+
+The services cards overlapped their neighbours, hid every deliverable behind a
+hover, and did it five times with one idea. Each discipline now gets a band of
+its own and one drawn artifact: a sentence being redlined, the mark seating
+onto its construction grid, a page assembling onto a baseline, a filmstrip
+stopping on the frame it cuts on, and a line rising across axes that carry no
+numbers.
+
+The contract that makes them cheap: **the SVG as authored is the finished
+artifact.** `services.js` only hides parts of it and plays them back. So
+reduced motion returns early and touches nothing, a GSAP-less page never runs
+it, and a page with no JavaScript at all is still right — and there is no code
+path that has to remember to set a final state, which is the failure
+`brief/05-conventions.md` warns about.
+
+Performance is deliberately unlabelled, and says so in a note under it. The
+home page stopped asserting the two Zingara figures in an earlier pass; an
+artifact is not the place to put them back.
+
+### Common CSS: promoted, not duplicated
+
+`.needs` was already defined twice, in `home.css` and `work.css`, the second
+copy commented "carried over from home.css". Four new pages would have made it
+a third. Four patterns moved into `core.css` instead, each reached through a
+selector list (`.pg-open,.pj-open`) so no project markup had to be renamed:
+the opening frame, the edge-to-edge next link, the honesty marks, and the
+`[aria-current]` colour. `loopPath` went to `core.js` for the same reason — it
+draws the proof prints' circles and the home slider's annotations, and those
+are on two different pages now. The focus trap followed it: the case overlay
+moved to the work index and the audit modal stayed home.
+
+**One thing nearly went wrong here.** The shared next-link rule was promoted
+with `opacity:.8` on its eyebrow, which is exactly the AA failure `work.css`
+had already fixed and documented — cream at .8 on Zingara's red measures
+3.69:1 at 11px, visible only once `.rm` removes the overlay hiding it from the
+audit. The promotion now carries the fix and the reason with it.
+
+### The indicator answers a different question
+
+It used to track whichever section owned the screen. With four pages there are
+no own-page anchors left to track, so it parks on the link for the page you are
+on. `aria-current` is set before GSAP is asked for and the colour is in
+`core.css`, so the current page is marked on the no-GSAP path too. A case page
+marks Work — an ancestor, `aria-current="true"` — since `/work/zingara` is
+inside it. On the home page nothing matches and the indicator stays hidden
+rather than guessing: there is no fifth link saying "home".
+
+### Measured
+
+Playwright against the production CSP, four passes — desktop, reduced motion,
+touch and GSAP blocked — over all seven pages: no console errors, no CSP
+violations, no failed requests, no broken images, the curtain lifts every time,
+and nothing is left stranded under `opacity:0` (checked by walking every
+section, artifact, row and portrait after a full scroll). Zero axe-core
+violations on all five new or changed pages, against wcag2a/2aa/21a/21aa plus
+best-practice; the one indeterminate group per page is the pre-existing
+chassis contrast set.
+
+| | First load | Fully scrolled |
+|---|---|---|
+| `/` | 707 KB | 707 KB |
+| `/work` | 652 KB | 652 KB |
+| `/services` | 646 KB | 646 KB |
+| `/team` | 615 KB | 615 KB |
+| `/process` | 610 KB | 610 KB |
+
+Against a 1500 KB budget. The new pages ship no new imagery.
+
+**The GSAP-blocked pass earned its keep.** `process.js` and `services.js` both
+called `NU.onBuild` without the `if (NU.dead) return` guard every other page
+script has, and threw a TypeError on any visit where the CDN failed. Caught
+before commit, not after.
+
+### Also
+
+Both `.src.html` sources were relinked along with the pages they generate, so
+the next `tools/expand-figures.py` run cannot reintroduce the old anchors.
+`sitemap.xml` carries seven URLs and no held-pending-approval note: every
+client on `/work` is named with permission, confirmed this session.
+
+The `.pr-readout` rules moved to `process.css` unused — the live readout was
+cut from the markup in the "35 strings" pass. Deciding it is gone for good is a
+content call, not a refactor, so they travelled with their section.
+
+---
+
 ## 2026-10-12 · Hero S per glyph, the bubble, and a brand vocabulary for the audit
 
 Three of the five corrections raised against the Phase 2 review.

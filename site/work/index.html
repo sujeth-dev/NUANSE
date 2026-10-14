@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work — NUANSE</title>
+<meta name="description" content="Three proofs, marked up, and every NUANSE client named: Zingara and The Possah as full cases, plus live work for Velmont, Assetly, Artizen, NAZR, Noir Velin and Shail Interiors.">
+<meta name="theme-color" content="#08112E">
+<link rel="canonical" href="https://www.thenuanse.com/work">
+
+<link rel="icon" href="../assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../assets/brand/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="../assets/brand/favicon-180.png">
+<link rel="manifest" href="../site.webmanifest">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NUANSE">
+<meta property="og:title" content="Proofs, marked up — NUANSE">
+<meta property="og:description" content="Every job starts with an audit. This is what came of them.">
+<meta property="og:url" content="https://www.thenuanse.com/work">
+<meta property="og:image" content="https://www.thenuanse.com/assets/brand/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The NUANSE wordmark in cream on navy.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Proofs, marked up — NUANSE">
+<meta name="twitter:description" content="Every job starts with an audit. This is what came of them.">
+<meta name="twitter:image" content="https://www.thenuanse.com/assets/brand/og-default.png">
+
+<link rel="preload" href="../assets/fonts/gloock-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/hanken-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" crossorigin>
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" crossorigin>
+
+<script src="../assets/js/boot.js"></script>
+
+<link rel="stylesheet" href="../assets/css/core.css">
+<link rel="stylesheet" href="../assets/css/work-index.css">
+</head>
+<body>
+
+<a class="skip" href="#page">Skip to content</a>
+
+<!-- LOADER + PAGE-CHANGE CURTAIN · identical to every other page -->
+<div class="curtain" aria-hidden="true">
+  <canvas class="curtain-foil" aria-hidden="true"></canvas>
+  <div class="curtain-cover"></div>
+  <div class="curtain-mark">
+    <span class="cm-flip">
+      <img class="mark cm-navy" src="../assets/brand/monogram-navy-512.png" width="512" height="738" alt="" decoding="async" fetchpriority="high">
+      <img class="mark cm-copper" src="../assets/brand/monogram-copper-512.png" width="512" height="738" alt="" decoding="async">
+    </span>
+  </div>
+  <div class="curtain-marks" aria-hidden="true"><i class="cmk tl"></i><i class="cmk tr"></i><i class="cmk bl"></i><i class="cmk br"></i></div>
+  <p class="curtain-label mono"><span>NUANSE</span><span class="cl-rule"></span><span>Bangalore</span></p>
+</div>
+<div class="page-dim" aria-hidden="true"></div>
+<div class="cur" aria-hidden="true"><i></i><b></b></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="toast mono" role="status" aria-live="polite"></div>
+
+<!-- NAV · the same chassis. Four pages, not four anchors: the indicator parks on Work, and core.js
+     marks the one you are on and parks the indicator on it, and the colour is
+     in core.css so it is right before GSAP loads and if it never does. -->
+<header class="nav">
+  <div class="nav-in">
+    <a href="../index.html" class="nav-brand" aria-label="NUANSE, home">
+      <span class="nav-slot" aria-hidden="true"><span class="nav-spin"><img class="mark nav-mark" src="../assets/brand/monogram-copper-128.png" width="128" height="185" alt="" decoding="async"></span></span>
+      <span class="wordmark" aria-hidden="true">NUAN<span class="rev">S</span>E</span>
+    </a>
+    <div class="nav-bar">
+      <span class="nav-ind" aria-hidden="true"></span>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="../work/index.html">Work</a>
+        <a href="../services.html">Services</a>
+        <a href="../process.html">Process</a>
+        <a href="../team.html">Team</a>
+      </nav>
+    </div>
+    <div class="nav-end">
+      <a class="nav-cta" href="../index.html#audit">Free audit</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+</header>
+<div class="menu" id="menu" aria-hidden="true">
+  <a href="../work/index.html">Work</a>
+  <a href="../services.html">Services</a>
+  <a href="../process.html">Process</a>
+  <a href="../team.html">Team</a>
+  <a href="../index.html#audit">Audit</a>
+  <p class="mono">Bangalore · hello@nuanse.studio</p>
+</div>
+
+<main class="page" id="page">
+
+  <!-- 1 · OPENING FRAME -->
+  <section class="pg-open" data-nav="dark" data-nav-anchor aria-label="Work, overview">
+    <div>
+      <p class="mono pg-open-eyebrow">Work</p>
+      <h1 class="pg-title h-split">Proofs, marked up.</h1>
+      <div class="pg-rule" aria-hidden="true"></div>
+    </div>
+    <div class="pg-open-foot">
+      <dl class="pg-meta mono">
+        <div><dt>Two full cases</dt><dd>Zingara · The Possah</dd></div>
+        <div><dt>Twelve clients</dt><dd>Named</dd></div>
+        <div><dt>Since 2025</dt><dd>Bangalore</dd></div>
+      </dl>
+      <p class="pg-verdict">Every job starts with an audit. This is what came of them.</p>
+    </div>
+  </section>
+
+  <!-- 2 · THE PROOFS · the home page's pinned section, unchanged, with room -->
+  <section class="work" id="proofs" data-nav="dark" aria-label="Selected work">
+    <div class="work-stage">
+      <div class="work-copy">
+        <h2 class="h2 h-split">Three of them, circled.</h2>
+        <p class="lede">These are the proofs we circled, the fixes we made and what the numbers did after.</p>
+        <p class="mono work-count">Proof <b class="wc-n">01</b> / 03 <span class="bar"><i></i></span></p>
+      </div>
+      <!-- A real photograph replaces the drawn art on any print carrying
+           data-img; a print without it keeps the drawn art, and a broken path
+           falls back to it too. -->
+      <div class="stack">
+        <div class="print frame-ox" role="button" tabindex="0" data-href="zingara.html" data-cursor="Read the case" aria-label="Read the case: Zingara, restaurant"
+             data-rl="138,62,128,40,A;90,147,76,22,B;352,245,30,104,C">
+          <div class="print-paper">
+            <div class="print-top"><b>Proof 01</b><span>Zingara · Restaurant</span></div>
+            <div class="print-art">
+              <div class="art art-z">
+                <span class="z-title">Zingara</span>
+                <span class="mono-s z-sub">Kitchen &amp; bar · Bangalore</span>
+                <span class="mono-s z-sec"><span>Small plates</span><span>12</span></span>
+                <span class="z-row"><span>Charred corn, lime butter</span><span>249</span></span>
+                <span class="z-row"><span>Pepper prawns, curry leaf</span><span>460</span></span>
+                <span class="mono-s z-sec"><span>From the fire</span><span>09</span></span>
+                <span class="z-row"><span>Ghee roast chicken</span><span>540</span></span>
+                <span class="z-row"><span>Lamb shoulder, mint</span><span>720</span></span>
+              </div>
+            </div>
+            <div class="print-cap"><span>Menu · identity · listings</span><span>189 items</span></div>
+          </div>
+        </div>
+        <div class="print frame-olive" role="button" tabindex="0" data-case="0" data-cursor="Read the case" aria-label="Open case: D2C fashion, 24 SKUs in one shoot"
+             data-rl="72,150,64,84,A;318,312,64,84,B;180,452,170,30,C">
+          <div class="print-paper">
+            <div class="print-top"><b>Proof 02</b><span>D2C fashion</span></div>
+            <div class="print-art">
+              <div class="art art-f">
+                <div class="f-head mono-s"><span>SS26 · Lookbook</span><span>24 SKUs</span></div>
+                <div class="f-grid">
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M18 4 L30 10 L42 4 L58 16 L50 28 L44 24 L44 68 L16 68 L16 24 L10 28 L2 16 Z"/></svg><span class="mono-s">01</span></div>
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M22 2 L38 2 L40 10 L52 18 L48 66 L12 66 L8 18 L20 10 Z"/></svg><span class="mono-s">02</span></div>
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M14 4 L24 4 Q30 12 36 4 L46 4 L56 22 L48 26 L48 68 L12 68 L12 26 L4 22 Z"/></svg><span class="mono-s">03</span></div>
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M20 2 L40 2 L44 30 L50 68 L10 68 L16 30 Z"/></svg><span class="mono-s">04</span></div>
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M18 4 L30 10 L42 4 L58 16 L50 28 L44 24 L44 68 L16 68 L16 24 L10 28 L2 16 Z"/></svg><span class="mono-s">05</span></div>
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M22 2 L38 2 L40 10 L52 18 L48 66 L12 66 L8 18 L20 10 Z"/></svg><span class="mono-s">06</span></div>
+                </div>
+                <div class="f-foot">24 SKUs. One shoot.</div>
+              </div>
+            </div>
+            <div class="print-cap"><span>Shoot · reels · product pages</span><span>One light</span></div>
+          </div>
+        </div>
+        <div class="print frame-royal" role="button" tabindex="0" data-case="1" data-cursor="Read the case" aria-label="Open case: a GCC in Bangalore"
+             data-rl="118,40,104,22,A;210,186,176,40,B;200,420,180,60,C">
+          <div class="print-paper">
+            <div class="print-top"><b>Proof 03</b><span>GCC · Bangalore</span></div>
+            <div class="print-art">
+              <div class="art art-g">
+                <div class="g-bar mono-s"><span>Six teams, one name</span><span><i></i><i></i><i></i></span></div>
+                <div class="g-h">We are<br><span class="g-strike">leveraging synergies</span><br>working as one team.</div>
+                <span class="mono-s dim">Strategy · v3 · redlined</span>
+                <div class="g-cols"><span>Platform</span><span>Data</span><span>People</span></div>
+              </div>
+            </div>
+            <div class="print-cap"><span>Strategy · name system · site</span><span>Plain language</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE ROSTER · every client, at the depth its assets support -->
+  <section class="sec" id="clients" data-nav="light" aria-label="Clients">
+    <div class="sec-head">
+      <div>
+        <h2 class="h2 h-split">Every client, named.</h2>
+        <p class="lede ink">Two have a full identity system on file and carry a case of their own. The rest have a live site, a mark, or both.</p>
+      </div>
+    </div>
+
+    <div class="roster">
+      <p class="mono eyebrow">Full cases</p>
+      <a class="rs-row" href="zingara.html">
+        <span><span class="rs-sector">Restaurant · Mysore white biryani</span><span class="rs-name">Zingara</span></span>
+        <span class="rs-what">It read like three restaurants. One identity across the room, the menu, the packaging and the listings — and a 189-item menu re-set without cutting a dish.</span>
+        <span class="rs-go">Read the case →</span>
+      </a>
+      <a class="rs-row" href="the-possah.html">
+        <span><span class="rs-sector">Haute couture</span><span class="rs-name">The Possah</span></span>
+        <span class="rs-what">The budget didn’t cover a studio. A full identity and an eleven-section guidelines document, and the collection shot without one.</span>
+        <span class="rs-go">Read the case →</span>
+      </a>
+    </div>
+
+    <div class="roster">
+      <p class="mono eyebrow">Live work</p>
+      <a class="rs-row" href="https://www.velmontdesign.com/" target="_blank" rel="noopener">
+        <span><span class="rs-sector">Design studio</span><span class="rs-name">Velmont Design Studio</span></span>
+        <span class="rs-what"></span>
+        <span class="rs-go">velmontdesign.com ↗</span>
+      </a>
+      <a class="rs-row" href="https://assetly.lease/" target="_blank" rel="noopener">
+        <span><span class="rs-sector">Leasing</span><span class="rs-name">Assetly</span></span>
+        <span class="rs-what">“Access. Scale. Grow.”</span>
+        <span class="rs-go">assetly.lease ↗</span>
+      </a>
+      <a class="rs-row" href="https://artizenprojects.in/" target="_blank" rel="noopener">
+        <span><span class="rs-sector">Interior contracting</span><span class="rs-name">Artizen Projects</span></span>
+        <span class="rs-what"></span>
+        <span class="rs-go">artizenprojects.in ↗</span>
+      </a>
+      <a class="rs-row" href="https://www.nazrco.in/" target="_blank" rel="noopener">
+        <span><span class="rs-sector">Women’s safety ecosystem</span><span class="rs-name">NAZR</span></span>
+        <span class="rs-what"></span>
+        <span class="rs-go">nazrco.in ↗</span>
+      </a>
+      <a class="rs-row" href="https://noirvelin.in/" target="_blank" rel="noopener">
+        <span><span class="rs-sector">Streetwear</span><span class="rs-name">Noir Velin</span></span>
+        <span class="rs-what">Oversized cuts, graphic tees.</span>
+        <span class="rs-go">noirvelin.in ↗</span>
+      </a>
+      <a class="rs-row" href="https://www.shailinteriors.in/" target="_blank" rel="noopener">
+        <span><span class="rs-sector">Interiors</span><span class="rs-name">Shail Interiors</span></span>
+        <span class="rs-what"></span>
+        <span class="rs-go">shailinteriors.in ↗</span>
+      </a>
+      <p class="qual-note">Where a row carries no line, the scope is on file with the client and nothing about it is published here. Not a smaller job — just nothing we can source a sentence to.</p>
+    </div>
+
+    <div class="roster">
+      <p class="mono eyebrow">Marks on file</p>
+      <div class="rs-thin"><span class="rs-name">Aware Acoustics</span><p>Acoustics. The site was showing an under-construction page when this set was last checked, so it is not linked.</p></div>
+      <div class="rs-thin"><span class="rs-name">Nuozone Studio</span><p>Mark on file.</p></div>
+      <div class="rs-thin"><span class="rs-name">Tulipss</span><p>Mark on file.</p></div>
+      <div class="rs-thin"><span class="rs-name">Amma’s Breakfast</span><p>A Zingara sub-brand, in a warm script entirely unlike the parent mark.</p></div>
+    </div>
+
+    <p class="src-note">Sectors and client lines from reference/reference-sites.md. Named with the client’s permission; the two anonymised proofs above stay anonymised because we cannot map them to a named client from our own files.</p>
+  </section>
+
+</main>
+
+<!-- NEXT · the route onward, edge to edge.
+     Wrapped in a nav: it is a route, and content outside every landmark is a
+     WCAG structure failure. -->
+<nav class="pg-next-nav" aria-label="Next">
+<a class="pg-next" href="../services.html" data-nav="dark" data-cursor="See the five">
+  <span class="pg-next-in">
+    <span>
+      <span class="mono">Next · How we make it</span>
+      <b class="turn">What we make.</b>
+    </span>
+    <span class="go">Services →</span>
+  </span>
+</a>
+</nav>
+
+<!-- CASE OVERLAY -->
+<div class="case-ov" role="dialog" aria-modal="true" aria-label="Case study" data-lenis-prevent>
+  <button class="case-close mono">Close ×</button>
+  <div class="case-in"></div>
+</div>
+
+<!-- FOOTER · shared -->
+<footer class="footer" id="footer" data-nav="dark">
+  <div class="ft-in">
+    <div class="ft-top">
+      <div><p class="mono">Studio</p><p>Bangalore, India</p></div>
+      <div><p class="mono">Write</p><a href="mailto:hello@nuanse.studio">hello@nuanse.studio</a></div>
+      <div><p class="mono">Start</p><a href="../index.html#audit">The two-minute audit</a></div>
+      <div><button class="to-top" data-goto="#top">Back to the top</button></div>
+    </div>
+    <div class="ft-mid">
+      <div class="ft-word turn">NUAN<span class="rev">S</span>E</div>
+      <div class="s3d-wrap">
+        <div class="s3d" tabindex="0" role="img" aria-label="The NUANSE mark in three dimensions. Drag it; it springs back.">
+          <div class="s3d-obj" data-copper="../assets/brand/monogram-copper-256.png" data-cream="../assets/brand/monogram-cream-256.png"></div>
+        </div>
+        <span class="mono">Drag it. It comes back.</span>
+      </div>
+    </div>
+    <div class="ft-bot mono"><span>© 2026 NUANSE</span></div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script src="../assets/js/core.js"></script>
+<script src="../assets/js/work-index.js"></script>
+</body>
+</html>

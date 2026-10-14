@@ -1,0 +1,170 @@
+/* ============================================================================
+   NUANSE — work-index.css · the proofs and the roster
+
+   The pinned proof prints with their drawn art, the case overlay they
+   open, and the client roster. The prints and the overlay moved off the home
+   page verbatim; the roster is this page's own.
+
+   Loaded after core.css and only by work/index.html. The chassis — tokens, type,
+   nav, cursor, opening frame, next-page link, footer — is in core.css.
+   ========================================================================== */
+
+/* ============ 4 · WORK ============ */
+.work{background:var(--night);color:var(--cream)}
+.work-stage{height:100vh;height:100svh;display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:center;gap:clamp(24px,4vw,64px);
+  padding:clamp(90px,12vh,120px) var(--gut) clamp(32px,6vh,56px);overflow:hidden}
+.work-copy .lede{margin-top:22px}
+.work-count{margin-top:34px;display:flex;align-items:center;gap:14px;color:var(--mute-d)}
+.work-count b{color:var(--cream);font-weight:500}
+.work-count .bar{flex:0 0 120px;height:1px;background:var(--hair-c);position:relative}
+.work-count .bar i{position:absolute;inset:0;background:var(--copper-l);transform-origin:left;
+  transform:scaleX(.333)}
+.work-hint{color:var(--mute-d);margin-top:14px}
+.stack{position:relative;justify-self:center;width:min(430px,34vw);aspect-ratio:4/5.62}
+.print{position:absolute;inset:0;cursor:pointer;outline:none;transform-origin:50% 100%}
+.print:focus-visible .print-paper{outline:1px dashed var(--copper-l);outline-offset:6px}
+.print-paper{position:absolute;inset:0;background:var(--cream);color:var(--navy);padding:12px;
+  display:flex;flex-direction:column;gap:10px;box-shadow:0 30px 60px rgba(0,0,0,.35);
+  border:1px solid var(--frame)}
+.print-paper::before{content:"";position:absolute;inset:5px;border:1px solid var(--frame);
+  opacity:.45;pointer-events:none}
+/* the three proof frames, as classes rather than style attributes */
+.frame-ox{--frame:var(--ox)}
+.frame-olive{--frame:var(--olive)}
+.frame-royal{--frame:var(--royal)}
+.print-top,.print-cap{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);
+  font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);position:relative}
+.print-top b{color:var(--frame);font-weight:500}
+.print-art{position:relative;flex:1;container-type:size;overflow:hidden;
+  border:1px solid rgba(13,26,65,.12)}
+/* a real project image, when one is supplied, replaces the drawn art */
+.print-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:1}
+.print-art.has-img .art{display:none}
+.redline{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;
+  z-index:2}
+.redline path{fill:none;stroke:var(--copper);stroke-width:2.4;stroke-linecap:round;
+  stroke-linejoin:round}
+.redline .tag{opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+.redline .tag circle{fill:var(--copper-ink)}
+.redline .tag text{font-family:var(--mono);font-size:13px;fill:var(--cream);text-anchor:middle;
+  dominant-baseline:central;font-weight:500}
+
+/* --- the drawn proof art --- */
+.art{position:absolute;inset:0;padding:7cqw;display:flex;flex-direction:column}
+.mono-s{font-family:var(--mono);font-size:2.7cqw;letter-spacing:.14em;text-transform:uppercase}
+.mono-s.dim{color:var(--mute-d)}
+.art-z{background:#F4E6DE;color:var(--ox)}
+.z-title{font-family:var(--serif);font-size:17cqw;letter-spacing:-.03em;line-height:.88}
+.z-sub{margin-top:2cqw;color:var(--mute)}
+.z-sec{margin-top:6cqw;padding-bottom:1.6cqw;border-bottom:1px solid currentColor;display:flex;
+  justify-content:space-between}
+.z-row{display:flex;justify-content:space-between;gap:3cqw;font-size:3.7cqw;color:var(--navy);
+  padding:1.7cqw 0;border-bottom:1px dotted rgba(138,43,29,.32);line-height:1.25}
+.z-row span:last-child{font-variant-numeric:tabular-nums;color:var(--ox)}
+.art-f{background:var(--cream);color:var(--olive);gap:3cqw}
+.f-head{display:flex;justify-content:space-between}
+.f-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;flex:1}
+.f-tile{display:grid;place-items:center;position:relative}
+.f-tile:nth-child(odd){background:var(--olive);color:var(--blush)}
+.f-tile:nth-child(even){background:var(--blush);color:var(--olive)}
+.f-tile svg{width:62%}
+.f-tile .mono-s{position:absolute;left:2cqw;bottom:1.6cqw;font-size:2cqw}
+.f-foot{font-family:var(--serif);font-size:8.4cqw;letter-spacing:-.03em;line-height:.95;
+  color:var(--navy)}
+.art-g{background:var(--royal);color:var(--cream);gap:3.4cqw}
+.g-bar{display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid rgba(252,247,241,.25);padding-bottom:2.6cqw}
+.g-bar span:last-child{display:flex;gap:2cqw}
+.g-bar i{width:6cqw;height:1.2cqw;background:rgba(252,247,241,.4)}
+.g-h{font-family:var(--serif);font-size:9.6cqw;line-height:.98;letter-spacing:-.03em}
+.g-strike{position:relative;color:var(--mute-d);display:inline-block}
+.g-strike::after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:.6cqw;
+  background:var(--copper-l);transform:rotate(-2deg)}
+.g-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4cqw;margin-top:auto}
+.g-cols span{border:1px solid rgba(252,247,241,.35);height:20cqw;padding:2cqw;
+  font-family:var(--mono);font-size:2.2cqw;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mute-d)}
+
+/* ============ CASE OVERLAY ============ */
+.case-ov{position:fixed;inset:0;z-index:250;background:var(--cream);overflow-y:auto;
+  overscroll-behavior:contain;visibility:hidden;clip-path:inset(50% 50% 50% 50%)}
+.case-ov.open{visibility:visible}
+.case-close{position:fixed;top:18px;right:var(--gut);z-index:2;border:1px solid var(--navy);
+  border-radius:999px;padding:9px 14px 8px;background:var(--cream)}
+.case-in{max-width:1180px;margin:0 auto;padding:clamp(90px,12vh,130px) var(--gut-in) 90px}
+.case-in .case-x{opacity:0}
+.case-top{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:var(--s4);
+  align-items:end;border-bottom:1px solid var(--navy);padding-bottom:var(--s4)}
+.case-title{font-family:var(--serif);font-weight:400;font-size:clamp(44px,7vw,92px);line-height:.92;
+  letter-spacing:-.04em;margin:10px 0 0;color:var(--cc)}
+.case-brief{margin:0;color:var(--mute)}
+.case-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--gap-md);
+  padding:var(--s5) 0}
+.fixes{list-style:none;margin:0;padding:0}
+.fixes li{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:16px 0;
+  border-top:1px solid rgba(13,26,65,.15)}
+.fixes li b{width:26px;height:26px;border-radius:50%;border:1px solid var(--copper-ink);
+  color:var(--copper-ink);display:grid;place-items:center;font-family:var(--mono);font-size:11px;
+  font-weight:500}
+.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:rgba(13,26,65,.15);border:1px solid rgba(13,26,65,.15)}
+.results div{background:var(--cream);padding:22px 18px}
+.results strong{display:block;white-space:nowrap;font-family:var(--serif);font-weight:400;
+  font-size:clamp(30px,3.4vw,48px);line-height:1;letter-spacing:-.03em;color:var(--cc)}
+.results span{display:block;margin-top:10px;font-size:14px;color:var(--mute)}
+.scope{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.scope span{border:1px solid var(--navy);border-radius:999px;padding:6px 12px 5px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.case-scope-h{margin-top:28px}
+.case-next{margin-top:36px}
+.case-swatch{height:10px;background:var(--cc);margin-top:28px;width:100%}
+
+/* ============ THE ROSTER ============
+   Every client, named, at the depth its assets support: a full case links to
+   its page, a site-and-logo client gets one typographic frame and an outbound
+   link, a logo-only client gets a line. No client logos ship - the files on
+   hand are mixed-quality JPG and PNG, and a row of those reads worse than
+   type set properly. */
+.roster{border-top:1px solid var(--navy)}
+.rs-row{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,3fr) auto;
+  gap:clamp(16px,3vw,44px);align-items:baseline;padding:clamp(22px,2.8vw,36px) 0;
+  border-bottom:1px solid rgba(13,26,65,.18);text-decoration:none;color:inherit;position:relative}
+.rs-name{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.6vw,52px);line-height:1;
+  letter-spacing:-.03em;margin:0}
+.rs-what{margin:0;color:var(--mute);font-size:15px;line-height:1.5;max-width:42ch}
+.rs-go{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--copper-ink);white-space:nowrap}
+.rs-sector{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+/* the copper rule grows under a row you are pointing at, the one accent the
+   roster spends */
+.rs-row::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:0;
+  background:var(--copper);transition:width var(--t-mid) var(--ease)}
+@media (hover:hover){a.rs-row:hover::after{width:100%}}
+a.rs-row:focus-visible{outline:1px dashed var(--copper-ink);outline-offset:6px}
+/* logo only, no site, no case: a line, not a frame */
+.rs-thin{display:flex;flex-wrap:wrap;gap:10px clamp(18px,3vw,40px);align-items:baseline;
+  padding:clamp(18px,2.4vw,28px) 0;border-bottom:1px solid rgba(13,26,65,.18)}
+.rs-thin .rs-name{font-size:clamp(20px,2.2vw,30px)}
+.rs-thin p{margin:0;color:var(--mute);font-size:14px}
+
+/* ============ REDUCED MOTION ============ */
+.rm .work-stage{height:auto;grid-template-columns:1fr;overflow:visible}
+.rm .stack{width:min(430px,100%);aspect-ratio:auto;display:flex;flex-direction:column;gap:40px}
+.rm .print{position:relative;inset:auto;aspect-ratio:4/5.62}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .work-stage{grid-template-columns:1fr;grid-template-rows:auto 1fr;align-items:start;
+    padding-top:84px;gap:18px}
+  .work-copy .lede,.work-hint{display:none}
+  .work-copy .h2{font-size:clamp(40px,11vw,72px)}
+  .work-count{margin-top:14px}
+  .stack{width:min(78vw,40svh,430px);align-self:center}
+  .case-top,.case-grid{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .results{grid-template-columns:1fr}
+  .rs-row{grid-template-columns:1fr;gap:10px}
+}

@@ -239,6 +239,43 @@
   const curtain = $('.curtain');
   const toastEl = $('.toast');
 
+  /* ------------------------------------------------------- WHICH PAGE THIS IS
+     The nav is four pages now, not four anchors on one. aria-current is set
+     here and its colour is in core.css, so the page you are on is marked
+     before GSAP is even asked for - and still marked if it never arrives.
+
+     /services, /services.html and /services/ are one page, and so are /work,
+     /work/index.html and /work/. cleanUrls serves the short form; a file://
+     open or a direct .html hit must light the same link. */
+  const pageKey = (u) => {
+    let p = u.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+    if (p.length > 1 && p.endsWith('/')) p = p.slice(0, -1);
+    return p || '/';
+  };
+  let currentLink = null;
+  function markCurrentPage() {
+    const here = pageKey(window.location);
+    $$('.nav-links a, .menu a').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (!href || href[0] === '#' || /^(mailto|tel):/.test(href)) return;
+      let url;
+      try { url = new URL(href, window.location.href); } catch (e) { return; }
+      if (url.origin !== window.location.origin) return;
+      /* A case page lives under the work index, so Work is where you are
+         even though the paths are not equal. An exact match still wins: an
+         ancestor only takes the indicator if nothing exact has claimed it. */
+      const key = pageKey(url);
+      const exact = key === here;
+      if (!exact && !(key !== '/' && here.indexOf(key + '/') === 0)) {
+        a.removeAttribute('aria-current');
+        return;
+      }
+      a.setAttribute('aria-current', exact ? 'page' : 'true');
+      if (a.closest('.nav-links') && (exact || !currentLink)) currentLink = a;
+    });
+  }
+  markCurrentPage();
+
   /* ------------------------------------------------ graceful no-GSAP exit
      The page must still read. Lift the curtain, give the menu button a plain
      class toggle so every destination stays reachable, and stop. */
@@ -490,7 +527,7 @@
   function setCompact(on) {
     if (compact === on || !nav) return;
     compact = on;
-    if (RM) { nav.classList.toggle('compact', on); return; }
+    if (RM) { nav.classList.toggle('compact', on); parkInd(); return; }
     const targets = [navIn, navBrand, navEnd, navBar, $('.wordmark'), $('.turned'), menuBtn].filter(Boolean);
     const state = Flip.getState(targets, { props: 'padding,gap' });
     nav.classList.toggle('compact', on);
@@ -501,6 +538,8 @@
       onEnter: (els) => gsap.fromTo(els, { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.4 }),
       onLeave: (els) => gsap.to(els, { opacity: 0, scale: 0.86, duration: 0.3 })
     });
+    /* the pill is measured after the Flip has written the new layout */
+    requestAnimationFrame(parkInd);
   }
   /* Focus landing inside the nav forces it open, so a keyboard user never
      meets a collapsed pill with links they cannot reach. */
@@ -511,18 +550,23 @@
   }
 
   /* --- the sliding indicator ---
-     Ported from nuanse-house. It tracks whichever section owns the screen.
-     Links that point off this page (a project page's nav points home) simply
-     never match, and the indicator stays hidden rather than guessing. */
+     Ported from nuanse-house, where it tracked whichever section owned the
+     screen. The nav is four PAGES now, so the question it answers changed
+     with it: not "which section" but "which page". It parks on the link for
+     the page you are on and stays there.
+
+     On the home page nothing matches - its nav points at the four other
+     pages - so the indicator stays hidden rather than guessing. That is the
+     honest answer: there is no fifth link saying "home". */
   const navInd = $('.nav-ind');
-  function moveInd(id) {
+  function indTo(a) {
     if (!navInd) return;
-    const a = id && $(`.nav-links a[href="#${id}"]`);
     if (!a || !a.offsetWidth || compact) { navInd.classList.remove('on'); return; }
     navInd.classList.add('on');
     navInd.style.width = `${a.offsetWidth}px`;
     navInd.style.transform = `translateX(${a.offsetLeft}px)`;
   }
+  function parkInd() { indTo(currentLink); }
 
   /* ------------------------------------------------- CURTAIN / PAGE CHANGE
      One element does the opener and every page change. With real pages now,
@@ -806,17 +850,8 @@
       });
     }
 
-    /* the indicator follows whichever linked section owns the screen */
-    if (navInd) {
-      $$('.nav-links a[href^="#"]').forEach((a) => {
-        const sec = $(a.getAttribute('href'));
-        if (!sec) return;
-        ScrollTrigger.create({
-          trigger: sec, start: 'top 45%', end: 'bottom 45%',
-          onToggle: (s) => { if (s.isActive) moveInd(sec.id); }
-        });
-      });
-    }
+    /* the indicator parks on the current page's link, once layout exists */
+    parkInd();
 
     /* the nav mark rotates with scroll progress */
     if (!RM && navSpin) {
@@ -973,6 +1008,41 @@
     }, 200);
   });
   const resizeHooks = [];
+  resizeHooks.push(parkInd);          /* the pill's links move when it reflows */
+
+  /* ------------------------------------------------- A HAND-DRAWN LOOP
+     One open ellipse, overshooting itself by a tenth of a turn, with a slow
+     wobble on the radius so it reads as drawn rather than plotted. The home
+     page loops its slider annotations with it and the work index loops the
+     proof prints, so it is here rather than in either of them. */
+  function loopPath(cx, cy, rx, ry) {
+    let d = '';
+    const steps = 56;
+    const turns = 1.1;
+    for (let k = 0; k <= steps; k++) {
+      const t = (k / steps) * turns * Math.PI * 2 - 2.3;
+      const g = 1 + 0.045 * Math.sin(k * 0.9) + (k / steps) * 0.07;
+      d += (k ? 'L' : 'M') + (cx + Math.cos(t) * rx * g).toFixed(1) + ' ' + (cy + Math.sin(t) * ry * g).toFixed(1);
+    }
+    return d;
+  }
+
+  /* --------------------------------------------------------- A FOCUS TRAP
+     A modal must not let Tab walk out of it. Promoted out of home.js: the
+     case overlay moved to the work index and the audit modal stayed on the
+     home page, so two pages need this and neither owns it. */
+  function trap(box) {
+    box.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab' || !box.classList.contains('open')) return;
+      const f = $$('a[href],button,input,select,textarea,[tabindex]:not([tabindex="-1"])', box)
+        .filter((el) => el.offsetParent !== null);
+      if (!f.length) return;
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  }
 
   /* --------------------------------------------------------------- exports
      The contract page scripts build against. Anything a second page needs
@@ -987,7 +1057,7 @@
     /* scroll */
     lenis, stopScroll, startScroll, jumpTo,
     /* chrome */
-    nav, setNav, setMenu, moveInd, toast, cursorRest, sizeFooter, goPage,
+    nav, setNav, setMenu, toast, cursorRest, sizeFooter, goPage, trap, loopPath,
     navSlot, navMark, navSpin,
     /* lifecycle: page scripts hook in rather than racing boot */
     onBuild: (fn) => buildHooks.push(fn),

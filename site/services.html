@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services — NUANSE</title>
+<meta name="description" content="Five disciplines under one roof — strategy, identity, websites, content and film, performance — so the menu, the reel and the ad all sound like the same place. Budget changes the scope, never the standard.">
+<meta name="theme-color" content="#08112E">
+<link rel="canonical" href="https://www.thenuanse.com/services">
+
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/brand/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="assets/brand/favicon-180.png">
+<link rel="manifest" href="site.webmanifest">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NUANSE">
+<meta property="og:title" content="What we make — NUANSE">
+<meta property="og:description" content="Strategy, identity, websites, content and film, performance. Five disciplines, one standard.">
+<meta property="og:url" content="https://www.thenuanse.com/services">
+<meta property="og:image" content="https://www.thenuanse.com/assets/brand/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The NUANSE wordmark in cream on navy.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What we make — NUANSE">
+<meta name="twitter:description" content="Strategy, identity, websites, content and film, performance. Five disciplines, one standard.">
+<meta name="twitter:image" content="https://www.thenuanse.com/assets/brand/og-default.png">
+
+<link rel="preload" href="assets/fonts/gloock-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/hanken-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" crossorigin>
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" crossorigin>
+
+<script src="assets/js/boot.js"></script>
+
+<link rel="stylesheet" href="assets/css/core.css">
+<link rel="stylesheet" href="assets/css/services.css">
+</head>
+<body>
+
+<a class="skip" href="#page">Skip to content</a>
+
+<!-- LOADER + PAGE-CHANGE CURTAIN · identical to every other page -->
+<div class="curtain" aria-hidden="true">
+  <canvas class="curtain-foil" aria-hidden="true"></canvas>
+  <div class="curtain-cover"></div>
+  <div class="curtain-mark">
+    <span class="cm-flip">
+      <img class="mark cm-navy" src="assets/brand/monogram-navy-512.png" width="512" height="738" alt="" decoding="async" fetchpriority="high">
+      <img class="mark cm-copper" src="assets/brand/monogram-copper-512.png" width="512" height="738" alt="" decoding="async">
+    </span>
+  </div>
+  <div class="curtain-marks" aria-hidden="true"><i class="cmk tl"></i><i class="cmk tr"></i><i class="cmk bl"></i><i class="cmk br"></i></div>
+  <p class="curtain-label mono"><span>NUANSE</span><span class="cl-rule"></span><span>Bangalore</span></p>
+</div>
+<div class="page-dim" aria-hidden="true"></div>
+<div class="cur" aria-hidden="true"><i></i><b></b></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="toast mono" role="status" aria-live="polite"></div>
+
+<!-- NAV · the same chassis. Four pages, not four anchors: core.js
+     marks the one you are on and parks the indicator on it, and the colour is
+     in core.css so it is right before GSAP loads and if it never does. -->
+<header class="nav">
+  <div class="nav-in">
+    <a href="index.html" class="nav-brand" aria-label="NUANSE, home">
+      <span class="nav-slot" aria-hidden="true"><span class="nav-spin"><img class="mark nav-mark" src="assets/brand/monogram-copper-128.png" width="128" height="185" alt="" decoding="async"></span></span>
+      <span class="wordmark" aria-hidden="true">NUAN<span class="rev">S</span>E</span>
+    </a>
+    <div class="nav-bar">
+      <span class="nav-ind" aria-hidden="true"></span>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="work/index.html">Work</a>
+        <a href="services.html">Services</a>
+        <a href="process.html">Process</a>
+        <a href="team.html">Team</a>
+      </nav>
+    </div>
+    <div class="nav-end">
+      <a class="nav-cta" href="index.html#audit">Free audit</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+</header>
+<div class="menu" id="menu" aria-hidden="true">
+  <a href="work/index.html">Work</a>
+  <a href="services.html">Services</a>
+  <a href="process.html">Process</a>
+  <a href="team.html">Team</a>
+  <a href="index.html#audit">Audit</a>
+  <p class="mono">Bangalore · hello@nuanse.studio</p>
+</div>
+
+<main class="page" id="page">
+
+  <!-- 1 · OPENING FRAME -->
+  <section class="pg-open" data-nav="dark" data-nav-anchor aria-label="Services, overview">
+    <div>
+      <p class="mono pg-open-eyebrow">Services</p>
+      <h1 class="pg-title h-split">What we make.</h1>
+      <div class="pg-rule" aria-hidden="true"></div>
+    </div>
+    <div class="pg-open-foot">
+      <dl class="pg-meta mono">
+        <div><dt>Five disciplines</dt><dd>One roof</dd></div>
+        <div><dt>Budget changes the scope</dt><dd>Never the standard</dd></div>
+      </dl>
+      <p class="pg-verdict">So the menu, the reel and the ad all sound like the same place.</p>
+    </div>
+  </section>
+
+  <!-- 2 · THE FIVE
+       One band each, and one drawn artifact each. The fanned cards this
+       replaces overlapped their neighbours and hid the deliverables behind a
+       hover; nothing here overlaps anything, and every list is just open. -->
+  <section class="svc-sec sec" id="disciplines" data-nav="light" aria-label="The five disciplines">
+    <div class="sec-head">
+      <div>
+        <h2 class="h2 h-split">Five, not five-ish.</h2>
+        <p class="lede ink">Each one is a thing we do all of, not a box we tick. The drawing beside each is the argument for it.</p>
+      </div>
+    </div>
+    <ol class="svc-list">
+      <li class="svc" id="strategy">
+        <div class="svc-copy">
+          <p class="mono svc-n"><b>01</b><span>Think</span></p>
+          <h3 class="svc-h h-split">Strategy.</h3>
+          <p class="svc-lede ink">What to say, who to say it to, and why they&rsquo;d pay more for it.</p>
+          <ul class="svc-del">
+            <li>Brand audit</li>
+            <li>Positioning</li>
+            <li>Naming &amp; name systems</li>
+            <li>Pricing presentation</li>
+            <li>Messaging</li>
+          </ul>
+        </div>
+        <figure class="svc-fig">
+          <div class="sa sa-strategy">
+          <svg viewBox="0 0 400 300" role="img" aria-label="A strategy document being redlined: the phrase “leveraging synergies” struck through in copper, and “working as one team” written in underneath.">
+              <g class="sa-rule">
+                <line x1="48" y1="56" x2="320" y2="56"/>
+                <line x1="48" y1="74" x2="286" y2="74"/>
+                <line x1="48" y1="92" x2="304" y2="92"/>
+              </g>
+              <text class="sa-ser sa-was" x="48" y="150">leveraging synergies</text>
+              <path class="sa-draw sa-strike" d="M42 142C118 134 232 150 318 139"/>
+              <text class="sa-ser sa-now sa-rise" x="48" y="206">working as one team</text>
+              <g class="sa-rule">
+                <line x1="48" y1="232" x2="320" y2="232"/>
+                <line x1="48" y1="250" x2="228" y2="250"/>
+              </g>
+              <text class="sa-lbl" x="48" y="282">V3 · REDLINED</text>
+            </svg>
+          </div>
+          <figcaption>A real redline, from a real brief</figcaption>
+        </figure>
+      </li>
+      <li class="svc" id="identity">
+        <div class="svc-copy">
+          <p class="mono svc-n"><b>02</b><span>Look</span></p>
+          <h3 class="svc-h h-split">Identity.</h3>
+          <p class="svc-lede ink">How it looks everywhere it shows up, from the sign to the bill.</p>
+          <ul class="svc-del">
+            <li>Logo &amp; wordmark</li>
+            <li>Type &amp; colour system</li>
+            <li>Menus &amp; packaging</li>
+            <li>Signage</li>
+            <li>Guidelines people use</li>
+          </ul>
+        </div>
+        <figure class="svc-fig">
+          <div class="sa sa-identity">
+          <svg viewBox="0 0 400 300" role="img" aria-label="The NUANSE monogram seating onto its construction grid, with navy, copper and cream set out as three swatches below it.">
+              <g class="sa-grid sa-geo">
+                <line x1="200" y1="20" x2="200" y2="214"/>
+                <line x1="90" y1="118" x2="310" y2="118"/>
+                <circle cx="200" cy="118" r="76"/>
+                <rect x="152" y="70" width="96" height="96"/>
+              </g>
+              <g class="sa-chips">
+                <rect class="sa-chip navy" x="128" y="238" width="48" height="26"/>
+                <rect class="sa-chip copper" x="186" y="238" width="48" height="26"/>
+                <rect class="sa-chip cream" x="244" y="238" width="48" height="26"/>
+              </g>
+              <text class="sa-lbl" x="200" y="286" text-anchor="middle">NAVY · COPPER · CREAM</text>
+            </svg>
+            <!-- the mark is the asset, never a drawn S -->
+            <img class="sa-mark" src="assets/brand/monogram-copper-256.png" width="256" height="369" alt="" loading="lazy" decoding="async">
+          </div>
+          <figcaption>Construction, then the mark, then the palette</figcaption>
+        </figure>
+      </li>
+      <li class="svc" id="websites">
+        <div class="svc-copy">
+          <p class="mono svc-n"><b>03</b><span>Read</span></p>
+          <h3 class="svc-h h-split">Websites.</h3>
+          <p class="svc-lede ink">Sites that read fast and sell quietly. Built, not just designed.</p>
+          <ul class="svc-del">
+            <li>Sitemap &amp; copy</li>
+            <li>Shopify &amp; booking flows</li>
+            <li>Hand-over training</li>
+          </ul>
+        </div>
+        <figure class="svc-fig">
+          <div class="sa sa-websites">
+          <svg viewBox="0 0 400 300" role="img" aria-label="A page assembling onto a baseline grid: a header bar, a headline, two columns of copy and one call to action.">
+              <g class="sa-base">
+                <line x1="28" y1="54" x2="372" y2="54"/>
+                <line x1="28" y1="76" x2="372" y2="76"/>
+                <line x1="28" y1="98" x2="372" y2="98"/>
+                <line x1="28" y1="120" x2="372" y2="120"/>
+                <line x1="28" y1="142" x2="372" y2="142"/>
+                <line x1="28" y1="164" x2="372" y2="164"/>
+                <line x1="28" y1="186" x2="372" y2="186"/>
+                <line x1="28" y1="208" x2="372" y2="208"/>
+                <line x1="28" y1="230" x2="372" y2="230"/>
+                <line x1="28" y1="252" x2="372" y2="252"/>
+              </g>
+              <g class="sa-blocks">
+                <rect class="b" x="28" y="34" width="344" height="16"/>
+                <rect class="b big" x="28" y="76" width="232" height="44"/>
+                <rect class="b" x="28" y="142" width="148" height="10"/>
+                <rect class="b" x="28" y="162" width="124" height="10"/>
+                <rect class="b" x="224" y="142" width="148" height="10"/>
+                <rect class="b" x="224" y="162" width="108" height="10"/>
+                <rect class="cta" x="28" y="196" width="130" height="34" rx="17"/>
+              </g>
+              <text class="sa-lbl" x="28" y="276">ONE CALL TO ACTION</text>
+              <text class="sa-lbl dim" x="372" y="276" text-anchor="end">BUILT, NOT JUST DESIGNED</text>
+            </svg>
+          </div>
+          <figcaption>Everything on a baseline, one thing to click</figcaption>
+        </figure>
+      </li>
+      <li class="svc" id="content">
+        <div class="svc-copy">
+          <p class="mono svc-n"><b>04</b><span>Watch</span></p>
+          <h3 class="svc-h h-split">Content &amp; film.</h3>
+          <p class="svc-lede ink">The frame a reel cuts on. The second line of a caption.</p>
+          <ul class="svc-del">
+            <li>Shoots (24 SKUs, one day)</li>
+            <li>Reels</li>
+            <li>Product photography</li>
+            <li>Social systems</li>
+          </ul>
+        </div>
+        <figure class="svc-fig">
+          <div class="sa sa-content">
+          <svg viewBox="0 0 400 300" role="img" aria-label="A filmstrip advancing until the third frame holds, with a copper cut marked on it.">
+              <g class="sa-strip">
+                <g class="fx">
+                  <rect class="fr" x="-54" y="92" width="92" height="68"/>
+                  <rect class="hole" x="-46" y="78" width="10" height="7"/>
+                  <rect class="hole" x="-46" y="167" width="10" height="7"/>
+                  <rect class="hole" x="-22" y="78" width="10" height="7"/>
+                  <rect class="hole" x="-22" y="167" width="10" height="7"/>
+                  <rect class="hole" x="2" y="78" width="10" height="7"/>
+                  <rect class="hole" x="2" y="167" width="10" height="7"/>
+                  <rect class="hole" x="26" y="78" width="10" height="7"/>
+                  <rect class="hole" x="26" y="167" width="10" height="7"/>
+                </g>
+                <g class="fx">
+                  <rect class="fr" x="50" y="92" width="92" height="68"/>
+                  <rect class="hole" x="58" y="78" width="10" height="7"/>
+                  <rect class="hole" x="58" y="167" width="10" height="7"/>
+                  <rect class="hole" x="82" y="78" width="10" height="7"/>
+                  <rect class="hole" x="82" y="167" width="10" height="7"/>
+                  <rect class="hole" x="106" y="78" width="10" height="7"/>
+                  <rect class="hole" x="106" y="167" width="10" height="7"/>
+                  <rect class="hole" x="130" y="78" width="10" height="7"/>
+                  <rect class="hole" x="130" y="167" width="10" height="7"/>
+                </g>
+                <g class="fx">
+                  <rect class="fr on" x="154" y="92" width="92" height="68"/>
+                  <rect class="hole" x="162" y="78" width="10" height="7"/>
+                  <rect class="hole" x="162" y="167" width="10" height="7"/>
+                  <rect class="hole" x="186" y="78" width="10" height="7"/>
+                  <rect class="hole" x="186" y="167" width="10" height="7"/>
+                  <rect class="hole" x="210" y="78" width="10" height="7"/>
+                  <rect class="hole" x="210" y="167" width="10" height="7"/>
+                  <rect class="hole" x="234" y="78" width="10" height="7"/>
+                  <rect class="hole" x="234" y="167" width="10" height="7"/>
+                </g>
+                <g class="fx">
+                  <rect class="fr" x="258" y="92" width="92" height="68"/>
+                  <rect class="hole" x="266" y="78" width="10" height="7"/>
+                  <rect class="hole" x="266" y="167" width="10" height="7"/>
+                  <rect class="hole" x="290" y="78" width="10" height="7"/>
+                  <rect class="hole" x="290" y="167" width="10" height="7"/>
+                  <rect class="hole" x="314" y="78" width="10" height="7"/>
+                  <rect class="hole" x="314" y="167" width="10" height="7"/>
+                  <rect class="hole" x="338" y="78" width="10" height="7"/>
+                  <rect class="hole" x="338" y="167" width="10" height="7"/>
+                </g>
+                <g class="fx">
+                  <rect class="fr" x="362" y="92" width="92" height="68"/>
+                  <rect class="hole" x="370" y="78" width="10" height="7"/>
+                  <rect class="hole" x="370" y="167" width="10" height="7"/>
+                  <rect class="hole" x="394" y="78" width="10" height="7"/>
+                  <rect class="hole" x="394" y="167" width="10" height="7"/>
+                  <rect class="hole" x="418" y="78" width="10" height="7"/>
+                  <rect class="hole" x="418" y="167" width="10" height="7"/>
+                  <rect class="hole" x="442" y="78" width="10" height="7"/>
+                  <rect class="hole" x="442" y="167" width="10" height="7"/>
+                </g>
+              </g>
+              <g class="sa-cut">
+                <path class="sa-draw" d="M200 52V200"/>
+                <path class="sa-acc" d="M191 52 200 68 209 52Z"/>
+              </g>
+              <text class="sa-lbl" x="200" y="246" text-anchor="middle">THE FRAME IT CUTS ON</text>
+            </svg>
+          </div>
+          <figcaption>Five frames. One of them is the shot</figcaption>
+        </figure>
+      </li>
+      <li class="svc" id="performance">
+        <div class="svc-copy">
+          <p class="mono svc-n"><b>05</b><span>Count</span></p>
+          <h3 class="svc-h h-split">Performance.</h3>
+          <p class="svc-lede ink">Orders, conversion, return on ad spend. Numbers, not decoration.</p>
+          <ul class="svc-del">
+            <li>Meta &amp; Google ads</li>
+            <li>Swiggy &amp; Zomato listings</li>
+            <li>Landing pages</li>
+            <li>ROAS &amp; cost per reservation</li>
+            <li>Monthly review</li>
+          </ul>
+        </div>
+        <figure class="svc-fig">
+          <div class="sa sa-performance">
+          <svg viewBox="0 0 400 300" role="img" aria-label="A line rising left to right across a chart whose axes are deliberately unlabelled.">
+              <g class="sa-rule">
+                <line x1="48" y1="240" x2="368" y2="240"/>
+                <line x1="48" y1="44" x2="48" y2="240"/>
+                <line class="dash" x1="48" y1="180" x2="368" y2="180"/>
+                <line class="dash" x1="48" y1="120" x2="368" y2="120"/>
+                <line class="dash" x1="48" y1="60" x2="368" y2="60"/>
+              </g>
+              <path class="sa-draw sa-line" d="M48 214 L112 198 L176 176 L240 150 L304 106 L368 74"/>
+              <g class="sa-dots">
+                <circle cx="48" cy="214" r="4"/>
+                <circle cx="112" cy="198" r="4"/>
+                <circle cx="176" cy="176" r="4"/>
+                <circle cx="240" cy="150" r="4"/>
+                <circle cx="304" cy="106" r="4"/>
+                <circle cx="368" cy="74" r="4"/>
+              </g>
+              <text class="sa-lbl" x="48" y="276">ORDERS · CONVERSION · ROAS</text>
+              <text class="sa-lbl dim" x="368" y="276" text-anchor="end">MONTHLY</text>
+            </svg>
+          </div>
+          <figcaption>The shape of a good month</figcaption>
+          <p class="qual-note">Unlabelled on purpose. The numbers belong to the client; the ones we can source sit on the case page.</p>
+        </figure>
+      </li>
+    </ol>
+    <div class="svc-note mono"><span>Works with Swiggy · Zomato · Petpooja · Shopify</span><span>Bangalore · hello@nuanse.studio</span></div>
+  </section>
+
+</main>
+
+<!-- NEXT · the route onward, edge to edge.
+     Wrapped in a nav: it is a route, and content outside every landmark is a
+     WCAG structure failure. -->
+<nav class="pg-next-nav" aria-label="Next">
+<a class="pg-next" href="process.html" data-nav="dark" data-cursor="See the stages">
+  <span class="pg-next-in">
+    <span>
+      <span class="mono">Next · How it runs</span>
+      <b class="turn">Four stages, in order.</b>
+    </span>
+    <span class="go">Process →</span>
+  </span>
+</a>
+</nav>
+
+<!-- FOOTER · shared -->
+<footer class="footer" id="footer" data-nav="dark">
+  <div class="ft-in">
+    <div class="ft-top">
+      <div><p class="mono">Studio</p><p>Bangalore, India</p></div>
+      <div><p class="mono">Write</p><a href="mailto:hello@nuanse.studio">hello@nuanse.studio</a></div>
+      <div><p class="mono">Start</p><a href="index.html#audit">The two-minute audit</a></div>
+      <div><button class="to-top" data-goto="#top">Back to the top</button></div>
+    </div>
+    <div class="ft-mid">
+      <div class="ft-word turn">NUAN<span class="rev">S</span>E</div>
+      <div class="s3d-wrap">
+        <div class="s3d" tabindex="0" role="img" aria-label="The NUANSE mark in three dimensions. Drag it; it springs back.">
+          <div class="s3d-obj" data-copper="assets/brand/monogram-copper-256.png" data-cream="assets/brand/monogram-cream-256.png"></div>
+        </div>
+        <span class="mono">Drag it. It comes back.</span>
+      </div>
+    </div>
+    <div class="ft-bot mono"><span>© 2026 NUANSE</span></div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/services.js"></script>
+</body>
+</html>

@@ -29,28 +29,11 @@
 
 /* ============ 1 · OPENING FRAME ============
    Client name, sector, year, one-line verdict. The accent enters here and
-   nowhere earlier — the nav and loader stay NUANSE's own copper. */
-.pj-open{min-height:92vh;min-height:92svh;display:flex;flex-direction:column;
-  justify-content:space-between;padding:clamp(120px,18vh,190px) var(--gut) clamp(40px,7vh,72px);
-  background:var(--pj-ground,var(--night));color:var(--cream);position:relative;overflow:hidden}
-.pj-open-eyebrow{display:flex;align-items:center;gap:12px;margin:0;color:var(--accent-l)}
-.pj-open-eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
-.pj-title{font-family:var(--serif);font-weight:400;font-size:clamp(54px,11vw,170px);
-  line-height:.88;letter-spacing:-.045em;margin:clamp(20px,4vh,44px) 0 0;max-width:11ch;
-  text-wrap:balance}
-.pj-verdict{font-family:var(--serif);font-size:clamp(24px,3.2vw,44px);line-height:1.1;
-  letter-spacing:-.025em;margin:0;max-width:22ch;text-wrap:balance}
-.pj-open-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:clamp(24px,5vw,64px);
-  flex-wrap:wrap}
-/* sector / year / role, as a measured row rather than a paragraph */
-.pj-meta{display:flex;margin:0;color:var(--mute-d);flex-wrap:wrap}
-.pj-meta>div{padding:0 clamp(16px,1.6vw,24px);border-left:1px solid var(--hair-c)}
-.pj-meta>div:first-child{padding-left:0;border-left:0}
-.pj-meta dt{margin:0;color:var(--cream)}
-.pj-meta dd{margin:5px 0 0}
-/* a single accent rule under the title: the one place the client's colour
-   touches the opening frame as a block rather than as text */
-.pj-rule{height:3px;width:min(280px,34vw);background:var(--accent);margin:clamp(28px,5vh,52px) 0 0}
+   nowhere earlier — the nav and loader stay NUANSE's own copper.
+
+   The frame itself is in core.css, shared with the interior pages as
+   `.pg-open,.pj-open`. What is left to a project page is the accent, which is
+   the only part of the frame it actually owns. */
 
 /* ============ 2 · THE PROBLEM ============
    Two or three sentences, plainly. The section that has to resist becoming
@@ -125,45 +108,10 @@
   transform:translateY(-.35em)}
 
 /* ============ 7 · NEXT PROJECT ============
-   Edge to edge, in the NEXT project's accent, so the set reads as a sequence
-   rather than a row of dead ends. */
-.pj-next{display:block;text-decoration:none;background:var(--next-accent,var(--navy));
-  color:var(--cream);padding:clamp(70px,11vw,150px) var(--gut);position:relative;overflow:hidden}
-.pj-next-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,4vw,48px);
-  align-items:end}
-/* No opacity on the eyebrow. The ground here is the NEXT project's accent,
-   and Zingara's true red #C8332A is dark enough that cream at .8 measures
-   3.69:1 at 11px - a real AA failure, visible only once .rm removes the
-   ::before overlay that was hiding it from the audit. Full cream on that red
-   is 4.97:1, which is the whole budget; there is none left to spend on
-   de-emphasis. The hierarchy here is 11px mono against 124px serif, which is
-   hierarchy enough. */
-.pj-next .mono{margin:0}
-.pj-next b{display:block;font-family:var(--serif);font-weight:400;
-  font-size:clamp(44px,7.4vw,124px);line-height:.92;letter-spacing:-.035em;margin-top:14px;
-  max-width:14ch}
-.pj-next .go{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  border:1px solid currentColor;border-radius:100px;padding:14px 22px;white-space:nowrap}
-/* the ground slides up on hover, the way the home page's teaser does */
-.pj-next::before{content:"";position:absolute;inset:0;background:var(--night);
-  transform:translateY(101%);transition:transform .8s var(--ease);z-index:0}
-@media (hover:hover){.pj-next:hover::before{transform:none}}
-.pj-next-in{position:relative;z-index:1}
-
-/* a figure we do not have yet, carried over from home.css so project pages
-   can mark a gap the same ugly way */
-.needs{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:none;
-  background:#FFE8A3;color:#6B4E00;border:1px dashed #6B4E00;padding:2px 6px;
-  display:inline-block;white-space:normal;line-height:1.4}
+   The link itself is in core.css as `.pg-next,.pj-next`, including the
+   documented reason its eyebrow carries no opacity. A project page sets
+   --next-accent to the next project's colour and nothing else. */
 .pj-nums strong .needs{font-size:12px}
-
-/* a note that qualifies what is being shown, rather than a caption that
-   describes it. Used where honesty costs a line. */
-.pj-note{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--mute);display:flex;gap:10px;align-items:baseline;margin:14px 0 0}
-.pj-note::before{content:"";flex:0 0 14px;height:1px;background:currentColor;
-  transform:translateY(-.35em)}
-[data-nav=dark] .pj-note{color:var(--mute-d)}
 
 /* ============ SHARED CHAPTER PATTERNS ============
    Added when the two case pages stopped being "a menu" and "a campaign" and
@@ -313,15 +261,6 @@
   color:var(--mute-d)}
 .pj-system .pj-live p{color:var(--mute)}
 
-/* a sourced figure or claim, set small and quiet under what it qualifies */
-.pj-src{font-family:var(--mono);font-size:10px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--mute);margin:14px 0 0;line-height:1.6;
-  max-width:72ch}
-[data-nav=dark] .pj-src{color:var(--mute-d)}
-
-/* ============ REDUCED MOTION ============ */
-.rm .pj-next::before{display:none}
-
 /* ============ RESPONSIVE ============ */
 @media (max-width:900px){
   .pj-problem-in,.pj-scope-in{grid-template-columns:1fr}
@@ -329,14 +268,13 @@
   .ev .ev-frame,.ev:nth-of-type(even) .ev-frame{grid-column:1;grid-row:1}
   .ev figcaption,.ev:nth-of-type(even) figcaption{grid-column:1;grid-row:2}
   .pj-nums{grid-template-columns:1fr}
-  .pj-next-in{grid-template-columns:1fr}
   .pj-scope ul{columns:1}
   .pj-chapter{grid-template-columns:1fr}
   .pj-grid,.pj-grid.two{grid-template-columns:1fr}
   .pj-live{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:600px){
-  .pj-open{min-height:auto;padding-top:clamp(100px,16vh,150px)}
-  .pj-meta{flex-direction:column;gap:14px}
-  .pj-meta>div{padding:0;border-left:0}
+  .pg-open,.pj-open{min-height:auto;padding-top:clamp(100px,16vh,150px)}
+  .pg-meta,.pj-meta{flex-direction:column;gap:14px}
+  .pg-meta>div,.pj-meta>div{padding:0;border-left:0}
 }

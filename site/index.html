@@ -84,7 +84,11 @@
 <div class="grain" aria-hidden="true"></div>
 <div class="toast mono" role="status" aria-live="polite"></div>
 
-<!-- NAV · complete on the first slide, half once you scroll -->
+<!-- NAV · complete on the first slide, half once you scroll.
+     Four pages, not four anchors: the sections these pointed at are pages of
+     their own now, so they are ordinary cross-page links and the curtain
+     carries them. The indicator stays hidden here - there is no fifth link
+     saying "home" for it to park on. -->
 <header class="nav">
   <div class="nav-in">
     <a href="#top" class="nav-brand" data-goto="#top" aria-label="NUANSE, back to the top">
@@ -94,10 +98,10 @@
     <div class="nav-bar">
       <span class="nav-ind" aria-hidden="true"></span>
       <nav class="nav-links" aria-label="Primary">
-        <a href="#work" data-goto="#work">Work</a>
-        <a href="#services" data-goto="#services">Services</a>
-        <a href="#process" data-goto="#process">Process</a>
-        <a href="#team" data-goto="#team">Team</a>
+        <a href="work/index.html">Work</a>
+        <a href="services.html">Services</a>
+        <a href="process.html">Process</a>
+        <a href="team.html">Team</a>
       </nav>
     </div>
     <div class="nav-end">
@@ -107,10 +111,10 @@
   </div>
 </header>
 <div class="menu" id="menu" aria-hidden="true">
-  <a href="#work" data-goto="#work">Work</a>
-  <a href="#services" data-goto="#services">Services</a>
-  <a href="#process" data-goto="#process">Process</a>
-  <a href="#team" data-goto="#team">Team</a>
+  <a href="work/index.html">Work</a>
+  <a href="services.html">Services</a>
+  <a href="process.html">Process</a>
+  <a href="team.html">Team</a>
   <a href="#audit" data-goto="#audit">Audit</a>
   <p class="mono">Bangalore · hello@nuanse.studio</p>
 </div>
@@ -127,7 +131,7 @@
         </div>
         <div class="hero-foot">
           <div class="hero-ctas">
-            <a class="btn solid magnet" href="#work" data-goto="#work"><span class="btn-ar l" aria-hidden="true">→</span><span class="btn-label">See the work</span><span class="btn-ar r" aria-hidden="true">→</span></a>
+            <a class="btn solid magnet" href="work/index.html"><span class="btn-ar l" aria-hidden="true">→</span><span class="btn-label">See the work</span><span class="btn-ar r" aria-hidden="true">→</span></a>
             <a class="btn magnet" href="#audit" data-goto="#audit"><span class="btn-ar l" aria-hidden="true">→</span><span class="btn-label">Take the audit</span><span class="btn-ar r" aria-hidden="true">→</span></a>
           </div>
         </div>
@@ -171,78 +175,37 @@
     </div>
   </section>
 
-  <!-- 4 · WORK (pinned proof prints) -->
-  <section class="work" id="work" data-nav="dark" aria-label="Selected work">
-    <div class="work-stage">
-      <div class="work-copy">
+  <!-- 4a · WORK TEASER
+       The pinned proofs moved to work/index.html, where they open the page
+       instead of being section 4 of nine. What is left here is the shortest
+       honest version: the two cases that have a page, and a way to the rest. -->
+  <section class="wt sec" id="work" data-nav="dark" aria-label="Selected work">
+    <div class="sec-head">
+      <div>
         <h2 class="h2 h-split">Proofs, marked up.</h2>
-        <p class="lede">Every job starts with an audit. These are the proofs we circled, the fixes we made and what the numbers did after.</p>
-        <p class="mono work-count">Proof <b class="wc-n">01</b> / 03 <span class="bar"><i></i></span></p>
-      </div>
-      <!-- A real photograph replaces the drawn art on any print carrying
-           data-img; a print without it keeps the drawn art, and a broken path
-           falls back to it too. -->
-      <div class="stack">
-        <div class="print frame-ox" role="button" tabindex="0" data-href="work/zingara.html" data-cursor="Read the case" aria-label="Read the case: Zingara, restaurant"
-             data-rl="138,62,128,40,A;90,147,76,22,B;352,245,30,104,C">
-          <div class="print-paper">
-            <div class="print-top"><b>Proof 01</b><span>Zingara · Restaurant</span></div>
-            <div class="print-art">
-              <div class="art art-z">
-                <span class="z-title">Zingara</span>
-                <span class="mono-s z-sub">Kitchen &amp; bar · Bangalore</span>
-                <span class="mono-s z-sec"><span>Small plates</span><span>12</span></span>
-                <span class="z-row"><span>Charred corn, lime butter</span><span>249</span></span>
-                <span class="z-row"><span>Pepper prawns, curry leaf</span><span>460</span></span>
-                <span class="mono-s z-sec"><span>From the fire</span><span>09</span></span>
-                <span class="z-row"><span>Ghee roast chicken</span><span>540</span></span>
-                <span class="z-row"><span>Lamb shoulder, mint</span><span>720</span></span>
-              </div>
-            </div>
-            <div class="print-cap"><span>Menu · identity · listings</span><span>189 items</span></div>
-          </div>
-        </div>
-        <div class="print frame-olive" role="button" tabindex="0" data-case="0" data-cursor="Read the case" aria-label="Open case: D2C fashion, 24 SKUs in one shoot"
-             data-rl="72,150,64,84,A;318,312,64,84,B;180,452,170,30,C">
-          <div class="print-paper">
-            <div class="print-top"><b>Proof 02</b><span>D2C fashion</span></div>
-            <div class="print-art">
-              <div class="art art-f">
-                <div class="f-head mono-s"><span>SS26 · Lookbook</span><span>24 SKUs</span></div>
-                <div class="f-grid">
-                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M18 4 L30 10 L42 4 L58 16 L50 28 L44 24 L44 68 L16 68 L16 24 L10 28 L2 16 Z"/></svg><span class="mono-s">01</span></div>
-                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M22 2 L38 2 L40 10 L52 18 L48 66 L12 66 L8 18 L20 10 Z"/></svg><span class="mono-s">02</span></div>
-                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M14 4 L24 4 Q30 12 36 4 L46 4 L56 22 L48 26 L48 68 L12 68 L12 26 L4 22 Z"/></svg><span class="mono-s">03</span></div>
-                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M20 2 L40 2 L44 30 L50 68 L10 68 L16 30 Z"/></svg><span class="mono-s">04</span></div>
-                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M18 4 L30 10 L42 4 L58 16 L50 28 L44 24 L44 68 L16 68 L16 24 L10 28 L2 16 Z"/></svg><span class="mono-s">05</span></div>
-                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M22 2 L38 2 L40 10 L52 18 L48 66 L12 66 L8 18 L20 10 Z"/></svg><span class="mono-s">06</span></div>
-                </div>
-                <div class="f-foot">24 SKUs. One shoot.</div>
-              </div>
-            </div>
-            <div class="print-cap"><span>Shoot · reels · product pages</span><span>One light</span></div>
-          </div>
-        </div>
-        <div class="print frame-royal" role="button" tabindex="0" data-case="1" data-cursor="Read the case" aria-label="Open case: a GCC in Bangalore"
-             data-rl="118,40,104,22,A;210,186,176,40,B;200,420,180,60,C">
-          <div class="print-paper">
-            <div class="print-top"><b>Proof 03</b><span>GCC · Bangalore</span></div>
-            <div class="print-art">
-              <div class="art art-g">
-                <div class="g-bar mono-s"><span>Six teams, one name</span><span><i></i><i></i><i></i></span></div>
-                <div class="g-h">We are<br><span class="g-strike">leveraging synergies</span><br>working as one team.</div>
-                <span class="mono-s dim">Strategy · v3 · redlined</span>
-                <div class="g-cols"><span>Platform</span><span>Data</span><span>People</span></div>
-              </div>
-            </div>
-            <div class="print-cap"><span>Strategy · name system · site</span><span>Plain language</span></div>
-          </div>
-        </div>
+        <p class="lede">Every job starts with an audit. These are the ones we can show you in full.</p>
       </div>
     </div>
+    <div class="wt-list">
+      <a class="wt-row" href="work/zingara.html" data-cursor="Read the case">
+        <span class="mono wt-n">01</span>
+        <span class="wt-name">Zingara</span>
+        <span class="wt-what">It read like three restaurants. One identity, and a 189-item menu re-set without cutting a dish.</span>
+        <span class="mono wt-go">Restaurant &rarr;</span>
+      </a>
+      <a class="wt-row" href="work/the-possah.html" data-cursor="Read the case">
+        <span class="mono wt-n">02</span>
+        <span class="wt-name">The Possah</span>
+        <span class="wt-what">The budget didn&rsquo;t cover a studio. A full identity, and the collection shot without one.</span>
+        <span class="mono wt-go">Haute couture &rarr;</span>
+      </a>
+    </div>
+    <p class="wt-all">
+      <a class="btn solid magnet" href="work/index.html" data-cursor="See the proofs"><span class="btn-ar l" aria-hidden="true">&rarr;</span><span class="btn-label">All the work</span><span class="btn-ar r" aria-hidden="true">&rarr;</span></a>
+    </p>
   </section>
 
-  <!-- 5 · CASE STUDY REDLINE -->
+  <!-- 4b · CASE STUDY REDLINE -->
   <section class="redline-sec sec" id="redline" data-nav="light" aria-label="Case study: Zingara">
     <div class="rl-grid">
       <div class="rl-copy">
@@ -288,134 +251,7 @@
     </div>
   </section>
 
-  <!-- 6 · SERVICES (fanned cards) -->
-  <section class="services sec" id="services" data-nav="dark" aria-label="Services">
-    <div class="sec-head">
-      <div>
-        <h2 class="h2 h-split">What we make.</h2>
-        <p class="lede ink">Five disciplines under one roof, so the menu, the reel and the ad all sound like the same place. Budget changes the scope, never the standard.</p>
-      </div>
-    </div>
-    <div class="fan">
-      <article class="card" tabindex="0" data-cursor="Turn it over">
-        <div class="card-in">
-          <div class="card-f"><div class="ct mono"><span>01</span><span>Think</span></div><div><h3 class="h-split">Strategy.</h3><p>What to say, who to say it to, and why they'd pay more for it.</p></div></div>
-          <div class="card-b"><span class="mono">Deliverables</span><ul><li>Brand audit</li><li>Positioning</li><li>Naming &amp; name systems</li><li>Pricing presentation</li><li>Messaging</li></ul></div>
-        </div>
-      </article>
-      <article class="card" tabindex="0" data-cursor="Turn it over">
-        <div class="card-in">
-          <div class="card-f"><div class="ct mono"><span>02</span><span>Look</span></div><div><h3 class="h-split">Identity.</h3><p>How it looks everywhere it shows up, from the sign to the bill.</p></div></div>
-          <div class="card-b"><span class="mono">Deliverables</span><ul><li>Logo &amp; wordmark</li><li>Type &amp; colour system</li><li>Menus &amp; packaging</li><li>Signage</li><li>Guidelines people use</li></ul></div>
-        </div>
-      </article>
-      <article class="card" tabindex="0" data-cursor="Turn it over">
-        <div class="card-in">
-          <div class="card-f"><div class="ct mono"><span>03</span><span>Read</span></div><div><h3 class="h-split">Websites.</h3><p>Sites that read fast and sell quietly. Built, not just designed.</p></div></div>
-          <div class="card-b"><span class="mono">Deliverables</span><ul><li>Sitemap &amp; copy</li><li>Shopify &amp; booking flows</li><li>Hand-over training</li></ul></div>
-        </div>
-      </article>
-      <article class="card" tabindex="0" data-cursor="Turn it over">
-        <div class="card-in">
-          <div class="card-f"><div class="ct mono"><span>04</span><span>Watch</span></div><div><h3 class="h-split">Content &amp; film.</h3><p>The frame a reel cuts on. The second line of a caption.</p></div></div>
-          <div class="card-b"><span class="mono">Deliverables</span><ul><li>Shoots (24 SKUs, one day)</li><li>Reels</li><li>Product photography</li><li>Social systems</li></ul></div>
-        </div>
-      </article>
-      <article class="card" tabindex="0" data-cursor="Turn it over">
-        <div class="card-in">
-          <div class="card-f"><div class="ct mono"><span>05</span><span>Count</span></div><div><h3 class="h-split">Performance.</h3><p>Orders, conversion, return on ad spend. Numbers, not decoration.</p></div></div>
-          <div class="card-b"><span class="mono">Deliverables</span><ul><li>Meta &amp; Google ads</li><li>Swiggy &amp; Zomato listings</li><li>Landing pages</li><li>ROAS &amp; cost per reservation</li><li>Monthly review</li></ul></div>
-        </div>
-      </article>
-    </div>
-    <div class="svc-note mono"><span>Works with Swiggy · Zomato · Petpooja · Shopify</span></div>
-  </section>
-
-  <!-- 7 · PROCESS -->
-  <section class="process sec" id="process" data-nav="light" aria-label="Process">
-    <div class="sec-head">
-      <div>
-        <h2 class="h2 h-split">How it runs.</h2>
-        <p class="lede ink">Four stages, in order, with founder eyes on every one. No hidden junior hand-offs.</p>
-      </div>
-    </div>
-    <div class="pr-body">
-      <div class="pr-rail" aria-hidden="true"><span class="pr-line"><span class="pr-fill"></span></span></div>
-      <ol class="pr-list">
-        <li class="stage" data-name="Diagnose" data-out="One-page audit">
-          <span class="stage-dot" aria-hidden="true"></span>
-          <div class="stage-panel dock-l">
-            <div class="sn mono"><span>Week 1</span></div>
-            <h3 class="h-split">Diagnose.</h3>
-            <p>We audit before we touch anything: the menu, your listings on Swiggy and Zomato, the site, the last ninety days of ads. You get one page on what is costing you, ranked by what it costs.</p>
-            <div class="out mono"><span>Output →</span><span>One-page audit, ranked</span></div>
-          </div>
-        </li>
-        <li class="stage" data-name="Define" data-out="Signed brief">
-          <span class="stage-dot" aria-hidden="true"></span>
-          <div class="stage-panel dock-r">
-            <div class="sn mono"><span>Weeks 2–3</span></div>
-            <h3 class="h-split">Define.</h3>
-            <p>We decide what to say and who it's for. Positioning, name system, how prices are presented. Everything after this gets checked against it, including our own work.</p>
-            <div class="out mono"><span>Output →</span><span>A brief the founder signs</span></div>
-          </div>
-        </li>
-        <li class="stage" data-name="Design" data-out="Systems &amp; files">
-          <span class="stage-dot" aria-hidden="true"></span>
-          <div class="stage-panel dock-l">
-            <div class="sn mono"><span>Weeks 3–8</span></div>
-            <h3 class="h-split">Design.</h3>
-            <p>Identity, menus, packaging, the site, the shoot. Every piece is redlined twice before it leaves: kerning, colour, the frame a reel cuts on, the second line of a caption.</p>
-            <div class="out mono"><span>Output →</span><span>Files, systems, a guide people use</span></div>
-          </div>
-        </li>
-        <li class="stage" data-name="Run" data-out="Monthly numbers">
-          <span class="stage-dot" aria-hidden="true"></span>
-          <div class="stage-panel dock-r">
-            <div class="sn mono"><span>Monthly</span></div>
-            <h3 class="h-split">Run.</h3>
-            <p>We launch, then measure what matters to you: orders, conversion, return on ad spend, cost per reservation. Reported every month, in plain language, with the next fix named.</p>
-            <div class="out mono"><span>Output →</span><span>A monthly numbers review</span></div>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- 8 · TEAM -->
-  <section class="team sec" id="team" data-nav="light" aria-label="Team">
-    <div class="sec-head">
-      <div>
-        <h2 class="h2 h-split">Eight people. One standard.</h2>
-        <p class="team-story ink">We started in 2025 with no network, no portfolio and no introductions. We won our first client by noticing what other people missed, and saying it out loud.</p>
-      </div>
-    </div>
-    <div class="builder">
-      <p class="mono builder-q">Who's on your brief?</p>
-      <div class="chips" role="group" aria-label="Pick what you need">
-        <button class="chip" data-skill="strategy" aria-pressed="false">Strategy</button>
-        <button class="chip" data-skill="identity" aria-pressed="false">Identity</button>
-        <button class="chip" data-skill="websites" aria-pressed="false">Websites</button>
-        <button class="chip" data-skill="content" aria-pressed="false">Content</button>
-        <button class="chip" data-skill="film" aria-pressed="false">Film</button>
-        <button class="chip" data-skill="performance" aria-pressed="false">Performance</button>
-        <button class="chip" data-skill="all" aria-pressed="false">Everything</button>
-      </div>
-    </div>
-    <div class="lane">
-      <div>
-        <p class="mono lane-label">On your brief · <span class="lane-n">1</span></p>
-      </div>
-      <div class="lane-row"></div>
-    </div>
-    <div class="scatter"></div>
-    <div class="hiring">
-      <p class="turn">Hiring: people who notice things.</p>
-      <a class="btn magnet" href="mailto:hello@nuanse.studio?subject=I%20noticed%20something" data-cursor="Write in"><span class="btn-ar l" aria-hidden="true">→</span><span class="btn-label">Show us what you noticed</span><span class="btn-ar r" aria-hidden="true">→</span></a>
-    </div>
-  </section>
-
-  <!-- 9 · AUDIT CTA -->
+  <!-- 5 · AUDIT CTA -->
   <section class="audit sec" id="audit" data-nav="dark" aria-label="Brand audit">
     <canvas class="audit-foil" aria-hidden="true"></canvas>
     <div class="trail" aria-hidden="true"></div>
@@ -429,7 +265,7 @@
 
 </main>
 
-<!-- 10 · FOOTER (revealed under the page) -->
+<!-- 6 · FOOTER (revealed under the page) -->
 <footer class="footer" id="footer" data-nav="dark">
   <div class="ft-in">
     <div class="ft-top">
@@ -453,12 +289,6 @@
     <div class="ft-bot mono"><span>© 2026 NUANSE</span></div>
   </div>
 </footer>
-
-<!-- CASE OVERLAY -->
-<div class="case-ov" role="dialog" aria-modal="true" aria-label="Case study" data-lenis-prevent>
-  <button class="case-close mono">Close ×</button>
-  <div class="case-in"></div>
-</div>
 
 <!-- AUDIT MODAL -->
 <div class="modal" role="dialog" aria-modal="true" aria-label="Brand audit" data-lenis-prevent>

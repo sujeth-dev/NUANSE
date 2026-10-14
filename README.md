@@ -13,13 +13,21 @@ in a browser and it runs.
 ```
 site/                  the deployable site — Vercel's root directory
   index.html           home
-  work/                project pages (Phase 2+)
+  services.html        the five disciplines, one drawn artifact each
+  process.html         the four stages
+  team.html            the studio, and the brief builder
+  work/index.html      the proofs, and every client named
+  work/<slug>.html     project pages
   assets/
-    css/core.css       the shared chassis: tokens, type, nav, cursor, footer
-    css/home.css       the home page's eleven sections
+    css/core.css       the shared chassis: tokens, type, nav, cursor, the
+                       opening frame, the next-page link, footer
+    css/home.css       the home page's six sections
+    css/services.css   css/process.css   css/team.css   css/work-index.css
+    css/work.css       the project-page layer (accents, chapters, evidence)
     js/boot.js         capability flags, before first paint
     js/core.js         shared behaviour
     js/home.js         the home page's sections
+    js/services.js     js/process.js     js/team.js     js/work-index.js
     js/work/           one signature script per project page
     fonts/             self-hosted Gloock, Hanken Grotesk, IBM Plex Mono
     brand/             the NUANSE marks
@@ -41,6 +49,14 @@ assets/                client imagery, web-sized. Source material, not shipped
 tools/                 Python scripts that regenerate both asset sets
 ASSET-INDEX.md         every delivered asset, mapped to its original path
 ```
+
+The nav is four pages, not four anchors on one. Anything that appears on
+more than one of them lives in `core.css` / `core.js` — including the opening
+frame every page but the home page starts with, the edge-to-edge link onward,
+the honesty marks (`.needs`, `.src-note`, `.qual-note`), the focus trap and
+`loopPath`. A page's own stylesheet and script carry only what is bespoke to
+it. The test is the brief's: if a second page imports it, it is not that
+page's any more.
 
 Two different things are called `assets`. `site/assets/` is what ships — the
 stylesheets, scripts, fonts and marks. The top-level `assets/` is the client
@@ -211,10 +227,18 @@ that looked cream under review measured `rgb(17,25,53)`.
 - The Zingara "before" in the redline slider is a reconstruction, not a
   photograph of the client's original menu. Fine as rhetoric on the home page;
   it needs labelling before it carries a project page.
-- Project pages: Zingara and The Possah are built. The work index
-  (`site/work/index.html`) is not, so there is no page listing the cases;
-  both project pages currently reach each other through their next-case
-  panel only.
+- The two anonymised proofs on the work index ("D2C fashion", "A GCC,
+  Bangalore") cannot be mapped to a named client from anything in this repo.
+  Proof 02 looks like it may be The Possah — 24 SKUs, one shoot, and the
+  Possah scope lists an AI model photoshoot of 24 SKUs — but if it is, its
+  three figures sit against that page's own note that the case sheet's results
+  are unfilled stubs. Naming permission is not the blocker; knowing who they
+  are is. Confirm, and either name them or drop the figures.
+- No client logos ship on the work index. The seven in `assets/client-logos/`
+  are mixed-quality JPG and PNG and would need the image pipeline; the roster
+  is typographic instead.
+- `/services`, `/process`, `/team` and `/work` share `assets/brand/og-default.png`.
+  `tools/build-og-cards.py` can give each a card of its own.
 - `assets/zingara/food/possah-insta-2-5.jpg` is a Possah frame filed under
   Zingara. Unused by either page; left where it is rather than moved.
 - The Possah has two marks: an orange diamond on the guideline boards, and a

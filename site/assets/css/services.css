@@ -1,0 +1,117 @@
+/* ============================================================================
+   NUANSE — services.css · five disciplines, five artifacts
+
+   The home page fanned five overlapping cards and flipped them on hover. That
+   is one idea doing five jobs, and it hid the deliverables behind a hover on
+   a surface that overlapped its neighbours. Here each discipline gets a band
+   of its own and one drawn artifact that argues for it.
+
+   The rule the artifacts hold to: the SVG as authored IS the finished state.
+   services.js hides parts of it and plays them in; it never has to put
+   anything back. So the artifacts are complete with no JavaScript, complete
+   with no GSAP, and complete under prefers-reduced-motion, without a single
+   reduced-motion branch that has to remember to set a final state.
+
+   Loaded after core.css and only by services.html. The chassis — tokens,
+   type, nav, cursor, opening frame, next-page link, footer — is in core.css.
+   ========================================================================== */
+
+.svc-sec{background:var(--cream)}
+
+/* ============ THE BANDS ============ */
+.svc-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;
+  gap:clamp(56px,7vw,110px)}
+.svc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
+  gap:clamp(24px,4vw,72px);align-items:center;
+  padding-top:clamp(40px,5vw,72px);border-top:1px solid rgba(13,26,65,.18)}
+.svc:first-child{border-top:0;padding-top:0}
+/* Both children are placed explicitly, in both directions. Reversing the row
+   instead is what broke .ev on the project pages: only the even rows moved,
+   so the odd ones kept DOM order and one row inserted later flipped the
+   rhythm of everything after it. */
+.svc-copy{grid-column:1;grid-row:1}
+.svc-fig{grid-column:2;grid-row:1}
+.svc:nth-of-type(even) .svc-copy{grid-column:2}
+.svc:nth-of-type(even) .svc-fig{grid-column:1}
+
+.svc-n{display:flex;gap:14px;margin:0 0 18px;color:var(--mute)}
+.svc-n b{color:var(--copper-ink);font-weight:500}
+.svc-h{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.4vw,76px);
+  line-height:.92;letter-spacing:-.04em;margin:0}
+.svc-lede{margin:18px 0 0;max-width:34ch;color:var(--navy)}
+.svc-del{list-style:none;margin:var(--s3) 0 0;padding:0;columns:2;column-gap:clamp(18px,2.4vw,34px)}
+.svc-del li{break-inside:avoid;padding:8px 0;border-top:1px solid rgba(13,26,65,.15);
+  font-size:15px;display:flex;gap:10px;align-items:baseline}
+.svc-del li::before{content:"";flex:0 0 5px;height:5px;border-radius:50%;
+  background:var(--copper);transform:translateY(-2px)}
+
+/* ============ THE ARTIFACT FRAME ============ */
+.svc-fig{margin:0}
+.sa{position:relative;aspect-ratio:4/3;background:var(--stone);
+  border:1px solid var(--navy);overflow:hidden}
+.sa svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.svc-fig figcaption{margin-top:12px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--mute);display:flex;gap:10px;
+  align-items:baseline}
+.svc-fig figcaption::before{content:"";flex:0 0 14px;height:1px;background:var(--copper);
+  margin-top:.7em}
+
+/* ============ THE DRAWN VOCABULARY ============
+   Five artifacts, one ink. Navy carries structure, the quieter navy carries
+   what is only there to be structure, and copper marks the one thing each
+   artifact is actually about — which keeps copper at about 3% of the page
+   even with five of these on it. */
+.sa-rule line{stroke:rgba(13,26,65,.4);stroke-width:1}
+.sa-rule line.dash{stroke:rgba(13,26,65,.22);stroke-dasharray:3 5}
+.sa-draw{fill:none;stroke:var(--copper);stroke-width:2.4;stroke-linecap:round;
+  stroke-linejoin:round}
+.sa-acc{fill:var(--copper)}
+.sa-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;fill:var(--mute)}
+.sa-lbl.dim{fill:rgba(13,26,65,.4)}
+.sa-ser{font-family:var(--serif);font-size:27px;letter-spacing:-.02em}
+
+/* 01 · the sentence being redlined */
+.sa-was{fill:var(--mute)}
+.sa-now{fill:var(--navy)}
+
+/* 02 · the mark seating onto its construction */
+.sa-grid line,.sa-grid circle,.sa-grid rect{fill:none;stroke:var(--copper);stroke-width:1;
+  stroke-dasharray:4 5;opacity:.7}
+.sa-mark{position:absolute;left:50%;top:39.3%;transform:translate(-50%,-50%);
+  width:17%;height:auto;display:block}
+.sa-chip.navy{fill:var(--navy)}
+.sa-chip.copper{fill:var(--copper)}
+.sa-chip.cream{fill:var(--cream);stroke:var(--navy);stroke-width:1}
+
+/* 03 · the page assembling onto a baseline grid */
+.sa-base line{stroke:rgba(13,26,65,.16);stroke-dasharray:2 6}
+.sa-blocks .b{fill:rgba(13,26,65,.16)}
+.sa-blocks .big{fill:rgba(13,26,65,.3)}
+.sa-blocks .cta{fill:var(--copper)}
+
+/* 04 · the filmstrip, and the frame it cuts on */
+.sa-strip rect.fr{fill:none;stroke:var(--navy);stroke-width:1.4}
+.sa-strip rect.fr.on{fill:rgba(181,101,40,.14)}
+.sa-strip rect.hole{fill:rgba(13,26,65,.22)}
+
+/* 05 · the line, rising, unlabelled */
+.sa-dots circle{fill:var(--copper)}
+
+/* ============ THE INTEGRATIONS ROW ============ */
+.svc-note{display:flex;justify-content:space-between;gap:20px;margin-top:var(--gap-md);
+  color:var(--mute);border-top:1px solid rgba(13,26,65,.18);padding-top:var(--s3);
+  flex-wrap:wrap}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  /* One column, artifact first: the drawing is the invitation to read the
+     copy, so it leads rather than trails. Explicit rows, for the same reason
+     the columns are explicit. */
+  .svc{grid-template-columns:1fr;gap:26px}
+  .svc-copy,.svc:nth-of-type(even) .svc-copy{grid-column:1;grid-row:2}
+  .svc-fig,.svc:nth-of-type(even) .svc-fig{grid-column:1;grid-row:1}
+}
+@media (max-width:600px){
+  .svc-del{columns:1}
+  .svc-note{flex-direction:column;gap:10px}
+}

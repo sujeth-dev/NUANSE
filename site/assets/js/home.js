@@ -18,26 +18,7 @@
   const NU = window.NU;
   if (!NU) return;
 
-  const { $, $$, RM, TOUCH, EASE, clamp, esc, wrapS, wrapWords } = NU;
-
-  /* ---------------------------------------------- real images on the prints
-     Needs no animation library, so it runs on the no-GSAP path too: if a
-     photograph is supplied it should show even on a page where GSAP failed. */
-  function attachPrintImages() {
-    $$('.print[data-img]').forEach((p) => {
-      const host = $('.print-art', p);
-      if (!host) return;
-      const img = document.createElement('img');
-      img.className = 'print-img';
-      img.alt = p.dataset.imgAlt || '';
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      img.addEventListener('error', () => { host.classList.remove('has-img'); img.remove(); });
-      img.src = p.dataset.img;
-      host.insertBefore(img, host.firstChild);
-      host.classList.add('has-img');
-    });
-  }
+  const { $, $$, RM, TOUCH, EASE, clamp, esc, wrapS, wrapWords, loopPath } = NU;
 
   /* ======================================================= 1 · HERO + LENS */
   const hero = $('#top');
@@ -383,250 +364,15 @@
     mqTrack.appendChild($('.mq-set', mqTrack).cloneNode(true));
   }
 
-  /* ================================================== redline loop shapes */
-  function loopPath(cx, cy, rx, ry) {
-    let d = '';
-    const steps = 56;
-    const turns = 1.1;
-    for (let k = 0; k <= steps; k++) {
-      const t = (k / steps) * turns * Math.PI * 2 - 2.3;
-      const g = 1 + 0.045 * Math.sin(k * 0.9) + (k / steps) * 0.07;
-      d += (k ? 'L' : 'M') + (cx + Math.cos(t) * rx * g).toFixed(1) + ' ' + (cy + Math.sin(t) * ry * g).toFixed(1);
-    }
-    return d;
-  }
+  /* ============================================ the annotation loop shapes
+     The loop itself is NU.loopPath: the work index draws the proof prints
+     with the same hand. */
   function buildRedlines() {
-    $$('.print').forEach((p) => {
-      const art = $('.print-art', p);
-      if (!art || !p.getAttribute('data-rl')) return;
-      let svg = '<svg class="redline" viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">';
-      p.getAttribute('data-rl').split(';').forEach((r) => {
-        const a = r.split(',');
-        const cx = +a[0];
-        const cy = +a[1];
-        const rx = +a[2];
-        const ry = +a[3];
-        svg += `<path d="${loopPath(cx, cy, rx, ry)}"/>`;
-        const tx = clamp(cx + rx * 0.92, 16, 384);
-        const ty = clamp(cy - ry * 0.92, 16, 484);
-        svg += `<g class="tag" transform="translate(${tx} ${ty})"><circle r="13"/><text>${a[4]}</text></g>`;
-      });
-      svg += '</svg>';
-      art.insertAdjacentHTML('beforeend', svg);
-    });
     $$('.ra').forEach((a) => {
       const vertical = a.classList.contains('r');
       const path = $('path', a);
       path.setAttribute('d', vertical ? loopPath(20, 60, 17, 55) : loopPath(60, 20, 55, 16));
       path.setAttribute('vector-effect', 'non-scaling-stroke');
-    });
-  }
-
-  /* ============================================================= 8 · TEAM */
-  const TEAM = [
-    { role: 'Founder',          does: 'Strategy & every brief',    skills: 'strategy identity websites content film performance', hair: 'side',  gl: 1 },
-    { role: 'Design lead',      does: 'Identity systems',          skills: 'identity websites',  hair: 'bob',   gl: 0 },
-    { role: 'Designer',         does: 'Type, menus, packaging',    skills: 'identity',           hair: 'curly', gl: 0 },
-    { role: 'Web developer',    does: 'Sites & booking flows',     skills: 'websites',           hair: 'short', gl: 1 },
-    { role: 'Content lead',     does: 'Social & captions',         skills: 'content strategy',   hair: 'long',  gl: 0 },
-    { role: 'Film-maker',       does: 'Reels & shoots',            skills: 'film content',       hair: 'bun',   gl: 0 },
-    { role: 'Performance lead', does: 'Ads & ROAS',                skills: 'performance strategy', hair: 'bald', gl: 1 },
-    { role: 'Producer',         does: 'Timelines & shoot days',    skills: 'film content identity', hair: 'crop', gl: 0 }
-  ];
-  /* Drawn portraits, not photographs. The kit ships no team photography, and
-     inventing faces would be worse than drawing them. See
-     brief/04-asset-inventory.md item 11. */
-  function portrait(p, i) {
-    const N = '#0D1A41';
-    const C = '#FCF7F1';
-    const hair = {
-      short: `<path d="M64 102 C60 62 90 52 104 56 C126 52 142 70 136 102 C128 82 112 74 98 76 C84 78 72 86 64 102Z" fill="${N}"/>`,
-      long: `<path d="M62 106 C56 60 88 50 102 54 C126 50 146 66 140 110 L144 170 C132 154 134 122 130 96 C118 80 86 80 72 96 C68 122 70 152 56 170Z" fill="${N}"/>`,
-      bun: `<circle cx="100" cy="50" r="15" fill="${N}"/><path d="M64 102 C60 64 88 56 100 58 C118 56 142 66 136 102 C126 82 112 76 100 76 C86 76 72 84 64 102Z" fill="${N}"/>`,
-      curly: `<g fill="${N}"><circle cx="72" cy="82" r="13"/><circle cx="82" cy="66" r="13"/><circle cx="100" cy="60" r="14"/><circle cx="118" cy="66" r="13"/><circle cx="129" cy="82" r="13"/><circle cx="66" cy="98" r="9"/><circle cx="135" cy="98" r="9"/></g>`,
-      bald: `<path d="M70 114 C72 156 128 156 130 114 C120 138 80 138 70 114Z" fill="${N}"/><path d="M68 92 C74 70 126 70 132 92" fill="none" stroke="${N}" stroke-width="1.5" stroke-dasharray="2 4"/>`,
-      side: `<path d="M64 100 C62 62 96 48 122 58 C140 66 142 86 136 102 C126 78 96 70 64 100Z" fill="${N}"/>`,
-      bob: `<path d="M60 124 C52 64 92 50 104 54 C134 52 150 74 140 126 L120 122 C128 98 120 80 100 78 C84 80 76 98 80 122Z" fill="${N}"/>`,
-      crop: `<path d="M66 96 C66 66 88 58 100 58 C114 58 136 66 134 96" fill="none" stroke="${N}" stroke-width="7" stroke-linecap="round"/>`
-    };
-    let hatch = '';
-    for (let k = -250; k < 250; k += 14) hatch += `<line x1="${k}" y1="0" x2="${k + 250}" y2="250"/>`;
-    const eyes = p.gl
-      ? `<g fill="none" stroke="${N}" stroke-width="2"><circle cx="86" cy="108" r="9"/><circle cx="114" cy="108" r="9"/><path d="M95 108 L105 108"/></g>`
-      : `<g fill="${N}"><circle cx="87" cy="108" r="2.4"/><circle cx="113" cy="108" r="2.4"/></g>`;
-    return `<svg viewBox="0 0 200 250" role="img" aria-label="Portrait sketch: ${p.role}">` +
-      `<g stroke="${N}" stroke-width=".7" opacity=".12">${hatch}</g>` +
-      `<path d="M28 252 C34 190 70 170 100 170 C130 170 166 190 172 252Z" fill="${N}"/>` +
-      `<path d="M88 140 L88 172 L112 172 L112 140" fill="${C}" stroke="${N}" stroke-width="2"/>` +
-      `<ellipse cx="66" cy="112" rx="5" ry="9" fill="${C}" stroke="${N}" stroke-width="2"/>` +
-      `<ellipse cx="134" cy="112" rx="5" ry="9" fill="${C}" stroke="${N}" stroke-width="2"/>` +
-      `<ellipse cx="100" cy="106" rx="34" ry="42" fill="${C}" stroke="${N}" stroke-width="2"/>` +
-      hair[p.hair] + eyes +
-      `<path d="M100 112 L97 126 L102 127" fill="none" stroke="${N}" stroke-width="1.8" stroke-linecap="round"/>` +
-      `<path d="M91 136 Q100 141 109 136" fill="none" stroke="${N}" stroke-width="1.8" stroke-linecap="round"/>` +
-      `<text x="10" y="18" font-family="IBM Plex Mono, monospace" font-size="9" fill="${N}" letter-spacing="1.5">${('0' + (i + 1))}/08</text></svg>`;
-  }
-
-  const scatter = $('.scatter');
-  const laneRow = $('.lane-row');
-  const SPEEDS = [0.2, 0.9, 0.5, 1.1, 0.7, 0.3, 1, 0.6];
-  function buildTeam() {
-    if (!scatter || !laneRow) return;
-    TEAM.forEach((p, i) => {
-      const f = document.createElement('figure');
-      f.className = 'tm';
-      f.dataset.i = String(i);
-      f.dataset.skills = p.skills;
-      f.dataset.speed = String(SPEEDS[i]);
-      const label = `${('0' + (i + 1))} · ${p.role}`;
-      f.innerHTML = '<div class="tm-in"><div class="tm-ph">' + portrait(p, i) + '</div>' +
-        `<figcaption><span><span class="t-name" data-full="${esc(label)}">${esc(label)}</span>` +
-        `<br><span class="t-role">${esc(p.does)}</span></span></figcaption></div>`;
-      (i === 0 ? laneRow : scatter).appendChild(f);
-    });
-  }
-
-  let typed = false;
-  function typeNames() {
-    if (typed) return;
-    typed = true;
-    $$('.t-name').forEach((n, i) => {
-      const full = n.dataset.full;
-      if (RM) { n.textContent = full; return; }
-      const o = { c: 0 };
-      gsap.to(o, {
-        c: full.length, duration: 0.5, delay: i * 0.07, ease: 'none',
-        onUpdate: () => { n.textContent = full.slice(0, Math.round(o.c)); }
-      });
-    });
-  }
-
-  /* =================================================== 4 · CASE OVERLAY
-     Copy is lifted from the reference build, not rewritten. Every figure in
-     here came with it; brief/02-project-pages.md says to lift rather than
-     rewrite, and brief/05-conventions.md says never to invent one.
-
-     NOTE for the content pass: these three figures are live on the current
-     site and are carried forward unchanged, but they have not been confirmed
-     back to a source in this round. If any one of them cannot be attributed,
-     it becomes a NEEDS placeholder — the markup for which is already here. */
-  const CASES = [
-    {
-      no: 2, name: '24 SKUs. One shoot.', sector: 'D2C fashion · India', cc: '#3F4A2E',
-      title: 'One light. One day. Every SKU.',
-      brief: 'A fabric-first label with product people kept and photos nobody shared. Every SKU had been shot on a different day in a different light, so the store looked like a marketplace of its own.',
-      fixes: [
-        'One light, one angle logic, one background, planned before anyone picked up a camera.',
-        'Ad creative cut from the same shoot, so the click lands on the photo it promised.',
-        'Product pages rewritten so the second line of a caption carries the fabric story.'
-      ],
-      results: [['24', 'SKUs shot in one day'], ['2.4×', 'Return on ad spend'], ['+38%', 'Product page conversion']],
-      scope: ['Shoot direction', 'Product photography', 'Reels', 'Shopify product pages', 'Meta ads']
-    },
-    {
-      no: 3, name: 'A GCC, Bangalore', sector: 'Global capability centre', cc: '#16245A',
-      title: 'We redlined “leveraging synergies”.',
-      brief: 'A new global capability centre needed a strategy people could repeat, a name system for six teams and a website that helps it hire. The first draft of the strategy used “leveraging synergies” four times.',
-      fixes: [
-        'A name system that scales from one team to sixty without a new logo each time.',
-        'Strategy cut to one sentence a new hire can say back on day one.',
-        '“Leveraging synergies” became “working as one team”. Every page was held to the same test.'
-      ],
-      results: [['1', 'Name system for 6 teams'], ['4 wks', 'Brief to live site'], ['0', 'Uses of “synergies”']],
-      scope: ['Strategy', 'Name system', 'Identity', 'Website', 'Hiring content']
-    }
-  ];
-
-  const ov = $('.case-ov');
-  const ovIn = $('.case-in');
-  const ovClose = $('.case-close');
-  let openFrom = null;
-  let lastFocus = null;
-
-  /* A figure we do not have renders as a visible placeholder, never as a
-     plausible number. Call it as NEEDS('average order value, Zingara'). */
-  const NEEDS = (what) => `<span class="needs">[[NEEDS: ${esc(what)}]]</span>`;
-  const cell = (v) => (v && v.needs ? NEEDS(v.needs) : esc(v));
-
-  function renderCase(i) {
-    const c = CASES[i];
-    ov.style.setProperty('--cc', c.cc);
-    ovIn.innerHTML =
-      `<div class="case-top case-x"><div><p class="mono">Case 0${c.no} · ${esc(c.sector)}</p>` +
-      `<h2 class="case-title">${wrapWords(c.title)}</h2></div>` +
-      `<p class="case-brief">${esc(c.brief)}</p></div>` +
-      '<div class="case-grid case-x"><div><p class="mono">The redline</p><ol class="fixes">' +
-      c.fixes.map((f, k) => `<li><b>${'ABC'[k]}</b><span>${esc(f)}</span></li>`).join('') +
-      '</ol></div>' +
-      '<div><p class="mono">Results</p><div class="results">' +
-      c.results.map((r) => `<div><strong>${cell(r[0])}</strong><span>${esc(r[1])}</span></div>`).join('') +
-      '</div>' +
-      '<p class="mono case-scope-h">Scope</p><div class="scope">' +
-      c.scope.map((s) => `<span>${esc(s)}</span>`).join('') + '</div></div></div>' +
-      '<div class="case-x"><div class="case-swatch"></div><div class="case-next">' +
-      '<button class="btn solid next-case"><span class="btn-ar l" aria-hidden="true">→</span>' +
-      `<span class="btn-label">${wrapS('Next case')}</span>` +
-      '<span class="btn-ar r" aria-hidden="true">→</span></button></div></div>';
-
-    $('.next-case', ovIn).addEventListener('click', () => {
-      const n = (i + 1) % CASES.length;
-      gsap.to($$('.case-x', ovIn), {
-        opacity: 0, y: -20, duration: 0.5, stagger: 0.04,
-        onComplete: () => { renderCase(n); ov.scrollTop = 0; showCaseBits(); }
-      });
-    });
-  }
-  function showCaseBits() {
-    gsap.fromTo($$('.case-x', ovIn),
-      { opacity: 0, y: RM ? 0 : 30 },
-      { opacity: 1, y: 0, duration: RM ? 0.3 : 0.9, stagger: 0.08, delay: RM ? 0 : 0.1 });
-  }
-  function rectInset(el) {
-    const r = el.getBoundingClientRect();
-    const W = window.innerWidth;
-    const H = window.innerHeight;
-    return `inset(${r.top}px ${W - r.right}px ${H - r.bottom}px ${r.left}px)`;
-  }
-  function openCase(i, el) {
-    lastFocus = document.activeElement;
-    openFrom = el;
-    renderCase(i);
-    ov.scrollTop = 0;
-    NU.stopScroll();
-    NU.cursorRest();
-    ov.classList.add('open');
-    if (RM) {
-      gsap.fromTo(ov, { clipPath: 'inset(0px 0px 0px 0px)', opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none' });
-    } else {
-      gsap.fromTo(ov, { clipPath: rectInset(el) }, { clipPath: 'inset(0px 0px 0px 0px)', duration: 1.1 });
-    }
-    showCaseBits();
-    ovClose.focus({ preventScroll: true });
-  }
-  function closeCase() {
-    if (!ov || !ov.classList.contains('open')) return;
-    const done = () => {
-      ov.classList.remove('open');
-      NU.startScroll();
-      if (lastFocus) lastFocus.focus({ preventScroll: true });
-    };
-    if (RM || !openFrom) {
-      gsap.to(ov, { opacity: 0, duration: 0.3, ease: 'none', onComplete: () => { gsap.set(ov, { opacity: 1 }); done(); } });
-    } else {
-      gsap.to(ov, { clipPath: rectInset(openFrom), duration: 1, onComplete: done });
-    }
-  }
-  /* focus trap: the overlay is modal, so Tab must not walk out of it */
-  function trap(box) {
-    box.addEventListener('keydown', (e) => {
-      if (e.key !== 'Tab' || !box.classList.contains('open')) return;
-      const f = $$('a[href],button,input,select,textarea,[tabindex]:not([tabindex="-1"])', box)
-        .filter((el) => el.offsetParent !== null);
-      if (!f.length) return;
-      const first = f[0];
-      const last = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
   }
 
@@ -731,47 +477,6 @@
     stage.addEventListener('pointermove', (e) => { if (down) setPos(fromEvent(e)); });
     ['pointerup', 'pointercancel'].forEach((t) => stage.addEventListener(t, () => { down = false; }));
     range.addEventListener('input', () => { dragged = true; setPos(+range.value); });
-  }
-
-  /* ========================================================= 6 · SERVICES */
-  function wireCards() {
-    $$('.card').forEach((c) => {
-      c.addEventListener('click', () => { if (TOUCH || RM) c.classList.toggle('is-flipped'); });
-      c.addEventListener('keydown', (e) => {
-        if (e.key !== 'Enter' && e.key !== ' ') return;
-        e.preventDefault();
-        c.classList.toggle('is-flipped');
-      });
-    });
-  }
-
-  /* ================================================== 8 · the brief builder */
-  function wireBuilder() {
-    const chips = $$('.chip');
-    const laneN = $('.lane-n');
-    if (!chips.length || !scatter || !laneRow) return;
-    function setBrief(skill) {
-      const state = Flip.getState('.tm');
-      $$('.tm').sort((a, b) => a.dataset.i - b.dataset.i).forEach((m) => {
-        const on = m.dataset.i === '0' || skill === 'all' ||
-          (skill && m.dataset.skills.split(' ').indexOf(skill) > -1);
-        (on ? laneRow : scatter).appendChild(m);
-      });
-      if (laneN) laneN.textContent = String(laneRow.children.length);
-      $$('.lane .tm-in').forEach((x) => gsap.set(x, { y: 0 }));
-      Flip.from(state, {
-        duration: RM ? 0 : 1, ease: EASE, absolute: true, stagger: 0.03,
-        onComplete: () => ScrollTrigger.refresh()
-      });
-    }
-    chips.forEach((c) => {
-      c.addEventListener('click', () => {
-        const on = c.getAttribute('aria-pressed') !== 'true';
-        chips.forEach((x) => x.setAttribute('aria-pressed', 'false'));
-        c.setAttribute('aria-pressed', String(on));
-        setBrief(on ? c.dataset.skill : null);
-      });
-    });
   }
 
   /* ============================================ 9 · AUDIT: annotation trail
@@ -911,13 +616,10 @@
 
   /* ===================================================== the no-GSAP floor
      Everything above this line that touches the DOM needs no animation
-     library, so it runs either way. The team portraits are static SVG and the
-     proof photographs are plain <img>: if GSAP never arrives, the team
-     section should still have eight people in it rather than an empty grid.
-     The reference build lost both here, which is the one place its no-JS
-     path was weaker than it looked. */
-  buildTeam();
-  attachPrintImages();
+     library, so it runs either way. The two builders that used to run here -
+     the team portraits and the proof photographs - went with their sections
+     to team.js and work-index.js, and each one still runs above that file's
+     own guard for the same reason. */
   if (NU.dead) return;                  /* no GSAP: core already lifted the curtain */
 
   /* this page's two extra copper-foil grounds */
@@ -938,8 +640,6 @@
     buildMarquee();
     buildRedlines();
     wireRedline();
-    wireCards();
-    wireBuilder();
     wireTrail();
 
     heroS = $('.hero .base .hero-h .s');
@@ -991,48 +691,6 @@
       $$('.kw', letter).forEach((k) => gsap.set(k, { backgroundSize: '100% 1.5px' }));
     }
 
-    /* --- 4 · WORK: pinned proof prints, redlines draw, front slides away --- */
-    const prints = $$('.print');
-    prints.forEach((p, i) => { p.style.zIndex = String(10 - i); });
-    const allPaths = $$('.print .redline path');
-    gsap.set(allPaths, { drawSVG: RM ? '100%' : '0%' });
-    gsap.set($$('.print .redline .tag'), RM ? { opacity: 1 } : { opacity: 0, scale: 0.3 });
-    const wcN = $('.wc-n');
-    const wcBar = $('.work-count .bar i');
-    function setCount(i) {
-      const t = ('0' + (i + 1));
-      if (!wcN || wcN.textContent === t) return;
-      wcN.textContent = t;
-      gsap.to(wcBar, { scaleX: (i + 1) / 3, duration: 0.6 });
-    }
-    if (!RM && prints.length === 3) {
-      gsap.set(prints[1], { rotation: 2.5, y: 12, scale: 0.965 });
-      gsap.set(prints[2], { rotation: -2, y: 24, scale: 0.93 });
-      const wtl = gsap.timeline({ defaults: { ease: EASE } });
-      prints.forEach((p, i) => {
-        const paths = $$('.redline path', p);
-        const tags = $$('.redline .tag', p);
-        if (i > 0) wtl.to(p, { rotation: 0, y: 0, scale: 1, duration: 0.6 }, '<.15');
-        wtl.to(paths, { drawSVG: '100%', duration: 0.4, stagger: 0.12 }, i === 0 ? 0.05 : '>-.2')
-          .to(tags, { opacity: 1, scale: 1, duration: 0.25, stagger: 0.12 }, '<.2');
-        /* each print holds still twice as long before the next one moves, so
-           the section reads as one print per scroll step */
-        if (i < prints.length - 1) wtl.to(p, { yPercent: 135, rotation: -7, duration: 1 }, '+=.7');
-      });
-      wtl.to({}, { duration: 0.3 });
-      ScrollTrigger.create({
-        trigger: '#work', start: 'top top', end: '+=120%', pin: '.work-stage',
-        scrub: 1, animation: wtl, invalidateOnRefresh: true, onToggle: NU.pinClaim,
-        onUpdate: () => {
-          let idx = 0;
-          prints.forEach((p, i) => {
-            if (i > 0 && gsap.getProperty(prints[i - 1], 'yPercent') > 60) idx = i;
-          });
-          setCount(idx);
-        }
-      });
-    }
-
     /* --- the S hand-off --- */
     ScrollTrigger.create({
       start: () => window.innerHeight * 0.22, end: 'max',
@@ -1065,67 +723,6 @@
         if (Math.abs(vel) < 1) vel = 0;
       });
     }
-
-    /* --- 7 · PROCESS: docking panels, copper line, spec readout --- */
-    const stages = $$('.stage');
-    const rvT = $('.rv-t');
-    const rvO = $('.rv-o');
-    let cur = -1;
-    function setStage(i) {
-      if (i === cur) return;
-      cur = i;
-      stages.forEach((s, k) => s.classList.toggle('active', k === i));
-      const st = stages[i];
-      if (rvT) rvT.textContent = `Stage 0${i + 1} · ${st.dataset.name}`;
-      if (rvO) rvO.textContent = st.dataset.out;
-      if (!RM && rvT) gsap.fromTo(rvT, { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6 });
-    }
-    if (stages.length) setStage(0);
-    stages.forEach((s, i) => {
-      const panel = $('.stage-panel', s);
-      const left = panel.classList.contains('dock-l');
-      if (RM) {
-        gsap.from(panel, { opacity: 0, duration: 0.6, ease: 'none', scrollTrigger: { trigger: s, start: 'top 85%', once: true } });
-      } else {
-        gsap.fromTo(panel, { x: left ? -24 : 24, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.6, scrollTrigger: { trigger: s, start: 'top 82%', once: true } });
-      }
-      ScrollTrigger.create({
-        trigger: s, start: 'top 60%', end: 'bottom 60%',
-        onToggle: (self) => { if (self.isActive) setStage(i); }
-      });
-    });
-    if (!RM && $('.pr-fill')) {
-      gsap.fromTo('.pr-fill', { scaleY: 0 }, {
-        scaleY: 1, ease: 'none',
-        scrollTrigger: { trigger: '.pr-list', start: 'top 60%', end: 'bottom 60%', scrub: true }
-      });
-    }
-
-    /* --- 6 · the fan settles in --- */
-    if (!RM) {
-      gsap.from('.card', {
-        y: 40, opacity: 0, duration: 0.7, stagger: 0.06, clearProps: 'transform,opacity',
-        scrollTrigger: { trigger: '.fan', start: 'top 85%', once: true }
-      });
-    }
-
-    /* --- 8 · TEAM: parallax scatter, labels write on --- */
-    if (!RM) {
-      $$('.tm').forEach((t) => {
-        const inner = $('.tm-in', t);
-        const sp = +t.dataset.speed;
-        ScrollTrigger.create({
-          trigger: t, start: 'top bottom', end: 'bottom top',
-          onUpdate: (self) => {
-            gsap.set(inner, { y: t.closest('.lane') ? 0 : (0.5 - self.progress) * 2 * sp * 26 });
-          }
-        });
-      });
-      $$('.t-name').forEach((n) => { n.textContent = ''; });
-    }
-    ScrollTrigger.create({ trigger: '.scatter', start: 'top 80%', once: true, onEnter: typeNames });
-    ScrollTrigger.create({ trigger: '.lane', start: 'top 85%', once: true, onEnter: typeNames });
 
     /* --- 5 · the slider's automatic drivers ---
        After the sweep the line drifts with scroll until the visitor takes
@@ -1182,27 +779,13 @@
   });
 
   /* ------------------------------------------------------------ wiring up */
-  $$('.print').forEach((p) => {
-    const open = () => {
-      if (p.dataset.href) { NU.goPage(p.dataset.href); return; }
-      openCase(+p.dataset.case, p);
-    };
-    p.addEventListener('click', open);
-    p.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      e.preventDefault();
-      open();
-    });
-  });
-  if (ovClose) ovClose.addEventListener('click', closeCase);
-  if (ov) trap(ov);
   if (modal) {
-    trap(modal);
+    NU.trap(modal);
     $('.open-audit').addEventListener('click', openAudit);
     $('.modal-close').addEventListener('click', closeAudit);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeAudit(); });
   }
-  NU.onEsc(() => { closeAudit(); closeCase(); });
+  NU.onEsc(closeAudit);
 
   /* the opener hands straight into the hero reveal */
   NU.onIntro(heroIntro);

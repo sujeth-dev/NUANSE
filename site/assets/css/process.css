@@ -1,0 +1,57 @@
+/* ============================================================================
+   NUANSE — process.css · the four stages
+
+   The rail, the docking panels and the stage dots, moved off the home
+   page verbatim.
+
+   The .pr-readout rules are carried unused: the live readout was cut from the
+   markup in the "cut the 35 strings that explained the page" pass. They move
+   with the section rather than being deleted on the way, because deciding the
+   readout is gone for good is a content call, not a refactor.
+
+   Loaded after core.css and only by process.html. The chassis — tokens, type,
+   nav, cursor, opening frame, next-page link, footer — is in core.css.
+   ========================================================================== */
+
+/* ============ 7 · PROCESS ============ */
+.process{background:var(--cream)}
+.pr-body{display:grid;grid-template-columns:40px minmax(0,1fr) 230px;gap:clamp(16px,3vw,48px);
+  position:relative}
+.pr-rail{position:relative}
+.pr-line{position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(13,26,65,.16)}
+.pr-fill{position:absolute;inset:0;background:var(--copper);transform-origin:top;transform:scaleY(0)}
+.rm .pr-fill{transform:none}
+.pr-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--gap-md)}
+.stage{position:relative}
+.stage-dot{position:absolute;left:calc(-1 * (clamp(16px,3vw,48px) + 20px));top:34px;width:11px;
+  height:11px;margin-left:-5px;border-radius:50%;background:var(--cream);border:1px solid var(--navy);
+  transition:background var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease)}
+.stage.active .stage-dot{background:var(--copper);border-color:var(--copper)}
+.stage-panel{width:min(620px,100%);border:1px solid var(--navy);background:var(--cream);
+  padding:clamp(22px,3vw,40px);position:relative;transition:background var(--t-mid) var(--ease)}
+.dock-l{margin-right:auto}
+.dock-r{margin-left:auto}
+.stage-panel .sn{display:flex;justify-content:space-between;color:var(--mute);margin-bottom:26px}
+.stage-panel h3{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5vw,64px);
+  line-height:.92;letter-spacing:-.04em;margin:0 0 18px}
+.stage-panel p{margin:0;max-width:48ch;color:var(--navy)}
+.stage-panel .out{margin-top:24px;padding-top:14px;border-top:1px dashed rgba(181,101,40,.6);
+  display:flex;gap:10px;color:var(--copper-ink)}
+.pr-readout{position:sticky;top:110px;align-self:start;border:1px solid var(--navy);
+  padding:16px 16px 14px;background:var(--cream)}
+.pr-readout .rk{color:var(--mute);margin:0 0 10px}
+.pr-readout .rv{overflow:hidden;height:1.5em}
+.pr-readout .rv span{display:block}
+.pr-readout .rmeta{margin:12px 0 0;color:var(--mute);border-top:1px solid rgba(13,26,65,.15);
+  padding-top:10px}
+.pr-readout .rmeta b{color:var(--navy);font-weight:500}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1100px){
+  .pr-body{grid-template-columns:32px minmax(0,1fr)}
+  .pr-readout{grid-column:1/-1;grid-row:1;position:sticky;top:70px;z-index:3;display:flex;
+    justify-content:space-between;align-items:center;gap:12px;padding:10px 14px}
+  .pr-readout .rk,.pr-readout .rmeta{margin:0;border:0;padding:0}
+  .pr-readout .rmeta{display:none}
+  .stage-dot{left:calc(-1 * (clamp(16px,3vw,48px) + 16px))}
+}

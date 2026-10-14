@@ -1,0 +1,62 @@
+/* ============================================================================
+   NUANSE — team.css · eight people
+
+   The brief builder, the lane, the scattered portraits and the hiring
+   line. Moved off the home page verbatim.
+
+   Loaded after core.css and only by team.html. The chassis — tokens, type,
+   nav, cursor, opening frame, next-page link, footer — is in core.css.
+   ========================================================================== */
+
+/* ============ 8 · TEAM ============ */
+.team{background:var(--stone)}
+.team-story{margin:22px 0 0;max-width:52ch;color:var(--navy)}
+.builder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm);
+  align-items:start;border-top:1px solid var(--navy);padding-top:var(--s3)}
+.builder-q{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--navy);border-radius:999px;padding:8px 14px 7px;font-family:var(--mono);
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  transition:background var(--t-mid) var(--ease),color var(--t-mid) var(--ease)}
+.chip[aria-pressed=true]{background:var(--navy);color:var(--cream)}
+@media (hover:hover){
+  .chip:hover{background:rgba(13,26,65,.08)}
+  .chip[aria-pressed=true]:hover{background:var(--navy)}
+}
+.lane{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm);
+  margin:var(--s3) 0 var(--gap-md);padding:var(--s3) 0;
+  border-top:1px dashed rgba(181,101,40,.7);border-bottom:1px dashed rgba(181,101,40,.7)}
+.lane-label{margin:0;color:var(--copper-ink)}
+.lane-note{margin:10px 0 0;color:var(--mute);font-size:15px;max-width:30ch}
+.lane-row{display:flex;flex-wrap:wrap;gap:14px;min-height:160px;align-content:flex-start}
+.scatter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(18px,3vw,48px) clamp(14px,2.6vw,40px);align-items:start}
+.tm{margin:0;position:relative}
+.scatter .tm:nth-child(4n+2){margin-top:56px}
+.scatter .tm:nth-child(4n+3){margin-top:var(--s2)}
+.scatter .tm:nth-child(4n+4){margin-top:88px}
+.lane .tm{width:100px}
+.tm-in{will-change:transform}
+.tm-ph{aspect-ratio:4/5;background:var(--cream);border:1px solid var(--navy);overflow:hidden}
+.tm-ph svg{width:100%;height:100%}
+.tm figcaption{margin-top:10px;min-height:3em;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;line-height:1.45;display:flex;gap:8px}
+.tm figcaption::before{content:"";flex:0 0 14px;height:1px;background:var(--copper);margin-top:.7em}
+.lane .tm figcaption{font-size:8.5px;min-height:0}
+.lane .tm figcaption .t-role{display:none}
+.t-role{color:var(--mute)}
+.hiring{margin-top:var(--gap-md);display:flex;justify-content:space-between;align-items:center;
+  gap:20px;flex-wrap:wrap;border-top:1px solid var(--navy);padding-top:var(--s3)}
+.hiring p{margin:0;font-family:var(--serif);font-size:clamp(26px,3vw,40px);letter-spacing:-.03em;
+  line-height:1}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .builder,.lane{grid-template-columns:1fr}
+  .scatter{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .scatter .tm:nth-child(n){margin-top:0}
+  .scatter .tm:nth-child(2n){margin-top:48px}
+}
+@media (max-width:600px){
+  .lane .tm{width:76px}
+}
