@@ -35,7 +35,12 @@
   border-top:1px dashed rgba(181,101,40,.7);border-bottom:1px dashed rgba(181,101,40,.7)}
 .lane-label{margin:0;color:var(--copper-ink)}
 .lane-note{margin:10px 0 0;color:var(--mute);font-size:15px;max-width:30ch}
-.lane-row{display:flex;flex-wrap:wrap;gap:14px;min-height:160px;align-content:flex-start}
+/* the lane holds the same card as the scatter, at the same size. It used to
+   be a 100px thumbnail strip, which made whoever was in the lane — always the
+   founder, and whoever else your brief needs — the smallest person on the
+   page. A grid of auto-filled tracks keeps one card the same width as ten. */
+.lane-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:clamp(18px,2.6vw,40px);min-height:160px;align-content:flex-start}
 .scatter{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
   gap:clamp(18px,3vw,48px) clamp(14px,2.6vw,40px);align-items:start}
 .tm{margin:0;position:relative}
@@ -43,7 +48,7 @@
 .scatter .tm:nth-child(5n+3){margin-top:var(--s2)}
 .scatter .tm:nth-child(5n+4){margin-top:78px}
 .scatter .tm:nth-child(5n+5){margin-top:26px}
-.lane .tm{width:100px}
+.lane .tm{width:auto}
 .tm-in{will-change:transform}
 .tm-ph{aspect-ratio:4/5;background:var(--cream);border:1px solid var(--navy);overflow:hidden}
 .tm-ph svg{width:100%;height:100%}
@@ -61,12 +66,9 @@
   line-height:1.25;letter-spacing:0;text-transform:none;min-height:1.25em;color:var(--navy)}
 .t-role{grid-column:2;grid-row:2;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
   text-transform:uppercase;line-height:1.45;color:var(--mute)}
-/* in the lane the cards are 100px wide: the name still has to read, the role
-   is already implied by the chip you pressed to get them there */
-.lane .tm figcaption{min-height:0;gap:0 6px;grid-template-columns:10px minmax(0,1fr)}
-.lane .tm figcaption::before{margin-top:.55em}
-.lane .tm .t-name{font-size:10.5px;line-height:1.3;min-height:0}
-.lane .tm .t-role{display:none}
+/* the lane card is the scatter card now, so its caption is too — name in
+   Hanken 500 with the role in mono under it. Hiding the role made sense at
+   100px and makes none at full size. */
 .hiring{margin-top:var(--gap-md);display:flex;justify-content:space-between;align-items:center;
   gap:20px;flex-wrap:wrap;border-top:1px solid var(--navy);padding-top:var(--s3)}
 .hiring p{margin:0;font-family:var(--serif);font-size:clamp(26px,3vw,40px);letter-spacing:-.03em;
@@ -87,5 +89,5 @@
   .t-name{font-size:13px}
 }
 @media (max-width:600px){
-  .lane .tm{width:76px}
+  .lane-row{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
 }

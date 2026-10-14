@@ -48,51 +48,58 @@
   const TEAM = [
     { name: 'Abhinav Marothia', role: 'Founder & Creative Director',
       skills: 'strategy identity websites content film performance',
-      hair: 'waves-long', feat: 'glasses-square moustache', dress: 'shirt' },
+      hair: 'swept-mid', brow: 'heavy', feat: 'glasses-square moustache',
+      dress: 'blazer' },
     { name: 'Harshit R.', role: 'Full-Stack Development & 3D',
       skills: 'websites',
-      hair: 'curls-long', feat: 'glasses-round', dress: 'shirt' },
+      hair: 'curls-long', brow: 'heavy', feat: 'glasses-round', dress: 'crew' },
     { name: 'Sujeeth', role: 'UI/UX & Web Design',
       skills: 'websites identity',
-      hair: 'curls-tall', feat: 'moustache stubble', dress: 'shirt' },
+      hair: 'curls-tall', brow: 'heavy', feat: 'moustache stubble',
+      dress: 'collar' },
     { name: 'Likhita R. Jain', role: 'Sustainable Materials & Arts',
       skills: 'identity',
-      hair: 'waves-long', feat: 'smile-open', dress: 'shirt' },
+      hair: 'waves-long', brow: 'soft', feat: 'smile-open', dress: 'round' },
     { name: 'Manish S.', role: 'Performance Marketing',
       skills: 'performance',
-      hair: 'crop', feat: 'moustache beard-full', dress: 'shirt' },
+      hair: 'crop', brow: 'heavy', feat: 'beard-full moustache', dress: 'crew' },
     { name: 'Varun KS', role: 'Photography & Videography',
       skills: 'film content',
-      hair: 'curls-volume', feat: 'moustache', dress: 'shirt' },
+      hair: 'curls-volume', brow: 'heavy', feat: 'moustache', dress: 'crew' },
     { name: 'Yusra', role: 'Client Acquisition',
       skills: 'strategy',
-      hair: 'waves-xlong', feat: 'earring', dress: 'blazer' },
+      hair: 'waves-xlong', brow: 'soft', feat: 'earring', dress: 'blazer' },
     { name: 'Manasi', role: 'Business Development',
       skills: 'strategy',
-      hair: 'straight-long', feat: 'earring', dress: 'collar-open' },
+      hair: 'straight-long', brow: 'soft', feat: 'earring',
+      dress: 'collar-open' },
     { name: 'Hari T.', role: 'Relationship Manager',
       skills: 'strategy',
-      hair: 'short', feat: 'beard-full smile-open', dress: 'shirt' },
+      hair: 'short', brow: 'heavy', feat: 'beard-full smile-open',
+      dress: 'collar' },
     { name: 'Manideep Chilukuri', role: 'Application Development',
       skills: 'websites',
-      hair: 'curls-volume', feat: 'beard-full', dress: 'shirt' }
+      hair: 'curls-crop', brow: 'heavy', feat: 'beard-full', dress: 'collar' }
   ];
 
   /* The face is an ellipse at cx100 cy106, rx34 ry42 — so it spans x 66-134
      and y 64-148. Every shape below is drawn against those four numbers.
 
-     Hair is TWO layers, and that is the whole trick. BACK carries the length
-     and is drawn behind the face; FRONT is the crown and stops at a hairline
-     around y84; the face ellipse is drawn between them. Drawn as one
-     silhouette on top — which is how this started — the inner edge lands
-     across the eyes and every long style reads as a helmet. */
+     Hair is TWO layers. BACK carries the length and sits behind the face;
+     FRONT is the crown and stops at a hairline near y84; the face ellipse is
+     drawn between them. Drawn as one silhouette on top the inner edge lands
+     across the eyes and every long style reads as a helmet.
+
+     No two people share a hair shape, a brow weight and a neckline. That is
+     deliberate: ten portraits built from four hair shapes and one neckline
+     read as one template run ten times, however carefully each is drawn. */
   function portrait(p, i) {
     const N = '#0D1A41';
     const C = '#FCF7F1';
     const has = (k) => (' ' + p.feat + ' ').indexOf(' ' + k + ' ') > -1;
 
-    /* length behind the head: a blob the face will cover, plus two tails */
-    const tails = (yEnd, flare) => `
+    /* length behind the head: a blob the face covers, plus two falls */
+    const fall = (yEnd, flare) => `
       <path d="M64 96 C58 50 92 38 100 42 C132 38 146 56 140 96
         C140 130 139 152 137 176 L63 176 C61 152 64 130 64 96Z" fill="${N}"/>
       <path d="M62 100 C${56 - flare} 150 ${60 - flare} ${yEnd - 30} ${56 - flare} ${yEnd}
@@ -101,130 +108,185 @@
         L122 ${yEnd} C126 ${yEnd - 32} 128 150 126 112Z" fill="${N}"/>`;
 
     const BACK = {
-      'waves-long': tails(178, 2),
-      'curls-long': tails(182, 4),
-      'waves-xlong': tails(216, 6),
-      'straight-long': tails(220, 0),
-      'curls-tall': '', 'curls-volume': '', crop: '', short: ''
+      /* A man's shoulder-length sweep. Two falls of equal width either side of
+         a rounded cap is a centre-parted bob however long you make it, which
+         is exactly how this read first time. So: the length is TUCKED BEHIND
+         THE EARS — narrow, set back at x63-76 and x124-137 — and cut blunt at
+         y152 rather than tapering. The silhouette is the signal; the glasses,
+         brows and moustache only confirm it. */
+      /* A NAPE, not two falls beside the face.
+         The source photograph is shoulder-length waved hair, and three
+         attempts at drawing it honestly all read female at lane size, because
+         at 100-240px a dark mass either side of the face down to the jaw IS
+         the signal, and it drowns out brows, glasses and a moustache put on
+         top of it. So the length moves behind the head: it sits at y140-168
+         between x78 and x122, where the shoulders all but cover it, and the
+         face is framed by nothing. A deliberate trade of literal likeness for
+         a portrait that reads as the person it names. */
+      'swept-mid': `
+        <path d="M70 96 C64 50 92 38 100 42 C130 38 140 54 134 96
+          C134 118 130 140 126 164 L78 164 C74 140 70 118 70 96Z" fill="${N}"/>`,
+      'waves-long': fall(180, 3),
+      'curls-long': fall(184, 5),
+      'waves-xlong': fall(216, 6),
+      'straight-long': fall(220, 0),
+      'curls-tall': '', 'curls-volume': '', 'curls-crop': '', crop: '', short: ''
     };
 
-    /* the crown. Every one of these stops at a hairline near y84, so there is
-       always a forehead between the hair and the eyes at y108. */
+    /* the crown. Every one stops at a hairline near y84, so there is always a
+       forehead between the hair and the eyes at y108. */
     const FRONT = {
-      /* a soft side part, swept across */
-      'waves-long': `<path d="M63 106 C60 62 86 48 104 52 C130 48 142 68 137 106
-        C133 88 126 78 112 76 C96 73 76 82 63 106Z" fill="${N}"/>`,
-      /* curls at the crown, falling to either side */
+      /* SWEPT BACK off the forehead, with the ears left showing and the length
+         falling behind them. This is the third attempt and the first that
+         reads right at 100px in the lane.
+
+         What failed: a rounded cap plus two equal falls either side of the
+         jaw is a centre-parted bob however long it is and whatever brows,
+         glasses and moustache you hang on it — at lane size the silhouette is
+         all there is, and the silhouette was saying the opposite of the
+         caption. A drawn parting read as a scratch at that size.
+
+         What works is the hairline and the ears: hair off the forehead to y76
+         in the centre, temples at y96, and the falls set out to x55-72 and
+         x128-145 so they sit BEHIND the ears, which are then drawn over the
+         top. Visible ears with length behind them is the whole read. */
+      /* Swept back and across, with the left temple low and the right hairline
+         riding high — asymmetry is what stops a crown reading as a bob. No
+         sideburn blocks: drawn beside the square glasses they read as
+         headphones, which is the kind of thing only a rendered frame tells
+         you. */
+      'swept-mid': `<path d="M62 104 C58 54 86 40 106 46 C132 52 142 74 138 102
+          C133 84 123 72 107 70 C91 68 76 79 67 94 C65 97 63 101 62 104Z" fill="${N}"/>`,
       'curls-long': `<g fill="${N}"><circle cx="76" cy="80" r="14"/>
         <circle cx="88" cy="64" r="14"/><circle cx="104" cy="60" r="15"/>
         <circle cx="121" cy="66" r="14"/><circle cx="132" cy="82" r="13"/>
         <circle cx="66" cy="98" r="10"/><circle cx="136" cy="98" r="10"/></g>`,
-      /* tight curls carried tall */
       'curls-tall': `<g fill="${N}"><circle cx="100" cy="40" r="15"/>
         <circle cx="80" cy="50" r="14"/><circle cx="120" cy="50" r="14"/>
         <circle cx="69" cy="70" r="14"/><circle cx="131" cy="70" r="14"/>
         <circle cx="100" cy="56" r="16"/><circle cx="66" cy="90" r="11"/>
         <circle cx="134" cy="90" r="11"/><circle cx="87" cy="62" r="13"/>
         <circle cx="113" cy="62" r="13"/></g>`,
-      /* high volume, wide at the temples */
+      /* Varun: high and wide */
       'curls-volume': `<g fill="${N}"><circle cx="100" cy="44" r="17"/>
         <circle cx="76" cy="54" r="16"/><circle cx="124" cy="54" r="16"/>
         <circle cx="62" cy="76" r="15"/><circle cx="138" cy="76" r="15"/>
         <circle cx="60" cy="96" r="11"/><circle cx="140" cy="96" r="11"/>
         <circle cx="88" cy="54" r="14"/><circle cx="112" cy="54" r="14"/>
         <circle cx="100" cy="64" r="15"/></g>`,
-      /* very long waves: the crown is smooth, the length is in BACK */
+      /* Manideep: the same curl, worn close — smaller circles, tighter to the
+         skull, so he and Varun are not one drawing twice */
+      'curls-crop': `<g fill="${N}"><circle cx="100" cy="54" r="14"/>
+        <circle cx="82" cy="60" r="13"/><circle cx="118" cy="60" r="13"/>
+        <circle cx="69" cy="76" r="12"/><circle cx="131" cy="76" r="12"/>
+        <circle cx="91" cy="52" r="12"/><circle cx="109" cy="52" r="12"/>
+        <circle cx="66" cy="92" r="9"/><circle cx="134" cy="92" r="9"/></g>`,
+      'waves-long': `<path d="M63 106 C60 62 86 48 104 52 C130 48 142 68 137 106
+        C133 88 126 78 112 76 C96 73 76 82 63 106Z" fill="${N}"/>`,
       'waves-xlong': `<path d="M62 106 C58 58 88 44 100 48 C132 44 144 64 138 106
         C134 86 124 76 100 78 C78 80 68 88 62 106Z" fill="${N}"/>`,
-      /* a centre part, falling straight */
       'straight-long': `<path d="M62 106 C58 58 88 44 100 48 C132 44 144 64 138 106
         C136 84 122 74 100 74 C78 74 64 84 62 106Z" fill="${N}"/>
         <path d="M98 74 L102 74 L103 92 L97 92Z" fill="${C}" opacity=".55"/>`,
-      /* cropped close */
       crop: `<path d="M66 98 C66 66 88 58 100 58 C112 58 134 66 134 98
         C127 80 113 74 100 74 C87 74 74 80 66 98Z" fill="${N}"/>`,
-      /* short, a little more at the crown */
       short: `<path d="M64 102 C60 62 90 52 104 56 C126 52 142 70 136 102
         C128 84 112 76 98 78 C84 80 72 88 64 102Z" fill="${N}"/>`
     };
 
+    /* a neckline each, so the row is ten people and not one template */
     const DRESS = {
-      /* a collar, not a bare navy mass. Eight of the ten wear no jacket, and
-         without this their shoulders were one flat shape with a cream
-         rectangle of neck on top — which read as unfinished rather than as
-         plain. Small, centred, well inside the shoulder silhouette. */
-      shirt: `<path d="M88 174 L100 198 L112 174 L120 180 L113 208 L87 208 L80 180Z"
-        fill="${C}" stroke="${N}" stroke-width="1.8"/>`,
-      /* Notch lapels running the full drop, so the shirt shows as a V between
-         them rather than as a shape of its own. Two things matter here and
-         both were got wrong first time: lapels that meet at a point read as a
-         bow tie, and anything starting above y178 pokes out of the shoulder
-         silhouette (which only reaches y170 at the centre) and floats in the
-         hatch. Everything below stays inside the shoulders. */
+      /* the founder, and the one client-facing role that wears a jacket.
+         Notch lapels running the full drop, the shirt showing as a V between
+         them: lapels that meet at a point read as a bow tie, and anything
+         starting above y178 pokes out of the shoulder silhouette, which only
+         reaches y170 at the centre. */
       blazer: `<path d="M86 178 L100 210 L114 178 L124 186 L116 252 L84 252 L76 186Z"
           fill="${C}" stroke="${N}" stroke-width="2"/>
         <path d="M86 178 L100 210 L94 252 L76 252 L76 186Z" fill="${N}"/>
         <path d="M114 178 L100 210 L106 252 L124 252 L124 186Z" fill="${N}"/>`,
-      /* an open collar, no jacket over it */
+      collar: `<path d="M88 174 L100 198 L112 174 L120 180 L113 208 L87 208 L80 180Z"
+        fill="${C}" stroke="${N}" stroke-width="1.8"/>`,
       'collar-open': `<path d="M88 176 L100 206 L112 176 L122 184 L114 222 L86 222 L78 184Z"
-        fill="${C}" stroke="${N}" stroke-width="2"/>`
+        fill="${C}" stroke="${N}" stroke-width="2"/>`,
+      crew: `<path d="M84 176 Q100 190 116 176" fill="none" stroke="${C}"
+        stroke-width="2.6" stroke-linecap="round"/>`,
+      round: `<path d="M82 174 Q100 196 118 174" fill="none" stroke="${C}"
+        stroke-width="2.6" stroke-linecap="round"/>`
     };
+
+    /* Long hair covers the ears, so they go behind it — except on the swept
+       back style, where showing them is the point. */
+    const ears =
+      `<ellipse cx="66" cy="112" rx="5" ry="9" fill="${C}" stroke="${N}" stroke-width="2"/>` +
+      `<ellipse cx="134" cy="112" rx="5" ry="9" fill="${C}" stroke="${N}" stroke-width="2"/>`;
+    const earsOver = p.hair === 'swept-mid';
 
     let hatch = '';
     for (let k = -250; k < 250; k += 14) hatch += `<line x1="${k}" y1="0" x2="${k + 250}" y2="250"/>`;
 
+    /* --- brows. The clearest signal a flat two-colour face has, and nobody
+       had any: without them Abhinav read as a woman wearing his own glasses. */
+    const brow = p.brow === 'heavy'
+      ? `<g stroke="${N}" stroke-width="4.2" fill="none" stroke-linecap="round">` +
+        `<path d="M77 97 Q87 91 96 96"/><path d="M104 96 Q113 91 123 97"/></g>`
+      : `<g stroke="${N}" stroke-width="2.2" fill="none" stroke-linecap="round">` +
+        `<path d="M79 96 Q87 92 95 95"/><path d="M105 95 Q113 92 121 96"/></g>`;
+
     /* --- eyes, and whatever sits in front of them --- */
-    let eyes = `<g fill="${N}"><circle cx="87" cy="108" r="2.4"/>` +
-      `<circle cx="113" cy="108" r="2.4"/></g>`;
+    let eyes = `<g fill="${N}"><circle cx="87" cy="108" r="2.6"/>` +
+      `<circle cx="113" cy="108" r="2.6"/></g>`;
     if (has('glasses-square')) {
-      eyes += `<g fill="none" stroke="${N}" stroke-width="2.6">` +
-        `<rect x="73" y="97" width="25" height="21" rx="3"/>` +
-        `<rect x="102" y="97" width="25" height="21" rx="3"/>` +
-        `<path d="M98 106 L102 106"/><path d="M73 103 L65 105"/>` +
-        `<path d="M127 103 L135 105"/></g>`;
+      eyes += `<g fill="none" stroke="${N}" stroke-width="2.8">` +
+        `<rect x="73" y="99" width="25" height="21" rx="3"/>` +
+        `<rect x="102" y="99" width="25" height="21" rx="3"/>` +
+        `<path d="M98 108 L102 108"/><path d="M73 105 L65 107"/>` +
+        `<path d="M127 105 L135 107"/></g>`;
     } else if (has('glasses-round')) {
       eyes += `<g fill="none" stroke="${N}" stroke-width="1.5">` +
-        `<circle cx="86" cy="108" r="11"/><circle cx="114" cy="108" r="11"/>` +
-        `<path d="M97 107 L103 107"/><path d="M75 105 L66 106"/>` +
-        `<path d="M125 105 L134 106"/></g>`;
+        `<circle cx="86" cy="109" r="11"/><circle cx="114" cy="109" r="11"/>` +
+        `<path d="M97 108 L103 108"/><path d="M75 106 L66 107"/>` +
+        `<path d="M125 106 L134 107"/></g>`;
     }
 
-    /* --- the mouth, and what grows around it --- */
-    const mouth = has('smile-open')
-      ? `<path d="M87 133 Q100 148 113 133 Q100 139 87 133Z" fill="${N}"/>`
-      : `<path d="M91 136 Q100 141 109 136" fill="none" stroke="${N}"
-           stroke-width="1.8" stroke-linecap="round"/>`;
-
+    /* --- the beard, and the mouth that sits inside it ---
+       A FILLED lower face, not a band around one. The band version left the
+       chin cream inside a dark outline, which is what made it read as a mask
+       laid over the face instead of as a beard growing on it. */
+    const beard = has('beard-full');
     let facial = '';
-    if (has('beard-full')) {
-      /* A SHORT, TRIMMED beard along the jaw. The first version ran from eye
-         level at y110 down to y167, well below the chin — which is a long
-         full beard, not what any of the three source photographs show, and it
-         gave every bearded portrait the same heavy silhouette. This one
-         starts at y126, below the cheekbone, and stops at y162, just under
-         the jaw: the neat line all three actually wear. */
-      facial += `<path d="M71 126 C73 152 85 162 100 162 C115 162 127 152 129 126
-        C126 142 116 148 100 148 C84 148 74 142 71 126Z" fill="${N}"/>`;
-    }
-    if (has('stubble')) {
-      /* the same line, lighter and tighter — soft chin stubble, not a beard.
-         Kept wholly inside the face ellipse, whose bottom is y148: a beard may
-         sit past the jaw and read as a beard, but a 20%-opacity shape doing
-         the same reads as a grey smudge on the neck. */
+    if (beard) {
+      facial += `<path d="M67 114 C70 125 84 131 100 131 C116 131 130 125 133 114
+        C133 146 118 165 100 165 C82 165 67 146 67 114Z" fill="${N}"/>`;
+    } else if (has('stubble')) {
+      /* kept wholly inside the face ellipse, whose bottom is y148: a beard may
+         sit past the jaw and still read as a beard, but a 20%-opacity shape
+         doing the same reads as a grey smudge on the neck. */
       facial += `<path d="M76 128 C78 142 88 147 100 147 C112 147 122 142 124 128
         C121 138 112 142 100 142 C88 142 79 138 76 128Z" fill="${N}" opacity=".2"/>`;
     }
-    if (has('moustache')) {
-      facial += `<path d="M86 129 Q100 123 114 129 Q100 133 86 129Z" fill="${N}"/>`;
+    /* a moustache only shows on skin; inside a full beard it is already there */
+    if (has('moustache') && !beard) {
+      facial += `<path d="M82 131 Q100 120 118 131 Q100 136 82 131Z" fill="${N}"/>`;
     }
 
+    /* the mouth is cut back out of the beard in cream, or drawn on skin */
+    const ink = beard ? C : N;
+    const mouth = has('smile-open')
+      ? `<path d="M87 137 Q100 152 113 137 Q100 143 87 137Z" fill="${ink}"/>`
+      : `<path d="M91 139 Q100 144 109 139" fill="none" stroke="${ink}"
+           stroke-width="2" stroke-linecap="round"/>`;
+
     /* drawn after the hair, with a cream halo: both people wearing one have
-       hair over the ear, and without the halo the earring simply is not there */
+       hair over the ear, and without the halo the earring is simply not there */
     const earring = has('earring')
       ? `<circle cx="134" cy="127" r="5" fill="${C}"/>` +
         `<circle cx="134" cy="127" r="2.8" fill="${N}"/>`
       : '';
 
+    /* a bare plate number. It used to read NN/10, which states the team's
+       size in every portrait — rendered into the SVG, where no grep of the
+       markup would ever find it. Matches the "Proof 01" idiom on /work. */
     const n = ('0' + (i + 1)).slice(-2);
     /* role=img with a label, not a decorative image: the caption carries the
        name and the role as live text, so the drawing says what it is and
@@ -232,20 +294,22 @@
     return `<svg viewBox="0 0 200 250" role="img" aria-label="Drawn portrait of ${esc(p.name)}">` +
       `<g stroke="${N}" stroke-width=".7" opacity=".12">${hatch}</g>` +
       `<path d="M28 252 C34 190 70 170 100 170 C130 170 166 190 172 252Z" fill="${N}"/>` +
-      /* ears before the back hair, so long hair covers them the way it would */
-      `<ellipse cx="66" cy="112" rx="5" ry="9" fill="${C}" stroke="${N}" stroke-width="2"/>` +
-      `<ellipse cx="134" cy="112" rx="5" ry="9" fill="${C}" stroke="${N}" stroke-width="2"/>` +
+      (earsOver ? '' : ears) +
       (BACK[p.hair] || '') +
+      (earsOver ? ears : '') +
       `<path d="M88 140 L88 172 L112 172 L112 140" fill="${C}" stroke="${N}" stroke-width="2"/>` +
       (DRESS[p.dress] || '') +
       `<ellipse cx="100" cy="106" rx="34" ry="42" fill="${C}" stroke="${N}" stroke-width="2"/>` +
       facial +
       (FRONT[p.hair] || FRONT.short) +
-      earring +
-      eyes +
-      `<path d="M100 112 L97 126 L102 127" fill="none" stroke="${N}" stroke-width="1.8" stroke-linecap="round"/>` +
+      earring + brow + eyes +
+      /* the nose sits at y112-127 and the beard's top edge is y131, so the
+         nose is always on skin and always inked. Tying it to the beard made
+         it cream-on-cream and it simply disappeared. */
+      `<path d="M100 112 L97 126 L102 127" fill="none" stroke="${N}"
+         stroke-width="1.8" stroke-linecap="round"/>` +
       mouth +
-      `<text x="10" y="18" font-family="IBM Plex Mono, monospace" font-size="9" fill="${N}" letter-spacing="1.5">${n}/10</text></svg>`;
+      `<text x="10" y="18" font-family="IBM Plex Mono, monospace" font-size="9" fill="${N}" letter-spacing="1.5">${n}</text></svg>`;
   }
 
   const scatter = $('.scatter');
