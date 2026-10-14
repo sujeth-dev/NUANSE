@@ -241,9 +241,13 @@ that looked cream under review measured `rgb(17,25,53)`.
   three figures sit against that page's own note that the case sheet's results
   are unfilled stubs. Naming permission is not the blocker; knowing who they
   are is. Confirm, and either name them or drop the figures.
-- No client logos ship on the work index. The seven in `assets/client-logos/`
-  are mixed-quality JPG and PNG and would need the image pipeline; the roster
-  is typographic instead.
+- ~~No client logos ship on the work index.~~ **Done, 2026-10-15.** The claim
+  about the files was wrong: all seven in `assets/client-logos/` are 1400px on
+  the long edge and clean. `tools/build-client-marks.py` trims each to its ink
+  and re-squares it on the ground sampled from its own border; they ship as
+  44px chips at 6.9 KB total over the wire. The five clients with no file on
+  hand carry set initials instead, which is visibly our setting rather than a
+  mark we do not have.
 - `/services`, `/process`, `/team` and `/work` share `assets/brand/og-default.png`.
   `tools/build-og-cards.py` can give each a card of its own.
 - `assets/zingara/food/possah-insta-2-5.jpg` is a Possah frame filed under
@@ -255,3 +259,12 @@ that looked cream under review measured `rgb(17,25,53)`.
   `reference/index-current.html:1870` describes a one-day studio shoot on
   Shopify, which contradicts Possah's "no budget for a studio". Left
   anonymous, and none of its numbers borrowed.
+- The three proof prints fail axe's `label-content-name-mismatch` (serious, ×3)
+  on **both** `/work` and the home page: `.print[role=button][aria-label]`
+  cards whose visible text — "Proof 01", "Zingara · Restaurant", the whole
+  drawn menu — is not part of their accessible name. Present at `ff880c0`, so
+  it predates the 2026-10-15 cycle. Left standing deliberately: the honest fix
+  is structural (a real link inside the card, or a name built from content),
+  and fixing one of the two copies of this markup and not the other would
+  leave them disagreeing. A longer `aria-label` would satisfy the checker
+  without satisfying the rule, which is worse than the defect.

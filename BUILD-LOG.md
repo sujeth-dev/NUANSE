@@ -5,6 +5,148 @@ matters — what was measured rather than assumed.
 
 ---
 
+## 2026-10-15 · Session B: the roster, the problem sections, and ten named people
+
+Run alongside Session A against `brief/06-revision-plan.md`, A on the home page
+and the chassis, B on `site/work/`, team, services and process. The board in
+`brief/07-session-comms.md` §2.1 is the record of how the two stayed out of
+each other's way.
+
+### The roster said no client logos could ship. The files said otherwise
+
+`work-index.css` carried the position in a comment: the seven files in
+`assets/client-logos/` were "mixed-quality JPG and PNG". They are not — all
+seven are 1400px on the long edge and clean, each already on its own flat
+ground. What they are not is square, and a 2:1 lockup in a 44px chip is a
+letterboxed smear, which is the actual reason the roster stayed typographic.
+
+`tools/build-client-marks.py` samples each file's ground from its **border
+ring** rather than its average — these are lockups centred on a flat field, so
+the edge IS the ground where the average is the ground mixed with ink — trims
+to the ink, re-squares on that same ground, and emits AVIF/WebP/JPEG at 96 and
+192 with a content hash per file. Grounds go to `_grounds.css` as classes,
+because the CSP drops `'unsafe-inline'` from style-src.
+
+Measured, not estimated: **6.9 KB over the wire for all seven marks**, and
+/work loads 450 KB and scrolls to 455 KB against the 1500 KB budget. The plan
+had guessed 60–90 KB; AVIF at 96px is an order cheaper than that.
+
+The five clients with no file — Assetly, Artizen, NAZR, Noir Velin, Shail
+Interiors — carry their initials in Gloock on stone. Visibly our setting, not a
+mark we do not have. Nothing was downloaded from a client's site.
+
+Every chip is `aria-hidden` with an empty alt: the client's name sits beside it
+in Gloock at up to 52px and is what identifies the row. Rest state is
+`saturate(.68)` at `.82` — not lower, because four of the seven grounds are
+lighter than the cream they sit on and below about `.8` those four stop reading
+as marks and become four empty plates.
+
+### The problem section was a wall, on both case pages
+
+Zingara ran to four paragraphs and The Possah to three, at
+`clamp(19px,2vw,26px)` over 38ch, as the second thing on the page. Both now
+lead with the one sentence each was already building to, then three facts, then
+the rest folded behind a `<details>`.
+
+Every promoted number was already in the paragraphs being cut. **Possah's third
+fact is deliberately not "one light"**, though the current copy says it: the
+2026-10-14 entry below records that claim being withdrawn once the three
+catalogue backdrops measured `230,222,209`, `228,207,180` and `216,192,158` —
+three grades, not one. Promoting it to a display number would have re-asserted
+at 46px something a previous session took the trouble to retract. `1 of 1` is
+verbatim from the paragraph it replaces.
+
+The real risk here was `.ink`, which is not a CSS class at all but core.js's
+hook for the body-copy fade from `opacity: 0`. Paragraphs inside a shut
+`<details>` have no layout box, so their ScrollTrigger could have left them at
+0 and opened the fold onto nothing. Measured on both pages in all four modes:
+every folded paragraph computes to opacity 1 once opened, including the
+reduced-motion pass where they correctly read 0 while shut.
+
+### The team page was eight invented roles. The studio publishes ten people
+
+`team.js` carried eight unnamed roles — "Design lead", "Producer" — each with a
+portrait picked from eight hair shapes. The live site publishes ten people, by
+name, with roles. Names and roles ship exactly as published; nothing is
+paraphrased and nothing added.
+
+The portraits stay drawn (decision D3 — if the photography is ever put on file
+it beats any drawing), but a drawing of a real person has a duty an invented
+role did not. Each is built from what a photograph actually shows: hair,
+glasses, beard, an open smile, an earring, what they wear at the collar.
+
+**Hair is two layers, and that was the whole fix.** Drawn as one silhouette on
+top of the face — which is how it started — the inner edge lands across the
+eyes and every long style reads as a helmet. A BACK layer carries the length
+behind the face, a FRONT crown stops at a hairline near y84, and the face
+ellipse is drawn between them. Three other defects only a rendered frame
+showed: the dress shapes started above the shoulder silhouette and floated as a
+bow tie; long hair left a band of bare background beside the neck; and 20%
+stubble drawn past the jaw read as a grey smudge on the neck.
+
+The beard was rebuilt after review: the first one ran from eye level to well
+below the chin, which is a long full beard and is not what any of the three
+source photographs show. It now runs y126–y162 — the neat trimmed jawline all
+three actually wear. Eight of the ten gained a collar at the same time, because
+without one the shoulders were a flat navy mass with a rectangle of neck on
+top, which read as unfinished rather than as plain.
+
+**`pg-verdict` stopped being a claim and became a measurement.** "Founder eyes
+on every brief" was an assertion about attention that nothing on the page
+showed. It now reads "Whatever you pick, the founder is in it" — and
+`chips.js` in the harness asserts the lane's actual contents against the D4
+mapping for all seven chips. All seven pass, and the founder is in every one,
+so the sentence is sourced rather than asserted. Ten portraits build, the lane
+counts match, and Flip still lands.
+
+The scatter went from four columns to five: the founder is pinned into the lane
+on every filter, so nine sit in the scatter, and nine across four columns lands
+4-4-1 — a last row of one reads as a remainder.
+
+Per D1, "Most brands are one detail away from looking expensive" retired from
+the home page in Session A's pass and now lives here, as one paragraph under
+"How it started.". It exists in exactly one place on the site.
+
+### Services: nothing added, on purpose
+
+The note asked whether there was room for more motion. There is not, and that
+is a finding rather than an omission. `services.js` states its own contract —
+the SVG as authored IS the finished artifact, each builder only hides parts and
+plays them back, nothing loops, one scroll-triggered play each. Replaying the
+five on re-entry would put up to five moving things on one screen, fight "one
+moving thing per screen", and need the MOTION registration the file
+deliberately does without. A ticking number rail is new chrome on the most
+finished page in the build. Both candidates would need a reduced-motion branch,
+which is the exact failure mode `05-conventions.md` warns about — and this
+page's reduced-motion story is the best in the repo precisely because no code
+path has to put anything back.
+
+### One defect found and deliberately left standing
+
+axe reports `label-content-name-mismatch`, serious, ×3, on the proof prints:
+`.print[role=button][aria-label]` cards whose visible text is not part of their
+accessible name. It is on **/work and on the home page**, and it is present at
+`ff880c0`, so it predates this cycle and arrived with the third-party proofs
+work. Not patched here: the honest fix is structural, doing it in one of the
+two files and not the other would leave the same markup disagreeing with
+itself, and a longer `aria-label` that satisfies the checker while still not
+containing the visible text is gaming it. Handed to Session A, who owns the
+home-page copy, and recorded under README's Still open.
+
+### What was verified
+
+`/work`, `/team`, `/process`, `/services`, `/work/zingara`, `/work/the-possah`,
+over desktop, reduced motion, touch at 390×844 and GSAP blocked: no console
+errors, no exceptions, no CSP violations, no failed requests, no broken images.
+Zero axe violations other than the pre-existing mismatch above.
+
+Two axe contrast failures turned out to be the harness, not the pages: axe was
+sampling `.ink` text mid-fade. Every text node on both case pages clears AA
+once the reveals settle, measured against its own effective background rather
+than its nearest ancestor's.
+
+---
+
 ## 2026-10-15 · The hero says what we do, and two chassis defects underneath it
 
 Session A of the revision cycle in `brief/06-revision-plan.md`: the home page
