@@ -127,7 +127,14 @@
         <path d="M70 96 C64 50 92 38 100 42 C130 38 140 54 134 96
           C134 118 130 140 126 164 L78 164 C74 140 70 118 70 96Z" fill="${N}"/>`,
       'waves-long': fall(180, 3),
-      'curls-long': fall(184, 5),
+      /* curls, so the length has to look curled: a straight fall either side
+         reads as long straight hair, which is not what the photograph shows
+         and not how Harshit reads next to Manasi, who IS straight-long */
+      'curls-long': fall(180, 4) + `<g fill="${N}">
+        <circle cx="62" cy="122" r="13"/><circle cx="59" cy="144" r="13"/>
+        <circle cx="63" cy="165" r="12"/><circle cx="70" cy="181" r="10"/>
+        <circle cx="138" cy="122" r="13"/><circle cx="141" cy="144" r="13"/>
+        <circle cx="137" cy="165" r="12"/><circle cx="130" cy="181" r="10"/></g>`,
       'waves-xlong': fall(216, 6),
       'straight-long': fall(220, 0),
       'curls-tall': '', 'curls-volume': '', 'curls-crop': '', crop: '', short: ''
