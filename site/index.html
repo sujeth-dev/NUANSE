@@ -50,6 +50,7 @@
 <script src="assets/js/boot.js"></script>
 
 <link rel="stylesheet" href="assets/css/core.css">
+<link rel="stylesheet" href="assets/css/proofs.css">
 <link rel="stylesheet" href="assets/css/home.css">
 </head>
 <body>
@@ -175,34 +176,81 @@
     </div>
   </section>
 
-  <!-- 4a · WORK TEASER
-       The pinned proofs moved to work/index.html, where they open the page
-       instead of being section 4 of nine. What is left here is the shortest
-       honest version: the two cases that have a page, and a way to the rest. -->
-  <section class="wt sec" id="work" data-nav="dark" aria-label="Selected work">
-    <div class="sec-head">
-      <div>
+  <!-- 4a · WORK · the pinned proof prints
+       The same section work/index.html opens with, from proofs.js and
+       proofs.css: the stage pins and the three prints take turns in one
+       place, one per scroll step. -->
+  <section class="work" id="work" data-nav="dark" aria-label="Selected work">
+    <div class="work-stage">
+      <div class="work-copy">
         <h2 class="h2 h-split">Proofs, marked up.</h2>
-        <p class="lede">Every job starts with an audit. These are the ones we can show you in full.</p>
+        <p class="lede">Every job starts with an audit. These are the proofs we circled, the fixes we made and what the numbers did after.</p>
+        <p class="mono work-count">Proof <b class="wc-n">01</b> / 03 <span class="bar"><i></i></span></p>
+        <p class="work-all">
+          <a class="btn solid magnet" href="work/index.html" data-cursor="See the proofs"><span class="btn-ar l" aria-hidden="true">&rarr;</span><span class="btn-label">All the work</span><span class="btn-ar r" aria-hidden="true">&rarr;</span></a>
+        </p>
+      </div>
+      <!-- A real photograph replaces the drawn art on any print carrying
+           data-img; a print without it keeps the drawn art, and a broken path
+           falls back to it too. -->
+      <div class="stack">
+        <div class="print frame-ox" role="button" tabindex="0" data-href="work/zingara.html" data-cursor="Read the case" aria-label="Read the case: Zingara, restaurant"
+             data-rl="138,62,128,40,A;90,147,76,22,B;352,245,30,104,C">
+          <div class="print-paper">
+            <div class="print-top"><b>Proof 01</b><span>Zingara · Restaurant</span></div>
+            <div class="print-art">
+              <div class="art art-z">
+                <span class="z-title">Zingara</span>
+                <span class="mono-s z-sub">Kitchen &amp; bar · Bangalore</span>
+                <span class="mono-s z-sec"><span>Small plates</span><span>12</span></span>
+                <span class="z-row"><span>Charred corn, lime butter</span><span>249</span></span>
+                <span class="z-row"><span>Pepper prawns, curry leaf</span><span>460</span></span>
+                <span class="mono-s z-sec"><span>From the fire</span><span>09</span></span>
+                <span class="z-row"><span>Ghee roast chicken</span><span>540</span></span>
+                <span class="z-row"><span>Lamb shoulder, mint</span><span>720</span></span>
+              </div>
+            </div>
+            <div class="print-cap"><span>Menu · identity · listings</span><span>189 items</span></div>
+          </div>
+        </div>
+        <div class="print frame-olive" role="button" tabindex="0" data-case="0" data-cursor="Read the case" aria-label="Open case: D2C fashion, 24 SKUs in one shoot"
+             data-rl="72,150,64,84,A;318,312,64,84,B;180,452,170,30,C">
+          <div class="print-paper">
+            <div class="print-top"><b>Proof 02</b><span>D2C fashion</span></div>
+            <div class="print-art">
+              <div class="art art-f">
+                <div class="f-head mono-s"><span>SS26 · Lookbook</span><span>24 SKUs</span></div>
+                <div class="f-grid">
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M18 4 L30 10 L42 4 L58 16 L50 28 L44 24 L44 68 L16 68 L16 24 L10 28 L2 16 Z"/></svg><span class="mono-s">01</span></div>
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M22 2 L38 2 L40 10 L52 18 L48 66 L12 66 L8 18 L20 10 Z"/></svg><span class="mono-s">02</span></div>
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M14 4 L24 4 Q30 12 36 4 L46 4 L56 22 L48 26 L48 68 L12 68 L12 26 L4 22 Z"/></svg><span class="mono-s">03</span></div>
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M20 2 L40 2 L44 30 L50 68 L10 68 L16 30 Z"/></svg><span class="mono-s">04</span></div>
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M18 4 L30 10 L42 4 L58 16 L50 28 L44 24 L44 68 L16 68 L16 24 L10 28 L2 16 Z"/></svg><span class="mono-s">05</span></div>
+                  <div class="f-tile"><svg viewBox="0 0 60 70" fill="currentColor" aria-hidden="true"><path d="M22 2 L38 2 L40 10 L52 18 L48 66 L12 66 L8 18 L20 10 Z"/></svg><span class="mono-s">06</span></div>
+                </div>
+                <div class="f-foot">24 SKUs. One shoot.</div>
+              </div>
+            </div>
+            <div class="print-cap"><span>Shoot · reels · product pages</span><span>One light</span></div>
+          </div>
+        </div>
+        <div class="print frame-royal" role="button" tabindex="0" data-case="1" data-cursor="Read the case" aria-label="Open case: a GCC in Bangalore"
+             data-rl="118,40,104,22,A;210,186,176,40,B;200,420,180,60,C">
+          <div class="print-paper">
+            <div class="print-top"><b>Proof 03</b><span>GCC · Bangalore</span></div>
+            <div class="print-art">
+              <div class="art art-g">
+                <div class="g-bar mono-s"><span>Six teams, one name</span><span><i></i><i></i><i></i></span></div>
+                <div class="g-h">We are<br><span class="g-strike">leveraging synergies</span><br>working as one team.</div>
+                <span class="mono-s dim">Strategy · v3 · redlined</span>
+                <div class="g-cols"><span>Platform</span><span>Data</span><span>People</span></div>
+              </div>
+            </div>
+            <div class="print-cap"><span>Strategy · name system · site</span><span>Plain language</span></div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="wt-list">
-      <a class="wt-row" href="work/zingara.html" data-cursor="Read the case">
-        <span class="mono wt-n">01</span>
-        <span class="wt-name">Zingara</span>
-        <span class="wt-what">It read like three restaurants. One identity, and a 189-item menu re-set without cutting a dish.</span>
-        <span class="mono wt-go">Restaurant &rarr;</span>
-      </a>
-      <a class="wt-row" href="work/the-possah.html" data-cursor="Read the case">
-        <span class="mono wt-n">02</span>
-        <span class="wt-name">The Possah</span>
-        <span class="wt-what">The budget didn&rsquo;t cover a studio. A full identity, and the collection shot without one.</span>
-        <span class="mono wt-go">Haute couture &rarr;</span>
-      </a>
-    </div>
-    <p class="wt-all">
-      <a class="btn solid magnet" href="work/index.html" data-cursor="See the proofs"><span class="btn-ar l" aria-hidden="true">&rarr;</span><span class="btn-label">All the work</span><span class="btn-ar r" aria-hidden="true">&rarr;</span></a>
-    </p>
   </section>
 
   <!-- 4b · CASE STUDY REDLINE -->
@@ -265,6 +313,12 @@
 
 </main>
 
+<!-- CASE OVERLAY · opened by proofs 02 and 03 -->
+<div class="case-ov" role="dialog" aria-modal="true" aria-label="Case study" data-lenis-prevent>
+  <button class="case-close mono">Close ×</button>
+  <div class="case-in"></div>
+</div>
+
 <!-- 6 · FOOTER (revealed under the page) -->
 <footer class="footer" id="footer" data-nav="dark">
   <div class="ft-in">
@@ -307,5 +361,6 @@
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
 <script src="assets/js/core.js"></script>
 <script src="assets/js/home.js"></script>
+<script src="assets/js/proofs.js"></script>
 </body>
 </html>

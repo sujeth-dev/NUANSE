@@ -169,28 +169,6 @@
   padding-bottom:2px}
 .rm .kw{background-size:100% 1.5px}
 
-/* ============ 4 · WORK TEASER ============
-   What is left of the pinned proofs, which are the work index's opening act
-   now. Two rows and a button: the two clients with a case page of their own,
-   and a way to the other ten. */
-.wt{background:var(--night);color:var(--cream)}
-.wt .lede{color:var(--mute-d)}
-.wt-list{border-top:1px solid var(--hair-c)}
-.wt-row{display:grid;grid-template-columns:auto minmax(0,2fr) minmax(0,3fr) auto;
-  gap:clamp(14px,2.6vw,40px);align-items:baseline;padding:clamp(22px,2.8vw,36px) 0;
-  border-bottom:1px solid var(--hair-c);text-decoration:none;color:inherit;position:relative}
-.wt-n{color:var(--mute-d)}
-.wt-name{font-family:var(--serif);font-size:clamp(28px,3.6vw,52px);line-height:1;
-  letter-spacing:-.03em}
-.wt-what{color:var(--mute-d);font-size:15px;line-height:1.5}
-.wt-go{color:var(--copper-l);white-space:nowrap}
-/* the one accent this section spends: a rule that grows under the row you are
-   pointing at */
-.wt-row::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:0;
-  background:var(--copper-l);transition:width var(--t-mid) var(--ease)}
-@media (hover:hover){.wt-row:hover::after{width:100%}}
-.wt-row:focus-visible{outline:1px dashed var(--copper-l);outline-offset:6px}
-.wt-all{margin:var(--gap-md) 0 0}
 
 /* ============ 5 · REDLINE ============ */
 .redline-sec{background:var(--cream)}
@@ -344,11 +322,6 @@
   .an-h3{display:none}
 }
 @media (max-width:900px){
-  .wt-row{grid-template-columns:auto minmax(0,1fr);gap:6px 18px}
-  .wt-n{grid-column:1;grid-row:1}
-  .wt-name{grid-column:2;grid-row:1}
-  .wt-what{grid-column:2;grid-row:2}
-  .wt-go{grid-column:2;grid-row:3}
   .rl-grid{grid-template-columns:1fr}
   .rl-stage{margin-top:30px;margin-bottom:40px}
   .swatches,.an-eb{display:none}

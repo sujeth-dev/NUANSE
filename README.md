@@ -22,12 +22,14 @@ site/                  the deployable site — Vercel's root directory
     css/core.css       the shared chassis: tokens, type, nav, cursor, the
                        opening frame, the next-page link, footer
     css/home.css       the home page's six sections
+    css/proofs.css     the pinned proof prints + case overlay (home and /work)
     css/services.css   css/process.css   css/team.css   css/work-index.css
     css/work.css       the project-page layer (accents, chapters, evidence)
     js/boot.js         capability flags, before first paint
     js/core.js         shared behaviour
     js/home.js         the home page's sections
-    js/services.js     js/process.js     js/team.js     js/work-index.js
+    js/proofs.js       the pinned proof prints + case overlay (home and /work)
+    js/services.js     js/process.js     js/team.js
     js/work/           one signature script per project page
     fonts/             self-hosted Gloock, Hanken Grotesk, IBM Plex Mono
     brand/             the NUANSE marks
