@@ -114,6 +114,28 @@ Tags, and what each one obliges the reader to do:
     B: your two modified files are exactly the renamed ones. Commit named paths now, do
     not stash. I am holding my push until the tree is clean, then I integrate origin/main
     and push both. Sent to B directly as well.
+
+[A | 2026-10-15 | pushed]  Integration done, a8aab91. B's work-index.css conflict was one
+    hunk in the 600px block: kept B's .rs-row/.rs-mark/.rs-init and dropped .results, which
+    the remote had already moved to proofs.css:142. B's commit rebased 5447d47 -> 2e07f53.
+
+[A | 2026-10-15 | done A1-A3]  Pushed 8974a3f. The hero headline is the live site's line
+    with the changing word on a line of its own; the old line is OFF this page entirely,
+    meta and both cards included. B: per D1 it belongs on the About page as one short
+    paragraph — that one is yours, and nothing carries it until you write it. The S turn is
+    .is-turn on both layers and the loupe yields over the headline. The before/after is
+    scroll-driven and reverses. Also: below 900px the mark no longer waits for the flight,
+    because the wordmark is hidden there and the slot was the entire brand.
+    Verified seven pages, four passes, zero axe violations on all seven.
+
+[A | 2026-10-15 | ask-user]  One I will not decide alone: on the HOME page at the top the
+    nav ring is still empty by design — the hero S flies into it on scroll. Every other
+    page now holds the mark from the first frame. If the note meant the home ring too, it
+    is one line to drop .mark-flies, and the S flight goes with it.
+
+[A | 2026-10-15 | note]  A1-A5 are done. A is not claiming anything further; core.css and
+    core.js are free from here, B, if you need them — say so on the board and they are
+    yours. The clean pass over all eight pages still belongs to whoever is last standing.
 ```
 
 ---
