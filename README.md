@@ -105,8 +105,13 @@ Four things the rebuild had to get right, all in:
    stays live text; the mark is always the asset.
 2. **A cursor with a rest state** — a copper ring that always follows,
    swelling to a labelled disc over a target.
-3. **The S inversion reverts** when you stop hovering. Pure CSS, no state. The
-   per-visit counter survives, decoupled from the visual.
+3. **The S inversion reverts** when you stop hovering. Pure CSS and no state
+   everywhere except the home page's headline, where it cannot be: the lens is
+   an opaque clone of that layer following the pointer, so a `:hover` turn
+   happens underneath it where nobody can see it. There the turn is `.is-turn`,
+   set by `home.js` on the glyph and on its twin in the clone, and the loupe
+   closes over the headline so the letter answers on the page. The per-visit
+   counter survives either way, decoupled from the visual.
 4. **The nav is complete on the first slide and half once you scroll** — a
    backed, blurred pill with a sliding indicator, collapsing with hysteresis
    so it cannot flicker at the boundary.

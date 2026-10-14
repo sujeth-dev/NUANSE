@@ -5,6 +5,108 @@ matters — what was measured rather than assumed.
 
 ---
 
+## 2026-10-15 · The hero says what we do, and two chassis defects underneath it
+
+Session A of the revision cycle in `brief/06-revision-plan.md`: the home page
+and the shared chassis. Session B had the work index, the case pages and the
+team page at the same time, in the same tree.
+
+### The nav had no logo on five pages, and nobody had looked
+
+`.nav-mark` shipped at `opacity:0` with the comment "the mark lands here from
+the hero". True of the home page, where the hero's S flies into the slot on
+scroll. Not true of anywhere else — and only the home page's script ever
+raised it. So Work, Services, Process, Team and both case pages carried an
+empty dashed ring where the logo goes, from first paint to last.
+
+Scrolled, it was worse. Compact hides the wordmark and the ring both, so the
+brand link became an empty 34px box you could still click.
+
+The mark is the default now and `core.js` marks the one page that flies it in.
+Measured on seven pages in four passes rather than looked at on one.
+
+### The mark between pages was navy on navy
+
+The curtain carries two stacked copies of the real asset and cross-fades them
+in the first-visit opener, where the ground is the cream cover. Every later
+curtain — a page change, an anchor jump, a return visit — never touched the
+pair, so the navy copy was drawn on the navy curtain.
+
+The files measure `#0D1A41` against a `#0D1A41` ground. Not "hard to see": the
+same colour. What a visitor saw between pages was the copper foil moving
+behind a letter-shaped hole. `goAnchor`, `goPage` and the return-visit loader
+all ask for copper now; the opener is untouched, because there navy is right.
+
+### The S was turning the whole time
+
+The report was that the hero's S no longer reverses on hover. The per-glyph
+rule was correct, the hit test said the glyph was reachable, the counts
+aligned, and a scripted hover turned exactly one letter and turned it back.
+Everything measurable said the feature worked.
+
+A screenshot said otherwise in one frame. The lens — a 350px opaque navy disc
+that follows the pointer — sits on whatever you point at. The letter under the
+cursor is the clone's, drawn on navy with a dashed outline, and the turn was
+happening on the layer underneath, where it could not be seen. There was
+nothing wrong with the mechanism and nothing right about the result.
+
+The loupe yields over the headline now: point at the words and it closes, so
+the letters answer for themselves on the page. The turn moved off `:hover`
+onto `.is-turn`, set on the glyph and on its twin, so "only the one you point
+at" is structural instead of a cascade that has to be won.
+
+The lesson is the one this log keeps writing down. The metric agreed with the
+code and both were wrong about the page; the pixels were the only honest
+witness. Sample the frame.
+
+### The headline, and the word that changes
+
+The live site's line replaces "Most brands are one detail away from looking
+expensive" — which retires from this page completely, H1, description and both
+cards. It survives as a paragraph on the About page, which is Session B's.
+
+Five written lines, not a measure left to wrap, and the changing word on a
+line of its own: a slot sharing a line would shove four lines sideways four
+times a rotation. `core.js` grew one opt-out, `data-split="skip"`, because it
+flattens `.h-split` to text and would have thrown the slot away.
+
+Sized against both axes — `clamp(44px, min(12vw, 13.5vh), 118px)` — because
+five lines are a vertical constraint as much as a horizontal one. Measured at
+seven viewports including 1440x700, where a height-blind clamp overflowed the
+CTAs.
+
+### Two of my own, caught by the harness rather than by review
+
+**The CSP caught a style attribute I did not write.** `gsap.fromTo` renders
+its from-state immediately, so a *paused* timeline wrote an inline transform
+onto the slot, and the lens clone re-parsed it through `innerHTML` —
+`style-src-attr` blocks exactly that. `immediateRender:false`, and the rotator
+is wired after the clone exists rather than before. That second half also
+fixed the clone sitting on its first word for ever, which the probe caught and
+no screenshot would have.
+
+**The phone had no brand at all.** Below 900px the wordmark is hidden, so the
+mark is the entire brand — and the flight left the slot empty until you
+scrolled. The flight belongs to the screens with room for a wordmark; below
+that the mark is simply there.
+
+### Shared tree, three parties
+
+A third party pushed to `main` mid-session (PR #1), renaming `work-index.js`
+to `proofs.js` and splitting `work-index.css`, while Session B had
+uncommitted edits to both. B committed, I rebased and resolved the one hunk to
+B's written instructions, and pushed. The board in `brief/07-session-comms.md`
+has the sequence.
+
+### Verified
+
+Seven pages, four passes — desktop, reduced motion, touch, GSAP blocked. No
+console errors, exceptions, CSP violations or failed requests. Zero axe
+violations on all seven. The before/after split measured symmetric: 100, 110,
+111 going down and 111, 110, 100 coming back.
+
+---
+
 ## 2026-10-14 · The Possah, and four things it caught on the way through
 
 The second case page. Same chassis, same shape as the rebuilt Zingara: a
