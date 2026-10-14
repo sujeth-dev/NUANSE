@@ -131,7 +131,14 @@
   color:var(--cream);padding:clamp(70px,11vw,150px) var(--gut);position:relative;overflow:hidden}
 .pj-next-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,4vw,48px);
   align-items:end}
-.pj-next .mono{opacity:.8;margin:0}
+/* No opacity on the eyebrow. The ground here is the NEXT project's accent,
+   and Zingara's true red #C8332A is dark enough that cream at .8 measures
+   3.69:1 at 11px - a real AA failure, visible only once .rm removes the
+   ::before overlay that was hiding it from the audit. Full cream on that red
+   is 4.97:1, which is the whole budget; there is none left to spend on
+   de-emphasis. The hierarchy here is 11px mono against 124px serif, which is
+   hierarchy enough. */
+.pj-next .mono{margin:0}
 .pj-next b{display:block;font-family:var(--serif);font-weight:400;
   font-size:clamp(44px,7.4vw,124px);line-height:.92;letter-spacing:-.035em;margin-top:14px;
   max-width:14ch}

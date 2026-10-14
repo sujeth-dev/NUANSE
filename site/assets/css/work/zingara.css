@@ -123,7 +123,7 @@
 .zm-sec-after{position:absolute;left:0;top:0;white-space:nowrap;display:block;
   font-family:var(--mono);font-weight:400;letter-spacing:.16em;text-transform:uppercase;
   font-size:.86em;color:var(--accent-ink);opacity:calc((var(--p) - .5) * 2)}
-.zm-sec-meta{font-family:var(--mono);font-size:clamp(9px,1.5cqi,11px);color:#8A857C;
+.zm-sec-meta{font-family:var(--mono);font-size:clamp(9px,1.5cqi,11px);color:#746F66;
   opacity:calc((var(--p) - .5) * 2)}
 
 .zm-list{position:relative;list-style:none;margin:0;padding:0}
@@ -165,8 +165,14 @@
   vertical-align:bottom}
 .zm-suf{--w:1.6em}
 
-/* the description only exists in the corrected menu */
-.zm-desc{grid-column:1;display:block;font-size:clamp(10px,1.7cqi,13px);color:#8A857C;
+/* the description only exists in the corrected menu.
+   #746F66, not the #8A857C this and the two other greys in this mockup
+   started as: at 11-13px on #FFFDF6 that measured 3.6:1 and failed AA. It is a mockup of a menu listing, but it
+   is real text in the DOM, so the real rule applies. #746F66 is 4.9:1 and
+   still reads as the quiet line under the dish name. The failure was only
+   visible under prefers-reduced-motion, where the text is shown at full
+   opacity instead of fading in with the slider. */
+.zm-desc{grid-column:1;display:block;font-size:clamp(10px,1.7cqi,13px);color:#746F66;
   line-height:1.4;opacity:calc((var(--p) - .6) * 2.5);
   max-height:calc(var(--p) * 3em);overflow:hidden;font-family:var(--sans)}
 
@@ -181,7 +187,7 @@
 .zm-foot{position:relative;display:flex;justify-content:space-between;gap:16px;
   margin-top:clamp(18px,3cqi,30px);font-family:var(--mono);
   font-size:clamp(9px,1.5cqi,11px);letter-spacing:.14em;text-transform:uppercase;
-  color:#8A857C;opacity:var(--p)}
+  color:#746F66;opacity:var(--p)}
 
 /* ---- the control ---- */
 .zm-ctrl{position:relative;margin-top:26px}

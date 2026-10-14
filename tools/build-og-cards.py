@@ -23,13 +23,17 @@ CREAM = '#FCF7F1'
 SERIF = 'C:/Windows/Fonts/constan.ttf'          # Constantia — a workable stand-in
 MONO = 'C:/Windows/Fonts/consola.ttf'
 
+# Each card carries its page's own H1, so a shared link and the page it opens
+# say the same thing. And the line is always OURS: a client's brand line set in
+# Gloock, with its capitalisation changed to suit a template, is a small
+# infidelity to ship on the thing that travels furthest from the work.
 CARDS = [
     {'out': 'og-zingara.png', 'ground': '#1C1A18', 'accent': '#C8332A',
      'kicker': 'CASE 01 · RESTAURANT · BANGALORE',
-     'title': 'The menu was\ncosting them.'},
+     'title': 'It read like three\nrestaurants.'},
     {'out': 'og-the-possah.png', 'ground': '#1F3A2D', 'accent': '#C99A99',
-     'kicker': 'CASE 02 · HAUTE COUTURE',
-     'title': 'She wants what\nshe wants.'},
+     'kicker': 'CASE 02 · FASHION · BANGALORE',
+     'title': "The budget didn't\ncover a studio."},
 ]
 
 

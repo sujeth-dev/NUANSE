@@ -5,6 +5,130 @@ matters — what was measured rather than assumed.
 
 ---
 
+## 2026-10-14 · The Possah, and four things it caught on the way through
+
+The second case page. Same chassis, same shape as the rebuilt Zingara: a
+campaign chapter, the signature, the system, naming, applications, the site
+work, scope, next.
+
+### The campaign chapter was missing, and the page promised it
+
+The H1 is *"The budget didn't cover a studio."* and the problem section says the
+campaign was built rather than booked. Nothing on the page showed a campaign
+frame. Five do now — two on location, three on the seamless — on a new
+`.gv.p45`, because `.gv.tall` is 2/3 and these frames are 4:5, and cropping a
+seventh off the width of a photograph someone composed is not a layout
+decision.
+
+### Three claims written, then withdrawn
+
+Each one I wrote myself and then could not support:
+
+**"Graded until twenty-four pieces looked like one afternoon."** The three
+catalogue backdrops measure `230,222,209`, `228,207,180` and `216,192,158`.
+That is three grades, not one. The H2, the lede and the closing note all
+carried the claim in some form; all three now carry only what is documented —
+the models are generated, the garments are real, scope on file is an AI model
+photoshoot across 24 SKUs.
+
+**"The cast shadow falling to the right."** It falls left, as a patch of window
+light. Alt text and caption corrected after looking at the source frame rather
+than the thumbnail.
+
+**"Page 03 of the Possah guidelines."** The tone-of-voice board's own foot reads
+03, but the contents board — which is on this same page, two chapters up — puts
+Tone of Voice at section 11, page 54. The page names the section instead of a
+number it cannot reconcile.
+
+The pattern is the same each time: the claim was plausible, and the file
+disagreed. Plausible is the dangerous kind.
+
+### The signature rested in the wrong place
+
+The voice matrix rested at `1,1` — the corner of its own pad, where a 24px dot
+with a −12px margin is bisected by the border and effectively invisible, and
+25 percentage points away from the dashed ring marking the brand's position.
+The guidelines plot Possah *inside* the Bold + Composed quadrant. A brand at
+the corner of its own matrix is a caricature of itself, and the board does not
+draw one there.
+
+It rests at `.75,.75` now, under the ring, which is grown to 38px so the dot
+sits inside it rather than covering it. `--drift` is measured from that point,
+one-sided: softer or more playful than Possah is drift; bolder or more composed
+is not. JS and CSS derive it with the same expression, so the state announced
+to a screen reader cannot disagree with the state on screen.
+
+### Two defects in the shared chassis, both found by looking
+
+**`.pj-specs` and `.pj-swatches` drew their hairlines by bleeding a container
+background through a 1px gap.** It works only when the item count fills the last
+row. Eight specs in a six-wide `auto-fit` grid left four empty tracks painted as
+a solid grey slab. The hairlines are on the cells now, so a grid that does not
+fill its last row simply stops.
+
+**`.pj-next .mono` had `opacity:.8`.** The next-project panel wears the *next*
+project's accent, and Zingara's true red `#C8332A` is dark enough that cream at
+.8 is 3.69:1 at 11px — a real AA failure. Full cream on that red is 4.97:1,
+which is the entire budget; there is none to spend on de-emphasis. It was
+invisible to the audit until `prefers-reduced-motion` removed the `::before`
+overlay that was hiding it.
+
+And one in Zingara's menu mockup: `#8A857C` at 11–13px on `#FFFDF6` is 3.6:1,
+in three places. It is a mockup, but it is real text in the DOM, so the real
+rule applies. `#746F66` is 4.9:1 and still reads as the quiet line.
+
+### Point 4: "CSS file is not implemented"
+
+Still not reproducible, so it is now asserted instead of argued.
+`css-applied.js` checks three failure modes that look identical in a
+screenshot — the `<link>` 404s or resolves wrong; it loads but the MIME type
+makes the browser refuse it; it applies but a rule you believe is in it is not.
+Per page it asserts every linked sheet produced rules, that a load-bearing rule
+from each computes on a real element, and that the three `@font-face` families
+`core.css` imports actually loaded.
+
+All six stylesheets, all three pages, over HTTP **and** over `file://`: pass.
+
+### Two boards the page was missing
+
+The pattern system (three tessellations, each given its job on the page it is
+drawn on) and sizing and minimum scale (60 / 35 / 20 mm in print, 24px digital,
+symbol alone below the floor). The last two are also in `.pj-specs` now. Both
+carry content nothing else on the page said.
+
+### Also
+
+The OG card pointed at `og-possah.png` while the built file is
+`og-the-possah.png` — a broken share image on every link. Both cards now carry
+their page's own H1, which also fixed Zingara's, still reading *"The menu was
+costing them."* from before the rebuild. And the Possah card set the client's
+tagline in Gloock with its capitalisation changed to suit the template; the
+line is ours now.
+
+### Measured
+
+Zero axe violations on all three pages across desktop, reduced-motion and
+mobile. Zero console errors, zero CSP violations, zero failed requests, on
+every pass including GSAP blocked. Contrast audit against drawn pixels: clean.
+**500 KB first load, 1102 KB fully scrolled**, against a 1500 KB budget, with
+twenty-three boards on the page.
+
+The voice matrix was driven three ways — at rest, by keyboard through the range
+inputs, and by pointer drag — with GSAP loaded and with GSAP blocked. Identical
+in both: the dot lands inside the pad, the quadrant and the cross-fade follow,
+and the live region says the state in words.
+
+### Still open
+
+One axe finding remains, on the **home page** and pre-existing: `.ink` body copy
+starts its entrance animation at `opacity:0.2`, which computes to 1.41:1 before
+it reveals. It is a transient state of a 0.7s fade that fires as the element
+enters the viewport, and with JS off there is no CSS rule setting it at all, so
+the no-GSAP path is fully contrasted. Changing the reveal is a design decision,
+so it is reported rather than changed.
+
+---
+
 ## 2026-10-14 · The home page stops explaining itself
 
 A copy pass, classified and approved line by line before anything was
