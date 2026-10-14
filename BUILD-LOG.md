@@ -129,6 +129,24 @@ so it is reported rather than changed.
 
 ---
 
+## 2026-10-14 · The copy pass reaches the project pages
+
+Handed over by the project-pages session, correctly: the home footer was
+cut back to `© 2026 NUANSE` while `zingara.html` and `the-possah.html`
+still carried "The S is reversed on purpose" and "Type “nuanse” anywhere".
+The chassis is shared, so a decision taken on it has to land everywhere or
+it is not a decision.
+
+Six strings, applied to both built pages and to `_zingara.src.html` and
+`_the-possah.src.html` so a re-run of `expand-figures.py` cannot resurrect
+them: "Registering" from the curtain, the cursor's `Look closer` default,
+the nav S-counter and its tooltip, "still there?", the `Drag the mark`
+cursor label, and the two footer lines that explained the easter eggs.
+Nothing on the case pages' own copy was touched — that is a separate list,
+and it is still with the user.
+
+---
+
 ## 2026-10-14 · The last of the home copy trims
 
 The remainder of the approved list. Small, and all of it the same move:
