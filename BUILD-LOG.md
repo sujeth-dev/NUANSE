@@ -129,6 +129,25 @@ so it is reported rather than changed.
 
 ---
 
+## 2026-10-14 · Body copy fades up from 0, not from 0.2
+
+The one axe finding the project-pages session reported on the home page
+rather than touching, since the reveal is a design call. Taking it: `.ink`
+body copy animated `opacity` from `0.2`, which is visible text at 1.41:1.
+A visitor who stops scrolling mid-reveal, or whose tab is throttled, is
+left looking at body copy they cannot read. Absent is honest, illegible is
+not, and the reduced-motion branch in the same block already faded from 0 —
+so this removes a difference rather than adding one. `core.js` is shared,
+so it applies to all three pages.
+
+Not taken: `.ft-in` enters at `opacity:0.3`, which looks like the same
+problem and is not quite. It is scrubbed against scroll position rather
+than played once, and at 0.3 the footer is still largely below the fold.
+Left alone, and noted here so the next session does not have to re-derive
+why.
+
+---
+
 ## 2026-10-14 · The copy pass reaches the project pages
 
 Handed over by the project-pages session, correctly: the home footer was

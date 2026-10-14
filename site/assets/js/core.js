@@ -844,7 +844,13 @@
     });
 
     /* body copy fades up to ink. No blur: cheap, and the words never look
-       broken mid-reveal. */
+       broken mid-reveal.
+
+       It starts at 0, not at the 0.2 it used to: at 0.2 the copy is visible
+       but measures 1.41:1, so a visitor who stops scrolling mid-reveal, or
+       whose tab is throttled, is left looking at body text they cannot read.
+       Absent is honest; illegible is not. The reduced-motion branch just
+       below already faded from 0, so this is one behaviour now, not two. */
     $$('.ink').forEach((p) => {
       if (RM) {
         gsap.from(p, {
@@ -853,7 +859,7 @@
         });
         return;
       }
-      gsap.fromTo(p, { opacity: 0.2 }, {
+      gsap.fromTo(p, { opacity: 0 }, {
         opacity: 1, duration: 0.7,
         scrollTrigger: { trigger: p, start: 'top 90%', once: true }
       });
