@@ -193,14 +193,21 @@ that looked cream under review measured `rgb(17,25,53)`.
 
 ## Still open
 
-- Naming permission per client, and confirmation of the case figures carried
-  over from the previous build (`2.4×` ROAS and `+38%` product page conversion,
-  both still live in the overlay cases). Unconfirmed figures become visible
-  `[[NEEDS: ...]]` placeholders rather than shipping as fact. The two Zingara
-  figures are no longer among them: the home page asserted `+22%` AOV and
-  `−31%` cost per reservation as fact while `work/zingara.html` carried the
-  same two as `[[NEEDS]]` placeholders. The home page no longer states them,
-  so the case page is the single answer and it says the figures are pending.
+- Naming permission per client, and confirmation of the four case figures
+  carried over from the previous build: `+22%` AOV and `−31%` cost per
+  reservation on `work/zingara.html`, `2.4×` ROAS and `+38%` product page
+  conversion in the overlay cases. The home page no longer states the two
+  Zingara figures, so each is now claimed in exactly one place. All four are
+  sourced "as published on NUANSE's current site", which is a record of what
+  the studio has already said rather than confirmation from the client — so
+  they are still open, and a visitor reading that line reads it as a citation.
+  Worth either getting the client's confirmation or saying plainly that the
+  figures are carried over from the previous site.
+- `work/zingara.html` gives its Sector as "Mysore white biryani", where the
+  eyebrow two lines above reads "Restaurant · Bangalore". One of the two is
+  wrong; a dish is not a sector. Flagged twice now and left for the project
+  pages session, because "Restaurant" and "Restaurant · biryani" are both
+  plausible intents and it is not a guess worth making quietly.
 - The Zingara "before" in the redline slider is a reconstruction, not a
   photograph of the client's original menu. Fine as rhetoric on the home page;
   it needs labelling before it carries a project page.
@@ -208,10 +215,6 @@ that looked cream under review measured `rgb(17,25,53)`.
   (`site/work/index.html`) is not, so there is no page listing the cases;
   both project pages currently reach each other through their next-case
   panel only.
-- One axe finding, on the home page: `.ink` body copy starts its entrance
-  animation at `opacity:0.2`, which computes to 1.41:1 before it reveals. A
-  transient state of a 0.7s fade, and with JS off no rule sets it at all.
-  Changing the reveal is a design decision, so it is reported, not changed.
 - `assets/zingara/food/possah-insta-2-5.jpg` is a Possah frame filed under
   Zingara. Unused by either page; left where it is rather than moved.
 - The Possah has two marks: an orange diamond on the guideline boards, and a
