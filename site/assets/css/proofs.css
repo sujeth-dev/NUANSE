@@ -25,7 +25,20 @@
 .work-all{margin:28px 0 0}
 .stack{position:relative;justify-self:center;width:min(430px,34vw);aspect-ratio:4/5.62}
 .print{position:absolute;inset:0;cursor:pointer;outline:none;transform-origin:50% 100%}
-.print:focus-visible .print-paper{outline:1px dashed var(--copper-l);outline-offset:6px}
+/* The card is not a button. The control is the "Proof 01" line inside it — a
+   real link or button whose accessible name starts with the words you can see,
+   which is what the card could never have. The card keeps the whole-surface
+   click; the ring draws around the card, because that is what the control
+   opens. No stretched pseudo-element: .print-top is positioned, so one would
+   cover the top strip and nothing else. */
+.print-go{font:inherit;letter-spacing:inherit;color:var(--frame);font-weight:500;
+  background:none;border:0;padding:0;text-decoration:none;cursor:pointer}
+.print-go:focus-visible{outline:1px dashed var(--copper-l);outline-offset:3px}
+@supports selector(:has(*)){
+  .print-go:focus-visible{outline:none}
+  .print:has(.print-go:focus-visible) .print-paper{outline:1px dashed var(--copper-l);
+    outline-offset:6px}
+}
 .print-paper{position:absolute;inset:0;background:var(--cream);color:var(--navy);padding:12px;
   display:flex;flex-direction:column;gap:10px;box-shadow:0 30px 60px rgba(0,0,0,.35);
   border:1px solid var(--frame)}

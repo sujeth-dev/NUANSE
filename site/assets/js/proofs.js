@@ -244,15 +244,23 @@
   });
 
   /* ------------------------------------------------------------ wiring up */
+  /* The control is .print-go inside the card, not the card: a card whose
+     visible text is a whole drawn menu cannot carry "Read the case" as its
+     accessible name without lying to a screen reader. Keyboard support is
+     native now — Enter on the link, Enter and Space on the two buttons — and
+     proof 01's link still routes with this file blocked. The card keeps its
+     own click handler, so the whole print is still a target for the mouse,
+     and stands aside when the click came from the control so nothing fires
+     twice. */
   $$('.print').forEach((p) => {
     const open = () => {
       if (p.dataset.href) { NU.goPage(p.dataset.href); return; }
       openCase(+p.dataset.case, p);
     };
-    p.addEventListener('click', open);
-    p.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      e.preventDefault();
+    const go = $('.print-go', p);
+    if (go) go.addEventListener('click', (e) => { e.preventDefault(); open(); });
+    p.addEventListener('click', (e) => {
+      if (e.target.closest && e.target.closest('.print-go')) return;
       open();
     });
   });
