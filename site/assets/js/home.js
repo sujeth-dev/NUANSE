@@ -834,9 +834,9 @@
 
   /* ====================================================== 9 · audit modal */
   const QS = [
-    ['Could a stranger tell what you sell from your name and logo in five seconds?', 'Your name and logo don’t say what you sell yet.'],
+    ['Could a stranger tell what you sell in five seconds?', 'Your name and logo don’t say what you sell yet.'],
     ['Do your menu, packaging and site use the same two typefaces?', 'Typefaces change from one surface to the next.'],
-    ['Do your Swiggy, Zomato or marketplace listings look like the same brand as your storefront?', 'Your listings look like a different business.'],
+    ['Do your delivery listings match your storefront?', 'Your listings look like a different business.'],
     ['Are your prices presented as a decision, not an apology?', 'Prices are presented apologetically.'],
     ['Has someone outside the team repeated your homepage headline back correctly?', 'Your headline isn’t being understood.'],
     ['Do your product photos share one light and one background?', 'Photos don’t share one light or background.'],
@@ -873,7 +873,10 @@
       : yes >= 4
         ? 'A few details are doing quiet damage. That is usually where pricing power leaks.'
         : 'The product is ahead of the brand. That is the best problem to have, because it is fixable.';
-    const flags = QS.filter((q, k) => ans[k] !== 1).map((q) => `<li>${esc(q[1])}</li>`).join('');
+    /* Three, not eight. A wall of negatives after a score reads as a
+       verdict on the founder rather than a list of fixable details. */
+    const flags = QS.filter((q, k) => ans[k] !== 1).slice(0, 3)
+      .map((q) => `<li>${esc(q[1])}</li>`).join('');
     mBody.innerHTML = `<div class="result-score">${yes}<small>/8</small></div>` +
       `<p class="result-line">${esc(line)}</p>` +
       (flags ? `<p class="mono flags-h">Details we would look at first</p><ul class="flags">${flags}</ul>` : '') +

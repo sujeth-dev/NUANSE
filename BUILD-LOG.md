@@ -129,6 +129,44 @@ so it is reported rather than changed.
 
 ---
 
+## 2026-10-14 · The last of the home copy trims
+
+The remainder of the approved list. Small, and all of it the same move:
+say it once, at the length it deserves.
+
+**The audit.** The lede opened with "Eight questions, two minutes" and the
+mono line under the button says `8 questions · 2 minutes · free`. The
+scannable one stays. The result screen listed every question the visitor did
+not answer yes to — up to eight lines of what is wrong with their brand under
+their own score. It now shows three. A wall of negatives reads as a verdict on
+the founder rather than a list of fixable details, which is the opposite of
+what the page is for. The two longest questions lost their clauses:
+"from your name and logo" and "Swiggy, Zomato or marketplace listings look
+like the same brand as" say nothing the shorter question does not.
+
+**Team.** Four sentences to two. Zingara's cold call is the first paragraph of
+`work/zingara.html`; the home page does not need to name the client to make
+the point that the studio won its first job by noticing something.
+
+**Services.** Three bullets went, each of which only repeated the front of its
+own card: `Design` and `Build` under a card whose front reads "Built, not just
+designed", and `Captions` under one that reads "The second line of a caption".
+`Signage` stayed. The approved note said three bullets per card, and that is
+*not* done — see below.
+
+**Proof 01.** Six menu rows to four. It is a thumbnail at a quarter of its own
+size behind a redline; the section counts on it (`12`, `09`) are the real
+section lengths and still read true.
+
+**Not done, and why.** Cutting the deliverable lists to three per card is left
+with the user. The other 22 bullets are not duplication, they are the
+capability list — the one place a buyer checks whether the studio does the
+thing they came for. Dropping `Naming & name systems` or `Swiggy & Zomato
+listings` to hit a count is a commercial decision, not a copy one, and it is
+not ours to make quietly.
+
+---
+
 ## 2026-10-14 · Zingara is told once
 
 The second half of the approved copy pass. Zingara was being told four times
