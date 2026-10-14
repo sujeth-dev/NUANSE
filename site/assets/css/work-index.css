@@ -10,20 +10,57 @@
 /* ============ THE ROSTER ============
    Every client, named, at the depth its assets support: a full case links to
    its page, a site-and-logo client gets one typographic frame and an outbound
-   link, a logo-only client gets a line. No client logos ship - the files on
-   hand are mixed-quality JPG and PNG, and a row of those reads worse than
-   type set properly. */
+   link, a logo-only client gets a line.
+
+   THE MARKS. An earlier note here said no client logos ship, because the
+   files on hand were mixed-quality JPG and PNG. That was wrong about the
+   files: all seven in assets/client-logos/ are 1400px on the long edge and
+   clean, each already on its own ground. They ship now, trimmed to their ink
+   and re-squared by tools/build-client-marks.py, which also writes the
+   sampled grounds into _grounds.css - a class, because the CSP drops
+   'unsafe-inline'.
+
+   At 44px a lockup is a seal, not a logo: the client's name beside it in
+   Gloock is what identifies the row, so every mark is aria-hidden with an
+   empty alt and nothing is said twice. They sit desaturated and at .75 until
+   you point at the row, so twelve of them read as a roster rather than as a
+   logo wall. .82 and not lower: four of the seven grounds are lighter than
+   the cream they sit on, and below about .8 those four stop reading as marks
+   at all and become four empty plates. The five with no file on hand carry their initials in Gloock on
+   stone, which is visibly our setting rather than a mark we do not have. */
 .roster{border-top:1px solid var(--navy)}
+/* three bands, not one list with two hairlines in it */
+.roster+.roster{margin-top:var(--s4)}
+/* the band label sits against its rule; the count goes to the far edge, so a
+   band reads as a header over its rows rather than as another row */
+.rs-band{justify-content:flex-start}
+.rs-n{color:var(--mute);margin-left:auto}
 .rs-row{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,3fr) auto;
-  gap:clamp(16px,3vw,44px);align-items:baseline;padding:clamp(22px,2.8vw,36px) 0;
+  gap:clamp(16px,3vw,44px);align-items:center;padding:clamp(34px,4vw,56px) 0;
   border-bottom:1px solid rgba(13,26,65,.18);text-decoration:none;color:inherit;position:relative}
+.rs-id{display:flex;align-items:center;gap:clamp(14px,1.6vw,22px);min-width:0}
 .rs-name{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.6vw,52px);line-height:1;
-  letter-spacing:-.03em;margin:0}
+  letter-spacing:-.03em;margin:0;display:block}
 .rs-what{margin:0;color:var(--mute);font-size:15px;line-height:1.5;max-width:42ch}
 .rs-go{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--copper-ink);white-space:nowrap}
 .rs-sector{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+/* the chip. A hairline on every one of them, because three of the seven
+   grounds are white or near-white and would otherwise bleed into the cream. */
+.rs-mark{flex:0 0 44px;width:44px;height:44px;overflow:hidden;position:relative;
+  border:1px solid rgba(13,26,65,.18);filter:saturate(.68);opacity:.82;
+  transition:filter var(--t-sm) var(--ease),opacity var(--t-sm) var(--ease),
+    transform var(--t-sm) var(--ease)}
+.rs-mark picture,.rs-mark img{display:block;width:100%;height:100%}
+.rs-mark img{object-fit:cover}
+/* no file on hand: our own setting, so it is not dimmed like a mark */
+.rs-init{display:grid;place-items:center;background:var(--stone);color:var(--navy);
+  font-family:var(--serif);font-size:18px;letter-spacing:.01em;line-height:1;
+  filter:none;opacity:1}
+@media (hover:hover){
+  a.rs-row:hover .rs-mark,.rs-thin:hover .rs-mark{filter:none;opacity:1;transform:scale(1.04)}
+}
 /* the copper rule grows under a row you are pointing at, the one accent the
    roster spends */
 .rs-row::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:0;
@@ -31,12 +68,15 @@
 @media (hover:hover){a.rs-row:hover::after{width:100%}}
 a.rs-row:focus-visible{outline:1px dashed var(--copper-ink);outline-offset:6px}
 /* logo only, no site, no case: a line, not a frame */
-.rs-thin{display:flex;flex-wrap:wrap;gap:10px clamp(18px,3vw,40px);align-items:baseline;
-  padding:clamp(18px,2.4vw,28px) 0;border-bottom:1px solid rgba(13,26,65,.18)}
+.rs-thin{display:flex;flex-wrap:wrap;gap:10px clamp(18px,3vw,40px);align-items:center;
+  padding:clamp(26px,3vw,38px) 0;border-bottom:1px solid rgba(13,26,65,.18)}
 .rs-thin .rs-name{font-size:clamp(20px,2.2vw,30px)}
-.rs-thin p{margin:0;color:var(--mute);font-size:14px}
+.rs-thin p{margin:0;color:var(--mute);font-size:14px;max-width:54ch}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:600px){
-  .rs-row{grid-template-columns:1fr;gap:10px}
+  /* the mark stays beside the name; what stacks is the line and the link */
+  .rs-row{grid-template-columns:1fr;gap:14px;align-items:start}
+  .rs-mark{flex-basis:38px;width:38px;height:38px}
+  .rs-init{font-size:15px}
 }

@@ -1,0 +1,121 @@
+{
+  "zingara": {
+    "name": "Zingara",
+    "src": "zingara-monogram.jpg",
+    "ground": "#000000",
+    "source_size": [
+      1400,
+      876
+    ],
+    "ink_box": [
+      347,
+      189,
+      1054,
+      695
+    ],
+    "square": 884,
+    "alt": "The Zingara mark: a coral Z with a star-anise flourish over the wordmark, on black."
+  },
+  "the-possah": {
+    "name": "The Possah",
+    "src": "the-possah-lockup.jpg",
+    "ground": "#213B2E",
+    "source_size": [
+      1400,
+      1400
+    ],
+    "ink_box": [
+      179,
+      546,
+      1240,
+      856
+    ],
+    "square": 1326,
+    "alt": "The Possah signature lockup: a gold fluted diamond beside the wordmark and \"haute couture\", on forest green."
+  },
+  "velmont": {
+    "name": "Velmont Design Studio",
+    "src": "velmont.jpg",
+    "ground": "#FFFFFF",
+    "source_size": [
+      1400,
+      700
+    ],
+    "ink_box": [
+      58,
+      273,
+      1342,
+      424
+    ],
+    "square": 1605,
+    "alt": "The Velmont wordmark, letterspaced in black with the M drawn in red."
+  },
+  "aware-acoustics": {
+    "name": "Aware Acoustics",
+    "src": "aware-acoustics.png",
+    "ground": "#EDEBE7",
+    "source_size": [
+      1400,
+      804
+    ],
+    "ink_box": [
+      349,
+      254,
+      1008,
+      628
+    ],
+    "square": 824,
+    "alt": "The Aware Acoustics mark: a gold and red ribbon beside the name in navy, on grey."
+  },
+  "nuozone-studio": {
+    "name": "Nuozone Studio",
+    "src": "nuozone-studio.png",
+    "ground": "#10251F",
+    "source_size": [
+      1400,
+      700
+    ],
+    "ink_box": [
+      420,
+      82,
+      980,
+      609
+    ],
+    "square": 700,
+    "alt": "The Nuozone Studio mark: a gold NZ monogram over the wordmark, on dark green."
+  },
+  "tulipss": {
+    "name": "Tulipss",
+    "src": "tulipss.png",
+    "ground": "#FFF5F3",
+    "source_size": [
+      1400,
+      700
+    ],
+    "ink_box": [
+      334,
+      83,
+      1064,
+      679
+    ],
+    "square": 912,
+    "alt": "The Tulipss mark: a tulip drawn in blush, lilac and coral over the wordmark in plum, on blush."
+  },
+  "ammas-breakfast": {
+    "name": "Amma's Breakfast",
+    "src": "ammas-breakfast.jpg",
+    "ground": "#FEFFF7",
+    "source_size": [
+      1400,
+      1400
+    ],
+    "ink_box": [
+      82,
+      290,
+      1291,
+      1159
+    ],
+    "square": 1511,
+    "alt": "The Amma's Breakfast mark: a warm brown script over BREAKFAST letterspaced, a coffee cup, and \"by Zingara\", on cream."
+  }
+}
