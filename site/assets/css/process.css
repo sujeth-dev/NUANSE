@@ -46,22 +46,25 @@
   padding-top:10px}
 .pr-readout .rmeta b{color:var(--navy);font-weight:500}
 
-/* ============ THE GATE ============
-   Every stage hands over something, and nothing moves until it is signed off.
-   The markup already named the output; this names the sign-off, which is the
-   half of the process the page was leaving out.
+/* ============ THE STAGE YOU ARE READING ============
+   The note asked for the page to be more dynamic. It already knew which
+   stage you were on - process.js has set .active on it since this section
+   moved off the home page - and the only thing that said so was an 11px dot.
 
-   Drawn as a rule that closes rather than as a badge: the rule grows to full
-   width when the stage you are reading becomes the active one, so the gate
-   shuts as you arrive at it. */
-.gate{display:flex;align-items:center;gap:10px;margin:14px 0 0;color:var(--mute);
-  font-size:10px;letter-spacing:.1em;text-transform:uppercase}
-.gate i{flex:0 0 auto;width:0;height:1px;background:var(--copper);
-  transition:width var(--t-big) var(--ease)}
-.stage.active .gate i{width:34px}
-.rm .gate i{width:34px;transition:none}
-.gate b{font-weight:400;color:var(--copper-ink)}
-.gate b::before{content:"92";margin-right:7px;opacity:.7}
+   So the active panel carries the page: its rule goes navy, its heading and
+   its output line come up to full strength, and the three you are not
+   reading sit back. Nothing new is claimed and nothing moves on its own;
+   what changes is that scrolling the page now does something visible. */
+.stage-panel{opacity:.55;transition:opacity var(--t-mid) var(--ease),
+  border-color var(--t-mid) var(--ease),transform var(--t-mid) var(--ease)}
+.stage.active .stage-panel{opacity:1;border-color:var(--navy)}
+.stage-panel{border-color:rgba(13,26,65,.28)}
+.stage.active .stage-panel .out{color:var(--copper-ink)}
+.stage-panel .out{color:var(--mute)}
+/* reduced motion gets the same information without the fade: every panel is
+   legible from the first frame and the dot still marks the one you are on */
+.rm .stage-panel{opacity:1;transition:none}
+
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:1100px){
