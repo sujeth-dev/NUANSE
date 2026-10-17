@@ -14,7 +14,51 @@
       695
     ],
     "square": 884,
-    "alt": "The Zingara mark: a coral Z with a star-anise flourish over the wordmark, on black."
+    "alt": "The Zingara mark: a coral Z with a star-anise flourish over the wordmark, on black.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "zingara-96.34d40113.avif"
+        ],
+        [
+          192,
+          "zingara-192.5472b0d8.avif"
+        ],
+        [
+          320,
+          "zingara-320.3f9eaffd.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "zingara-96.89fd6abd.webp"
+        ],
+        [
+          192,
+          "zingara-192.1a416d2b.webp"
+        ],
+        [
+          320,
+          "zingara-320.b331c30e.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "zingara-96.852f99f6.jpg"
+        ],
+        [
+          192,
+          "zingara-192.0c1dcdb7.jpg"
+        ],
+        [
+          320,
+          "zingara-320.9928342e.jpg"
+        ]
+      ]
+    }
   },
   "the-possah": {
     "name": "The Possah",
@@ -31,7 +75,51 @@
       856
     ],
     "square": 1326,
-    "alt": "The Possah signature lockup: a gold fluted diamond beside the wordmark and \"haute couture\", on forest green."
+    "alt": "The Possah signature lockup: a gold fluted diamond beside the wordmark and \"haute couture\", on forest green.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "the-possah-96.02ebdf33.avif"
+        ],
+        [
+          192,
+          "the-possah-192.5e112a4e.avif"
+        ],
+        [
+          320,
+          "the-possah-320.c71872c6.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "the-possah-96.f581d5f5.webp"
+        ],
+        [
+          192,
+          "the-possah-192.5e2be664.webp"
+        ],
+        [
+          320,
+          "the-possah-320.b5d1243d.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "the-possah-96.b8bbf597.jpg"
+        ],
+        [
+          192,
+          "the-possah-192.122bf537.jpg"
+        ],
+        [
+          320,
+          "the-possah-320.3d2e9ee5.jpg"
+        ]
+      ]
+    }
   },
   "velmont": {
     "name": "Velmont Design Studio",
@@ -48,7 +136,51 @@
       424
     ],
     "square": 1605,
-    "alt": "The Velmont wordmark, letterspaced in black with the M drawn in red."
+    "alt": "The Velmont wordmark, letterspaced in black with the M drawn in red.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "velmont-96.b713054a.avif"
+        ],
+        [
+          192,
+          "velmont-192.fbaf1f76.avif"
+        ],
+        [
+          320,
+          "velmont-320.c26d6d32.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "velmont-96.f63923c6.webp"
+        ],
+        [
+          192,
+          "velmont-192.84435910.webp"
+        ],
+        [
+          320,
+          "velmont-320.683ecbb5.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "velmont-96.18de7582.jpg"
+        ],
+        [
+          192,
+          "velmont-192.3ff8617e.jpg"
+        ],
+        [
+          320,
+          "velmont-320.33760da9.jpg"
+        ]
+      ]
+    }
   },
   "aware-acoustics": {
     "name": "Aware Acoustics",
@@ -65,7 +197,51 @@
       628
     ],
     "square": 824,
-    "alt": "The Aware Acoustics mark: a gold and red ribbon beside the name in navy, on grey."
+    "alt": "The Aware Acoustics mark: a gold and red ribbon beside the name in navy, on grey.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "aware-acoustics-96.1d3d79e2.avif"
+        ],
+        [
+          192,
+          "aware-acoustics-192.5397bd0f.avif"
+        ],
+        [
+          320,
+          "aware-acoustics-320.b3f760ea.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "aware-acoustics-96.a0acbd91.webp"
+        ],
+        [
+          192,
+          "aware-acoustics-192.96e31fca.webp"
+        ],
+        [
+          320,
+          "aware-acoustics-320.7c50e962.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "aware-acoustics-96.8660a0c3.jpg"
+        ],
+        [
+          192,
+          "aware-acoustics-192.f17e457e.jpg"
+        ],
+        [
+          320,
+          "aware-acoustics-320.634ffad6.jpg"
+        ]
+      ]
+    }
   },
   "nuozone-studio": {
     "name": "Nuozone Studio",
@@ -82,7 +258,51 @@
       609
     ],
     "square": 700,
-    "alt": "The Nuozone Studio mark: a gold NZ monogram over the wordmark, on dark green."
+    "alt": "The Nuozone Studio mark: a gold NZ monogram over the wordmark, on dark green.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "nuozone-studio-96.92a4527b.avif"
+        ],
+        [
+          192,
+          "nuozone-studio-192.56b763a9.avif"
+        ],
+        [
+          320,
+          "nuozone-studio-320.8e9b7a0b.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "nuozone-studio-96.902d4d10.webp"
+        ],
+        [
+          192,
+          "nuozone-studio-192.5f29cda6.webp"
+        ],
+        [
+          320,
+          "nuozone-studio-320.e09d3583.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "nuozone-studio-96.0d22865c.jpg"
+        ],
+        [
+          192,
+          "nuozone-studio-192.d3f0da10.jpg"
+        ],
+        [
+          320,
+          "nuozone-studio-320.85513352.jpg"
+        ]
+      ]
+    }
   },
   "tulipss": {
     "name": "Tulipss",
@@ -99,7 +319,51 @@
       679
     ],
     "square": 912,
-    "alt": "The Tulipss mark: a tulip drawn in blush, lilac and coral over the wordmark in plum, on blush."
+    "alt": "The Tulipss mark: a tulip drawn in blush, lilac and coral over the wordmark in plum, on blush.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "tulipss-96.0647e893.avif"
+        ],
+        [
+          192,
+          "tulipss-192.2921f848.avif"
+        ],
+        [
+          320,
+          "tulipss-320.155a58d8.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "tulipss-96.b9743e68.webp"
+        ],
+        [
+          192,
+          "tulipss-192.2f1e654f.webp"
+        ],
+        [
+          320,
+          "tulipss-320.af10acc9.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "tulipss-96.8dece3f7.jpg"
+        ],
+        [
+          192,
+          "tulipss-192.72ad1cba.jpg"
+        ],
+        [
+          320,
+          "tulipss-320.6ebb278e.jpg"
+        ]
+      ]
+    }
   },
   "ammas-breakfast": {
     "name": "Amma's Breakfast",
@@ -116,6 +380,50 @@
       1159
     ],
     "square": 1511,
-    "alt": "The Amma's Breakfast mark: a warm brown script over BREAKFAST letterspaced, a coffee cup, and \"by Zingara\", on cream."
+    "alt": "The Amma's Breakfast mark: a warm brown script over BREAKFAST letterspaced, a coffee cup, and \"by Zingara\", on cream.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "ammas-breakfast-96.a820b854.avif"
+        ],
+        [
+          192,
+          "ammas-breakfast-192.2d7ff710.avif"
+        ],
+        [
+          320,
+          "ammas-breakfast-320.7aaf24b7.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "ammas-breakfast-96.6f99fa91.webp"
+        ],
+        [
+          192,
+          "ammas-breakfast-192.84718129.webp"
+        ],
+        [
+          320,
+          "ammas-breakfast-320.ad9c1b50.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "ammas-breakfast-96.2c4b920d.jpg"
+        ],
+        [
+          192,
+          "ammas-breakfast-192.20c6373a.jpg"
+        ],
+        [
+          320,
+          "ammas-breakfast-320.3e24a923.jpg"
+        ]
+      ]
+    }
   }
 }
