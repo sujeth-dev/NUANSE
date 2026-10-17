@@ -20,7 +20,6 @@
   if (!NU) return;
 
   const { $, $$, RM } = NU;
-  const EASE_OR_NONE = NU.EASE || 'power2.out';
 
   /* No GSAP, no behaviour to register: core has already lifted the curtain
      and NU is the small no-GSAP surface, which has no onBuild to call. The
@@ -58,25 +57,6 @@
         onToggle: (self) => { if (self.isActive) setStage(i); }
       });
     });
-    /* the return arc draws itself as it arrives. DrawSVG where it is loaded,
-       a plain fade where it is not; under reduced motion it is simply there,
-       because a loop that has to animate to exist is a loop the page is
-       claiming rather than drawing. */
-    const arc = $$('.pr-arc path');
-    if (arc.length) {
-      if (RM || typeof DrawSVGPlugin === 'undefined') {
-        gsap.from('.pr-close', {
-          opacity: 0, duration: 0.6, ease: 'none',
-          scrollTrigger: { trigger: '.pr-close', start: 'top 85%', once: true }
-        });
-      } else {
-        gsap.fromTo(arc, { drawSVG: '0%' }, {
-          drawSVG: '100%', duration: 1.1, stagger: 0.25, ease: EASE_OR_NONE,
-          scrollTrigger: { trigger: '.pr-close', start: 'top 80%', once: true }
-        });
-      }
-    }
-
     if (!RM && $('.pr-fill')) {
       gsap.fromTo('.pr-fill', { scaleY: 0 }, {
         scaleY: 1, ease: 'none',
