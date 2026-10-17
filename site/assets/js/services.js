@@ -80,7 +80,10 @@
      thing to click. */
   ART.websites = (sa, tl) => {
     const base = $$('.sa-base line', sa);
-    const blocks = $$('.sa-blocks rect', sa);
+    /* `> *` rather than `rect`: the page is drawn with text and a group in
+       it now, and a selector that only saw rectangles would leave the
+       headline and the button label at opacity 0 forever. */
+    const blocks = $$('.sa-blocks > *', sa);
     const lbls = $$('.sa-lbl', sa);
     gsap.set(base, { opacity: 0 });
     gsap.set(blocks, { opacity: 0, y: 14 });
@@ -116,14 +119,17 @@
     const rules = $$('.sa-rule line', sa);
     const line = $('.sa-line', sa);
     const dots = $$('.sa-dots circle', sa);
+    const mark = $$('.sa-area, .sa-last, .sa-last-c', sa);
     const lbls = $$('.sa-lbl', sa);
     gsap.set(rules, { opacity: 0 });
     gsap.set(line, { drawSVG: '0%' });
     gsap.set(dots, { opacity: 0 });
+    gsap.set(mark, { opacity: 0 });
     gsap.set(lbls, { opacity: 0 });
     tl.to(rules, { opacity: 1, duration: 0.4, stagger: 0.05 }, 0)
       .to(line, { drawSVG: '100%', duration: 1.1, ease: 'none' }, 0.25)
       .to(dots, { opacity: 1, duration: 0.25, stagger: 0.16 }, 0.3)
+      .to(mark, { opacity: 1, duration: 0.5 }, 1.0)
       .to(lbls, { opacity: 1, duration: 0.4 }, 1.1);
   };
 
