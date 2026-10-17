@@ -70,8 +70,9 @@
      nobody has asked them yet. They must not render the same. */
   function happened(c) {
     if (c.outcome === 'unpublished') {
-      return '<p class="cl-ov-unpub">Nothing published. The numbers are the ' +
-        'client’s, and they stay theirs until they say otherwise.</p>';
+      return '<p class="cl-ov-unpub">No figure is published for this ' +
+        'engagement. The numbers are the client’s and they stay theirs ' +
+        'until they say otherwise.</p>';
     }
     if (Array.isArray(c.outcome)) {
       return `<span class="cl-ov-num">${esc(c.outcome[0])}</span>` +
@@ -110,25 +111,39 @@
     }
     head += '</div></div>';
 
+    /* "Who they are" rather than "what they came with", and the difference
+       is not cosmetic. What a client came with is a brief, and a brief is
+       not published anywhere we can read it. Who they are, and what is live
+       on their site today, both are - so those two are filled from the
+       client's own site and this one is honest about which is which.
+
+       "What we did" stays empty for every client and is the only field that
+       does. The approach is ours, it is on no website, and it is the one
+       line the studio has to write itself. */
     const parts = [
-      ['What they came with', c.came ? para(c.came) : needs(c, 'the problem, one line')],
+      ['Who they are', c.came ? para(c.came) : needs(c, 'who they are, in a line')],
       ['What we did', c.did ? para(c.did) : needs(c, 'the approach, one line')],
-      ['What they got', c.got ? bullets(c.got) : needs(c, 'the deliverables, a list')],
-      ['What happened', happened(c)]
+      ['What is live', c.got ? bullets(c.got) : needs(c, 'the deliverables, a list')],
+      ['What it moved', happened(c)]
     ];
+
+    /* A client with a mark on file and nothing else gets the note alone.
+       Four placeholders under a card that already says nothing is published
+       about this engagement is the same sentence shouted twice. */
+    const bare = c.band === 'mark' && !c.came && !c.got && !c.site;
+    if (bare) return head;
+
     const dl = '<dl class="cl-ov-parts">' + parts.map(
       ([k, v]) => `<div class="cl-ov-part"><dt>${esc(k)}</dt><dd>${v}</dd></div>`
     ).join('') + '</dl>';
 
-    /* Said in the overlay as well as in the brief, because the person who
-       sees the holes is not always the person who reads the brief. */
     const holes = ['came', 'did', 'got', 'outcome']
       .filter((k) => c[k] === null).length;
-    const COUNT = ['', 'One', 'Two', 'Three', 'All four'];
+    const COUNT = ['', 'One line', 'Two lines', 'Three lines', 'All four lines'];
     const foot = holes
-      ? `<p class="qual-note cl-ov-foot">${COUNT[holes]} of the four lines ` +
-        'above are waiting on the client. Until they come, nothing is ' +
-        'written in their place</p>'
+      ? `<p class="qual-note cl-ov-foot">${COUNT[holes]} above ` +
+        (holes === 1 ? 'is' : 'are') + ' still ours to write. Nothing is ' +
+        'put there in the meantime</p>'
       : '';
 
     return head + dl + foot;
