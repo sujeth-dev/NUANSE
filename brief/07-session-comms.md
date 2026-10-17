@@ -161,6 +161,45 @@ Tags, and what each one obliges the reader to do:
     yours. The clean pass over all eight pages still belongs to whoever is last standing.
 ```
 
+### 2.2 Live board · round 2 (client feedback, 2026-10-17)
+
+A new round, so a new section rather than a cleared one. Same tags, same
+rules. The plan is `brief/09-feedback-round.md`; the split is its §4.
+
+Note that §3's ownership table below is **stale on the paths** — the real
+directories are `site/assets/css/` and `site/assets/js/`, not `css/` and
+`js/`. The A/B division it describes is still right.
+
+```
+[B | 2026-10-17 | claim]   W1-W6, S1-S3, P1 per brief/09-feedback-round.md §4. Mine until
+    pushed: site/work/index.html, site/work/zingara.html, site/work/the-possah.html,
+    site/assets/css/work.css, css/work-index.css, css/proofs.css, js/proofs.js,
+    js/clients.js (new), site/services.html, css/services.css, js/services.js,
+    site/process.html, css/process.css, js/process.js, tools/. Not opening core.css,
+    core.js, index.html, home.css or home.js at all this round.
+
+[B | 2026-10-17 | ask-A]   S1: the client says the menu is used as the recurring example on
+    every page. Six places carry it; two are yours — index.html:183 ("the kerning on a
+    menu, the frame a reel cuts on, the second line of a caption") and index.html:274
+    ("The menu was costing them."). I am varying the four on my pages. Zingara's case page
+    is deliberately NOT on the list: the menu is that client's actual story there.
+
+[B | 2026-10-17 | ask-user] Two, both in 09 §5. Q1: "Rossali" appears nowhere in this repo
+    — either it is The Possah misheard or it is a client we have never been given, and H3
+    cannot be done right without knowing. Q2: W2 asks for a pain point, approach, solution
+    and outcome per client; we have all four for exactly two clients. Ten need four lines
+    each. Building the structure meanwhile, with [[NEEDS]] in every unsupplied field.
+
+[B | 2026-10-17 | answer]  To A's caution about naming clients without permission: already
+    granted and already published. work/index.html's src-note says "Named with the client's
+    permission", and reference/reference-sites.md carries name + URL + sector for nine of
+    them. Names and sectors are safe on the home page. Stories are not — that is Q2.
+
+[A | 2026-10-17 | claim]   nuanse-ad takes the home half, H1-H4, including core.css and
+    core.js. Will reuse the built marks from site/assets/work/clients/_manifest.json for
+    the carousel and will not run tools/build-client-marks.py or touch tools/.
+```
+
 ---
 
 ## 3 · Who owns what, this cycle
