@@ -116,7 +116,18 @@
     const PRE = {
       hero:  { ramp: ['#FCF7F1', '#E6DED2', '#D58A4E', '#0D1A41'], warp: 4.2, scale: 2.3, speed: 1,   grain: 0.05 },
       open:  { ramp: ['#0D1A41', '#08112E', '#B56528', '#D58A4E'], warp: 3.6, scale: 1.8, speed: 1.6, grain: 0.04 },
-      audit: { ramp: ['#0D1A41', '#08112E', '#B56528', '#D58A4E'], warp: 3.0, scale: 1.6, speed: 0.45, grain: 0.03 }
+      audit: { ramp: ['#0D1A41', '#08112E', '#B56528', '#D58A4E'], warp: 3.0, scale: 1.6, speed: 0.45, grain: 0.03 },
+      /* The hero's loupe. The client's note on this screen was that the ground
+         should get "brighter with the blue element rather than plain", and the
+         loupe was the plain part: 350px of flat navy.
+
+         This ramp is the only one in the file with no copper in it, and that
+         is a contrast decision rather than a taste one. The loupe carries the
+         annotations in --copper-l at 10px, which needs 4.5:1. Against the
+         brightest colour here, #1B2B66, copper-l measures 4.78:1 and cream
+         12.45:1; against --copper-l itself it would measure 1.0. So the blue
+         brightens and the copper stays legible on top of it. */
+      lens:  { ramp: ['#0D1A41', '#16245A', '#08112E', '#1B2B66'], warp: 3.4, scale: 2.0, speed: 0.6, grain: 0.03 }
     };
 
     const hx = (h) => [
@@ -306,6 +317,12 @@
     }
     if (navMark) navMark.style.opacity = 1;
     if (navSlot) navSlot.classList.add('filled');
+    /* The follow needs GSAP; the rest state does not. Without this the ring
+       sat in the top-left corner for the whole visit, which is the parked
+       cursor the rest state exists to stop. .cur-dead centres it in CSS,
+       because transform here belongs to the breath. */
+    const curEl = $('.cur');
+    if (curEl) curEl.classList.add('rest', 'cur-dead');
     buildS3D();          /* decorative, but an empty 220px box is worse */
     window.NU = { RM, TOUCH, $, $$, clamp, esc, wrapS, wrapWords, markS, dead: true };
     return;
@@ -412,16 +429,104 @@
       }
     }
 
+    /* --- the rest state ---
+       With no input for REST_AFTER the ring stops following, drifts back to
+       the centre of the window and breathes there (the keyframe is in
+       core.css); the next move, scroll or keypress brings it straight back.
+
+       "No input" counts scrolling and typing as well as pointer movement. A
+       wheel with a parked pointer is still someone reading, and a ring that
+       wandered off mid-sentence would be answering a question nobody asked.
+
+       It starts at rest rather than waiting for the first pointermove. Before
+       this, the ring sat at 0,0 until you moved — a copper circle in the
+       top-left corner of a page nobody had touched yet. */
+    const REST_AFTER = 2400;
+    let restT = null;
+    let resting = false;
+    let drift = null;
+
+    /* --- the float ---
+       At rest the ring used to come to the centre of the window and stop
+       there, breathing. Breathing is a size change, so what you actually saw
+       was a copper circle pinned to one point - "stuck in one position", and
+       that was the note.
+
+       So it wanders instead. Six legs around the anchor, each a different
+       length and a different distance, on sine easing so it never arrives
+       anywhere squarely; then it repeats from a fresh set of legs. The
+       radius is wider across than down because a browser window is, and the
+       whole figure stays inside a 56-96px orbit so the ring reads as
+       floating in one region rather than crossing the page on its own.
+
+       It owns x and y while it runs, which is why wake() kills it before
+       handing the pointer's real position back to the quickTo pair. Two
+       things tweening one property is the one way this can go wrong. */
+    function stopDrift() {
+      if (drift) { drift.kill(); drift = null; }
+    }
+    function startDrift(ox, oy, travel) {
+      stopDrift();
+      const leg = () => {
+        const a = Math.random() * Math.PI * 2;
+        const r = 28 + Math.random() * 20;
+        return {
+          x: ox + Math.cos(a) * r * 1.6,
+          y: oy + Math.sin(a) * r,
+          duration: 3.4 + Math.random() * 2.2,
+          ease: 'sine.inOut'
+        };
+      };
+      drift = gsap.timeline({ repeat: -1, repeatRefresh: true });
+      if (travel) drift.to(cur, { x: ox, y: oy, duration: 1.1, ease: 'power2.out' }, 0);
+      for (let i = 0; i < 6; i++) drift.to(cur, leg());
+    }
+
+    function rest(now) {
+      clearTimeout(restT);
+      restT = null;
+      resting = true;
+      cur.classList.remove('big');
+      cur.classList.add('rest');
+      lastLabel = '';
+      const ox = window.innerWidth / 2;
+      const oy = window.innerHeight / 2;
+      if (now) gsap.set(cur, { x: ox, y: oy });
+      startDrift(ox, oy, !now);
+    }
+    function wake() {
+      if (resting) {
+        resting = false;
+        stopDrift();
+        cur.classList.remove('rest');
+        /* the ring is off wandering and the pointer is not, so it is handed
+           its real position before the timer starts again */
+        if (lx >= 0) { cx(lx); cy(ly); }
+      }
+      clearTimeout(restT);
+      restT = setTimeout(rest, REST_AFTER);
+    }
+
     window.addEventListener('pointermove', (e) => {
       lx = e.clientX; ly = e.clientY;
+      wake();
       cx(lx); cy(ly);
       check(e.target);
     }, { passive: true });
     /* scrolling moves targets under a stationary pointer */
     window.addEventListener('scroll', () => {
+      wake();
       if (lx >= 0) check(document.elementFromPoint(lx, ly));
     }, { passive: true });
-    document.addEventListener('pointerleave', () => check(null));
+    /* a keyboard user is working too, and the ring should not creep across
+       their screen while they tab through the nav */
+    window.addEventListener('keydown', wake, { passive: true });
+    /* the pointer has left the window: that is the end of the input, not a
+       pause in it, so the ring goes home without waiting out the timer */
+    document.addEventListener('pointerleave', () => { check(null); rest(); });
+    /* the centre moved */
+    window.addEventListener('resize', () => { if (resting) rest(true); }, { passive: true });
+    rest(true);
   }
   const cursorRest = () => { if (cur) cur.classList.remove('big'); };
 
