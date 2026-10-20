@@ -498,6 +498,25 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .nav-links a[aria-current]{color:var(--copper-ink)}
 .nav.dark .nav-links a[aria-current]{color:var(--copper-l)}
 .menu a[aria-current]{color:var(--copper-l)}
+/* On a PROJECT page the ground under the nav is the client's, not ours, and
+   the house copper-light has no guaranteed contrast against a colour we did
+   not choose. Measured on The Possah's --pj-ground: #D58A4E on rgb(31,58,45)
+   is 4.45:1, which misses AA for an 11px link by 0.05 — small, repeatable,
+   and a real failure. Zingara's ground happens to pass, which is exactly why
+   this cannot be left to luck as more clients are added.
+
+   So on a project page the current-page link is full cream (13:1 on that
+   same ground) and the sliding .nav-ind carries the "which page" signal it
+   was already carrying. The copper stays everywhere the ground is ours. This
+   is not a palette change: --copper-l is untouched and still the nav's
+   current-page ink on every house page.
+
+   Keyed off :has(.pj-open) rather than a class on <body>, so no project
+   page's markup has to change — those files belong to another session this
+   round, and the two case pages are generated besides. :has() is already
+   load-bearing in this build (proofs.css:39), so it is not a new dependency. */
+body:has(.pj-open) .nav.dark .nav-links a[aria-current],
+body:has(.pj-open) .menu a[aria-current]{color:var(--cream)}
 
 .nav-end{display:flex;align-items:center;gap:14px;flex:0 0 auto}
 /* letters turned on this visit. The flip reverts; the count does not. */

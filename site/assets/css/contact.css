@@ -29,7 +29,14 @@
 /* The hint sits inside the label so it is part of the accessible name — "Pick
    as many as apply" is instruction, not decoration, and a screen reader
    should hear it with the question rather than after everything else. */
-.ct-hint{text-transform:none;letter-spacing:.04em;color:var(--mute);opacity:.78}
+/* No opacity on this, and that is the whole note. --mute is 4.90:1 on cream,
+   which clears AA for 11px text with almost nothing to spare; at the .78 this
+   carried it composited to rgb(128,131,147) and measured 3.54:1, a real
+   failure on text that is giving an instruction. The hint is already
+   distinguished from the label it sits inside by case — the label is
+   uppercase mono, the hint is not — so the opacity was buying a distinction
+   that was already there, at the price of the only thing that mattered. */
+.ct-hint{text-transform:none;letter-spacing:.04em;color:var(--mute)}
 
 .ct-chips{display:flex;flex-wrap:wrap;gap:10px}
 .ct-chip{border:1px solid rgba(13,26,65,.28);border-radius:999px;padding:11px 17px 10px;
