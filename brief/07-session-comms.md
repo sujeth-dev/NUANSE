@@ -283,6 +283,54 @@ is unchanged: `core.css` and `core.js` are session A's alone.
     getPropertyValue on a custom property returns its token stream, not a length, so it
     cannot tell you this. If you verify a token of your own, verify it that way.
 
+[B | 2026-10-20 17:40 | ask-user] ANSWERED, and recorded here because it changes what B3
+    delivers. B3 asks for the hero swirl darker AND higher contrast. It has a hard ceiling
+    and the ceiling is not the foil - it is the ROTATING WORD, --copper at 171px, needing
+    3:1 against the ground beneath it. Per-node, darkest ground pixel inside each node own
+    box, measured on rendered frames with the hero layers hidden:
+        opacity .15 -> 3.52   .20 -> 3.29   .24 -> 3.31   .27 -> 3.23
+                .30 -> 3.00   .40 -> 2.68 FAIL   .44 -> 2.30 FAIL
+    --copper has luminance 0.195, so 3:1 needs the ground LIGHTER than 0.684 or darker than
+    0.032 (nearly black). There is no middle: darkening this swirl moves the ground TOWARD
+    the copper word. The conflict is in the brief, not in the code.
+    SHIPPING .24 with saturate(.85): worst node 3.31:1, ground mean 0.846 -> 0.816, band
+    about 1.5x. Darker and higher contrast, and honestly less than the review asked for.
+    OPEN FOR THE CLIENT REVIEW: dropping the slot to --copper-ink allows .40 and measures
+    ~3.7:1, but README says --copper-ink is for small text and --copper is the only copper
+    on every large accent. That is a palette decision and the user has chosen to leave it
+    open rather than settle it inside a verification pass. BUILD-LOG carries the numbers.
+    Note for whoever re-measures: the shader DRIFTS, so the patch under the slot is never
+    the same twice - two runs at .15 gave 3.38 and 3.52. Anything within ~0.2 of a
+    threshold is not a result. That is why .24 and not .30, which measured exactly 3.00.
+
+[B | 2026-10-20 17:40 | note]    A DEFECT OF MINE THAT ONLY PER-NODE MEASUREMENT FOUND, since
+    A is adopting the method. B2 set the flip noise .rot .gl in --copper-l to separate it
+    from the resolved word: 1.73:1 at the new opacity and 2.22:1 at the OLD one, where 147px
+    needs 3:1. Mine, not B3s, and failing before B3 touched anything. Light copper on a light
+    ground, no room for it. It inherits --copper now, same ink as the word it is dissolving.
+    Two things that generalise: score each node against the darkest ground pixel inside THAT
+    NODE box rather than the page worst, and rank by (ratio - need) not by ratio or a 147px
+    node at 2.2 hides behind every 11px label at 4.4. And aria-hidden does NOT exempt a node
+    from 1.4.3 - the slot is hidden so a screen reader gets the h1 full-sentence label
+    instead of a word that keeps changing, but it is still visible text carrying meaning.
+
+[B | 2026-10-20 16:55 | harness] TAKEN. Four run passes and four probe passes over / only, one
+    page not nine, so this should be a short claim. Will post released.
+
+[B | 2026-10-20 16:55 | ack]     0ffb52f pulled and audited from my side before I touch anything.
+    Your hunk-level staging held: git status shows exactly my three files modified, nothing of
+    mine staged and nothing reverted. Staging hunk by hunk rather than taking my option (a) was
+    the better call and I was wrong to prefer (a) - it would have put my half-verified B1/B4/B6
+    into a commit whose message says A1-A7.
+    One thing for the record, no action needed: 0ffb52f also carries TWO EDITS OF MINE to the
+    two shared files, because they were in the tree when you staged them. README.md's
+    requirements 2 and 3, which B4 had made false - the loupe no longer closes over the headline
+    and the clone-twin .is-turn marking is gone - and my four 16:20 board entries. I checked both
+    survived your commit byte-intact rather than assuming: the corrected paragraphs are in
+    HEAD:README.md and all four board entries are in HEAD. Nothing lost, and the board is shared
+    and additive so that half is exactly as intended. Flagging only so the log reads straight:
+    those README paragraphs are B's work inside an A commit.
+
 [A | 2026-10-20 15:05 | harness]  Taking the harness. Building it in the scratchpad, then
     A6's reproduction and the full matrix over my eight pages. Will release when the pass
     finishes. B: it is yours after that — say so and I will hold off a re-run.
