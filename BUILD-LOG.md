@@ -5,6 +5,118 @@ matters — what was measured rather than assumed.
 
 ---
 
+## 2026-10-21 · Session CD: the case pages get a frame, the collections get a rhythm
+
+Round 3, wave 2, items C1, C2, D-a, D-d and D-e of
+`brief/10-revision-round-3.md` §1, run after both wave-1 sessions landed.
+Verification here is deliberately the lighter pass the plan asks for: one
+`check.js`-equivalent console/exception sweep per touched page across
+desktop (1440), mobile (390, touch), and GSAP blocked, plus a scroll-trigger
+walk before any screenshot so a reveal animation is not mistaken for missing
+content. Zero console errors, zero exceptions, zero failed requests on every
+pass, on all four touched pages.
+
+**C1/C2 — both case pages' problem and system sections, restructured.**
+Both were content with no layout: the problem section a wall of paragraphs
+with nowhere for evidence to sit, the system section six things shown at
+once with nothing to say which mattered most. Same fix on both pages,
+written straight into `_zingara.src.html` and `_the-possah.src.html` (not
+the built pages — this also resolved the stale-source defect A flagged on
+2026-10-20, since the region being rebuilt was exactly the one that had
+drifted):
+
+- **The problem** is now one slide: eyebrow, lead sentence, the facts beside
+  it, the whole original four-paragraph account folded under "The whole of
+  it" (nothing cut), and a real framed image on the right. Caught one
+  honesty defect while verifying: the Zingara figure first read as "the menu
+  as it was handed to us", but the `collateral` board it uses is the
+  *delivered* menu, not the chaotic original — there is no photograph of the
+  original. Recaptioned to say so and pointed the reader to the signature
+  section's reconstruction instead of claiming the photo was something it is
+  not.
+- **The system** is now a `.pj-slide`-framed pair — the mark and the colour
+  board — with the full specification (swatches, the spec table, the
+  brand's own quoted lines, and the remaining boards) folded under "The full
+  specification", reusing the same `<details>` pattern round 2 built for the
+  problem section rather than inventing a second one. Nothing true was
+  deleted; `work.css`'s `.pj-more` is now documented as shared rather than
+  problem-section-only.
+- **"It travels" / "the real test"** (Amma's Breakfast too large, Zingara's
+  off): root cause was `.ev-frame` having no `aspect-ratio`, so a board's own
+  pixel dimensions set its row's height and a 1800×1800 board sat far taller
+  than a 1200×900 one beside it. Every `.ev` board now reads against the same
+  16/10, `object-fit:cover` — the same discipline `.gv` already had.
+- **C2's empty grid cell**: seven boards in an `auto-fit` grid of three or
+  four always leaves one cell empty. Rather than pad the set with an eighth
+  board that does not exist, the one board that is already a summary of the
+  rest (Possah's contents page) now spans the full row as a deliberate
+  close (`.gv.cap`), wide enough that the hole cannot occur. First cut it at
+  21:9, which on a square source image cropped off the board's own heading —
+  reduced to 16/9 with `object-position:top` once that showed on screen.
+- **A7's tokens, applied where C1 named the root cause**: `.pj-chapter h2`,
+  `.pj-sig-head h2`, `.pj-problem p`, `.pj-facts dt`, `.pj-nums strong` and
+  `.pj-quotes blockquote` now take `var(--fluid)` with `--f-min`/`--f-max`
+  instead of their own bespoke `clamp()`, so these headings sit on the one
+  ramp instead of each reaching its own ceiling at its own width.
+- Also fixed, both flagged in README **Still open** and both in files this
+  session owns: `work/zingara.html`'s Sector field said "Mysore white
+  biryani" (a dish, not a sector) against its own eyebrow's "Restaurant" —
+  now says "Restaurant", and the dish name is still on the page in three
+  other places. And `site/work/index.html` linked to the case pages as
+  bare `zingara.html` / `the-possah.html`, which resolves to `/zingara.html`
+  under the real `cleanUrls` + no-trailing-slash config because `/work` (no
+  slash) is treated as a file, not a directory, when resolving a relative
+  href against it — fixed in the hand-written proof print and in
+  `tools/build-roster.py`'s template (not the data: `tools/clients.json`
+  still stores the slug-relative name, because the tool's own existence
+  check resolves it the other way). Traced against `vercel.json`, not
+  reproduced live — `npx serve` does not emulate the no-trailing-slash
+  behaviour, so this needs the real serving layer to exercise.
+
+**D-a — the work grid gets the rhythm the plan asked for.** Zingara and The
+Possah now span the full row each (`grid-column:1/-1`, not `span 2`), so the
+two cases that carry a real case page are never sharing a row with each
+other or with a logo-only client — reviewed as "default and plain" before,
+now a deliberate two-tier read: two full-width cases, then ten client cards
+in their own band. The grid's gap also widened (the round-2 fix to the
+roster's *empty middle column* was never about the grid's own breathing
+room). `work-index.css` only; the roster itself is generated and untouched.
+
+**D-d — the team page's first state.** Every one of the ten is now visible
+together in one properly composed, edge-to-edge frame (`.team-frame`, a
+full-bleed breakout of `.sec`'s own gutter) directly under the intro copy,
+*before* the filter UI rather than after it — the filter stays exactly as
+good as the review said it already was. Caught one honesty gap while
+building it: `team.js` always pins the founder into `.lane-row`, never
+`.scatter`, so "everyone visible together" was true for nine people and not
+the tenth until `.lane` was moved to open the same `.team-frame` rather than
+sitting in its own box below it. The old per-card jitter
+(`nth-child(5n+2/3/4/5)` each with a different `margin-top`) is now two
+precise rows — the founder's card, then five and five, no remainder.
+Measured at 1440×1000: the frame runs roughly 1.35 viewports, inside the
+plan's "about one and a half, two at most".
+
+**D-e — the small unnecessary text.** Read `team.html` and the hand-authored
+parts of `work/index.html` against the standard the home page's own pass
+set (`BUILD-LOG` 2026-10-14). Found nothing to cut: the honesty notes
+(`.qual-note`, `.src-note`, `.cl-uncat`) each carry a distinct fact the
+content rules require, and the hand-written copy on both pages was already
+at the length it needs. Not done, and why: forcing a trim where none is
+owed is the same mistake as padding a thin case to match a deep one.
+
+**Not done: D-b and D-c** (the service artifacts' second beat, process's own
+drawings) — droppable per the plan when short on time, and dropped here so
+C1/C2 and the rest of D could get the full pass rather than all seven items
+a shallow one.
+
+**Verified**: `/work/zingara`, `/work/the-possah`, `/team`, `/work` at 1440
+and 390 (touch), plus GSAP blocked on the two case pages. Zero console
+errors, zero exceptions, zero failed requests across all passes. Screenshots
+and the scroll-trigger-walk method are in the session's own report, not the
+repo — the harness is rebuilt per session, as README already says.
+
+---
+
 ## 2026-10-20 · Session A: one scale, a header that goes away, and a contact page
 
 Round 3, wave 1, items A1–A7 of `brief/10-revision-round-3.md`, run alongside

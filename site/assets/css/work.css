@@ -56,7 +56,7 @@
    no-GSAP path for free. */
 .pj-problem{background:var(--cream);color:var(--navy);padding:var(--sec-y) var(--gut)}
 .pj-problem-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm)}
-.pj-problem p{margin:0 0 18px;font-size:clamp(19px,2vw,26px);line-height:1.45;max-width:38ch}
+.pj-problem p{--f-min:19;--f-max:26;margin:0 0 18px;font-size:var(--fluid);line-height:1.45;max-width:38ch}
 .pj-problem p:last-child{margin-bottom:0}
 .pj-problem strong{font-weight:500}
 /* the line that lands. Same size the section always used — the point is that
@@ -68,10 +68,23 @@
 .pj-facts{display:flex;flex-wrap:wrap;margin:var(--s4) 0 0;color:var(--mute)}
 .pj-facts>div{padding:0 clamp(16px,1.6vw,24px);border-left:1px solid rgba(13,26,65,.18)}
 .pj-facts>div:first-child{padding-left:0;border-left:0}
-.pj-facts dt{margin:0;font-family:var(--serif);font-size:clamp(30px,3.4vw,46px);line-height:1;
+.pj-facts dt{--f-min:30;--f-max:46;margin:0;font-family:var(--serif);font-size:var(--fluid);line-height:1;
   letter-spacing:-.03em;color:var(--navy)}
 .pj-facts dd{margin:10px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
   text-transform:uppercase;max-width:19ch}
+/* --- THE PROBLEM, framed ---
+   C1: "The problem must become one slide, fully contained, with a real
+   frame and a deliberate left/right split: text and facts left, images
+   right." The default .pj-problem-in is two columns (eyebrow, text) with
+   nowhere for a third thing to go, so a page that has evidence for this
+   section opts in with .with-fig rather than the shared default growing a
+   column every page does not need. */
+.pj-problem-in.with-fig{grid-template-columns:minmax(0,.7fr) minmax(0,1.5fr) minmax(0,1.3fr)}
+.pj-problem-fig{margin:0;align-self:start}
+.pj-problem-fig .ev-frame{border-color:rgba(13,26,65,.18)}
+.pj-problem-fig figcaption{display:block;margin-top:12px;font-family:var(--sans);
+  font-size:12px;line-height:1.5;color:var(--mute);max-width:30ch}
+
 /* core's .eyebrow is display:flex with align-items:center. As a grid item it
    stretches to the row, so its text rides to the vertical middle of whatever
    sits beside it — which is why "The problem" used to float halfway down four
@@ -102,8 +115,12 @@
 .pj-sig{position:relative;padding:var(--sec-y) var(--gut);
   background:var(--pj-sig-bg,var(--stone));color:var(--pj-sig-ink,var(--navy))}
 .pj-sig-head{max-width:46ch;margin-bottom:var(--gap-md)}
-.pj-sig-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,86px);
-  line-height:.92;letter-spacing:-.04em;margin:14px 0 18px;text-wrap:balance}
+/* C1's root cause, on the signature head too: this was its own clamp with
+   its own vw coefficient, reaching its ceiling at a width no other heading
+   on the page shared. --f-min/--f-max puts it on A7's one ramp instead. */
+.pj-sig-head h2{--f-min:40;--f-max:86;font-family:var(--serif);font-weight:400;
+  font-size:var(--fluid);line-height:.92;letter-spacing:-.04em;margin:14px 0 18px;
+  text-wrap:balance}
 
 /* ============ 4 · THE WORK ============
    Evidence, not a list. The boards are presentation renders — pages of a
@@ -127,8 +144,13 @@
 .ev:nth-of-type(even){grid-template-columns:minmax(0,2.4fr) minmax(0,1fr)}
 .ev:nth-of-type(even) .ev-frame{grid-column:1}
 .ev:nth-of-type(even) figcaption{grid-column:2}
-.ev-frame{position:relative;overflow:hidden;border:1px solid var(--hair-c)}
-.ev-frame img{width:100%;height:auto;display:block}
+/* C1's "it travels" and "the real test": a board's own dimensions used to
+   set the row's height, so a 1800x1800 board sat much taller than a 1200x900
+   one beside it and the "images at inconsistent sizes" complaint was the
+   frame, not the content. Every .ev board now reads against the SAME
+   aspect-ratio, same as .gv already did below — one scale, not a hundred. */
+.ev-frame{position:relative;overflow:hidden;border:1px solid var(--hair-c);aspect-ratio:16/10}
+.ev-frame img{width:100%;height:100%;object-fit:cover;display:block}
 .ev figcaption{color:var(--mute-d);align-self:end}
 .ev figcaption b{display:block;color:var(--cream);font-weight:500;margin-bottom:8px}
 .ev figcaption span{display:block;font-family:var(--sans);font-size:15px;letter-spacing:0;
@@ -142,8 +164,8 @@
 .pj-nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
   background:rgba(13,26,65,.15);border:1px solid rgba(13,26,65,.15);margin-top:var(--gap-md)}
 .pj-nums div{background:var(--cream);padding:clamp(24px,3vw,40px) clamp(18px,2vw,28px)}
-.pj-nums strong{display:block;font-family:var(--serif);font-weight:400;
-  font-size:clamp(34px,4.4vw,64px);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
+.pj-nums strong{--f-min:34;--f-max:64;display:block;font-family:var(--serif);font-weight:400;
+  font-size:var(--fluid);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
 .pj-nums span{display:block;margin-top:12px;font-size:15px;color:var(--mute)}
 .pj-nums .src{margin-top:14px;color:var(--mute);font-family:var(--mono);font-size:10px;
   letter-spacing:.1em;text-transform:uppercase}
@@ -180,8 +202,8 @@
 .pj-chapter{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);
   gap:var(--gap-sm);align-items:end;margin:0 0 var(--gap-md)}
 .pj-chapter .eyebrow{margin:0;color:var(--accent-l)}
-.pj-chapter h2{font-family:var(--serif);font-weight:400;
-  font-size:clamp(34px,5vw,68px);line-height:1;letter-spacing:-.035em;margin:0 0 14px}
+.pj-chapter h2{--f-min:34;--f-max:68;font-family:var(--serif);font-weight:400;
+  font-size:var(--fluid);line-height:1;letter-spacing:-.035em;margin:0 0 14px}
 .pj-chapter p{margin:0;max-width:52ch}
 
 /* --- THE SYSTEM · the rules, on a light ground ---
@@ -246,10 +268,29 @@
 .pj-quotes{list-style:none;margin:var(--gap-md) 0 0;padding:0;display:grid;
   grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
   gap:clamp(24px,3vw,44px)}
-.pj-quotes blockquote{margin:0;font-family:var(--serif);font-weight:400;
-  font-size:clamp(21px,2.1vw,29px);line-height:1.18;letter-spacing:-.02em;
+.pj-quotes blockquote{--f-min:21;--f-max:29;margin:0;font-family:var(--serif);font-weight:400;
+  font-size:var(--fluid);line-height:1.18;letter-spacing:-.02em;
   padding-left:18px;border-left:2px solid var(--accent)}
 .pj-system .pj-quotes blockquote{border-left-color:var(--accent-ink)}
+
+/* --- ONE CONTAINED SLIDE ---
+   C1/C2: several chapters read as content with no layout — a frame gives a
+   section an edge, so it stops looking like it is still loading. One rule
+   only: a hairline border and the chapter's own ground padded inside it,
+   never a new colour or a new shadow system. */
+.pj-slide{border:1px solid rgba(13,26,65,.14);padding:clamp(28px,4vw,56px);
+  margin-top:var(--gap-md)}
+[data-nav=dark] .pj-slide{border-color:var(--hair-c)}
+.pj-slide>.pj-chapter,.pj-slide>.pj-sig-head{margin-top:0}
+
+/* --- the fold, extended to dark grounds ---
+   .pj-more above was written for the problem section's cream ground only.
+   C1's system chapter and C2's naming/travels chapters fold on a dark
+   ground too, so the summary needs a visible colour and hover state there
+   as well — same mechanism, no new one. */
+[data-nav=dark] .pj-more{border-color:var(--hair-c)}
+[data-nav=dark] .pj-more>summary{color:var(--accent-l)}
+@media (hover:hover){[data-nav=dark] .pj-more>summary:hover{color:var(--cream)}}
 
 /* --- a grid of evidence, where the 1 : 2.4 alternation is wrong ---
    Three boards of the same kind are a set, and a set reads as a grid. The
@@ -267,6 +308,20 @@
 /* 4:5 is the campaign frames' own ratio. Giving them 2/3 would crop a
    seventh off the width of a photograph someone composed. */
 .gv.p45 .ev-frame{aspect-ratio:4/5}
+/* --- the closing card, for a grid whose count does not fill its last row ---
+   C2: "the empty grid cell reads as a hole." auto-fit leaves that cell empty
+   rather than stretching a neighbour into it, and seven boards in boards of
+   three or four always leaves one. Rather than pad the set with an eighth
+   board that does not exist, the one board that is ALREADY a summary of the
+   rest — a contents page, a document overview — spans the full row as a
+   deliberate close, wide enough that the empty cell cannot occur. */
+.gv.cap{grid-column:1/-1}
+/* 16/9, not wider: the source boards this spans for are square, and a
+   21:9 crop on a square image kept under half its height and cut the top
+   line off a contents page. 16/9 is wide enough to read as a close without
+   losing the board's own heading. */
+.gv.cap .ev-frame{aspect-ratio:16/9}
+.gv.cap .ev-frame img{object-position:top}
 [data-nav=dark] .gv .ev-frame{border-color:var(--hair-c)}
 .gv figcaption{margin-top:14px;font-family:var(--mono);font-size:10px;
   letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
@@ -316,7 +371,7 @@
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:900px){
-  .pj-problem-in,.pj-scope-in{grid-template-columns:1fr}
+  .pj-problem-in,.pj-problem-in.with-fig,.pj-scope-in{grid-template-columns:1fr}
   .ev,.ev:nth-of-type(even){grid-template-columns:1fr}
   .ev .ev-frame,.ev:nth-of-type(even) .ev-frame{grid-column:1;grid-row:1}
   .ev figcaption,.ev:nth-of-type(even) figcaption{grid-column:1;grid-row:2}

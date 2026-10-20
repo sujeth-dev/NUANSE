@@ -322,34 +322,26 @@ a different path through the site than a browser does — see the note about
 
 ## Still open
 
-- **The two case pages' sources are stale, and re-expanding them would destroy
-  work.** `tools/expand-figures.py` round-trips `work/zingara.html` and
-  `work/the-possah.html` byte-identically **except** in one region — built
-  lines 124-138, the `pj-lead` + `pj-facts` + folded `<details>` problem
-  section that the 2026-10-15 BUILD-LOG entry describes. That was hand-edited
-  into the built pages and never written back, so `_zingara.src.html` and
-  `_the-possah.src.html` still hold the four-paragraph wall it replaced.
-  Anyone following the documented workflow — edit the source, re-expand —
-  silently reverts it. Either back-port those fifteen lines into the sources,
-  or write the next restructure straight into the sources. Found 2026-10-20;
-  not fixed then because those are another session's files and the region was
-  about to be rebuilt.
-  Also: **the slug for The Possah is `possah`, not `the-possah`.** The
-  manifest is at `site/assets/work/possah/_manifest.json` and the tool's
-  docstring only shows the zingara example, so the obvious guess is a
-  `FileNotFoundError`:
-  `python tools/expand-figures.py possah site/work/_the-possah.src.html site/work/the-possah.html`
-- **`site/work/index.html` links to the case pages one directory too high.**
-  It carries `href="zingara.html"` and `href="the-possah.html"`, written as
-  though the page were served at `/work/index.html`. With `cleanUrls` and
-  `trailingSlash: false` it is served at `/work`, so a browser resolves those
-  against `/` and asks for `/zingara.html`. Production survives it on two
-  redirects — `cleanUrls` strips the `.html` to `/zingara`, then the
-  `/zingara` vanity rule in `vercel.json` maps it to `/work/zingara` — which
-  is presumably not what those vanity rules were added for. Traced against the
-  real config: two hops to arrive. On `file://` it resolves outside `site/`
-  and fails outright. The fix is one character in two hrefs
-  (`work/zingara.html`), in a file session D owns.
+- ~~The two case pages' sources were stale, and re-expanding them would have
+  destroyed work.~~ **Done, 2026-10-21 (session CD).** C1/C2 rebuilt the
+  problem and system sections of both pages, and the restructure was written
+  straight into `_zingara.src.html` and `_the-possah.src.html` — the cheapest
+  honest path the 2026-10-20 note recommended, since those sections were
+  being rebuilt anyway. Both pages now round-trip from source again; verify
+  with `python tools/expand-figures.py zingara site/work/_zingara.src.html
+  site/work/zingara.html` (and `possah` for the other, not `the-possah` —
+  the manifest is at `site/assets/work/possah/_manifest.json` and the obvious
+  guess is a `FileNotFoundError`).
+- ~~`site/work/index.html` links to the case pages one directory too
+  high.~~ **Done, 2026-10-21 (session CD).** Fixed in both places it
+  occurred: the hand-written proof print (`href`/`data-href`) and
+  `tools/build-roster.py`'s template, which now renders `work/` onto the
+  stored href when writing a card into this page specifically — the stored
+  value in `tools/clients.json` stays slug-relative (`zingara.html`) because
+  the existence check still resolves it against `site/work/`. Traced, not
+  reproduced live: `npx serve` does not emulate `cleanUrls`' no-trailing-
+  slash behaviour, so this needs the real `vercel.json` serving layer (see
+  **Verifying**) to exercise the actual bug.
 - Three overflow reports that are **not** scale-related and were still present
   at all five widths on 2026-10-20, each in someone else's file:
   `div.stack` 448 against 430 on `/` and `/work` (`proofs.css`); three SVG
@@ -369,11 +361,13 @@ a different path through the site than a browser does — see the note about
   they are still open, and a visitor reading that line reads it as a citation.
   Worth either getting the client's confirmation or saying plainly that the
   figures are carried over from the previous site.
-- `work/zingara.html` gives its Sector as "Mysore white biryani", where the
-  eyebrow two lines above reads "Restaurant · Bangalore". One of the two is
-  wrong; a dish is not a sector. Flagged twice now and left for the project
-  pages session, because "Restaurant" and "Restaurant · biryani" are both
-  plausible intents and it is not a guess worth making quietly.
+- ~~`work/zingara.html` gives its Sector as "Mysore white biryani", where the
+  eyebrow two lines above reads "Restaurant · Bangalore".~~ **Done, 2026-10-21
+  (session CD).** Sector now reads "Restaurant", matching the eyebrow. The
+  dish name is not lost — it is still in the eyebrow's scope line, the zm
+  signature's own sub-line, the meta description and the scope list — so
+  nothing true left the page, only the one field that was answering the
+  wrong question.
 - The Zingara "before" in the redline slider is a reconstruction, not a
   photograph of the client's original menu. Fine as rhetoric on the home page;
   it needs labelling before it carries a project page.

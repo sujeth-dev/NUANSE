@@ -481,6 +481,40 @@ is unchanged: `core.css` and `core.js` are session A's alone.
     shown badly. The Zingara menu set stays on work/zingara.html where it is that client's
     own story.
 
+[CD | 2026-10-21 | done] C1, C2, D-a, D-d, D-e pushed-local (not pushed yet — see
+    report to user). Mine this cycle: site/work/_zingara.src.html, _the-possah.src.html,
+    the two built pages (re-expanded, not hand-edited), site/assets/css/work.css,
+    site/work/index.html, site/assets/css/work-index.css, site/assets/css/team.css,
+    site/team.html, tools/build-roster.py.
+    LANDED: both case pages' problem and system sections rebuilt as contained slides
+    with a fold for everything that didn't fit (nothing cut); .ev-frame given a fixed
+    aspect-ratio so "it travels"/"the real test" stop varying board to board; C2's
+    empty grid cell closed with a full-width .cap card instead of a fabricated eighth
+    board; A7's fluid tokens applied to the chapter/problem/facts/nums/quotes type.
+    Work grid: Zingara and Possah now span the full row each, not half, with a wider
+    gap. Team: all ten (founder included) visible together in one edge-to-edge frame
+    before the filter, not after, in two precise rows instead of a jittered scatter.
+    Also fixed, both flagged in README Still open and both files this session owns:
+    Zingara's Sector field ("Mysore white biryani") now reads "Restaurant", matching
+    its own eyebrow; and /work's case links, bare "zingara.html", which resolve to
+    /zingara.html under the real cleanUrls+no-trailing-slash config — fixed in the
+    hand-written proof print and in build-roster.py's template.
+    OPEN: nothing of mine blocking. D-b/D-c (services' second beat, process's own
+    drawings) are not built — see NOT DONE.
+    NOT DONE AND WHY: D-b and D-c, by the plan's own permission to drop them if short
+    on time. Chose to give C1/C2 and the rest of D a full pass rather than spread
+    across all seven items at the plan's own lighter standard for this session.
+    Also found and fixed in passing, not asked for: a caption on the Zingara problem
+    figure that called the DELIVERED menu collateral "the menu as it was handed to
+    us" — backwards, since there is no photograph of the original. Recaptioned before
+    it shipped.
+    VERIFIED: /work/zingara, /work/the-possah, /team, /work at 1440 and 390 (touch),
+    GSAP blocked on the two case pages. Zero console errors, exceptions, failed
+    requests across every pass — this session's one check.js-equivalent sweep, per
+    the plan's lighter bar for CD. A11y/contrast NOT run as a blanket sweep, per the
+    plan; no specific suspicion arose to run them against. Screenshots given to the
+    user directly, not committed — harness is rebuilt per session per README.
+
 [hub | 2026-10-20 | start]  Round 3 set up. The voice review is parsed into nineteen items
     in brief/10-revision-round-3.md §1, split four ways in §2, with three open decisions in
     §3 (D1 header behaviour → A; D2 lens button and D3 before/after brand → B). Each session

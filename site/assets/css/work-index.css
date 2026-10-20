@@ -62,20 +62,31 @@
   color:var(--mute);margin:0 0 var(--s3);max-width:70ch;line-height:1.7}
 
 /* ============ THE GRID ============
-   280px is the number that makes 1320px of content into four columns, which
-   is what puts the two full cases on a row of their own: each spans two. Five
-   columns would have left a case sharing its row with a logo-only client,
-   which reads as a mistake rather than as a hierarchy. */
+   280px is the number that makes 1320px of content into four columns.
+   D-a, round 3: "default and plain", and the fix is the rhythm the plan
+   asked for rather than a bigger gap alone — Zingara and The Possah now
+   span the FULL row each (grid-column:1/-1 on .cl-feat, not span 2), so
+   the two cases that carry a real case page are never sharing a row with
+   each other or with a logo-only client, and the other ten read as their
+   own deliberate band underneath. The gap is also wider: the client note
+   that asked round 2 to CLOSE the roster's empty space was about rows with
+   nothing in the middle column, not about the grid's own breathing room —
+   a grid of cards earns more air than a grid of empty columns did. */
 .cl-grid{list-style:none;margin:0;padding:clamp(16px,1.8vw,24px) 0 0;
   display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:clamp(16px,1.8vw,24px);border-top:1px solid var(--navy)}
+  gap:clamp(28px,3.4vw,52px) clamp(16px,1.8vw,24px);border-top:1px solid var(--navy)}
 /* The frame is the card's, not the control's. It was on .cl-hit, which left
    the outbound site link hanging below the box like a caption, and made every
    row ragged: a card with a link ended lower than one without. */
 .cl{display:flex;flex-direction:column;min-width:0;position:relative;
   background:var(--cream);border:1px solid rgba(13,26,65,.18);
   transition:border-color var(--t-mid) var(--ease)}
-.cl-feat{grid-column:span 2}
+.cl-feat{grid-column:1/-1}
+/* a full-width card is a landscape, not a thumbnail beside a column of
+   text — the 34/66 split that worked at half the grid's width left a huge
+   flat panel of nothing at the image's own aspect ratio once the card
+   doubled in width, so the feat card gets its own, narrower image column. */
+.cl-feat .cl-hit{grid-template-columns:minmax(280px,22%) minmax(0,1fr)}
 
 /* the card itself is the control. One element, so its accessible name is its
    own visible text — the last cycle paid for the alternative with three axe
@@ -245,8 +256,9 @@
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:900px){
-  /* a feature card stops spanning two of two columns, which is just a card */
-  .cl-feat{grid-column:span 1}
+  /* .cl-feat keeps spanning the full row (grid-column:1/-1 is the default
+     now, not span 2) — below this width the case card just stops trying to
+     hold the image and the copy side by side */
   .cl-feat .cl-hit{display:flex;flex-direction:column}
   .cl-feat .cl-tile{aspect-ratio:16/9;height:auto;border-right:0;
     border-bottom:1px solid rgba(13,26,65,.1)}

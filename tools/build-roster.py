@@ -170,7 +170,14 @@ def card(c, marks):
     out = ['  <li class="%s" data-slug="%s" data-cat="%s" data-band="%s">'
            % (' '.join(cls), attr(c['slug']), attr(c['cat'] or ''), c['band'])]
     if c['href']:
-        out += ['    <a class="cl-hit" href="%s" data-cursor="Read the case">'
+        # README "Still open": site/work/index.html is served at /work, with
+        # no trailing slash, so a browser resolves a bare "zingara.html"
+        # against /work as if `work` were a FILE at root, landing on
+        # /zingara.html rather than /work/zingara.html. The stored href is
+        # relative to site/work/ (so the existence check above still makes
+        # sense), but the one rendered onto THIS page needs the directory
+        # named explicitly.
+        out += ['    <a class="cl-hit" href="work/%s" data-cursor="Read the case">'
                 % attr(c['href']),
                 inner,
                 '      <span class="cl-go mono">Read the case '
