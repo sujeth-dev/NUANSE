@@ -69,15 +69,11 @@
 .hero-inner{position:absolute;inset:0;
   padding:clamp(104px,14vh,150px) var(--gut) clamp(40px,7vh,72px);
   display:flex;flex-direction:column;justify-content:space-between}
-/* stretch, not flex-start. The wrap used to be fit-content, sized to the
-   widest line, which is fine for a block that is only ever left-aligned — but
-   B1 asks for a line that reaches toward the RIGHT edge, and a line can only
-   be aligned to an edge the box actually has. Stretched, the wrap is the
-   hero's content width and `.hl-mid` can be set against its right edge.
-   One knock-on, kept deliberately: the lens draws a dashed measure box around
-   this element, and that box is now the full measure rather than hugging the
-   type. In a type specimen that is the more correct of the two. */
-.hero-h-wrap{position:relative;align-self:stretch}
+/* Reverted to fit-content. The stretch above was only ever in service of
+   .hl-mid's right alignment — the lens's dashed measure box then had to
+   reach the hero's full width instead of hugging the type it is measuring.
+   With the alignment undone the reason for the trade is gone too. */
+.hero-h-wrap{position:relative;align-self:flex-start}
 /* Five written lines, not a paragraph left to wrap: the second line is a slot
    whose word changes, and a slot that shares a line with other words would
    push them sideways four times a rotation. No max-width and no balance —
@@ -105,27 +101,33 @@
   font-family:var(--serif);font-weight:400;font-size:var(--hu);
   line-height:.92;letter-spacing:-.045em;margin:0}
 .hl{display:block}
-/* Nine characters at -.045em were holding themselves in. The lead line is the
-   one asked to span, so its tracking opens to -.02em - about 25px of extra
-   reach at the unit's full size, and it costs nothing vertically. */
-.hl-lead{letter-spacing:-.02em}
-/* "for businesses" runs to the right edge of the measure.
+/* Nine characters at -.045em were holding themselves in, and the first pass
+   only let them go as far as -.02em. The review asked for this line longer
+   still, so the tracking opens further - to .02em, past neutral - which is
+   where the extra reach actually is: letter-spacing, not a larger unit, so
+   the five-line vertical budget in the comment above is untouched. */
+.hl-lead{letter-spacing:.02em}
+/* "for businesses" stays on the left.
 
-   This was an indent — margin-left:1.3em — and the indent was wrong, not
-   just arithmetically but in kind. An indent reaches further right by a fixed
-   amount, so whether it ARRIVES at the right edge depends on the line's own
-   rendered width, which depends on Gloock's real advance widths at a given
-   size. Estimate those and you are tuning a number per breakpoint and hoping;
-   get them wrong and the line overruns the gutter, which is exactly what it
-   did at 1440 and 1920 before this.
+   The first pass set this line against the measure's right edge, reasoning
+   from the item that asked it to "extend further toward the right edge."
+   The review corrected that reading: left, not right - the line's reach is
+   in its size against the couplet below it, not in where it starts. Plain
+   left alignment, which is also what .hl already does with no rule of its
+   own, so the property is removed rather than set to a value. */
+.hl-mid{font-size:.82em}
+/* The closing couplet, brought up to the same size as the line above it and
+   given the slant the review asked for - "comparable size... a slant feel."
 
-   text-align:right cannot overrun. The line's right edge IS the measure's
-   right edge at every width, by construction, with no media query and no
-   metric to be wrong about. It is also a truer reading of the item, which
-   asked for the line to extend further toward the right edge rather than to
-   be pushed a certain distance. */
-.hl-mid{font-size:.82em;text-align:right}
-.hl-tail{font-size:.46em;letter-spacing:-.03em}
+   Gloock ships one weight and no italic cut, so an actual oblique would be
+   the browser's own faux-italic: a sheared regular face, drawn without the
+   glyph corrections a real italic has, and visibly cheap at this size. A
+   transform does the same shear deliberately and admits what it is. -8deg
+   reads as a lean rather than a tilt; transform-origin sits at the baseline
+   so the line still sets from the left edge it shares with the rest of the
+   block, not from its own centre. */
+.hl-tail{font-size:.82em;letter-spacing:-.03em;
+  transform:skewX(-8deg);transform-origin:0 100%}
 /* the slot: the word rides in its own mask, and the line holds its height
    whichever of the four is in it. nowrap because B2 sets the word in the mono
    face mid-flip, where it is wider than the serif it replaces - a slot
