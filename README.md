@@ -21,7 +21,7 @@ site/                  the deployable site — Vercel's root directory
   assets/
     css/core.css       the shared chassis: tokens, type, nav, cursor, the
                        opening frame, the next-page link, footer
-    css/home.css       the home page's six sections
+    css/home.css       the home page's seven sections
     css/proofs.css     the pinned proof prints + case overlay (home and /work)
     css/services.css   css/process.css   css/team.css   css/work-index.css
     css/work.css       the project-page layer (accents, chapters, evidence)
@@ -251,7 +251,10 @@ that looked cream under review measured `rgb(17,25,53)`.
   and re-squares it on the ground sampled from its own border; they ship as
   44px chips at 6.9 KB total over the wire. The five clients with no file on
   hand carry set initials instead, which is visibly our setting rather than a
-  mark we do not have.
+  mark we do not have. **Since 2026-10-17 the same seven also ship on the home
+  page**, at 80px on a moving strip carrying all twelve clients, from the same
+  files and the same `_grounds.css`. The home page's initial plates sit on
+  `--cream` and not `--stone`, because that section's own ground is stone.
 - `/services`, `/process`, `/team` and `/work` share `assets/brand/og-default.png`.
   `tools/build-og-cards.py` can give each a card of its own.
 - `assets/zingara/food/possah-insta-2-5.jpg` is a Possah frame filed under

@@ -1,5 +1,5 @@
 /* ============================================================================
-   NUANSE — home.js · the home page's eleven sections
+   NUANSE — home.js · the home page's seven sections
 
    Loaded after core.js and only by index.html. Everything here is specific to
    this page: the hero lens, the S hand-off, the manifesto letter, the pinned
@@ -468,6 +468,46 @@
     mqTrack.appendChild($('.mq-set', mqTrack).cloneNode(true));
   }
 
+  /* ================================================== 4c · THE CLIENT STRIP
+     Twelve clients on a strip that keeps moving (H4). Built the way the
+     disciplines marquee is — one set, cloned once, translated, wrapped — with
+     three differences that each answer something the marquee does not have to:
+
+     - the clone is aria-hidden. These are twelve real client names, and a
+       screen reader reading the roster twice is a worse page, not a longer one;
+     - the rail stops while the pointer is on it. The strip carries no links,
+       but a name you are leaning in to read should hold still;
+     - nothing is cloned at all under reduced motion or with GSAP blocked, and
+       .is-rolling is never added, so the track keeps the wrapping layout it
+       has in CSS and the twelve read as a block. There is no second markup
+       and no put-back path — the still version is the default one. */
+  const clTrack = $('.cl-track');
+  let clPaused = false;
+  function buildClients() {
+    if (!clTrack || RM) return;
+    const set = $('.cl-set', clTrack);
+    if (!set) return;
+    const twin = set.cloneNode(true);
+    twin.setAttribute('aria-hidden', 'true');
+    clTrack.appendChild(twin);
+    clTrack.classList.add('is-rolling');
+    /* Pause, and why it is two pairs of events rather than one.
+
+       pointerenter/leave is the pointer answer: a name you are leaning in to
+       read holds still. Touch has no hover, so it gets press-and-hold on the
+       same element — which is also the only mechanism a touch visitor has for
+       WCAG 2.2.2, the strip being content that moves by itself for longer
+       than five seconds. Reduced motion is the other answer and the complete
+       one: there, nothing is cloned and nothing ever moves. */
+    const rail = clTrack.parentElement;
+    const hold = (on) => () => { clPaused = on; };
+    rail.addEventListener('pointerenter', hold(true));
+    rail.addEventListener('pointerleave', hold(false));
+    rail.addEventListener('pointerdown', hold(true));
+    rail.addEventListener('pointerup', hold(false));
+    rail.addEventListener('pointercancel', hold(false));
+  }
+
   /* ============================================ the annotation loop shapes
      The loop itself is NU.loopPath: the work index draws the proof prints
      with the same hand. */
@@ -726,8 +766,10 @@
      own guard for the same reason. */
   if (NU.dead) return;                  /* no GSAP: core already lifted the curtain */
 
-  /* this page's two extra copper-foil grounds */
+  /* this page's three extra copper-foil grounds. The loupe's is the one with
+     no copper in it: see the 'lens' preset in core.js for why. */
   NU.FOIL.add('.hero-foil', 'hero');
+  NU.FOIL.add('.lens-foil', 'lens');
   NU.FOIL.add('.audit-foil', 'audit');
   /* onToggle only fires on a change, so without this the audit ground would
      draw forever on a visit that never scrolls that far */
@@ -745,6 +787,7 @@
     wireLens();
     splitLetter();
     buildMarquee();
+    buildClients();
     buildRedlines();
     wireRedline();
     wireTrail();
@@ -831,6 +874,32 @@
       });
     }
 
+    /* --- 4c · THE CLIENT STRIP: rolls while it is on screen ---
+       34px/s, against the marquee's 46 plus its scroll boost. The marquee is
+       six words in Gloock at 112px and it is meant to be felt rather than
+       read; this is twelve client names, and a name going past faster than
+       you can read it is the opposite of what the note asked for. */
+    if (!RM && clTrack && clTrack.classList.contains('is-rolling')) {
+      const sets = $$('.cl-set', clTrack);
+      let clx = 0;
+      ScrollTrigger.create({
+        trigger: '.clients', start: 'top bottom', end: 'bottom top',
+        onToggle: (s) => { NU.MOTION.cl = s.isActive; }
+      });
+      gsap.ticker.add((time, dt) => {
+        if (!NU.MOTION.cl || NU.calm() || clPaused) return;
+        /* the step is the distance between the two sets' own origins, not a
+           set's width: the gap between the sets is a flex gap that clamps
+           with the viewport, and measuring the origins is exact at every
+           width without having to know what it clamped to */
+        const step = sets[1].offsetLeft - sets[0].offsetLeft;
+        if (!step) return;
+        clx -= 34 * dt / 1000;
+        if (clx <= -step) clx += step;
+        gsap.set(clTrack, { x: clx });
+      });
+    }
+
     /* --- 5 · the slider's automatic drivers ---
        After the sweep the line drifts with scroll until the visitor takes
        over, relative to where the sweep left it so there is no jump. */
@@ -889,7 +958,13 @@
     /* --- the hero's ground sleeps once the hero is gone --- */
     ScrollTrigger.create({
       trigger: '#top', start: 'top bottom', end: 'bottom top',
-      onToggle: (s) => { NU.MOTION.hero = s.isActive; NU.FOIL.setActive('hero', s.isActive); }
+      onToggle: (s) => {
+        NU.MOTION.hero = s.isActive;
+        NU.FOIL.setActive('hero', s.isActive);
+        /* the loupe's ground sleeps with the hero's: it is only ever visible
+           inside a circle on this screen, and it is a second GL context */
+        NU.FOIL.setActive('lens', s.isActive);
+      }
     });
     /* the closing CTA gets the same ground: it is the flattest screen in the
        file, and the copper trail already lives there on pointer intent */
