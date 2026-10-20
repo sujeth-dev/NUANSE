@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — NUANSE</title>
+<meta name="description" content="Tell us what you're building and we'll tell you what we would change first. Pick what you need and the mail writes itself — or take the free two-minute brand audit.">
+<meta name="theme-color" content="#08112E">
+<link rel="canonical" href="https://www.thenuanse.com/contact">
+
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/brand/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="assets/brand/favicon-180.png">
+<link rel="manifest" href="site.webmanifest">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NUANSE">
+<meta property="og:title" content="Tell us what you noticed. — NUANSE">
+<meta property="og:description" content="Pick what you need and the mail writes itself. Or take the free two-minute brand audit.">
+<meta property="og:url" content="https://www.thenuanse.com/contact">
+<meta property="og:image" content="https://www.thenuanse.com/assets/brand/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The NUANSE wordmark in cream on navy.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tell us what you noticed. — NUANSE">
+<meta name="twitter:description" content="Pick what you need and the mail writes itself.">
+<meta name="twitter:image" content="https://www.thenuanse.com/assets/brand/og-default.png">
+
+<link rel="preload" href="assets/fonts/gloock-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/hanken-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" crossorigin>
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" crossorigin>
+
+<script src="assets/js/boot.js"></script>
+
+<link rel="stylesheet" href="assets/css/core.css">
+<link rel="stylesheet" href="assets/css/contact.css">
+</head>
+<body>
+
+<a class="skip" href="#page">Skip to content</a>
+
+<!-- LOADER + PAGE-CHANGE CURTAIN · identical to every other page -->
+<div class="curtain" aria-hidden="true">
+  <canvas class="curtain-foil" aria-hidden="true"></canvas>
+  <div class="curtain-cover"></div>
+  <div class="curtain-mark">
+    <span class="cm-flip">
+      <img class="mark cm-navy" src="assets/brand/monogram-navy-512.png" width="512" height="738" alt="" decoding="async" fetchpriority="high">
+      <img class="mark cm-copper" src="assets/brand/monogram-copper-512.png" width="512" height="738" alt="" decoding="async">
+    </span>
+  </div>
+  <div class="curtain-marks" aria-hidden="true"><i class="cmk tl"></i><i class="cmk tr"></i><i class="cmk bl"></i><i class="cmk br"></i></div>
+  <p class="curtain-label mono"><span>NUANSE</span><span class="cl-rule"></span><span>Bangalore</span></p>
+</div>
+<div class="page-dim" aria-hidden="true"></div>
+<div class="cur" aria-hidden="true"><i></i><b></b></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="toast mono" role="status" aria-live="polite"></div>
+
+<!-- NAV · the same chassis, and .dark from the markup because this page opens
+     on a --night ground. See the A1 note in core.css: the theme cannot wait
+     for JS, or the header is navy ink on near-black until GSAP boots and
+     forever if it never does. -->
+<header class="nav dark">
+  <div class="nav-in">
+    <a href="index.html" class="nav-brand" aria-label="NUANSE, home">
+      <span class="nav-slot" aria-hidden="true"><span class="nav-spin"><img class="mark nav-mark" src="assets/brand/monogram-copper-128.png" width="128" height="185" alt="" decoding="async"></span></span>
+      <span class="wordmark" aria-hidden="true">NUAN<span class="rev">S</span>E</span>
+    </a>
+    <div class="nav-bar">
+      <span class="nav-ind" aria-hidden="true"></span>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="work/index.html">Work</a>
+        <a href="services.html">Services</a>
+        <a href="process.html">Process</a>
+        <a href="team.html">Team</a>
+      </nav>
+    </div>
+    <div class="nav-end">
+      <a class="nav-cta" href="#audit">Free audit</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+</header>
+<div class="menu" id="menu" aria-hidden="true">
+  <a href="work/index.html">Work</a>
+  <a href="services.html">Services</a>
+  <a href="process.html">Process</a>
+  <a href="team.html">Team</a>
+  <a href="contact.html">Contact</a>
+  <a href="#audit">Audit</a>
+  <p class="mono">Bangalore · hello@nuanse.studio</p>
+</div>
+
+<main class="page" id="page">
+
+  <!-- 1 · OPENING FRAME -->
+  <section class="pg-open" data-nav="dark" data-nav-anchor aria-label="Contact, overview">
+    <div>
+      <p class="mono pg-open-eyebrow">Contact · Bangalore</p>
+      <h1 class="pg-title h-split">Tell us what you noticed.</h1>
+      <div class="pg-rule" aria-hidden="true"></div>
+    </div>
+    <div class="pg-open-foot">
+      <dl class="pg-meta mono">
+        <div><dt>No form</dt><dd>Two routes</dd></div>
+        <div><dt>One working day</dt><dd>We reply in</dd></div>
+        <div><dt>hello@nuanse.studio</dt><dd>Or just write</dd></div>
+      </dl>
+      <p class="pg-verdict">Most brands are one detail away from looking expensive. Say which one is bothering you and we will tell you whether we would charge to fix it.</p>
+    </div>
+  </section>
+
+  <!-- 2 · ROUTE ONE · the brief that writes itself
+       A4. There is no server and there is not going to be one, so the only
+       honest reach-out a static site can offer is a mail the visitor sends
+       themselves. Rather than a contact form that pretends otherwise, the
+       choices compose the mail in front of them and the button hands it to
+       their own mail app with the subject and body already written. The
+       composed body stays in a real textarea, editable, because a message
+       someone cannot read before sending is a message they will not send. -->
+  <section class="ct-sec ct-brief" id="brief" data-nav="light" aria-labelledby="brief-h">
+    <div class="sec-head">
+      <div>
+        <h2 class="h2 h-split" id="brief-h">The brief writes itself.</h2>
+        <p class="lede ink">Pick what you need. The mail composes as you go, and nothing is sent until you send it from your own account.</p>
+      </div>
+    </div>
+
+    <div class="ct-grid">
+      <!-- the picks -->
+      <div class="ct-picks">
+        <div class="ct-field" role="group" aria-labelledby="need-l">
+          <p class="mono ct-label" id="need-l">What do you need? <span class="ct-hint">Pick as many as apply</span></p>
+          <div class="ct-chips">
+            <button type="button" class="ct-chip" data-need="Strategy" aria-pressed="false">Strategy</button>
+            <button type="button" class="ct-chip" data-need="Identity" aria-pressed="false">Identity</button>
+            <button type="button" class="ct-chip" data-need="Websites" aria-pressed="false">Websites</button>
+            <button type="button" class="ct-chip" data-need="Content" aria-pressed="false">Content</button>
+            <button type="button" class="ct-chip" data-need="Film" aria-pressed="false">Film</button>
+            <button type="button" class="ct-chip" data-need="Performance" aria-pressed="false">Performance</button>
+            <button type="button" class="ct-chip" data-need="Not sure yet" aria-pressed="false">Not sure yet</button>
+          </div>
+        </div>
+
+        <div class="ct-field" role="group" aria-labelledby="shape-l">
+          <p class="mono ct-label" id="shape-l">Where are you? <span class="ct-hint">One</span></p>
+          <div class="ct-chips" data-single="shape">
+            <button type="button" class="ct-chip" data-shape="Starting something new" aria-pressed="false">Something new</button>
+            <button type="button" class="ct-chip" data-shape="Rebranding what exists" aria-pressed="false">A rebrand</button>
+            <button type="button" class="ct-chip" data-shape="One piece of it is wrong" aria-pressed="false">One piece is wrong</button>
+            <button type="button" class="ct-chip" data-shape="Still looking around" aria-pressed="false">Still looking</button>
+          </div>
+        </div>
+
+        <div class="ct-field" role="group" aria-labelledby="when-l">
+          <p class="mono ct-label" id="when-l">When? <span class="ct-hint">One</span></p>
+          <div class="ct-chips" data-single="when">
+            <button type="button" class="ct-chip" data-when="Now — it is already late" aria-pressed="false">Now</button>
+            <button type="button" class="ct-chip" data-when="This quarter" aria-pressed="false">This quarter</button>
+            <button type="button" class="ct-chip" data-when="No date yet" aria-pressed="false">No date yet</button>
+          </div>
+        </div>
+
+        <div class="ct-field">
+          <label class="mono ct-label" for="ct-who">Who are you? <span class="ct-hint">A name and the business</span></label>
+          <input class="ct-input" id="ct-who" type="text" autocomplete="organization" spellcheck="false" placeholder="Priya, Zingara — a restaurant in Bangalore">
+        </div>
+
+        <div class="ct-field">
+          <label class="mono ct-label" for="ct-noticed">What have you noticed? <span class="ct-hint">The detail that is bothering you</span></label>
+          <textarea class="ct-input ct-area" id="ct-noticed" rows="3" placeholder="Our delivery listings look like three different restaurants."></textarea>
+        </div>
+      </div>
+
+      <!-- the mail, as it will arrive -->
+      <div class="ct-mail">
+        <p class="mono ct-mail-h">The mail, as it will arrive</p>
+        <div class="ct-sheet">
+          <dl class="ct-head">
+            <div><dt class="mono">To</dt><dd>hello@nuanse.studio</dd></div>
+            <div><dt class="mono">Subject</dt><dd class="ct-subject" id="ct-subject">A brief from the NUANSE site</dd></div>
+          </dl>
+          <!-- A real textarea, not a preview pane. The visitor can rewrite any
+               of it before it goes, and once they have typed in it the picks
+               above stop overwriting their words — see contact.js. -->
+          <label class="sr" for="ct-draft">The message, which you can edit before sending</label>
+          <textarea class="ct-draft" id="ct-draft" rows="14" spellcheck="true"></textarea>
+          <!-- Once the draft has been typed in, the picks above stop
+               rewriting it — otherwise changing a chip would delete the
+               visitor's sentences. This is the way back out of that, so the
+               dirty flag is a decision and not a trap. -->
+          <p class="ct-reset-row"><button type="button" class="ct-reset mono">Rewrite it from my picks</button></p>
+        </div>
+        <!-- The href is a plain mailto with no body, so this still sends mail
+             with JS off or GSAP blocked; contact.js replaces it with the
+             composed one on every change. -->
+        <a class="btn solid magnet ct-send" id="ct-send" href="mailto:hello@nuanse.studio" data-cursor="Opens your mail app"><span class="btn-ar l" aria-hidden="true">&rarr;</span><span class="btn-label">Open this in my mail app</span><span class="btn-ar r" aria-hidden="true">&rarr;</span></a>
+        <p class="qual-note">Nothing is sent from this page and nothing is stored. The button hands the composed mail to your own mail app, where you send it yourself.</p>
+        <p class="src-note">Prefer to write it yourself? <a href="mailto:hello@nuanse.studio">hello@nuanse.studio</a> reaches the same place.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · ROUTE TWO · the audit
+       The same engine the home page runs, in assets/js/audit.js since A5. Both
+       pages carry the markup; neither knows about the other. -->
+  <section class="ct-sec ct-audit" id="audit" data-nav="dark" aria-labelledby="audit-h">
+    <div class="ct-audit-in">
+      <p class="mono eyebrow">The other route</p>
+      <h2 class="h2 h-split" id="audit-h">Or let us go first.</h2>
+      <p class="lede ink">Eight questions about your brand, answered in two minutes. You get a score, the three details we would look at first, and an honest answer about whether the paid audit is worth your money. Sometimes it isn't. We'll say so.</p>
+      <button class="btn solid magnet open-audit" data-cursor="Eight questions"><span class="btn-ar l" aria-hidden="true">&rarr;</span><span class="btn-label">Start the audit</span><span class="btn-ar r" aria-hidden="true">&rarr;</span></button>
+      <p class="mono audit-meta">8 questions · 2 minutes · free · ends in a mail you send</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- THE NEXT PAGE · contact is the end of the funnel, not a dead end. The
+     edge-to-edge link is the chassis pattern and the set loops back to Work. -->
+<nav class="pg-next-nav" aria-label="Next">
+<a class="pg-next" href="work/index.html" data-nav="dark" data-cursor="See the proofs">
+  <span class="pg-next-in">
+    <span>
+      <span class="mono">Next · What came of it</span>
+      <b class="turn">Proofs, marked up.</b>
+    </span>
+    <span class="go">Work &rarr;</span>
+  </span>
+</a>
+</nav>
+
+<!-- FOOTER · shared -->
+<footer class="footer" id="footer" data-nav="dark">
+  <div class="ft-in">
+    <!-- A3 · the upper band. One line and one CTA, on every page, and its
+         only job is to feed the contact page. It sits above .ft-top rather
+         than inside it because .ft-top is a four-column index of facts and
+         this is neither a fact nor a column. -->
+    <div class="ft-band">
+      <p class="ft-band-line">Tell us what you're building. We'll tell you what we would change first.</p>
+      <a class="btn solid magnet" href="#brief" data-goto="#brief" data-cursor="The brief writes itself"><span class="btn-ar l" aria-hidden="true">&rarr;</span><span class="btn-label">Start a conversation</span><span class="btn-ar r" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="ft-top">
+      <div><p class="mono">Studio</p><p>Bangalore, India</p></div>
+      <div><p class="mono">Write</p><a href="mailto:hello@nuanse.studio">hello@nuanse.studio</a></div>
+      <div><p class="mono">Start</p><a href="#audit" data-goto="#audit">The two-minute audit</a></div>
+      <div><button class="to-top" data-goto="#top">Back to the top</button></div>
+    </div>
+    <div class="ft-mid">
+      <div class="ft-word turn">NUAN<span class="rev">S</span>E</div>
+      <div class="s3d-wrap">
+        <div class="s3d" tabindex="0" role="img" aria-label="The NUANSE mark in three dimensions. Drag it; it springs back.">
+          <div class="s3d-obj" data-copper="assets/brand/monogram-copper-256.png" data-cream="assets/brand/monogram-cream-256.png"></div>
+        </div>
+        <span class="mono">Drag it. It comes back.</span>
+      </div>
+    </div>
+    <div class="ft-bot mono"><span>© 2026 NUANSE</span></div>
+  </div>
+</footer>
+
+<!-- AUDIT MODAL · the same markup the home page carries -->
+<div class="modal" role="dialog" aria-modal="true" aria-label="Brand audit" data-lenis-prevent>
+  <div class="modal-card">
+    <div class="modal-top mono"><span class="m-step">Question 1 of 8</span><button class="modal-close mono">Close</button></div>
+    <div class="prog"><i></i></div>
+    <div class="m-body"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/contact.js"></script>
+<script src="assets/js/audit.js"></script>
+</body>
+</html>

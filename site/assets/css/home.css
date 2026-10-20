@@ -367,34 +367,19 @@
 .tmark.tm-colour.big::before{display:none}
 .tmark.tm-app,.tmark.tm-listing{color:var(--mute-d)}
 
-/* --- audit modal --- */
-.modal{position:fixed;inset:0;z-index:260;background:rgba(8,17,46,.6);display:grid;
-  place-items:center;padding:16px;visibility:hidden;opacity:0}
-.modal.open{visibility:visible}
-.modal-card{width:min(640px,100%);max-height:calc(100svh - 32px);overflow:auto;
-  background:var(--cream);color:var(--navy);padding:clamp(22px,4vw,44px);position:relative}
-.modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;
-  color:var(--mute)}
-.modal-close{border:1px solid var(--navy);border-radius:999px;padding:7px 12px 6px;color:var(--navy)}
-.prog{height:1px;background:rgba(13,26,65,.15);margin-bottom:30px;position:relative}
-.prog i{position:absolute;inset:0;background:var(--copper);transform-origin:left;transform:scaleX(0);
-  transition:transform var(--t-mid) var(--ease)}
-.q{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,42px);line-height:1;
-  letter-spacing:-.03em;margin:0 0 28px;text-wrap:balance}
-.answers{display:flex;gap:10px;flex-wrap:wrap}
-.answers button{border:1px solid var(--navy);padding:12px 18px 11px;font-family:var(--mono);
-  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  transition:background var(--t-mid) var(--ease),color var(--t-mid) var(--ease)}
-@media (hover:hover){.answers button:hover{background:var(--navy);color:var(--cream)}}
-.result-score{font-family:var(--serif);font-size:clamp(70px,12vw,120px);line-height:.9;
-  letter-spacing:-.04em}
-.result-score small{font-size:.4em;color:var(--mute)}
-.result-line{margin:14px 0 0;max-width:46ch}
-.flags-h{margin-top:24px}
-.flags{list-style:none;padding:0;margin:20px 0 26px}
-.flags li{padding:10px 0;border-top:1px solid rgba(13,26,65,.15);display:flex;gap:10px;
-  font-size:15px}
-.flags li::before{content:"\2192";color:var(--copper-ink)}
+/* --- audit modal ---
+   MOVED OUT, 2026-10-20, session A, item A5. The markup and the engine now
+   live on two pages — index.html and the new contact.html — so by the test
+   in README ("if a second page imports it, it is not that page's any more")
+   these styles are chassis and sit in core.css, directly above the footer.
+   Nothing was redesigned in the move; the one change is .modal.open, which
+   now also sets opacity:1 so the dialog is visible on the no-GSAP path,
+   where there is no tween to raise it from 0.
+
+   This is session A reaching into home.css, session B's file this round.
+   Declared on the board before the edit and again in the commit message. It
+   is the same carve-out as the engine's move out of home.js §9; the removed
+   block was home.css:370-397 and nothing else in this file was touched. */
 
 /* ============ REDUCED MOTION ============
    Pinned sections unpin and stack. Every one of these exists so that content

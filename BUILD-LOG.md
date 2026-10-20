@@ -5,6 +5,266 @@ matters — what was measured rather than assumed.
 
 ---
 
+## 2026-10-20 · Session A: one scale, a header that goes away, and a contact page
+
+Round 3, wave 1, items A1–A7 of `brief/10-revision-round-3.md`, run alongside
+session B on the home page. The board in `brief/07-session-comms.md` §2.3 is
+the record of how the two stayed out of each other's way.
+
+### There was no scale. There were about a hundred and twenty of them
+
+A7 arrived as "scale-up and scale-down are unreliable across viewport sizes",
+and the useful version of that is arithmetic. Every fluid value in the build
+was its own `clamp()` with its own `vw` coefficient, so each one reached its
+floor and its ceiling at a width of its own:
+
+```
+.menu a    646px     --gap-sm 1200    --gap-lg 1280    --gap-md 1333
+.h2       1368px     .pg-verdict 1375 --sec-y  1467    .pg-title 1545
+--gut-in  1600px     .pg-next b 1676  .ft-word 1846
+```
+
+Read as a fraction of its own travel, that is what it did:
+
+```
+                  390    768   1280   1440   1920
+.menu a          0.17   1.00   1.00   1.00   1.00
+.h2              0.00   0.21   0.88   1.00   1.00
+.pg-next b       0.00   0.16   0.63   0.78   1.00
+--sec-y          0.00   0.00   0.72   0.96   1.00
+```
+
+At 768 the full-screen menu link is fully grown while the section padding has
+not started and `.h2` is a fifth of the way up. At 1440 `.h2` is pinned and
+`.pg-next b` still has a fifth to climb. **No single clamp is wrong. Their
+relationship is, and it is different at every width** — which is why a
+hierarchy composed on one screen does not survive to the next, and is the root
+cause under C1's "inconsistent scale" as well.
+
+Every rung now runs from its floor at 390px to its ceiling at **1440px**,
+linearly, with no exceptions, so at any width every step sits at the same
+fraction of its own travel: 0.00 at 390, 0.36 at 768, 0.85 at 1280, 1.00 from
+1440 up. Asserted on live elements at all five widths rather than read off the
+stylesheet.
+
+**1440 and not 1920, because that is where the content box stops growing.**
+`--gut` is the larger of the gutter and the margin that centres `--maxw`, so
+from 1440 up the measure is a fixed 1312px however wide the window gets. Type
+keyed past that point is not scaling up, it is overflowing slowly. `.ft-word`
+was the proof: still climbing to 360px at 1846px of viewport, `nowrap`, inside
+a 1320px container under `.footer`'s `overflow:hidden`. **It was cut off on
+every screen wider than about 1500px and no metric said so.** Its ceiling is
+280px now, the value the old ramp reached at 1440 and the widest it was ever
+actually composed at.
+
+The floors and ceilings are the design's own numbers. Only the ramp between
+them changed, so 390 and 1440 render as they always did and the middle is
+coherent for the first time.
+
+### The minting token did not work, and it failed in the worst possible way
+
+The scale ships a recipe so C and D can add a rung without inventing a ramp:
+`.thing{--f-min:22; --f-max:38; font-size:var(--fluid)}`. It was declared on
+`:root` first, and **it silently resolved to its own 16px fallback for every
+caller.** A custom property's value is substituted at computed-value time *on
+the element where it is declared*; on `:root`, the `var(--f-min,16)` inside it
+resolved against `:root`, which has no `--f-min`, so `:root`'s computed
+`--fluid` was already a frozen `clamp(16px,16px,16px)` and every descendant
+inherited that rather than the recipe.
+
+Measured on a probe at 768px, expecting 27.76px for a 22→38 step: on `:root`
+16px; on `*` 27.76px; on a `.fluid` class 27.76px; written inline 27.76px. It
+is declared on `*` now.
+
+Worth recording as a method and not only a fix: `getPropertyValue` on a custom
+property returns its **token stream**, not a length, so reading the CSS cannot
+tell you this and `parseFloat` on it gives `NaN`. The only way to know what a
+scale token resolved to is to put it on a real property of a real element and
+read the computed value back. A token that quietly lies while the page still
+renders is the one failure mode a scale must not have.
+
+### The header was invisible, and with the CDN blocked it was invisible forever
+
+A1 arrived as "invisible in the first viewport". Two separate faults were
+being called one thing.
+
+`.nav` ships `color:var(--navy)`, and `.nav.dark` — cream ink — was added only
+by `buildCoreScroll()`'s `setNav()` at boot. **Six of the seven pages open on
+a `--night` ground**, so every one of them painted navy ink on near-black
+until GSAP, the fonts and the DOM had all settled, which the 2500ms boot
+fallback puts at up to two and a half seconds. With the CDN blocked it never
+arrived at all: core.js's no-GSAP exit returns long before `buildCoreScroll`,
+so `.nav.dark` was never set and the header stayed invisible for the whole
+visit. The fix is not CSS — the opening theme is declared in markup now,
+`<header class="nav dark">`, so it is right in the first frame, right with
+GSAP blocked, and right with JS off entirely.
+
+The second fault was that it was persistent at all, which is what D1 asked
+about. Built to the plan's recommendation and posted on the board: present and
+expanded for the whole opening frame, hidden on scroll-down, revealed on
+scroll-up. The state machine was rebuilt rather than patched onto the old
+compact-only trigger, because the reveal state has to read the same scroll
+position in the same frame as the collapse state — otherwise the two disagree
+for a tick and the header collapses and vanishes as two separate events.
+
+Direction needs a dead zone, and that is the part worth keeping. Lenis does
+not stop a fling dead, it settles, and the settle is a run of one- and
+two-pixel reversals. A naive `y > lastY` reads those as a scroll upward and
+the header twitches back into view at the end of every single scroll. `lastY`
+only moves once the page has travelled 7px in one direction — above Lenis's
+settle, below a deliberate flick of a trackpad.
+
+Readability in the revealed state comes free from the geometry already there:
+`.nav` is only transparent while expanded, and only expanded inside the
+opening frame, whose ground the markup theme now matches. Every reveal further
+down the page is the compact pill, which carries its own blurred ground. There
+is no state where it is revealed over content it cannot be read against.
+
+### The scroll bar goes, and it made the scale exact
+
+A2 hides the root scroller's bar and nothing else. The wheel, a trackpad
+fling, Page Up/Down, Home/End, the space bar and Lenis's inertia all run
+through the same native scroll they always did, because none of them is the
+bar. Interior scrollers keep theirs — `.modal-card` and the case overlay are
+short boxes where the bar is the only thing saying there is more below, and
+the note was about the page.
+
+Unintended, and worth writing down: `100vw` has always included the classic
+scrollbar gutter while the layout got `clientWidth`, so every `vw`-keyed value
+was computing against a viewport about 15px wider than the one being painted —
+the overflow that `body{overflow-x:hidden}` has been quietly absorbing.
+`scrollbar-width:none` removes the gutter rather than painting over it, so
+`100vw` now equals the real client width and A7's ramp lands on its anchors.
+
+### The stuck wallpaper layer was the back/forward cache
+
+A6: "Work → Zingara → back leaves the page stuck showing the wallpaper
+layer." Reproduced before anything was touched.
+
+`goPage()` is deliberately a one-way door. It sets `busy`, asks the foil for
+its ground, animates the curtain to full cover and only then hands over to the
+browser — the cover *is* the page transition, so it has to still be down at
+the moment the document is abandoned. Press Back and that document comes out
+of the back/forward cache exactly as it was abandoned: bfcache restores the
+DOM, the inline styles GSAP wrote and every live closure variable, it does not
+re-run the script, and **it does not fire `load`**, so nothing in core.js ever
+got told. The page came back with `.curtain` at `visibility:visible`,
+`opacity:1`, `yPercent:0` over the whole viewport at z-index 300, and
+`.curtain-foil` drawing at `opacity:.42` underneath it. That canvas on the navy
+ground is the wallpaper layer. **The page scrolled perfectly well the whole
+time — it was covered, not frozen**, which is exactly what the report said.
+
+`busy` also came back `true`, which was the quieter half of the same bug:
+every later `goPage()` and `goAnchor()` returns early on it, so after one Back
+no internal link on the page did anything at all.
+
+A `pageshow` handler now puts the chrome back the way `loader()` leaves it,
+and only for `event.persisted` — an ordinary Back that misses the cache is a
+fresh document whose own loader handles it.
+
+**The harness had to be taught to have a bfcache first, and that is why a
+first pass over this found nothing.** Playwright passes
+`--disable-back-forward-cache` in its own default args, which silently beats
+the `--enable` flags; with it in place Back is an ordinary fresh load, which
+is the one case that does not exhibit the bug. `ignoreDefaultArgs` drops it.
+The tell that it is working is that `page.goBack({waitUntil:'load'})` then
+times out, because a restore fires no `load` event.
+
+### The footer gained a band, and the band exposed two clips
+
+A3 puts one line and one CTA above `.ft-top` on every page. The footer's own
+"Start" link and the nav's "Free audit" now reach `/contact` rather than
+routing through the home page's anchor, and Contact joins the full-screen menu
+— not `.nav-links`, because the nav is four pages by design and the
+indicator's logic counts on it.
+
+Adding about 90px of content to a footer that was a flat `height:100vh` with
+`overflow:hidden` meant the bottom was cut off on a short window: 88px over at
+768×700, 163px at 900×650. `min-height` instead of `height` fixes it, and
+nothing downstream assumed the old value — `sizeFooter()` sets `.page`'s
+margin-bottom from `footer.offsetHeight` and the reveal's ScrollTrigger start
+is computed from the same property, so both follow a taller footer.
+
+Separately, `.ft-mid` was clipping horizontally from about 640px to 900px, and
+the cause was not the word. `.s3d-wrap`'s caption — "Drag it. It comes back.",
+187px of 11px mono on one line — was setting that column's width, while the
+mark below it is 130–220px. **The caption, not the mark, was deciding how much
+of the row the 3D block took, and it took 57px more than it needed.** Capped
+to the mark's own width with the caption centred under it. `.ft-mid` also
+stacks at 900 now rather than 600, which is where the nav collapses and
+`.ft-top` already drops to two columns, so the footer changes shape once
+instead of at three different widths.
+
+Measured on both ramps, because the honest question was whether A7 caused it:
+at 768 the old clamp overflowed `.ft-mid` by 50px and the new rung by 72px. A
+pre-existing clip that A7 made about 15px worse, not one it introduced.
+Verified clean at twelve width×height pairs from 390×640 to 1920×1080.
+
+### A contact page with no form, and the audit moved to meet it
+
+A4. There is no server and there is not going to be one, so the only honest
+reach-out a static site can offer is a mail the visitor sends themselves. A
+contact form would have to post to somebody else's endpoint — a third-party
+host in the CSP, a privacy story, and a silent failure mode where the visitor
+reads "thanks" and we receive nothing. So the picks compose the mail in front
+of them and the button hands it to their own mail app with the subject and
+body already written. `form-action 'none'` in the CSP stays exactly as it is,
+because there is no form.
+
+The composed body is a real `<textarea>`, not a preview pane, and **once the
+visitor has typed in it the picks stop rewriting their words.** Recomposing
+over somebody's sentences because they changed a chip would make this worse
+than an empty mail client; the dirty flag is why `contact.js` is longer than
+twenty lines, and the "Rewrite it from my picks" control exists so that flag
+is a decision rather than a trap. The send button ships a plain `mailto:`
+href, so it still sends mail with the script blocked entirely.
+
+A5 moved the audit engine out of `home.js` §9 into `assets/js/audit.js`, and
+its styles out of `home.css` into `core.css`, because two pages carry it now
+and README's own test decides it: if a second page imports it, it is not that
+page's any more. The annotation trail stayed on the home page — it is that
+section's flourish, not part of the questionnaire.
+
+The move exposed a real defect rather than just relocating code. The engine
+was defined *above* home.js's `if (NU.dead) return` floor but wired *below*
+it, so with the CDN blocked the audit button was dead. And `openAudit`'s only
+route to visibility was a GSAP tween on opacity — so had it been wired, it
+would have trapped focus and stopped the page behind a dialog nobody could
+see. `.modal.open` sets `opacity:1` now, and every animation in `audit.js`
+sits behind one flag with plain-DOM fallbacks for the focus trap, Esc and the
+scroll lock, because core's no-GSAP exit exports a much smaller `NU` than its
+full one.
+
+### Two findings handed on rather than fixed
+
+**The case pages' sources are stale, and re-expanding them would destroy
+work.** `tools/expand-figures.py` round-trips both built pages byte-identically
+except in one region — built lines 124–138, the `pj-lead` + `pj-facts` +
+folded `<details>` problem section that the 2026-10-15 entry below describes.
+It was hand-edited into the built pages and never written back, so the sources
+still hold the four-paragraph wall it replaced. Session C's brief says to edit
+the source and re-expand, which would silently revert it. Not back-ported
+here: those are C's files, and C1/C2 rebuild that region anyway, so the
+cheapest honest path is to write the new structure straight into the sources.
+Also, the slug for The Possah is `possah`, not `the-possah` — the manifest is
+at `site/assets/work/possah/_manifest.json`, the tool's docstring only shows
+the zingara example, and the wrong slug is a `FileNotFoundError`.
+
+The chrome therefore went into the sources *and* the two built pages
+identically rather than via re-expansion. Header and footer sit outside every
+`[[FIG]]` token, so the two stay in step and no re-expansion of this session's
+can run over anyone.
+
+**`site/work/index.html` links to the case pages one directory too high.**
+`href="zingara.html"` from a page served at the clean URL `/work` resolves to
+`/zingara.html`, not `/work/zingara.html` — the file is written as though it
+were served at `/work/index.html`, and `trailingSlash:false` means it never
+is. Production survives it on two redirects, `cleanUrls` stripping the `.html`
+and then the `/zingara` vanity rule, which is presumably not what those rules
+were added for. Traced against the real `vercel.json`: two hops to arrive. On
+`file://` it resolves outside `site/` and fails outright. That file is session
+D's.
+
 ## 2026-10-15 · Session B: the roster, the problem sections, and ten named people
 
 Run alongside Session A against `brief/06-revision-plan.md`, A on the home page

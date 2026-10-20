@@ -467,6 +467,14 @@
 <!-- 6 · FOOTER (revealed under the page) -->
 <footer class="footer" id="footer" data-nav="dark">
   <div class="ft-in">
+    <!-- A3 · the upper band. One line and one CTA, on every page, and its
+         only job is to feed the contact page. It sits above .ft-top rather
+         than inside it because .ft-top is a four-column index of facts and
+         this is neither a fact nor a column. -->
+    <div class="ft-band">
+      <p class="ft-band-line">Tell us what you're building. We'll tell you what we would change first.</p>
+      <a class="btn solid magnet" href="contact.html" data-cursor="No form to fill in"><span class="btn-ar l" aria-hidden="true">&rarr;</span><span class="btn-label">Start a conversation</span><span class="btn-ar r" aria-hidden="true">&rarr;</span></a>
+    </div>
     <div class="ft-top">
       <div><p class="mono">Studio</p><p>Bangalore, India</p></div>
       <div><p class="mono">Write</p><a href="mailto:hello@nuanse.studio">hello@nuanse.studio</a></div>
@@ -507,5 +515,7 @@
 <script src="assets/js/core.js"></script>
 <script src="assets/js/home.js"></script>
 <script src="assets/js/proofs.js"></script>
+<!-- the audit, shared with contact.html since A5 moved it out of home.js §9 -->
+<script src="assets/js/audit.js"></script>
 </body>
 </html>

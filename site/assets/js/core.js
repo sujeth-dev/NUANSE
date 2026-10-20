@@ -596,6 +596,34 @@
   /* ------------------------------------------------------------------- NAV */
   const setNav = (dark) => { if (nav) nav.classList.toggle('dark', dark); };
 
+  /* --- A1/D1 · revealed or hidden ---
+     The header is not persistent any more. It is present and expanded for the
+     whole opening frame, hides as you scroll down, and comes back the moment
+     you scroll up. The scroll half of that is in buildCoreScroll below; this
+     is the state, so that the menu and the focus handler can reach it too.
+
+     navHold exists for one case that would otherwise be a trap: the menu's
+     Close button IS the header's menu button, so a header that slid away
+     while the full-screen menu was open would take the only pointer route
+     out of it with it. Esc and the focus trap would still work, which is
+     exactly the kind of "technically reachable" that the conventions file
+     says is not good enough.
+
+     Note on the no-GSAP path: buildCoreScroll never runs there, so nothing
+     ever sets .away and the header simply stays visible for the whole visit.
+     That is the right degradation rather than an oversight — A1 asks for a
+     header that is present and readable with GSAP blocked, and a permanent
+     one satisfies that. The hiding is the enhancement. */
+  let away = false;
+  let navHold = false;
+  function setAway(on) {
+    if (!nav) return;
+    if (on && navHold) return;
+    if (away === on) return;
+    away = on;
+    nav.classList.toggle('away', on);
+  }
+
   /* --- the full-screen menu: owns every destination while collapsed --- */
   let lastMenuFocus = null;
   function setMenu(open) {
@@ -608,12 +636,17 @@
       lastMenuFocus = document.activeElement;
       nav.dataset.prev = nav.classList.contains('dark') ? '1' : '0';
       setNav(true);
+      /* reveal first, then hold: the Close button is in the header */
+      navHold = false;
+      setAway(false);
+      navHold = true;
       stopScroll();
       cursorRest();
       const first = $('a', menu);
       if (first) first.focus({ preventScroll: true });
     } else {
       setNav(nav.dataset.prev === '1');
+      navHold = false;
       startScroll();
       if (lastMenuFocus) lastMenuFocus.focus({ preventScroll: true });
     }
@@ -663,6 +696,11 @@
      meets a collapsed pill with links they cannot reach. */
   if (nav) {
     nav.addEventListener('focusin', () => {
+      /* Tabbing in reveals it. The links stay in the tab order while the
+         header is hidden, so this is the path that brings it back for a
+         keyboard user rather than leaving them focused on something
+         off-screen. */
+      setAway(false);
       if (compact && window.innerWidth > 900) setCompact(false);
     });
   }
@@ -785,6 +823,67 @@
     e.preventDefault();
     goPage(url.href);
   });
+
+  /* --------------------------------------------- BACK, AND THE CURTAIN
+     A6. "Work -> Zingara -> back leaves the page stuck showing the wallpaper
+     layer." Reproduced before it was fixed, and the mechanism is this:
+
+     goPage() is deliberately a one-way door. It sets busy, asks the foil for
+     the 'open' ground, animates the curtain to FULL COVER, and only then
+     hands over to the browser — the cover is the page transition, so it must
+     still be down at the moment the document is abandoned.
+
+     Press Back and that document comes out of the back/forward cache exactly
+     as it was abandoned. bfcache restores the DOM, the inline styles GSAP
+     wrote and every live closure variable; it does not re-run the script and
+     it does not fire `load`, so nothing here used to get told. The page came
+     back with .curtain at visibility:visible, opacity:1, yPercent:0 over the
+     whole viewport at z-index 300, and .curtain-foil — the copper-foil canvas
+     — drawing at opacity .42 underneath it. That canvas on the navy ground IS
+     the "wallpaper layer" in the report. The page scrolled perfectly well the
+     whole time; it was covered, not frozen, which is exactly what the report
+     described.
+
+     busy also came back true, which was the quieter half of the same bug:
+     every later goPage() and goAnchor() returns early on it, so after one
+     Back no internal link on the page did anything at all.
+
+     Measured in the harness, which had to be taught to have a bfcache first:
+     Playwright passes --disable-back-forward-cache in its own default args,
+     and with it in place Back is an ordinary fresh load — the one case that
+     does NOT show the bug. A first pass over this found nothing for that
+     reason.
+
+     The fix is to put the chrome back the way loader() leaves it. It runs
+     only for a persisted restore: an ordinary Back that misses the cache is a
+     fresh document whose own loader handles it. */
+  function restoreChrome() {
+    busy = false;
+    FOIL.setActive('open', false);
+    /* loader() finishes with the curtain hidden and off the top, the cream
+       cover display:none and the dim clear. Both of its paths land there —
+       one by yPercent, one by opacity — so resetting all three is what makes
+       this correct after either. */
+    if (curtain) gsap.set(curtain, { visibility: 'hidden', opacity: 1, yPercent: -100 });
+    if (cover) gsap.set(cover, { display: 'none' });
+    if (dim) gsap.set(dim, { opacity: 0 });
+    if (cmFlip) gsap.set(cmFlip, { rotation: 0 });
+    html.classList.remove('loading');
+    /* The menu is a plausible thing to have left open, and its clip-path
+       would be restored open with it. */
+    if (menu && menu.classList.contains('open')) setMenu(false);
+    /* Scrolling was stopped for the transition. Nothing else restarts it. */
+    startScroll();
+    /* Present after a Back, whatever state the header was left in — someone
+       returning to a page wants to know where they are. */
+    setAway(false);
+    /* The viewport may be a different size than when the page was abandoned
+       (a rotation, a resized window), and every pin was measured against the
+       old one. */
+    sizeFooter();
+    ScrollTrigger.refresh();
+  }
+  window.addEventListener('pageshow', (e) => { if (e.persisted) restoreChrome(); });
 
   /* ---------------------------------------------------------------- LOADER */
   function loader(done) {
@@ -970,9 +1069,33 @@
       onToggle: (s) => { if (nav) nav.classList.toggle('scrolled', s.isActive); }
     });
 
-    /* expanded -> compact, with hysteresis off the first frame's height */
+    /* --- the header's two scroll states, on one listener ---
+       A1. Rebuilt rather than patched: the old trigger here drove compact
+       alone, and the reveal/hide state has to read the same scroll position
+       in the same frame or the two can disagree for a tick and the header
+       collapses and vanishes as separate events.
+
+       Both are measured off the opening frame's own height, not a pixel
+       threshold, so a page whose first screen is a different height behaves
+       the same way.
+
+         compact  collapse at 62% of the frame, expand again at 42%. The two
+                  thresholds are the point: one boundary would flicker.
+         away     never inside the frame, so the whole first screen keeps a
+                  present, expanded header. Past it, direction decides.
+
+       Direction needs a dead zone of its own, and this is the part that is
+       easy to get wrong. Lenis does not stop a fling dead — it settles, and
+       the settle is a run of one- and two-pixel reversals. A naive
+       y > lastY test reads those as a scroll upward and the header twitches
+       back into view at the end of every single scroll. lastY therefore only
+       moves once the page has actually travelled DIR_MIN in one direction,
+       which makes a settle too small to register. 7px is above Lenis's
+       settle and below a deliberate flick of a trackpad. */
     if (navAnchor && nav) {
       const frame = () => navAnchor.offsetHeight || window.innerHeight;
+      const DIR_MIN = 7;
+      let lastY = window.scrollY || window.pageYOffset;
       ScrollTrigger.create({
         start: 0, end: 'max',
         onUpdate: () => {
@@ -980,6 +1103,11 @@
           const h = frame();
           if (!compact && y > h * 0.62) setCompact(true);
           else if (compact && y < h * 0.42) setCompact(false);
+          if (y < h * 0.42) { lastY = y; setAway(false); return; }
+          const d = y - lastY;
+          if (Math.abs(d) < DIR_MIN) return;
+          lastY = y;
+          setAway(d > 0);
         }
       });
     }
@@ -1197,7 +1325,7 @@
     /* scroll */
     lenis, stopScroll, startScroll, jumpTo,
     /* chrome */
-    nav, setNav, setMenu, toast, cursorRest, sizeFooter, goPage, trap, loopPath,
+    nav, setNav, setAway, setMenu, toast, cursorRest, sizeFooter, goPage, trap, loopPath,
     navSlot, navMark, navSpin,
     /* lifecycle: page scripts hook in rather than racing boot */
     onBuild: (fn) => buildHooks.push(fn),

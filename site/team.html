@@ -65,7 +65,7 @@
 <!-- NAV · the same chassis. Four pages, not four anchors: core.js
      marks the one you are on and parks the indicator on it, and the colour is
      in core.css so it is right before GSAP loads and if it never does. -->
-<header class="nav">
+<header class="nav dark">
   <div class="nav-in">
     <a href="index.html" class="nav-brand" aria-label="NUANSE, home">
       <span class="nav-slot" aria-hidden="true"><span class="nav-spin"><img class="mark nav-mark" src="assets/brand/monogram-copper-128.png" width="128" height="185" alt="" decoding="async"></span></span>
@@ -81,7 +81,7 @@
       </nav>
     </div>
     <div class="nav-end">
-      <a class="nav-cta" href="index.html#audit">Free audit</a>
+      <a class="nav-cta" href="contact.html#audit">Free audit</a>
       <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
   </div>
@@ -91,7 +91,8 @@
   <a href="services.html">Services</a>
   <a href="process.html">Process</a>
   <a href="team.html">Team</a>
-  <a href="index.html#audit">Audit</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html#audit">Audit</a>
   <p class="mono">Bangalore · hello@nuanse.studio</p>
 </div>
 
@@ -168,10 +169,18 @@
 <!-- FOOTER · shared -->
 <footer class="footer" id="footer" data-nav="dark">
   <div class="ft-in">
+    <!-- A3 · the upper band. One line and one CTA, on every page, and its
+         only job is to feed the contact page. It sits above .ft-top rather
+         than inside it because .ft-top is a four-column index of facts and
+         this is neither a fact nor a column. -->
+    <div class="ft-band">
+      <p class="ft-band-line">Tell us what you're building. We'll tell you what we would change first.</p>
+      <a class="btn solid magnet" href="contact.html" data-cursor="No form to fill in"><span class="btn-ar l" aria-hidden="true">&rarr;</span><span class="btn-label">Start a conversation</span><span class="btn-ar r" aria-hidden="true">&rarr;</span></a>
+    </div>
     <div class="ft-top">
       <div><p class="mono">Studio</p><p>Bangalore, India</p></div>
       <div><p class="mono">Write</p><a href="mailto:hello@nuanse.studio">hello@nuanse.studio</a></div>
-      <div><p class="mono">Start</p><a href="index.html#audit">The two-minute audit</a></div>
+      <div><p class="mono">Start</p><a href="contact.html#audit">The two-minute audit</a></div>
       <div><button class="to-top" data-goto="#top">Back to the top</button></div>
     </div>
     <div class="ft-mid">

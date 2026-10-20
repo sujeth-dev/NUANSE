@@ -1,0 +1,116 @@
+/* ============================================================================
+   NUANSE — contact.css · the contact page's two routes
+
+   Item A4. The chassis carries this page's opening frame, nav, footer, next-
+   page link and the audit modal, so what is here is only what the two routes
+   need: the picks, the composed-mail sheet, and the audit panel.
+
+   Every fluid value on this page is a rung from A7's scale in core.css, or is
+   minted on the same ramp with --f-min/--f-max and var(--fluid). There is no
+   bare clamp() in this file, on purpose — it is the first page written after
+   the scale existed, so it is also the proof that the contract is usable.
+   ========================================================================== */
+
+.ct-sec{padding:var(--sec-y) var(--gut)}
+
+/* ============ ROUTE ONE · THE BRIEF ============ */
+.ct-brief{background:var(--cream)}
+
+/* The picks on the left, the mail on the right, and the proportion is the
+   argument: the mail is the wider column because it is the thing being made.
+   One column below 900px, mail last, so a phone fills in the answers before
+   it meets the result. */
+.ct-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  gap:var(--gap-md) var(--gap-lg);align-items:start}
+
+.ct-picks{display:flex;flex-direction:column;gap:var(--gap-sm)}
+.ct-field{display:block}
+.ct-label{display:block;color:var(--mute);margin:0 0 14px}
+/* The hint sits inside the label so it is part of the accessible name — "Pick
+   as many as apply" is instruction, not decoration, and a screen reader
+   should hear it with the question rather than after everything else. */
+.ct-hint{text-transform:none;letter-spacing:.04em;color:var(--mute);opacity:.78}
+
+.ct-chips{display:flex;flex-wrap:wrap;gap:10px}
+.ct-chip{border:1px solid rgba(13,26,65,.28);border-radius:999px;padding:11px 17px 10px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--navy);background:transparent;
+  transition:background var(--t-sm) var(--ease),color var(--t-sm) var(--ease),
+             border-color var(--t-sm) var(--ease)}
+@media (hover:hover){
+  .ct-chip:hover{border-color:var(--navy)}
+}
+/* aria-pressed IS the state. Styling off the attribute rather than a class
+   means the two cannot disagree — there is no second copy of the state for
+   contact.js to forget to update. */
+.ct-chip[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:var(--cream)}
+
+.ct-input{display:block;width:100%;font-family:var(--sans);font-size:16px;line-height:1.5;
+  color:var(--navy);background:var(--cream);border:0;border-bottom:1px solid rgba(13,26,65,.28);
+  border-radius:0;padding:10px 0 11px;
+  transition:border-color var(--t-sm) var(--ease)}
+.ct-input::placeholder{color:var(--mute);opacity:.72}
+.ct-input:focus{outline:none;border-bottom-color:var(--copper)}
+.ct-input:focus-visible{outline:none}
+.ct-area{resize:vertical;min-height:calc(3em + 21px)}
+
+/* --- the sheet --- */
+.ct-mail{position:sticky;top:96px}
+.ct-mail-h{color:var(--mute);margin:0 0 14px}
+/* A sheet of paper on the cream page, with the one hairline frame the rest
+   of the build uses for anything that represents a printed artefact. */
+.ct-sheet{background:#fff;border:1px solid rgba(13,26,65,.16);
+  padding:var(--s3);margin-bottom:var(--s3)}
+.ct-head{margin:0 0 var(--s3);padding-bottom:var(--s2);
+  border-bottom:1px solid rgba(13,26,65,.16);display:grid;gap:9px}
+.ct-head>div{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:baseline}
+.ct-head dt{margin:0;color:var(--mute)}
+.ct-head dd{margin:0;font-size:15px;min-width:0;overflow-wrap:break-word}
+.ct-subject{font-weight:500}
+
+/* The draft is monospaced because it is a mail being composed, not prose
+   being read — and because a proportional face in a 14-row textarea makes
+   every recompose reflow visibly. */
+.ct-draft{display:block;width:100%;font-family:var(--mono);font-size:13px;line-height:1.72;
+  color:var(--navy);background:#fff;border:0;border-radius:0;padding:0;resize:vertical}
+.ct-draft:focus{outline:none}
+.ct-draft:focus-visible{outline:1px dashed var(--copper);outline-offset:6px}
+
+.ct-reset-row{margin:var(--s2) 0 0}
+.ct-reset{color:var(--mute);border-bottom:1px solid rgba(13,26,65,.28);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  transition:color var(--t-sm) var(--ease),border-color var(--t-sm) var(--ease)}
+@media (hover:hover){
+  .ct-reset:hover{color:var(--copper-ink);border-bottom-color:var(--copper-ink)}
+}
+
+.ct-send{margin-top:var(--s1)}
+
+/* ============ ROUTE TWO · THE AUDIT ============
+   The night ground is doing the work the home page's audit section does with
+   a WebGL foil: this is the second route, and it reads as a different offer
+   rather than a second paragraph of the first. No canvas here — one moving
+   thing per screen, and on this page that budget belongs to nothing at all. */
+.ct-audit{background:var(--night);color:var(--cream)}
+.ct-audit-in{max-width:52ch}
+.ct-audit .eyebrow{color:var(--copper-l);margin-bottom:20px}
+.ct-audit .h2{margin-bottom:var(--s3)}
+.ct-audit .lede{margin-bottom:var(--s4);max-width:52ch}
+.ct-audit .audit-meta{color:var(--mute-d);margin:var(--s3) 0 0}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  /* One column, and the mail second: answer first, then read the result.
+     The sticky also goes — a sticky element in a single column just
+     overlaps the thing below it. */
+  .ct-grid{grid-template-columns:1fr}
+  .ct-mail{position:static}
+}
+@media (max-width:600px){
+  .ct-sheet{padding:var(--s2)}
+  .ct-head>div{grid-template-columns:60px minmax(0,1fr)}
+  /* 16px, not smaller: iOS Safari zooms the page on focus for any font-size
+     below 16px, and a page that jumps when you tap a field is a worse defect
+     than a slightly large input. */
+  .ct-input{font-size:16px}
+}

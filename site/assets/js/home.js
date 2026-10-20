@@ -681,82 +681,21 @@
     });
   }
 
-  /* ====================================================== 9 · audit modal */
-  const QS = [
-    ['Could a stranger tell what you sell in five seconds?', 'Your name and logo don’t say what you sell yet.'],
-    ['Do your menu, packaging and site use the same two typefaces?', 'Typefaces change from one surface to the next.'],
-    ['Do your delivery listings match your storefront?', 'Your listings look like a different business.'],
-    ['Are your prices presented as a decision, not an apology?', 'Prices are presented apologetically.'],
-    ['Has someone outside the team repeated your homepage headline back correctly?', 'Your headline isn’t being understood.'],
-    ['Do your product photos share one light and one background?', 'Photos don’t share one light or background.'],
-    ['Do you know last month’s cost per order or cost per reservation from ads?', 'Ad spend isn’t tied to orders yet.'],
-    ['Would you charge 15% more if the brand looked as good as the product?', 'The brand is holding your pricing back.']
-  ];
-  const modal = $('.modal');
-  const mBody = $('.m-body');
-  const mStep = $('.m-step');
-  const prog = $('.prog i');
-  let qi = 0;
-  let ans = [];
-  let auditFocus = null;
+  /* ============================================ 9 · the audit, moved out
+     The engine that used to be here — QS, renderQ, renderResult, openAudit
+     and closeAudit — is site/assets/js/audit.js as of 2026-10-20, item A5.
+     It had to move because it only existed on this page and the new contact
+     page carries the audit too; its styles made the same trip out of
+     home.css into core.css. index.html loads audit.js after this file.
 
-  function renderQ() {
-    if (qi >= QS.length) { renderResult(); return; }
-    mStep.textContent = `Question ${qi + 1} of ${QS.length}`;
-    prog.style.transform = `scaleX(${qi / QS.length})`;
-    mBody.innerHTML = `<p class="q">${wrapWords(QS[qi][0])}</p>` +
-      '<div class="answers"><button data-a="1">Yes</button><button data-a="0">No</button><button data-a="2">Not sure</button></div>';
-    if (!RM) gsap.from(mBody.children, { opacity: 0, y: 20, duration: 0.6, stagger: 0.06 });
-    $$('.answers button', mBody).forEach((b) => {
-      b.addEventListener('click', () => { ans[qi] = +b.dataset.a; qi++; renderQ(); });
-    });
-    const first = $('.answers button', mBody);
-    if (first) first.focus({ preventScroll: true });
-  }
-  function renderResult() {
-    prog.style.transform = 'scaleX(1)';
-    mStep.textContent = 'Your result';
-    const yes = ans.filter((a) => a === 1).length;
-    const line = yes >= 7
-      ? 'Close. The gap is small and specific. The paid audit would name it on one page.'
-      : yes >= 4
-        ? 'A few details are doing quiet damage. That is usually where pricing power leaks.'
-        : 'The product is ahead of the brand. That is the best problem to have, because it is fixable.';
-    /* Three, not eight. A wall of negatives after a score reads as a
-       verdict on the founder rather than a list of fixable details. */
-    const flags = QS.filter((q, k) => ans[k] !== 1).slice(0, 3)
-      .map((q) => `<li>${esc(q[1])}</li>`).join('');
-    mBody.innerHTML = `<div class="result-score">${yes}<small>/8</small></div>` +
-      `<p class="result-line">${esc(line)}</p>` +
-      (flags ? `<p class="mono flags-h">Details we would look at first</p><ul class="flags">${flags}</ul>` : '') +
-      `<a class="btn solid" href="mailto:hello@nuanse.studio?subject=${encodeURIComponent(`Paid audit — scored ${yes}/8`)}">` +
-      '<span class="btn-ar l" aria-hidden="true">→</span>' +
-      `<span class="btn-label">${wrapS('Book the paid audit')}</span>` +
-      '<span class="btn-ar r" aria-hidden="true">→</span></a>';
-    if (!RM) gsap.from(mBody.children, { opacity: 0, y: 20, duration: 0.7, stagger: 0.06 });
-  }
-  function openAudit() {
-    auditFocus = document.activeElement;
-    qi = 0;
-    ans = [];
-    renderQ();
-    NU.stopScroll();
-    NU.cursorRest();
-    modal.classList.add('open');
-    gsap.fromTo(modal, { opacity: 0 }, { opacity: 1, duration: RM ? 0.3 : 0.6, ease: RM ? 'none' : EASE });
-    if (!RM) gsap.fromTo('.modal-card', { y: 40 }, { y: 0, duration: 0.9 });
-  }
-  function closeAudit() {
-    if (!modal || !modal.classList.contains('open')) return;
-    gsap.to(modal, {
-      opacity: 0, duration: RM ? 0.3 : 0.5,
-      onComplete: () => {
-        modal.classList.remove('open');
-        NU.startScroll();
-        if (auditFocus) auditFocus.focus({ preventScroll: true });
-      }
-    });
-  }
+     The annotation trail above (MARK_SETS, wireTrail) deliberately did NOT
+     go with it. It is the hero-adjacent flourish on this page's audit
+     section, not part of the questionnaire, and no second page wants it.
+
+     Session A's edit, in session B's file, declared on the board before and
+     in the commit message. Nothing else in home.js was touched: the three
+     lines that wired the modal came out of the tail below, and the hero's
+     onIntro/onReady/onResize registrations beside them are untouched. */
 
   /* ===================================================== the no-GSAP floor
      Everything above this line that touches the DOM needs no animation
@@ -976,14 +915,8 @@
     NU.onIdleChange(syncBefore);
   });
 
-  /* ------------------------------------------------------------ wiring up */
-  if (modal) {
-    NU.trap(modal);
-    $('.open-audit').addEventListener('click', openAudit);
-    $('.modal-close').addEventListener('click', closeAudit);
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeAudit(); });
-  }
-  NU.onEsc(closeAudit);
+  /* ------------------------------------------------------------ wiring up
+     The audit modal's wiring was here and is now the tail of audit.js. */
 
   /* the opener hands straight into the hero reveal */
   NU.onIntro(heroIntro);
