@@ -126,17 +126,20 @@ not by subject — that is what lets two sessions run at once.
 
 ## 2 · Who runs when
 
-Four lanes, **two sessions live at a time**. This machine runs Playwright for
-the harness and will not take four Chromium matrices and four editors at once.
+Three lanes now, **one session live at a time after wave 1**. C and D are
+merged into a single session, **CD**, run back to back by one Claude Code
+instance rather than two in parallel — this machine does not need a second
+Chromium matrix up while the harness is already loaded for one.
 
-| Wave | Sessions | Why this pairing |
+| Wave | Session | Why |
 |---|---|---|
-| **1** | **A** (chassis + contact) and **B** (home) | Disjoint files. A owns `core.*` and every page's `<header>`/`<footer>`; B owns `index.html`'s `<main>`, `home.css`, `home.js`. |
-| **2** | **C** (cases) and **D** (collections) | Both consume A7's scale tokens and A3's footer band, so they start after wave 1 has landed them rather than racing them. |
+| **1** | **A** (chassis + contact) and **B** (home) | Disjoint files, run together. A owns `core.*` and every page's `<header>`/`<footer>`; B owns `index.html`'s `<main>`, `home.css`, `home.js`. |
+| **2** | **CD** (both case pages, then the collections) | Consumes A7's scale tokens and A3's footer band, so it starts after wave 1 lands them. Both halves are one session's work now, done in sequence: cases first, collections second. |
 
 Wave 2 does not begin until A and B have both posted `done`. That is a
-sequencing decision, not caution: C's whole complaint is inconsistent scale,
-and C cannot fix scale against tokens that do not exist yet.
+sequencing decision, not caution: CD's whole complaint on the cases is
+inconsistent scale, and it cannot fix scale against tokens that do not exist
+yet.
 
 ### Ownership, this round
 
@@ -144,8 +147,7 @@ and C cannot fix scale against tokens that do not exist yet.
 |---|---|
 | **A** | `site/assets/css/core.css`, `site/assets/js/core.js`, `site/assets/js/boot.js`, the `<header>` and `<footer>` blocks of all nine pages, `site/contact.html`, `site/assets/css/contact.css`, `site/assets/js/contact.js`, `site/assets/js/audit.js` (new, moved out of `home.js`) |
 | **B** | `site/index.html` `<main>` only, `site/assets/css/home.css`, `site/assets/js/home.js` — **except** §9, the audit modal, which A is moving out |
-| **C** | `site/work/_zingara.src.html`, `site/work/_the-possah.src.html`, the two built pages via re-expansion, `site/assets/css/work.css`, `site/assets/css/work/*.css` |
-| **D** | `site/work/index.html`, `work-index.css`, `proofs.css`, `proofs.js`, `roster.js`, `clients.js`, `services.*`, `process.*`, `team.*` |
+| **CD** | `site/work/_zingara.src.html`, `site/work/_the-possah.src.html`, the two built pages via re-expansion, `site/assets/css/work.css`, `site/assets/css/work/*.css`, then `site/work/index.html`, `work-index.css`, `proofs.css`, `proofs.js`, `roster.js`, `clients.js`, `services.*`, `process.*`, `team.*` |
 
 Shared and additive only: `BUILD-LOG.md`, `README.md`, the board.
 
@@ -157,9 +159,9 @@ when the change you want is one line. Post `ask-A` and keep moving.
 1. **The case pages are generated.** `site/work/zingara.html` and
    `the-possah.html` are produced from `_*.src.html` by
    `tools/expand-figures.py`. Edit the source and re-expand, or a later
-   rebuild erases the work. Session C does both; A does not touch the built
-   files, only the sources' `<header>`/`<footer>`, and does that **after** C
-   posts `pushed` so no re-expansion runs over it.
+   rebuild erases the work. Session CD does both; A does not touch the built
+   files, only the sources' `<header>`/`<footer>`, and does that **after** CD
+   posts `pushed` on the case half so no re-expansion runs over it.
 2. **The footer is duplicated in nine files**, not injected. A3 therefore
    touches every page. It is the single biggest collision surface this round,
    which is exactly why one session owns it alone.
@@ -192,16 +194,37 @@ did. Do not idle on a decision.
 
 ## 4 · Verification
 
-Unchanged from `06-revision-plan.md` §5 and `README.md`: the harness is
-rebuilt in the scratchpad, and every touched page runs the four passes —
-desktop, reduced motion, touch at 390×844, and GSAP blocked — through
-`check.js`, `a11y.js`, `contrast.js`, `css-applied.js`, `weight.js` and
-`shot.js`. Read the screenshots; several defects so far were visible only in a
-rendered frame and in no metric.
+**For CD, verification is deliberately lighter than A and B's.** A and B's
+items are new interaction mechanics (a lens, an ASCII flip, dynamic scaling)
+that needed the full four-pass matrix to trust. CD's items are layout and
+copy on pages whose mechanics A and B already proved. Running that same full
+matrix a second time on the same chassis is the unnecessary testing this round
+is explicitly trying to avoid.
 
-**One load rule added this round:** only one session runs the harness at a
-time. Claim it on the board with a `harness` tag and release it when the pass
-finishes. Two Chromium matrices at once is what makes this machine unusable.
+**CD's harness is one pass, once, at the end — not per item.**
+
+1. One `check.js` run (console/CSP/broken-image) over the touched pages,
+   desktop only. No reduced-motion, touch or GSAP-blocked repeats unless an
+   item specifically changes motion (D-b/D-c do; add those two to a
+   reduced-motion check and stop there).
+2. `shot.js` at one width (1440) and one mobile width (390) per touched page.
+   Look at them. Do not run `a11y.js`, `contrast.js`, `css-applied.js` or
+   `weight.js` as a matter of course — run them only against a specific
+   suspicion (e.g. "does this new split-layout clear AA"), not as a blanket
+   sweep.
+3. **Give the user links, not just a verdict.** For every page you touch, the
+   `done` post includes the local `file://` path or the harness's served
+   `http://localhost` URL for that exact page, plus the path to the
+   screenshots `shot.js` wrote, so the user can open them directly rather
+   than take your word for the layout.
+
+A and B keep the full four-pass matrix as written below — that work is
+already done or in progress and is not being redone.
+
+**Load rule, now simpler:** only one session runs Chromium at a time. With CD
+alone in wave 2, this is automatic — just claim `harness` on the board before
+you run anything, the same as before, so a stray wave-1 straggler does not
+collide with you.
 
 Per item, the specific thing to prove:
 
