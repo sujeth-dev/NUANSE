@@ -104,7 +104,11 @@ Four things the rebuild had to get right, all in:
    copies of the real asset drawn from two files. The letter `s` inside a word
    stays live text; the mark is always the asset.
 2. **A cursor with a rest state** — a copper ring that always follows,
-   swelling to a labelled disc over a target.
+   swelling to a labelled disc over a target. Since 2026-10-17 it also has an
+   idle state: with no pointer, scroll or key input for 2.4s it leaves the
+   pointer, drifts to the centre of the window and breathes there until you
+   move. The breath is a CSS keyframe, so the ring rests and breathes even on
+   the no-GSAP path, where nothing is driving it.
 3. **The S inversion reverts** when you stop hovering. Pure CSS and no state
    everywhere except the home page's headline, where it cannot be: the lens is
    an opaque clone of that layer following the pointer, so a `:hover` turn

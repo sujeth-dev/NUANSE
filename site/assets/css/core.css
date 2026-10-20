@@ -220,6 +220,35 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .cur.big b{opacity:1}
 /* over a text field the ring fights the I-beam, so it stands down */
 .cur.hide{opacity:0}
+/* ---- the rest state ----
+   With no input the ring leaves the pointer, drifts back to the middle of the
+   window and breathes there. Two decisions worth writing down:
+
+   "Origin" is the centre of the viewport, measured each time, and not the last
+   place the pointer was. A ring parked where you abandoned it reads as a
+   cursor that has stopped working; a ring in the middle reads as one waiting.
+
+   The breath is a keyframe and not a tween, because the follow is the only
+   part of this device that needs GSAP. On a page where the CDN never answers,
+   the ring still sits in the middle and still breathes.
+
+   .rm already hides the cursor outright, so this animation never renders
+   under reduced motion. The media query is here anyway for the one path where
+   it would: boot.js failing to set the class while the OS preference is on. */
+@keyframes cur-hover{
+  0%,100%{transform:scale(1);opacity:.72}
+  50%{transform:scale(1.14);opacity:1}
+}
+.cur.rest i{animation:cur-hover 2.8s var(--ease) infinite}
+.cur.rest b{opacity:0}
+/* The ring now starts at rest in the middle of the window, which is exactly
+   where the curtain draws its mark. It stands down until the curtain lifts,
+   and fades in on the opacity transition it already had. */
+.loading .cur{opacity:0}
+/* No GSAP: nothing is going to drive x and y, so the centring is done with
+   left/top and the ring rests there rather than in the corner. */
+.cur.cur-dead{left:50%;top:50%}
+@media (prefers-reduced-motion:reduce){.cur.rest i{animation:none}}
 @media (pointer:fine){.cur{display:block}}
 /* reduced motion has no cursor at all — not a disc, and not a rest ring */
 .rm .cur,.touch .cur{display:none!important}
