@@ -16,31 +16,143 @@
 
 /* ============ 1 · HERO ============ */
 .hero{height:100vh;height:100svh;min-height:620px;background:var(--cream);overflow:hidden}
-.hero-foil{position:absolute;inset:0;z-index:0;width:100%;height:100%;display:block;opacity:.15;
-  pointer-events:none}
+/* B3 - the ground behind slide 1, darker and higher contrast. CAPPED, and
+   the cap is the whole story. Read this before changing the number.
+
+   The item asked for darker AND higher contrast, and .40 delivers exactly
+   that: measured on the rendered frame with the hero's own layers hidden -
+   ground and nothing but ground, 316,800 samples - the band goes from 0.177
+   of relative luminance around a mean of 0.846, to 0.410 around 0.746. The
+   wash becomes a swirl you can see moving.
+
+   .40 also FAILS WCAG AA, and not on the buttons. The binding node is the
+   rotating word in the headline: --copper at 171px, which needs 3:1 against
+   the ground beneath it. Scored per node against the darkest ground pixel
+   inside that node's own box:
+
+       opacity   slot word   ground mean
+       .15        3.52         0.852      (what it was)
+       .20        3.29         0.829
+       .24        3.31         0.816      <- here
+       .27        3.23         0.807
+       .30        3.00         0.796      (exactly on the threshold)
+       .40        2.68         0.748      FAILS
+       .44        2.30         0.724      FAILS
+
+   The arithmetic has no middle in it. --copper's relative luminance is 0.195,
+   so for 3:1 the ground under it must stay LIGHTER than 0.684 or go darker
+   than 0.032, which is nearly black. Darkening this swirl moves the ground
+   toward the copper word, not away from it. "Darker ground" and "a copper
+   word standing on it" are in direct conflict, and the conflict is in the
+   brief rather than in this file.
+
+   .24 and not .30, although .30 measures 3.00: the shader drifts, so the
+   patch under the slot is never the same patch twice, and two runs at .15
+   gave 3.38 and 3.52. Anything inside ~0.2 of the threshold is not a result.
+   .24 keeps a real margin and still carries about half the darkening .40 had.
+
+   THE DECISION IS OPEN, not settled. Dropping the slot to --copper-ink would
+   let this go to .40 and measures ~3.7:1 - but README says --copper-ink is
+   for small text and --copper is the only copper on every large accent, and
+   this is the most prominent element on the site. That is a palette call for
+   the client review, not for a verification pass. See BUILD-LOG.
+
+   saturate(.85) is the one taste call: raising the opacity brings the ramp's
+   copper stop up with everything else, and 05-conventions.md says copper is
+   ~3% of a page. Pulling saturation back 15% keeps the band reading as light
+   and shadow on foil rather than as a tan wash, and leaves luminance - which
+   is what carries the contrast - untouched. */
+.hero-foil{position:absolute;inset:0;z-index:0;width:100%;height:100%;display:block;opacity:.24;
+  filter:saturate(.85);pointer-events:none}
 .touch .hero-foil,.rm .hero-foil{display:none}
 .hero-layer{position:absolute;inset:0}
 .hero-inner{position:absolute;inset:0;
   padding:clamp(104px,14vh,150px) var(--gut) clamp(40px,7vh,72px);
   display:flex;flex-direction:column;justify-content:space-between}
-.hero-h-wrap{position:relative;align-self:flex-start}
+/* stretch, not flex-start. The wrap used to be fit-content, sized to the
+   widest line, which is fine for a block that is only ever left-aligned — but
+   B1 asks for a line that reaches toward the RIGHT edge, and a line can only
+   be aligned to an edge the box actually has. Stretched, the wrap is the
+   hero's content width and `.hl-mid` can be set against its right edge.
+   One knock-on, kept deliberately: the lens draws a dashed measure box around
+   this element, and that box is now the full measure rather than hugging the
+   type. In a type specimen that is the more correct of the two. */
+.hero-h-wrap{position:relative;align-self:stretch}
 /* Five written lines, not a paragraph left to wrap: the second line is a slot
    whose word changes, and a slot that shares a line with other words would
    push them sideways four times a rotation. No max-width and no balance —
    the line breaks are the typography here, and the browser has no say. */
-/* Five lines are a vertical constraint as much as a horizontal one, so the
-   size is bound by both: 12vw is what the longest line ("We design") can take
-   before it reaches the gutter, 13.5vh is what five lines can take before they
-   reach the CTAs on a short window. Measured at 390, 430, 768, 1024, 1440 and
-   1920 — the widest line is 54% of the available width at every one of them. */
-.hero-h{font-family:var(--serif);font-weight:400;font-size:clamp(44px,min(12vw,13.5vh),118px);
+/* B1 - bigger, and no longer one size for all five lines.
+
+   Five lines are a vertical constraint as much as a horizontal one, so the
+   unit is bound by both: 14.5vw is what the longest line can take before it
+   reaches the gutter at 390px, 19vh is what the block can take before it
+   reaches the CTAs on a short window. That is the same two-axis shape the
+   line had before, with both terms grown - 12vw/13.5vh/118px becomes
+   14.5vw/19vh/186px, a 45% larger headline at 1440x900.
+
+   The growth is not uniform, and that is the point of the item. "We design"
+   and the slot under it carry the full unit and the horizontal reach; "for
+   businesses" takes .82 and runs further right than anything above it; the
+   closing couplet drops to .46 and is the quiet half of the block. Three
+   sizes, so the block has a shape rather than a left edge.
+
+   Why the unit can grow this far and no further: the five lines now measure
+   (1 + 1 + .82 + .46 + .46) x .92 = 3.44 units tall. At 19vh that is 65vh of
+   type, which leaves 14vh of nav clearance, 7vh of floor and the 52px CTA row
+   inside one viewport with ~8vh spare. 21vh overruns a 900px window. */
+.hero-h{--hu:clamp(46px,min(14.5vw,19vh),186px);
+  font-family:var(--serif);font-weight:400;font-size:var(--hu);
   line-height:.92;letter-spacing:-.045em;margin:0}
 .hl{display:block}
+/* Nine characters at -.045em were holding themselves in. The lead line is the
+   one asked to span, so its tracking opens to -.02em - about 25px of extra
+   reach at the unit's full size, and it costs nothing vertically. */
+.hl-lead{letter-spacing:-.02em}
+/* "for businesses" runs to the right edge of the measure.
+
+   This was an indent — margin-left:1.3em — and the indent was wrong, not
+   just arithmetically but in kind. An indent reaches further right by a fixed
+   amount, so whether it ARRIVES at the right edge depends on the line's own
+   rendered width, which depends on Gloock's real advance widths at a given
+   size. Estimate those and you are tuning a number per breakpoint and hoping;
+   get them wrong and the line overruns the gutter, which is exactly what it
+   did at 1440 and 1920 before this.
+
+   text-align:right cannot overrun. The line's right edge IS the measure's
+   right edge at every width, by construction, with no media query and no
+   metric to be wrong about. It is also a truer reading of the item, which
+   asked for the line to extend further toward the right edge rather than to
+   be pushed a certain distance. */
+.hl-mid{font-size:.82em;text-align:right}
+.hl-tail{font-size:.46em;letter-spacing:-.03em}
 /* the slot: the word rides in its own mask, and the line holds its height
-   whichever of the four is in it */
-.hl-rot{color:var(--copper)}
+   whichever of the four is in it. nowrap because B2 sets the word in the mono
+   face mid-flip, where it is wider than the serif it replaces - a slot
+   allowed to wrap would move the three lines under it, which is the one thing
+   the verification forbids. */
+.hl-rot{color:var(--copper);white-space:nowrap}
 .hl-rot .w{display:block}
-.rot{display:inline-block;will-change:transform}
+.rot{display:inline-block}
+/* B2 - the glyph noise.
+
+   A character mid-flip is set in the mono face, so the word visibly dissolves
+   into type-specimen noise and resolves out of it rather than sliding. .86em
+   is a width decision, not a style one: IBM Plex Mono advances .6em per glyph
+   against Gloock's ~.52em, and "identities" at ten mono glyphs and the full
+   unit overruns the gutter at 390px. At .86 it clears, and the denser texture
+   is what noise should look like next to the serif anyway.
+
+   NO COLOUR OF ITS OWN, and that is a correction. The noise was set in
+   --copper-l to separate it from the resolved word. Measured against the
+   ground actually under the slot it came to 1.73:1 where large text needs 3:1
+   - and it failed at the OLD foil opacity too, so it was mine and not B3's.
+   #D58A4E is a light copper on a light ground and there was never room for
+   it. Inheriting --copper from .hl-rot puts the noise at the same ink as the
+   word it is dissolving, which measures 3.95:1 under the slot and is the
+   better design besides: the flip is about the glyphs changing, not about the
+   colour changing underneath them. */
+.rot .gl{font-family:var(--mono);font-size:.86em;letter-spacing:.02em}
 .hero-eyebrow{position:relative;align-self:flex-start}
 .hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
 /* a measured fact row carries the lower left, not a paragraph */
@@ -65,8 +177,18 @@
 
    #16245A is --royal, already in the tokens. It is the brightest thing in
    here and --copper-l 10px annotations measure 5.28:1 against it. */
+/* overflow:hidden is not about what you can see — clip-path already decides
+   that, and .hero clips besides. It is about the scrollable overflow area.
+   .lens-scale is a full-bleed clone scaled 1.03 about a transform-origin that
+   home.js moves to wherever the lens is, so its transformed box reaches past
+   the hero's right edge by up to ~17px at 1440, and transformed boxes count
+   toward an ancestor's scrollable overflow. That is what made section.hero
+   report scrollWidth 1447 against clientWidth 1440. Nothing was visible and
+   no scrollbar appeared, because body hides overflow-x — which is precisely
+   why it went unnoticed. Clipping it at the layer removes the overflow
+   without changing a pixel of what renders. */
 .hero .lens{background:linear-gradient(162deg,var(--royal) 0%,var(--navy) 54%,var(--night) 100%);
-  color:var(--cream);clip-path:circle(0px at 50% 50%);
+  color:var(--cream);clip-path:circle(0px at 50% 50%);overflow:hidden;
   pointer-events:none;z-index:3}
 .lens-foil{position:absolute;inset:0;z-index:0;width:100%;height:100%;display:block;
   opacity:.55;pointer-events:none}
@@ -75,13 +197,22 @@
 .lens .hero-facts{color:var(--mute-d)}
 .lens .hero-facts dt{color:var(--cream)}
 .lens .hero-facts>div{border-left-color:var(--hair-c)}
-/* Inside the lens every S is measured — outlined and in copper — but none of
-   them is turned. The turn belongs to the glyph under the pointer and nothing
-   else; .is-turn is put there by home.js on the clone of whichever base glyph
-   is being hovered, so the letter reads the same inside the circle and out. */
+/* B4 - every S inside the lens is turned, and only inside it.
+
+   This is the reference's model (nuanse-house.html:77,
+   .layer.x .s{transform:scaleX(-1)}) and it replaces the per-glyph hover
+   marking that used to run here. The reason the old approach existed was that
+   the lens closed over the headline, so a turned S could be read on the page
+   underneath; now that the lens is always live and is the cursor in the hero,
+   the circle itself is what shows the turn. Move it across a line and each S
+   it covers is mirrored and copper, and reverts the moment it passes - which
+   is requirement 3 of brief/01-requirements.md done BY the device rather than
+   worked around it.
+
+   The base layer keeps its own hover turn, below, for the keyboard and for
+   the visitor who has latched the lens open. */
 .lens .s{color:var(--copper-l);outline:1px dashed rgba(213,138,78,.55);
-  outline-offset:1px}
-.lens .s.is-turn{transform:scaleX(-1)}
+  outline-offset:1px;transform:scaleX(-1)}
 
 /* The hero's own turn: one letter at a time, and driven by home.js rather
    than by :hover. The reason is the lens — an opaque clone of this layer that
@@ -143,12 +274,32 @@
    and `scale` properties so they compose without fighting over one transform.
    Nothing here needs GSAP: on a page where it never loads, the bubble still
    floats, still recedes and still opens the lens. */
-@keyframes lens-bob{50%{translate:0 -11px}}
-.lens-toggle{animation:lens-bob 4.2s var(--ease) infinite;
-  transition:scale var(--t-mid) var(--ease),opacity var(--t-mid) var(--ease)}
+/* B4 - the bubble no longer bobs.
+
+   It used to float because it was the lens at rest and nothing else on the
+   screen was moving. The lens now drifts on its own after 2.4s idle, so the
+   bob would be a second moving thing on a screen that is allowed one - see
+   05-conventions.md. The button stays, relabelled "Click here" per D2: on a
+   fine pointer the lens is already live and the bubble is the keyboard path,
+   on touch and under reduced motion it is the only path.
+
+   Receded, it is still focusable, so focus has to outrank .away or it is a
+   WCAG 2.4.7 failure - a focused control at a quarter opacity is a control
+   you cannot see. */
+.lens-toggle{transition:scale var(--t-mid) var(--ease),opacity var(--t-mid) var(--ease)}
 .lens-toggle.away{opacity:.25;scale:.82}
-.rm .lens-toggle{animation:none}
-.rm .lens-toggle.away{opacity:1;scale:1}
+.lens-toggle.away:focus-visible{opacity:1;scale:1}
+.rm .lens-toggle.away,.touch .lens-toggle.away{opacity:1;scale:1}
+/* B4 - the lens IS the cursor here, so nothing else is.
+   core's copper ring is stood down from home.js with .cur.off (A's class: it
+   survives core's own pointermove handler, where .hide does not) and the
+   native pointer goes with it, or the circle would trail an arrow. Fine
+   pointers only, the same gate .cur itself carries - touch has no cursor to
+   hide and reduced motion has no lens. */
+/* The controls are the exception, in CSS as in home.js: the lens yields over
+   a button and the native pointer comes back with it, because a control you
+   cannot see yourself aiming at is worse than a second cursor. */
+@media (pointer:fine){.hero{cursor:none}.hero .btn,.hero .lens-toggle{cursor:pointer}}
 .touch .hero-hint,.rm .hero-hint{display:none}
 
 /* ============ 2 · MARQUEE ============ */
@@ -170,8 +321,34 @@
 .mf-label{position:absolute;top:clamp(86px,12vh,120px);left:var(--gut);z-index:5}
 .mf-note{position:absolute;top:clamp(86px,12vh,120px);right:var(--gut);z-index:5;color:var(--mute);
   text-align:right}
+/* B5 - the envelope holds, so it has to leave the letter room.
+
+   At 44vh and bottom:-2vh the front flap's top edge sat at 58vh, and the V
+   notch put it across the letter's lower third. That was invisible while the
+   envelope slid off the bottom of the screen as the letter rose; now that it
+   stays for the whole read it is the whole problem. 34vh at bottom:-4vh puts
+   the flap's top at 70vh, and home.js measures the rest - it settles the
+   envelope by exactly the distance that clears the letter's own box, rather
+   than by a number guessed here.
+
+   26vh below 760px because the letter wraps much taller at 88vw, so there is
+   less room above the envelope and the envelope has to ask for less.
+
+   pointer-events:none because both halves are aria-hidden decoration, and in
+   flight (below) they cross the section underneath. */
 .env-back,.env-front{position:absolute;left:50%;width:min(780px,94vw);
-  margin-left:calc(min(780px,94vw) / -2);bottom:-2vh;height:44vh}
+  margin-left:calc(min(780px,94vw) / -2);bottom:-4vh;height:34vh;pointer-events:none}
+@media (max-width:760px){.env-back,.env-front{height:26vh}}
+/* The flight container. The envelope's last act is to travel out of the
+   manifesto and into the work section's night-blue field, which means
+   escaping .mf-stage - it both clips its children and carries a transform
+   once ScrollTrigger has unpinned it, and a transformed ancestor is a
+   containing block for a fixed child. So home.js reparents the two halves
+   into this, on the body, for the flight only, and puts them back on the way
+   up. inset:0 over the viewport is the same box .mf-stage occupies at the
+   moment the pin releases, so the swap has nothing to show.
+   z-index 60 is above the work section and below the nav, where it belongs. */
+.env-fly{position:fixed;inset:0;z-index:60;pointer-events:none}
 .env-back{background:var(--night);z-index:1}
 .env-back::before{content:"";position:absolute;left:0;right:0;top:-46%;height:46%;
   background:var(--royal);clip-path:polygon(0 100%,100% 100%,50% 0)}
@@ -226,32 +403,98 @@
   touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:ew-resize;
   container-type:size;border:1px solid var(--navy)}
 .menu-mock{position:absolute;inset:0;overflow:hidden}
+/* B6 - the two mocks are a BRAND sheet now, not a menu.
+
+   Same stage, same wipe, same three annotations. The subject changed because
+   the menu was the recurring example on six screens and it is Zingara's own
+   story, which belongs on Zingara's case page. What a visitor sees here is a
+   business with no brand design at all, and the same business structured.
+
+   Both halves are invented and the page says so in a .qual-note under the
+   stage. "Sample & Co." is a name that cannot be mistaken for a client: it
+   reads as a specimen on sight, which is what D3 asked for when it said
+   build it visibly fictional.
+
+   One rule the garish half still keeps: every colour it sets TYPE in clears
+   4.5:1 on its own ground - #C1121F 5.73, #D7263D 4.57, #1D3557 11.38,
+   #5A189A 9.52, #023E8A 9.39. The three that do not (#2A9D8F 3.06, #E76F51
+   2.85, #F77F00 2.42) appear only as fills behind nothing, or as a border.
+   The before is meant to be badly DESIGNED, not unreadable; an inaccessible
+   mock would be our defect dressed up as an argument. */
 .mm-before{background:#FFF6CF;color:#C1121F;padding:6cqw;text-align:center;
   font-family:"Trebuchet MS",Arial,sans-serif}
-.mm-before .bt{font-family:"Arial Black",Impact,sans-serif;font-size:11.5cqw;letter-spacing:.32em;
-  color:#D7263D;text-shadow:.5cqw .5cqw 0 #FFB703;line-height:1}
-.mm-before .bs{font-style:italic;color:#2A9D8F;font-size:3.3cqw;margin-top:1.5cqw;font-weight:700}
-.mm-before .bh{margin:5cqw 0 2cqw;font-family:"Courier New",monospace;font-weight:700;
-  font-size:4.4cqw;color:#E76F51;text-decoration:underline wavy}
-.mm-before .bi{font-family:"Times New Roman",serif;font-weight:700;font-size:3.9cqw;color:#1D3557;
-  margin:1.4cqw 0;text-transform:uppercase}
-.mm-before .bi em{font-family:"Comic Sans MS","Trebuchet MS",sans-serif;font-style:normal;
-  color:#C1121F;font-size:3.4cqw;margin-left:2cqw;text-transform:none}
-.mm-before .burst{position:absolute;right:4cqw;top:30cqw;width:20cqw;height:20cqw;border-radius:50%;
-  background:#FFB703;color:#C1121F;display:grid;place-items:center;font-weight:900;font-size:3cqw;
+/* the logo is type stretched to fit, which is the single most legible symptom
+   of no brand design. home.js fidgets this scaleX: stretched to fit is never
+   stretched to the same amount twice. */
+/* 7.5cqw and not 9: twelve characters of Arial Black at ~.62em advance is
+   56cqw, and the 1.42 stretch takes that to 79cqw against 88cqw of room
+   inside the padding. The fidget pushes the stretch to 1.5, which is 84cqw
+   and still inside it. At 9cqw the logo ran off its own sheet. */
+.mm-before .bt{font-family:"Arial Black",Impact,sans-serif;font-size:7.5cqw;letter-spacing:.06em;
+  color:#D7263D;text-shadow:.5cqw .5cqw 0 #FFB703;line-height:1;
+  transform:scaleX(1.42);transform-origin:50% 50%}
+.mm-before .bs{font-family:"Comic Sans MS","Trebuchet MS",sans-serif;font-style:italic;
+  color:#023E8A;font-size:3.4cqw;margin-top:2.6cqw;font-weight:700}
+/* five colours, no two of them related */
+.mm-before .bchips{display:flex;justify-content:center;gap:1.6cqw;margin:4.4cqw 0 0}
+.mm-before .bchips i{width:7cqw;height:4cqw;display:block}
+.mm-before .bc1{background:#D7263D}
+.mm-before .bc2{background:#FFB703}
+.mm-before .bc3{background:#2A9D8F}
+.mm-before .bc4{background:#5A189A}
+.mm-before .bc5{background:#E76F51;transform:rotate(-6deg)}
+.mm-before .bh{margin:4.6cqw 0 2cqw;font-family:"Courier New",monospace;font-weight:700;
+  font-size:4.6cqw;color:#5A189A;text-decoration:underline wavy}
+.mm-before .bp{font-family:"Times New Roman",serif;font-size:3.6cqw;color:#1D3557;
+  margin:1.6cqw 0;line-height:1.3}
+.mm-before .bp b{font-family:"Arial Black",Impact,sans-serif;font-weight:900;font-size:3.1cqw;
+  color:#C1121F}
+.mm-before .bp i{font-family:"Comic Sans MS","Trebuchet MS",sans-serif;font-style:normal;
+  color:#023E8A}
+.mm-before .bp2{font-family:"Arial Black",Impact,sans-serif;font-size:3.4cqw;color:#C1121F;
+  text-align:right;letter-spacing:.02em}
+.mm-before .bcard{margin-top:3.4cqw;border:.5cqw dotted #2A9D8F;padding:2.4cqw;
+  font-family:"Arial Black",Impact,sans-serif;font-size:3.6cqw;color:#D7263D;text-align:left;
+  transform:scaleX(1.16);transform-origin:0 50%}
+.mm-before .bcard span{display:block;font-family:"Times New Roman",serif;font-weight:400;
+  font-size:2.9cqw;color:#1D3557;margin-top:.6cqw;text-align:right}
+.mm-before .burst{position:absolute;right:3cqw;bottom:4cqw;width:21cqw;height:21cqw;
+  border-radius:50%;background:#FFB703;color:#1D3557;display:grid;place-items:center;
+  font-weight:900;font-size:3.2cqw;line-height:1.15;text-align:center;
+  font-family:"Arial Black",Impact,sans-serif;
   transform:rotate(-14deg);border:.6cqw dotted #D7263D}
+/* The structured half. Nothing new in the palette: --ox, --blush, --navy and
+   --mute, on the same #F6ECE6 paper this mock has always used. One typeface
+   for the voice, the mono only for labels, and a mark that is drawn rather
+   than type pulled wider. */
 .mm-after{background:#F6ECE6;color:var(--ox);padding:7cqw;display:flex;flex-direction:column;
   clip-path:inset(0 90% 0 0)}
-.mm-after .at{font-family:var(--serif);font-size:15cqw;line-height:.88;letter-spacing:-.02em}
-.mm-after .as{color:var(--mute);margin-top:2cqw}
-.mm-after .ah{margin-top:6cqw;padding-bottom:1.6cqw;border-bottom:1px solid currentColor;
+.mm-after .amark{width:13cqw;height:13cqw;border:.55cqw solid var(--ox);display:grid;
+  grid-template-columns:1fr 1fr;font-family:var(--serif);font-size:5.4cqw;line-height:1;
+  color:var(--ox);flex:0 0 auto}
+.mm-after .amark span{display:grid;place-items:center}
+.mm-after .amark span+span{border-left:.55cqw solid var(--ox)}
+.mm-after .at{font-family:var(--serif);font-size:11cqw;line-height:.9;letter-spacing:-.02em;
+  margin-top:4cqw}
+.mm-after .as{color:var(--mute);margin-top:1.8cqw}
+.mm-after .apal{display:flex;gap:1.2cqw;margin-top:4.4cqw}
+.mm-after .apal i{width:6cqw;height:3cqw;display:block}
+.mm-after .ap1{background:var(--ox)}
+.mm-after .ap2{background:var(--blush)}
+.mm-after .ap3{background:var(--navy)}
+.mm-after .ap4{background:#F6ECE6;box-shadow:inset 0 0 0 1px rgba(138,43,29,.45)}
+.mm-after .ah{margin-top:5cqw;padding-bottom:1.4cqw;border-bottom:1px solid currentColor;
   display:flex;justify-content:space-between}
-.mm-after .ai{display:grid;grid-template-columns:1fr auto;gap:0 3cqw;padding:1.8cqw 0;
-  border-bottom:1px dotted rgba(138,43,29,.3)}
-.mm-after .ai b{font-weight:500;color:var(--navy);font-size:3.8cqw;line-height:1.25}
-.mm-after .ai small{grid-column:1;color:var(--mute);font-size:2.9cqw;line-height:1.35}
-.mm-after .ai span{grid-row:1;grid-column:2;font-variant-numeric:tabular-nums;font-size:3.8cqw}
-.mm-after .af{margin-top:auto;color:var(--mute)}
+.mm-after .ap-b{padding:2cqw 0;border-bottom:1px dotted rgba(138,43,29,.3);font-size:3.4cqw;
+  line-height:1.4}
+.mm-after .ap-b b{display:block;font-weight:500;color:var(--navy)}
+.mm-after .ap-b span{display:block;color:var(--mute)}
+.mm-after .acard{margin-top:auto;display:flex;align-items:center;gap:2cqw;
+  border-top:1px solid rgba(138,43,29,.3);padding-top:2.6cqw}
+.mm-after .acard .am{width:5.4cqw;height:5.4cqw;border:.4cqw solid var(--ox);flex:0 0 auto}
+.mm-after .acard b{font-family:var(--serif);font-weight:400;font-size:4cqw;color:var(--navy)}
+.mm-after .acard small{margin-left:auto;color:var(--mute);font-family:var(--mono);
+  font-size:2.6cqw;letter-spacing:.1em;text-transform:uppercase}
 .rl-handle{position:absolute;top:0;bottom:0;left:10%;width:1px;background:var(--navy);z-index:4;
   pointer-events:none}
 .rl-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;
@@ -273,15 +516,20 @@
   padding:4px 7px 3px;white-space:nowrap;opacity:0}
 .ra.l .t{left:calc(var(--w,30cqw) / -2)}
 .ra.r .t{right:calc(var(--w,30cqw) / -2)}
-/* the three annotation positions, as classes rather than style attributes */
-.ra-a{left:30%;top:13%;--w:52cqw;--h:15cqw}
-.ra-b{left:24%;top:32.5%;--w:42cqw;--h:8cqw}
-.ra-c{left:89%;top:52%;--w:12cqw;--h:44cqw}
+/* The three annotation positions, as classes rather than style attributes.
+   Retuned for B6's brand sheet: A loops the stretched logo at the top, B the
+   five-colour chip row, C runs down the card and the mark at the foot. */
+.ra-a{left:30%;top:12%;--w:52cqw;--h:15cqw}
+.ra-b{left:26%;top:38%;--w:44cqw;--h:8cqw}
+.ra-c{left:88%;top:56%;--w:12cqw;--h:38cqw}
 /* The home page carries a STILL. The control moved to work/zingara.html,
    where the correction is that page's one signature element. What is kept
    here is the half that needs no control: the before fidgets, the after
    never moves, and the redlines write on as you reach them. */
 .rl-static{cursor:default}
+/* the specimen is labelled as a specimen, in the honesty vocabulary the rest
+   of the site already uses for a claim that needs qualifying */
+.rl-qual{margin:26px 0 0}
 .rl-tagline{position:absolute;left:0;right:0;bottom:-30px;display:flex;
   justify-content:space-between;color:var(--mute);margin:0}
 .rl-more{margin:30px 0 0}

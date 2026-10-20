@@ -18,7 +18,7 @@
   const NU = window.NU;
   if (!NU) return;
 
-  const { $, $$, RM, TOUCH, EASE, clamp, esc, wrapS, wrapWords, loopPath } = NU;
+  const { $, $$, RM, TOUCH, EASE, clamp, esc, wrapS, loopPath } = NU;
 
   /* ======================================================= 1 · HERO + LENS */
   const hero = $('#top');
@@ -66,15 +66,45 @@
     });
   }
 
-  /* --- the word that changes ---
-     Out the top, in from the bottom, on the same curve and the same mask the
-     hero's other words rise out of. The line is a line of its own, so nothing
-     around it moves; only the slot does. The lens clone is handed the same
-     word at the same moment, because it is an opaque copy sitting on top and
-     two layers showing two different words is the one thing that would give
-     the whole device away. */
+  /* --- B2 · the word changes by ASCII flip ---
+     The word used to leave out the top of its mask and the next one rise in
+     from the bottom. It now stays put and changes character by character:
+     normal type, dissolving into monospace glyph noise, resolving as the next
+     word. Campaign to website happens through the glyphs, not through a move.
+
+     Three things this has to respect, and each one shapes the code:
+
+     - NOTHING below the slot may move. The slot is a line of its own, so its
+       width is free, and line-height on .hero-h is a NUMBER — 0.92 of the
+       element's own font-size — so swapping the serif for the mono mid-flip
+       cannot change the line box either. The one way it could still move the
+       page is by wrapping, which .hl-rot{white-space:nowrap} forbids.
+     - Both slots take the same characters in the same frame. The lens is an
+       opaque clone sitting on top of the base layer; two layers mid-flip on
+       different random glyphs is the one thing that would give the device
+       away. One render writes both.
+     - The noise is never announced. The slot is aria-hidden and the h1 keeps
+       an aria-label carrying the whole sentence with all four words in it, so
+       a screen reader reads a sentence and never reads "#@$%".
+
+     Each character gets its own window inside the flip, ordered by a shuffle
+     rather than left to right: it corrupts at its rank and resolves at its
+     rank past the midpoint, so the word comes apart and reassembles unevenly
+     the way a signal does. */
+  const NOISE = '#@$%&*/\\|<>+=~-_[]{}()01';
   let rotTl = null;
   let rotSync = null;
+
+  function shuffled(n) {
+    const a = [];
+    for (let i = 0; i < n; i++) a.push(i);
+    for (let i = n - 1; i > 0; i--) {
+      const j = (Math.random() * (i + 1)) | 0;
+      const t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
   function wireRotator() {
     /* both slots: the base layer's and the lens clone's. This runs after
        buildLens for that reason — a rotator wired before the clone exists
@@ -82,23 +112,62 @@
        ever. */
     const slots = $$('.hero .rot');
     if (!slots.length) return;
-    const set = (word) => slots.forEach((s) => { s.textContent = word; });
-    set(ROT_WORDS[0]);
-    if (RM) return;                 /* one word, no rotation; the label reads all four */
+    /* settled characters are the serif the headline is set in; the ones still
+       in flight carry .gl and are set in the mono face */
+    const draw = (chars, settled) => {
+      let html = '';
+      for (let i = 0; i < chars.length; i++) {
+        if (!chars[i]) continue;
+        html += settled[i] ? esc(chars[i]) : `<span class="gl">${esc(chars[i])}</span>`;
+      }
+      slots.forEach((s) => { s.innerHTML = html; });
+    };
+    /* The resolved word is S-wrapped, which it deliberately was not before.
+       The old reason was real and is now gone: the lens clone used to be
+       matched to the base layer glyph by glyph by index, so a word list whose
+       S count changed under that would have broken the alignment check in
+       wireHeroS. B4 deleted that mechanism — every S in the lens is turned in
+       CSS now — and without it, leaving the slot unwrapped meant the s in
+       "websites" was the one letter on the screen the lens did NOT turn.
+       Mid-flip there is nothing to wrap, which is correct: a noise glyph is
+       not a letter yet. */
+    const plain = (word) => slots.forEach((s) => { s.innerHTML = wrapS(word); });
+    plain(ROT_WORDS[0]);
+    if (RM) return;                 /* one word, no flip; the label reads all four */
+
+    const roll = () => NOISE.charAt((Math.random() * NOISE.length) | 0);
 
     rotTl = gsap.timeline({ repeat: -1, paused: true });
-    ROT_WORDS.forEach((_, i) => {
-      const next = ROT_WORDS[(i + 1) % ROT_WORDS.length];
-      rotTl
-        .to(slots, { yPercent: -115, rotation: -2, duration: 0.5, ease: EASE }, `+=2.2`)
-        .add(() => set(next))
-        /* immediateRender:false, or a paused timeline writes its from-state
-           into the DOM the moment it is built: the slots would start life
-           pushed out of their mask, and the inline style attribute that puts
-           them there is one the CSP blocks when the lens clone re-parses it. */
-        .fromTo(slots,
-          { yPercent: 115, rotation: 2 },
-          { yPercent: 0, rotation: 0, duration: 0.6, ease: EASE, immediateRender: false });
+    ROT_WORDS.forEach((from, i) => {
+      const to = ROT_WORDS[(i + 1) % ROT_WORDS.length];
+      const n = Math.max(from.length, to.length);
+      const order = shuffled(n);
+      const st = { q: 0 };
+      let drawn = -1;
+      rotTl.fromTo(st, { q: 0 }, {
+        q: 1, duration: 1.05, ease: 'none', immediateRender: false,
+        /* Fourteen redraws across the flip and not sixty-three. Each redraw
+           is an innerHTML of up to ten spans across two layers, and noise
+           reads as noise at either rate. */
+        onUpdate: () => {
+          const step = (st.q * 14) | 0;
+          if (step === drawn) return;
+          drawn = step;
+          const chars = [];
+          const settled = [];
+          for (let k = 0; k < n; k++) {
+            const rank = order[k] / n;
+            const out = 0.08 + rank * 0.34;        /* when this one corrupts */
+            const back = 0.52 + rank * 0.40;       /* when it resolves       */
+            if (st.q < out) { chars.push(from.charAt(k)); settled.push(true); }
+            else if (st.q < back) { chars.push(roll()); settled.push(false); }
+            else { chars.push(to.charAt(k)); settled.push(true); }
+          }
+          draw(chars, settled);
+        },
+        /* the flip ends on real text, not on a span soup one frame short */
+        onComplete: () => { drawn = -1; plain(to); }
+      }, '+=1.9');
     });
 
     /* One moving thing per screen: it sleeps when the hero is off-screen and
@@ -138,7 +207,7 @@
     $('.hero-h-wrap', clone).insertAdjacentHTML('beforeend',
       '<span class="an an-h1">H1 · Gloock 400 · tracking −0.045em</span>' +
       '<span class="an an-h2">Cap height · 0.94 lead · balanced rag</span>' +
-      '<span class="an an-h3">Hover one S. Only that one turns.</span>');
+      '<span class="an an-h3">Every s the circle covers, turned.</span>');
     $('.hero-ctas', clone).insertAdjacentHTML('beforeend',
       '<span class="an an-cta">Copper · 3% of any page</span>');
     /* the grounds are classes, not style attributes — the CSP blocks those */
@@ -154,28 +223,25 @@
   }
 
   /* --- the hero's S, one letter at a time ---
-     The base layer turns its own glyph through CSS :hover. The lens is an
-     opaque clone sitting on top of it, so an S inside the circle is being
-     looked at in the clone while the one that turns is the original hidden
-     underneath — it would read as doing nothing. The clone was made from the
-     same markup, so the two lists of glyphs are in the same order: hovering
-     base glyph n marks clone glyph n.
+     The base layer turns its own glyph on hover. This used to mark the clone's
+     matching glyph too, by index, because the lens closed over the headline
+     and the turn had to be visible on whichever layer you were looking at.
+     B4 removed the reason: every S in the lens layer is turned in CSS now
+     (`.lens .s{transform:scaleX(-1)}`, the reference's model), so the circle
+     passing over a letter is what shows the turn. Marking the clone as well
+     would be setting a class that changes nothing.
 
-     One delegated listener on the headline rather than one per letter. */
+     What is left is the path for a visitor who is not moving the lens — the
+     keyboard, and anyone who has latched the lens open with the button. One
+     delegated listener on the headline rather than one per letter. */
   function wireHeroS() {
     const base = $('.hero .base .hero-h');
-    const mirror = $('.hero .lens .hero-h');
-    if (!base || !mirror) return;
-    const bs = $$('.s', base);
-    const ms = $$('.s', mirror);
-    if (bs.length !== ms.length) return;   /* never guess at an alignment */
+    if (!base) return;
     const mark = (e, on) => {
       const t = e.target;
       if (!t || !t.classList || !t.classList.contains('s')) return;
       /* the glyph you are pointing at, and nothing else on the line */
       t.classList.toggle('is-turn', on);
-      const i = bs.indexOf(t);
-      if (i > -1) ms[i].classList.toggle('is-turn', on);
     };
     base.addEventListener('pointerover', (e) => mark(e, true));
     base.addEventListener('pointerout', (e) => mark(e, false));
@@ -184,6 +250,33 @@
   const LR = { x: 0, y: 0, tx: 0, ty: 0, r: 0, tr: 0, locked: false };
   let lensUsed = false;
   let hintTimer = null;
+  /* B4 · the lens is always live now, and pointer-driven: it follows with
+     lag, grows a tenth on press, and after this long with no input it drifts
+     on its own. The toggle it replaces is still here as a button, but it is
+     no longer what opens the thing. */
+  const LENS_IDLE = 2400;
+  let lensAuto = true;
+  let lensTicking = false;
+  let lastInput = 0;
+  let pressing = false;
+  let heroWasOff = false;
+  /* the reference's radius, to the figure: clamp(96px, heroWidth x .17, 190px) */
+  const lensR = () => clamp(hero ? hero.clientWidth * 0.17 : 0, 96, 190);
+
+  /* core's copper ring stands down inside the hero, because in here the lens
+     IS the cursor. The class is `off` and deliberately not core's own `hide`:
+     core.js's pointermove handler clears `hide` on an unconditional branch,
+     so a ring hidden with it comes back the instant the visitor moves, which
+     is exactly when the lens is live. `off` is one core never writes.
+     It lands in core.css with A1; until then this toggles a class with no
+     rule behind it, which costs nothing and breaks nothing. */
+  const curEl = $('.cur');
+  let curOffNow = false;
+  function cursorOff(off) {
+    if (!curEl || curOffNow === !!off) return;
+    curOffNow = !!off;
+    curEl.classList.toggle('off', curOffNow);
+  }
 
   function retireHint() {
     if (!hintEl) return;
@@ -208,9 +301,9 @@
     lensScale.style.transformOrigin = `${LR.x.toFixed(1)}px ${LR.y.toFixed(1)}px`;
   }
 
-  /* The bubble recedes while the lens is open and floats back when it closes.
-     `away` is a class, not a tween, so this still works with no GSAP. */
-  let idleTimer = null;
+  /* The bubble recedes while the pointer is driving the lens and comes back
+     when the lens is drifting on its own. `away` is a class, not a tween, so
+     this still works with no GSAP. */
   function bubble(away) {
     if (!lensToggle) return;
     lensToggle.classList.toggle('away', !!away);
@@ -219,89 +312,169 @@
   function wireLens() {
     if (!hero || !lens || !lensScale) return;
     if (!RM && lensNotes.length) gsap.set(lensNotes, { opacity: 0 });
+
     if (!RM && !TOUCH) {
+      lensTicking = true;
       hintTimer = setTimeout(retireHint, 9000);
-      hero.addEventListener('pointermove', (e) => {
+      /* the reference's own resting position, so the circle is somewhere
+         deliberate on the first frame rather than at the top left corner */
+      LR.x = LR.tx = hero.clientWidth * 0.62;
+      LR.y = LR.ty = hero.clientHeight * 0.5;
+      LR.tr = lensR() * 0.9;
+
+      const target = (e) => {
         const b = hero.getBoundingClientRect();
         LR.tx = e.clientX - b.left;
         LR.ty = e.clientY - b.top;
-        /* The loupe is 350px of opaque navy and the headline is the one thing
-           on this screen you are meant to touch: pointing at an S has to turn
-           that S on the page, not under a disc. So over the headline the
-           loupe closes and the letters answer for themselves. Everywhere else
-           in the hero it behaves exactly as it did. Latched open by the
-           button, it ignores all of this - that is a mode you chose. */
-        const overHead = !!(e.target && e.target.closest && e.target.closest('.hero-h-wrap'));
-        if (!LR.locked) LR.tr = overHead ? 0 : (window.innerWidth < 700 ? 120 : 175);
-        if (LR.r < 1) { LR.x = LR.tx; LR.y = LR.ty; }
-        if (!LR.locked) {
-          bubble(!overHead);
-          /* going still is as good as leaving: the lens is a thing you move,
-             so a parked pointer should get the resting state back */
-          clearTimeout(idleTimer);
-          idleTimer = setTimeout(() => {
-            if (LR.locked) return;
-            LR.tr = 0;
-            bubble(false);
-          }, 1200);
+      };
+      /* The lens no longer closes over the headline. It used to, because an S
+         under an opaque disc could not be seen to turn — but every S in the
+         lens layer is turned in CSS now, so the circle crossing a line IS
+         the turn. Closing it over the headline would hide the one place it
+         has something to say.
+
+         It DOES still close over the hero's controls, and this is the one
+         place B4 departs from the reference. The reference's hero holds no
+         buttons — a hint line and a label, nothing to press — so it never had
+         to answer this. Ours holds two CTAs and the lens button. The lens is
+         opaque and the clone inside it is inert spans, so a hovered button
+         shows its hover state on the layer underneath, where the circle is
+         covering it: you would be pressing a control that had stopped
+         answering. Over a control the lens yields and the native cursor comes
+         back, which is the whole of the carve-out — everywhere else in the
+         hero the lens is the cursor, as the item asks. */
+      hero.addEventListener('pointermove', (e) => {
+        if (e.pointerType === 'touch' && !pressing) return;
+        target(e);
+        const onCtl = !!(e.target && e.target.closest && e.target.closest('.btn,.lens-toggle'));
+        if (onCtl && !LR.locked) {
+          LR.tr = 0;
+          lensAuto = false;
+          lastInput = performance.now();
+          cursorOff(false);
+          bubble(false);
+          return;
         }
+        if (!LR.locked) LR.tr = pressing ? lensR() * 1.1 : lensR();
+        lensAuto = false;
+        lastInput = performance.now();
+        cursorOff(true);
+        bubble(true);
+      });
+      /* pressing grows it a tenth — the reference's one gesture */
+      hero.addEventListener('pointerdown', (e) => {
+        if (e.target && e.target.closest && e.target.closest('.lens-toggle')) return;
+        pressing = true;
+        target(e);
+        if (!LR.locked) LR.tr = lensR() * 1.1;
+        lensAuto = false;
+        lastInput = performance.now();
+      });
+      /* on the window and not on the hero: a press that ends outside it has
+         still ended, and a lens left at 1.1 for ever is a bug you only find
+         by dragging off the screen */
+      window.addEventListener('pointerup', () => {
+        pressing = false;
+        if (!LR.locked && !lensAuto) LR.tr = lensR();
       });
       hero.addEventListener('pointerleave', () => {
-        if (LR.locked) return;
-        clearTimeout(idleTimer);
-        LR.tr = 0;
+        pressing = false;
+        /* leaving is going still, only sooner: hand it to the drift now
+           rather than waiting out the idle */
+        lastInput = performance.now() - LENS_IDLE;
+        cursorOff(false);
         bubble(false);
       });
+
       gsap.ticker.add(() => {
         /* the lens stops clipping once the hero is off-screen: the single
            most expensive thing on the page when idle */
         if (!NU.MOTION.hero) {
-          LR.tr = 0;
-          if (LR.r !== 0) { LR.r = 0; applyLens(); }
+          heroWasOff = true;
+          if (LR.r !== 0 || LR.tr !== 0) { LR.r = 0; LR.tr = 0; applyLens(); }
           return;
+        }
+        const now = performance.now();
+        /* Coming back from off-screen, the target was zeroed on the way out
+           and has to be restored — to the right one for the state we are in,
+           or a latched lens stays shut for good once the hero has scrolled
+           away and come back.
+
+           Restored ONCE, on the frame of the return, and not whenever the
+           target happens to be zero. A radius target of zero is also how the
+           lens yields over a control, and a blanket `if (LR.tr === 0)` here
+           reopened it on the very next frame — so the carve-out above would
+           have done nothing at all. */
+        if (heroWasOff) {
+          heroWasOff = false;
+          LR.tr = LR.locked
+            ? Math.hypot(hero.clientWidth, hero.clientHeight)
+            : lensR() * 0.9;
+        }
+        if (!LR.locked) {
+          if (lensAuto || now - lastInput > LENS_IDLE) {
+            lensAuto = true;
+            /* B4 · the drift. Two sines of different period over the hero's
+               own box, so the path does not read as a circle and does not
+               depend on the window being the same shape as the section. The
+               figures are the reference's. */
+            const t = now / 1000;
+            const w = hero.clientWidth;
+            const h = hero.clientHeight;
+            LR.tx = w * (0.56 + 0.30 * Math.sin(t * 0.42));
+            LR.ty = h * (0.50 + 0.22 * Math.sin(t * 0.71 + 1));
+            LR.tr = lensR() * 0.9;
+          }
         }
         if (LR.r > 40) lensFirstUse();
-        if (LR.r < 0.5 && LR.tr === 0) {
-          if (LR.r !== 0) { LR.r = 0; applyLens(); }
-          return;
-        }
-        LR.x += (LR.tx - LR.x) * 0.16;
-        LR.y += (LR.ty - LR.y) * 0.16;
-        LR.r += (LR.tr - LR.r) * 0.12;
+        LR.x += (LR.tx - LR.x) * 0.12;
+        LR.y += (LR.ty - LR.y) * 0.12;
+        LR.r += (LR.tr - LR.r) * 0.08;
         applyLens();
       });
     }
-    /* The bubble is also the button. Clicking it latches the lens open, which
-       is the only path on touch and under reduced motion, and the keyboard
-       path everywhere. Latched, it stops receding and stops floating back —
-       an object that keeps moving after you have pressed it feels broken. */
+
+    /* The bubble is also the button, and D2 kept it. On a fine pointer the
+       lens needs no control at all — it is live and it drifts — so what the
+       button is FOR is touch, where there is no hover, and the keyboard,
+       where there is no pointer. Latched, it opens over the whole hero, which
+       is the one state in which the annotations and the swatches can be read
+       at leisure; clicking again hands the lens back to the pointer, or to
+       the drift. The label is the review's own words. */
     let lensOn = false;
     if (lensToggle) {
       lensToggle.addEventListener('click', () => {
         lensOn = !lensOn;
         LR.locked = lensOn;
-        clearTimeout(idleTimer);
         bubble(false);
         if (lensOn) lensFirstUse();
         lensToggle.setAttribute('aria-pressed', String(lensOn));
         lensToggle.classList.toggle('on', lensOn);
-        $('span', lensToggle).textContent = lensOn ? 'Look again' : 'Look closer';
+        $('span', lensToggle).textContent = lensOn ? 'Close' : 'Click here';
         const b = hero.getBoundingClientRect();
         if (RM) {
           lens.style.clipPath = 'none';
           gsap.to(lens, { autoAlpha: lensOn ? 1 : 0, duration: 0.35, ease: 'none' });
           return;
         }
-        /* the lens opens from the bubble itself, wherever the bubble is */
-        const t = lensToggle.getBoundingClientRect();
-        LR.x = LR.tx = t.left - b.left + t.width / 2;
-        LR.y = LR.ty = t.top - b.top + t.height / 2;
-        /* Both drivers are given the same target rather than one of them
-           being switched off. On a pointer device the ticker is running and
-           would otherwise drag the radius back while the tween pushed it out;
-           on touch there is no ticker and the tween is the only thing moving
-           it. Agreeing on the target makes the two harmless to each other. */
-        LR.tr = lensOn ? Math.hypot(b.width, b.height) : 0;
+        if (lensOn) {
+          /* it opens from the bubble itself, wherever the bubble is */
+          const t = lensToggle.getBoundingClientRect();
+          LR.x = LR.tx = t.left - b.left + t.width / 2;
+          LR.y = LR.ty = t.top - b.top + t.height / 2;
+          LR.tr = Math.hypot(b.width, b.height);
+        } else {
+          /* there is no closed state on a fine pointer any more, so
+             unlatching returns it to the drift rather than to nothing */
+          lensAuto = true;
+          lastInput = performance.now() - LENS_IDLE;
+          LR.tr = lensTicking ? lensR() * 0.9 : 0;
+        }
+        /* With the ticker running, the lerp is the only driver and a tween
+           would fight it for the radius. Without it — on touch, where the
+           whole branch above is never wired — the tween is the only thing
+           that can move it. */
+        if (lensTicking) return;
         const st = { r: LR.r };
         gsap.to(st, {
           r: LR.tr,
@@ -461,6 +634,28 @@
     });
   }
 
+  /* B5 · how far the envelope settles so the whole letter can be read.
+
+     Measured, not chosen. The letter's height depends on its content and on
+     how it wraps; the front flap's top edge is a V, so its height over the
+     letter's left and right edges is not its height at the centre; and both
+     change with the window. Every number here comes from offset geometry,
+     which ignores transforms — so it is safe to read while the timeline that
+     transforms these same elements is being built, and safe to re-read on a
+     ScrollTrigger refresh. */
+  function envSettle() {
+    const stage = $('.mf-stage');
+    const front = $('.env-front');
+    if (!stage || !front || !letter) return 0;
+    const lh = letter.offsetHeight;
+    const letterBottom = (stage.clientHeight - lh) / 2 + lh;   /* grid-centred */
+    const fw = front.offsetWidth || 1;
+    const inset = Math.max(0, (fw - letter.offsetWidth) / 2) / fw;
+    const notch = front.offsetHeight * 0.52 * Math.min(inset / 0.5, 1);
+    /* downwards only: the envelope settles, it never rises to meet the letter */
+    return Math.max(0, letterBottom + 14 - (front.offsetTop + notch));
+  }
+
   /* ========================================================== 2 · MARQUEE */
   const mqTrack = $('.mq-track');
   function buildMarquee() {
@@ -576,7 +771,13 @@
      interaction moved to work/zingara.html, where it is that page's one
      signature element and has room to be the argument rather than a widget.
      What stays here is the part that makes the point without a control: the
-     before fidgets, the after never moves, and the redlines write on. */
+     before fidgets, the after never moves, and the redlines write on.
+
+     B6 changed what the two halves SHOW — a brand sheet with no brand design
+     and the same business structured, both invented — and nothing about how
+     the wipe, the rule or the three annotations work. The Zingara menu it
+     used to show belongs to Zingara's case page, which is where it now
+     appears and nowhere else. */
   const isStatic = !!(stage && stage.classList.contains('rl-static'));
 
   function wireRedline() {
@@ -589,16 +790,25 @@
     /* a split that shows enough of both to be legible at a glance */
     setPos(isStatic ? 52 : 10);
 
-    /* The 'before' cannot sit still — four typefaces, Rs.249/- and a TODAY
-       SPECIAL burst. The 'after' never moves. That is the whole argument,
-       made without a word of copy. */
+    /* The 'before' cannot sit still — four typefaces, five colours and a
+       GRAND OPENING burst. The 'after' never moves. That is the whole
+       argument, made without a word of copy.
+
+       B6 moved what fidgets along with the subject. The two logos are the
+       new ones: type stretched to fit its space is never stretched to the
+       same amount twice, which is the symptom the annotation at A is
+       pointing at, and animating the scaleX is the shortest way to say so. */
     if (!RM) {
       const burst = $('.mm-before .burst');
-      const prices = $$('.mm-before .bi em');
+      const logo = $('.mm-before .bt');
+      const card = $('.mm-before .bcard');
+      const chips = $$('.mm-before .bchips i');
       beforeFidget = gsap.timeline({ repeat: -1, yoyo: true, paused: true, defaults: { ease: 'sine.inOut' } });
       if (burst) beforeFidget.to(burst, { rotation: '+=2.6', duration: 2.2 }, 0);
-      prices.forEach((p, i) => {
-        beforeFidget.to(p, { x: (i % 2 ? 1 : -1) * (1.4 + i * 0.3), duration: 1.7 + i * 0.2 }, 0);
+      if (logo) beforeFidget.to(logo, { scaleX: 1.5, duration: 2.6 }, 0);
+      if (card) beforeFidget.to(card, { scaleX: 1.22, duration: 3.1 }, 0);
+      chips.forEach((c, i) => {
+        beforeFidget.to(c, { x: (i % 2 ? 1 : -1) * (1.2 + i * 0.4), duration: 1.7 + i * 0.2 }, 0);
       });
       if (!beforeFidget.getChildren().length) beforeFidget = null;
     }
@@ -751,10 +961,15 @@
       else gsap.set(words, { opacity: 0.12 });
       const envs = [$('.env-back'), $('.env-front')];
       const mtl = gsap.timeline({ defaults: { ease: EASE } });
-      /* the envelope clears as the letter seats, not after it, so the letter
-         is never left sitting half-covered */
+      /* B5 · the envelope does not vanish any more.
+
+         It used to travel 78% of the window downwards as the letter rose,
+         which cleared the letter by removing the envelope from the screen.
+         Now it settles by exactly the distance that clears the letter's own
+         box — envSettle() measures it — and holds there for the whole read.
+         Same timing, same curve, a destination instead of an exit. */
       mtl.fromTo(letter, { y: () => window.innerHeight * 0.46, rotation: -2 }, { y: 0, rotation: 0, duration: 0.85 }, 0)
-        .fromTo(envs, { y: 0 }, { y: () => window.innerHeight * 0.78, duration: 0.75 }, 0.25);
+        .fromTo(envs, { y: 0 }, { y: envSettle, duration: 0.75 }, 0.25);
       /* The reading starts before the letter has finished landing, so the two
          overlap and nothing ever stops moving — hence .6 over 1.15s rather
          than .75 over 1.6s. */
@@ -774,10 +989,72 @@
         trigger: '#manifesto', start: 'top top', end: '+=115%', pin: '.mf-stage',
         scrub: 0.45, animation: mtl, invalidateOnRefresh: true, onToggle: NU.pinClaim
       });
+
+      /* B5, the second half · scrolling on, it travels into the next
+         section's blue field and disappears there.
+
+         The next section is .work, on --night. Getting there means leaving
+         .mf-stage, which clips its children AND carries a transform once
+         ScrollTrigger has unpinned it — and a transformed ancestor is the
+         containing block for a fixed descendant, so position:fixed alone
+         would not escape it. So the two halves are reparented into a fixed
+         container on the body for the flight, and put back on the way up.
+
+         The seam is free: 'bottom bottom' on #manifesto is the same scroll
+         position as the pin's own release, because the pin spacer makes the
+         section 115% taller than the viewport and the stage is exactly one
+         viewport tall. At that instant .mf-stage's top IS the viewport top,
+         so a fixed box at inset:0 is the same box the stage was, and the swap
+         has nothing to show.
+
+         The wrapper is what moves, not the halves — they are still holding
+         the y that mtl gave them, and two timelines fighting over one
+         transform is how a seam like this usually breaks. */
+      const envFly = document.createElement('div');
+      envFly.className = 'env-fly';
+      envFly.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(envFly);
+      const stageEl = $('.mf-stage');
+      const back = envs[0];
+      const front = envs[1];
+      if (stageEl && back && front) {
+        /* captured before anything moves: where each half goes home to */
+        const afterBack = back.nextSibling;
+        const afterFront = front.nextSibling;
+        let flying = false;
+        const toFly = (on) => {
+          if (!!on === flying) return;
+          flying = !!on;
+          if (flying) { envFly.appendChild(back); envFly.appendChild(front); }
+          else {
+            stageEl.insertBefore(back, afterBack);
+            stageEl.insertBefore(front, afterFront);
+          }
+        };
+        const ftl = gsap.timeline({ paused: true })
+          .fromTo(envFly, { y: 0, opacity: 1 },
+            { y: () => window.innerHeight * 0.78, duration: 1, ease: 'none' }, 0)
+          /* it reaches the blue before it goes, rather than fading on the way */
+          .to(envFly, { opacity: 0, duration: 0.45, ease: 'none' }, 0.55);
+        ScrollTrigger.create({
+          trigger: '#manifesto', start: 'bottom bottom', end: 'bottom top',
+          scrub: 0.45, animation: ftl, invalidateOnRefresh: true,
+          onToggle: (sT) => toFly(sT.isActive)
+        });
+      }
     } else if (RM && words.length) {
       /* reduced motion still has to reach the final state */
       gsap.set(words, { opacity: 1, filter: 'none' });
       $$('.kw', letter).forEach((k) => gsap.set(k, { backgroundSize: '100% 1.5px' }));
+      /* B5 under reduced motion, and this was wrong before the item was
+         raised: with no timeline to move anything, the envelope sat at y:0
+         with the front flap across the letter's lower third, and the letter
+         was unreadable to exactly the visitor who had asked for no motion.
+         The settle is a position, not an animation, so it applies here too.
+         There is no flight on this path — the envelope is present for the
+         read and leaves with the section, which is what it should do when
+         the request is that nothing travel. */
+      gsap.set([$('.env-back'), $('.env-front')], { y: envSettle() });
     }
 
     /* --- the S hand-off --- */

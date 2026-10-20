@@ -121,6 +121,7 @@
   <a href="services.html">Services</a>
   <a href="process.html">Process</a>
   <a href="team.html">Team</a>
+  <a href="contact.html">Contact</a>
   <a href="#audit" data-goto="#audit">Audit</a>
   <p class="mono">Bangalore · hello@nuanse.studio</p>
 </div>
@@ -142,11 +143,11 @@
                reads a sentence rather than a word that keeps changing. -->
           <h1 class="hero-h h-split" data-split="skip"
               aria-label="We design identities, campaigns, websites and brands, for businesses that refuse to be ordinary.">
-            <span class="hl">We design</span>
+            <span class="hl hl-lead">We design</span>
             <span class="hl hl-rot"><span class="rot" aria-hidden="true">identities</span></span>
-            <span class="hl">for businesses</span>
-            <span class="hl">that refuse to</span>
-            <span class="hl">be ordinary.</span>
+            <span class="hl hl-mid">for businesses</span>
+            <span class="hl hl-tail">that refuse to</span>
+            <span class="hl hl-tail">be ordinary.</span>
           </h1>
         </div>
         <div class="hero-foot">
@@ -164,7 +165,11 @@
          purpose: that element is scaled 1.03 and carries the clone, and a
          ground that scaled with it would crop. -->
     <div class="hero-layer lens" aria-hidden="true"><canvas class="lens-foil" aria-hidden="true"></canvas><div class="lens-scale"></div></div>
-    <button class="lens-toggle mono" aria-pressed="false"><i aria-hidden="true"></i><span>Look closer</span></button>
+    <!-- D2, decided: the button survives. The lens is always live and
+         pointer-driven on a fine pointer, which is the reference's model and
+         needs no control at all; this is the arm for touch and for the
+         keyboard, and the review asked for the words "Click here". -->
+    <button class="lens-toggle mono" aria-pressed="false"><i aria-hidden="true"></i><span>Click here</span></button>
   </section>
 
   <!-- 2 · DISCIPLINES MARQUEE -->
@@ -277,47 +282,61 @@
     </div>
   </section>
 
-  <!-- 4b · CASE STUDY REDLINE -->
-  <section class="redline-sec sec" id="redline" data-nav="light" aria-label="Case study: Zingara">
+  <!-- 4b · BEFORE AND AFTER · what brand design is, in one frame
+       B6 of brief/10-revision-round-3.md. The subject used to be Zingara's
+       menu. It moved back to work/zingara.html, where it is that client's own
+       story and not the recurring example on six screens. What replaces it is
+       the general case: a business with no brand design at all, and the same
+       business structured.
+
+       D3, decided: both halves are invented, and visibly so. "Sample & Co."
+       cannot be read as a client, the mock is HTML and CSS with no asset
+       pipeline behind it, and the .qual-note under the copy says plainly what
+       it is. Nothing in this section names or depicts a real client. -->
+  <section class="redline-sec sec" id="redline" data-nav="light" aria-label="Before and after: brand design">
     <div class="rl-grid">
       <div class="rl-copy">
-        <h2 class="h2 h-split">The menu was costing them.</h2>
-        <p class="lede ink">189 items, four typefaces and prices that wandered. Diners spent their attention finding dishes instead of wanting them. We kept every dish and changed how the page reads.</p>
+        <h2 class="h2 h-split">Most businesses never chose how they look.</h2>
+        <p class="lede ink">Default type. Four weights because four were available. A logo stretched to fit whatever space it was given, and a colour picked fresh in every file. Nobody decided any of it, and a customer reads all of it in about a second. The other half of this frame is the same business, structured.</p>
         <p class="rl-more">
-          <a class="btn solid magnet" href="work/zingara.html" data-cursor="Read the case"><span class="btn-ar l" aria-hidden="true">→</span><span class="btn-label">Read the Zingara case</span><span class="btn-ar r" aria-hidden="true">→</span></a>
+          <a class="btn solid magnet" href="work/zingara.html" data-cursor="Read the case"><span class="btn-ar l" aria-hidden="true">→</span><span class="btn-label">Read a real case</span><span class="btn-ar r" aria-hidden="true">→</span></a>
         </p>
+        <p class="qual-note rl-qual">Both halves are invented. &ldquo;Sample &amp; Co.&rdquo; is a specimen built in HTML and CSS &mdash; not a client, and not a client&rsquo;s work.</p>
       </div>
       <div class="rl-stage rl-static">
         <div class="rl-tags mono"><span>After</span><span>Before</span></div>
+        <!-- no brand design at all: the logo is type stretched to fit, the
+             voice is whatever face was installed, and five unrelated colours
+             turn up across one sheet -->
         <div class="menu-mock mm-before" aria-hidden="true">
-          <div class="bt">ZINGARA</div>
-          <div class="bs">Multi Cuisine Restaurant &amp; Bar</div>
-          <div class="bh">*** STARTERS ***</div>
-          <div class="bi">Charred Corn Lime Butter <em>Rs.249/-</em></div>
-          <div class="bi">Burrata Smoked Tomato <em>Rs.420/-</em></div>
-          <div class="bi">Pepper Prawns Curry Leaf <em>Rs.460/-</em></div>
-          <div class="bi">Mushroom On Toast <em>Rs.310/-</em></div>
-          <div class="bh">*** MAINS ***</div>
-          <div class="bi">Ghee Roast Chicken <em>Rs.540/-</em></div>
-          <div class="bi">Lamb Shoulder Mint <em>Rs.720/-</em></div>
-          <div class="burst">TODAY<br>SPECIAL</div>
+          <div class="bt">SAMPLE &amp; CO.</div>
+          <div class="bs">Quality Service Since 2019</div>
+          <div class="bchips"><i class="bc1"></i><i class="bc2"></i><i class="bc3"></i><i class="bc4"></i><i class="bc5"></i></div>
+          <div class="bh">WHO WE ARE</div>
+          <div class="bp">We are a <b>FAMILY RUN</b> business providing <i>the very best</i> service in town.</div>
+          <div class="bp bp2">CALL NOW : 080 4000 0000</div>
+          <div class="bcard">SAMPLE &amp; CO.<span>Sales Team</span></div>
+          <div class="burst">GRAND<br>OPENING</div>
         </div>
+        <!-- the same business, structured: one typeface for the voice and the
+             mono for labels, a drawn mark instead of stretched type, four
+             colours that agree, and a grid the eye can follow down -->
         <div class="menu-mock mm-after" aria-hidden="true">
-          <div class="at">Zingara</div>
-          <div class="mono-s as">Kitchen &amp; bar · Bangalore</div>
-          <div class="mono-s ah"><span>Small plates</span><span>₹</span></div>
-          <div class="ai"><b>Charred corn</b><span>249</span><small>Lime butter, chilli salt</small></div>
-          <div class="ai"><b>Burrata</b><span>420</span><small>Smoked tomato, basil oil</small></div>
-          <div class="ai"><b>Pepper prawns</b><span>460</span><small>Curry leaf, coconut</small></div>
-          <div class="mono-s ah"><span>From the fire</span><span>₹</span></div>
-          <div class="ai"><b>Ghee roast chicken</b><span>540</span><small>Mangalore spice, appam</small></div>
-          <div class="ai"><b>Lamb shoulder</b><span>720</span><small>Mint, slow fire</small></div>
+          <div class="amark"><span>S</span><span>C</span></div>
+          <div class="at">Sample &amp; Co.</div>
+          <div class="mono-s as">Est. 2019 · Bangalore</div>
+          <div class="apal"><i class="ap1"></i><i class="ap2"></i><i class="ap3"></i><i class="ap4"></i></div>
+          <div class="mono-s ah"><span>Who we are</span><span>01</span></div>
+          <div class="ap-b"><b>A family-run supplier.</b><span>One standard, held since 2019.</span></div>
+          <div class="mono-s ah"><span>Reach us</span><span>02</span></div>
+          <div class="ap-b"><b>080 4000 0000</b><span>Monday to Saturday, nine to six.</span></div>
+          <div class="acard"><span class="am"></span><b>Sample &amp; Co.</b><small>Sales</small></div>
         </div>
         <div class="rl-handle" aria-hidden="true"></div>
         <div class="rl-annos">
-          <div class="ra l ra-a" data-x="24" data-txt="A · One typeface, kerned by hand"><svg viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path/></svg><span class="badge">A</span><span class="t"></span></div>
-          <div class="ra l ra-b" data-x="52" data-txt="B · One accent colour"><svg viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path/></svg><span class="badge">B</span><span class="t"></span></div>
-          <div class="ra r ra-c" data-x="80" data-txt="C · Prices in one column"><svg viewBox="0 0 40 120" preserveAspectRatio="none" aria-hidden="true"><path/></svg><span class="badge">C</span><span class="t"></span></div>
+          <div class="ra l ra-a" data-x="24" data-txt="A · One typeface, not four"><svg viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path/></svg><span class="badge">A</span><span class="t"></span></div>
+          <div class="ra l ra-b" data-x="52" data-txt="B · Four colours, chosen once"><svg viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path/></svg><span class="badge">B</span><span class="t"></span></div>
+          <div class="ra r ra-c" data-x="80" data-txt="C · A mark, not stretched type"><svg viewBox="0 0 40 120" preserveAspectRatio="none" aria-hidden="true"><path/></svg><span class="badge">C</span><span class="t"></span></div>
         </div>
       </div>
     </div>
