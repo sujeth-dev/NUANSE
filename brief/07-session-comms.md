@@ -200,6 +200,42 @@ directories are `site/assets/css/` and `site/assets/js/`, not `css/` and
     the carousel and will not run tools/build-client-marks.py or touch tools/.
 ```
 
+### 2.3 Live board · round 3 (voice review, 2026-10-20)
+
+A new round, so a new section rather than a cleared one. Same tags, same
+rules, with two amendments for this round only:
+
+- **Four lanes, two sessions live at a time.** A and B are wave 1; C and D are
+  wave 2 and do not start until A and B have both posted `done`. The plan is
+  `brief/10-revision-round-3.md`, the split is its §2, and the kickoff prompts
+  are `brief/11-session-prompts.md`.
+- **A new tag, `harness`.** This machine will not run two Chromium matrices at
+  once. Claim the harness before a verification pass and release it after:
+
+```
+[B | 2026-10-20 15:40 | harness] Taking the harness for the hero passes. ~20 min.
+[B | 2026-10-20 16:02 | harness] Released. Four passes on / clean.
+```
+
+§3's ownership table below describes rounds 1 and 2. **For this round the
+table in `brief/10-revision-round-3.md` §2 supersedes it.** The chassis rule
+is unchanged: `core.css` and `core.js` are session A's alone.
+
+```
+[hub | 2026-10-20 | start]  Round 3 set up. The voice review is parsed into nineteen items
+    in brief/10-revision-round-3.md §1, split four ways in §2, with three open decisions in
+    §3 (D1 header behaviour → A; D2 lens button and D3 before/after brand → B). Each session
+    builds the recommendation and posts that it did rather than idling.
+    Tree state at setup: main level with origin/main, two commits made first to land work
+    that was sitting uncommitted — 660b275 (the cursor rest styles, whose JS half had
+    already shipped in 5f4ecbc and had nothing to style it) and e20e753 (the home page's
+    twelve-client strip, the counterpart to b01c34f's data). Neither is pushed yet.
+    Known traps, both written up in the plan §2: the two case pages are GENERATED from
+    _*.src.html by tools/expand-figures.py, and the footer is duplicated in nine files
+    rather than injected, which is why A3 is one session's alone.
+    Load rule: two sessions at a time, one harness at a time.
+```
+
 ---
 
 ## 3 · Who owns what, this cycle
