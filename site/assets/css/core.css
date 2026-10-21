@@ -428,7 +428,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    over content it cannot be read against. */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px var(--gut);
   color:var(--navy);
-  transition:color var(--t-mid) var(--ease),transform var(--t-mid) var(--ease)}
+  transition:color var(--t-mid) var(--ease),transform .32s var(--ease)}
 /* -115%, not -100%: the pill's box-shadow reaches below its own border box,
    and at -100% a 30px copper-tinted smudge stayed on the top edge. */
 .nav.away{transform:translateY(-115%)}

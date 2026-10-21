@@ -1094,7 +1094,7 @@
        settle and below a deliberate flick of a trackpad. */
     if (navAnchor && nav) {
       const frame = () => navAnchor.offsetHeight || window.innerHeight;
-      const DIR_MIN = 7;
+      const DIR_MIN = 5;
       let lastY = window.scrollY || window.pageYOffset;
       ScrollTrigger.create({
         start: 0, end: 'max',
