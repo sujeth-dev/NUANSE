@@ -1,8 +1,8 @@
 /* ============================================================================
    NUANSE — team.js · ten people, one standard
 
-   The ten drawn portraits, the brief builder that lifts the ones your brief
-   needs into the lane, and the parallax scatter.
+   The ten drawn portraits in one 5x2 grid, and the brief builder that
+   lights up the ones your brief needs.
 
    TEN NAMED PEOPLE, NOT EIGHT INVENTED ROLES. This file used to carry eight
    unnamed roles — "Design lead", "Producer" — with a portrait picked from
@@ -36,7 +36,7 @@
   const NU = window.NU;
   if (!NU) return;
 
-  const { $, $$, RM, EASE, esc } = NU;
+  const { $, $$, RM, esc } = NU;
 
   /* ============================================================ 10 · TEAM
      name  — as published
@@ -320,21 +320,17 @@
   }
 
   const scatter = $('.scatter');
-  const laneRow = $('.lane-row');
-  /* one per person, so the parallax does not move two of them in step */
-  const SPEEDS = [0.2, 0.9, 0.5, 1.1, 0.7, 0.3, 1, 0.6, 0.85, 0.45];
   function buildTeam() {
-    if (!scatter || !laneRow) return;
+    if (!scatter) return;
     TEAM.forEach((p, i) => {
       const f = document.createElement('figure');
       f.className = 'tm';
       f.dataset.i = String(i);
       f.dataset.skills = p.skills;
-      f.dataset.speed = String(SPEEDS[i] || 0.5);
       f.innerHTML = '<div class="tm-in"><div class="tm-ph">' + portrait(p, i) + '</div>' +
         `<figcaption><span class="t-name" data-full="${esc(p.name)}">${esc(p.name)}</span>` +
         `<span class="t-role">${esc(p.role)}</span></figcaption></div>`;
-      (i === 0 ? laneRow : scatter).appendChild(f);
+      scatter.appendChild(f);
     });
   }
 
@@ -353,23 +349,17 @@
     });
   }
 
-  /* ================================================= 10 · the brief builder */
+  /* ================================================= 10 · the brief builder
+     Lights up who a brief needs, in place: the founder answers every brief,
+     everyone else dims unless the skill is theirs. No skill, nobody dims. */
   function wireBuilder() {
     const chips = $$('.chip');
-    const laneN = $('.lane-n');
-    if (!chips.length || !scatter || !laneRow) return;
+    if (!chips.length || !scatter) return;
     function setBrief(skill) {
-      const state = Flip.getState('.tm');
-      $$('.tm').sort((a, b) => a.dataset.i - b.dataset.i).forEach((m) => {
-        const on = m.dataset.i === '0' || skill === 'all' ||
-          (skill && m.dataset.skills.split(' ').indexOf(skill) > -1);
-        (on ? laneRow : scatter).appendChild(m);
-      });
-      if (laneN) laneN.textContent = String(laneRow.children.length);
-      $$('.lane .tm-in').forEach((x) => gsap.set(x, { y: 0 }));
-      Flip.from(state, {
-        duration: RM ? 0 : 1, ease: EASE, absolute: true, stagger: 0.03,
-        onComplete: () => ScrollTrigger.refresh()
+      $$('.tm').forEach((m) => {
+        const on = !skill || m.dataset.i === '0' ||
+          m.dataset.skills.split(' ').indexOf(skill) > -1;
+        m.classList.toggle('off', !on);
       });
     }
     chips.forEach((c) => {
@@ -392,21 +382,8 @@
   /* ========================================================== build phase */
   NU.onBuild(() => {
     wireBuilder();
-    /* --- 10 · TEAM: parallax scatter, labels write on --- */
-    if (!RM) {
-      $$('.tm').forEach((t) => {
-        const inner = $('.tm-in', t);
-        const sp = +t.dataset.speed;
-        ScrollTrigger.create({
-          trigger: t, start: 'top bottom', end: 'bottom top',
-          onUpdate: (self) => {
-            gsap.set(inner, { y: t.closest('.lane') ? 0 : (0.5 - self.progress) * 2 * sp * 26 });
-          }
-        });
-      });
-      $$('.t-name').forEach((n) => { n.textContent = ''; });
-    }
+    /* --- 10 · TEAM: one even grid, labels write on --- */
+    if (!RM) $$('.t-name').forEach((n) => { n.textContent = ''; });
     ScrollTrigger.create({ trigger: '.scatter', start: 'top 80%', once: true, onEnter: typeNames });
-    ScrollTrigger.create({ trigger: '.lane', start: 'top 85%', once: true, onEnter: typeNames });
   });
 })();

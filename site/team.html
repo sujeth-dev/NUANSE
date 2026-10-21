@@ -124,33 +124,22 @@
         <p class="team-story ink">Most brands are one detail away from looking expensive. Finding that detail is the whole job — which is why this page is people who notice things, and not people who have done it before.</p>
       </div>
     </div>
-    <!-- D-d: the first thing a visitor meets is the team itself, composed
-         as one edge-to-edge frame, not the filter UI. The filter — which
-         the review called genuinely good — follows it. team.js always pins
-         the founder into .lane-row rather than .scatter (he answers every
-         brief), so the lane sits inside the SAME frame as the scatter, not
-         a separate box below it — otherwise "everyone visible together" was
-         true for nine people and not the tenth. -->
+    <!-- Round 3: all ten in one 5x2 frame, the founder first among them
+         rather than in a lane apart. The brief filter sits at the head
+         of the frame and lights up who it needs in place; nobody moves. -->
     <div class="team-frame">
-      <div class="lane">
-        <div>
-          <p class="mono lane-label">On your brief · <span class="lane-n">1</span></p>
+      <div class="builder">
+        <p class="mono builder-q">Who's on your brief?</p>
+        <div class="chips" role="group" aria-label="Pick what you need">
+          <button class="chip" data-skill="strategy" aria-pressed="false">Strategy</button>
+          <button class="chip" data-skill="identity" aria-pressed="false">Identity</button>
+          <button class="chip" data-skill="websites" aria-pressed="false">Websites</button>
+          <button class="chip" data-skill="content" aria-pressed="false">Content</button>
+          <button class="chip" data-skill="film" aria-pressed="false">Film</button>
+          <button class="chip" data-skill="performance" aria-pressed="false">Performance</button>
         </div>
-        <div class="lane-row"></div>
       </div>
       <div class="scatter"></div>
-    </div>
-    <div class="builder">
-      <p class="mono builder-q">Who's on your brief?</p>
-      <div class="chips" role="group" aria-label="Pick what you need">
-        <button class="chip" data-skill="strategy" aria-pressed="false">Strategy</button>
-        <button class="chip" data-skill="identity" aria-pressed="false">Identity</button>
-        <button class="chip" data-skill="websites" aria-pressed="false">Websites</button>
-        <button class="chip" data-skill="content" aria-pressed="false">Content</button>
-        <button class="chip" data-skill="film" aria-pressed="false">Film</button>
-        <button class="chip" data-skill="performance" aria-pressed="false">Performance</button>
-        <button class="chip" data-skill="all" aria-pressed="false">Everything</button>
-      </div>
     </div>
     <div class="hiring">
       <p class="turn">Hiring: people who notice things.</p>

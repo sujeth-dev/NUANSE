@@ -420,12 +420,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
       transform is here; the state machine is in core.js, built rather than
       patched onto the old compact-only trigger.
 
-   Readability in the revealed state comes free from the geometry already
-   here: .nav is only transparent while it is expanded, and it is only
-   expanded inside the opening frame, whose ground the markup theme now
-   matches. Every reveal further down the page is the compact pill, which
-   carries its own blurred ground. There is no state where it is revealed
-   over content it cannot be read against. */
+   Superseded in round 3: the header is persistent again, as one solid
+   capsule that carries its own ground, so it reads over any section. */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px var(--gut);
   color:var(--navy);
   transition:color var(--t-mid) var(--ease),transform .32s var(--ease)}
@@ -435,19 +431,19 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* The links stay tabbable while away on purpose. Tabbing into the header
    fires its focusin, which reveals it — so a keyboard user slides it back
    into view rather than meeting a nav that has opted out of the tab order. */
-.nav::before{content:"";position:absolute;inset:0;
-  background:linear-gradient(var(--cream),rgba(252,247,241,0));opacity:.4;
-  transition:opacity var(--t-mid) var(--ease),background var(--t-mid);pointer-events:none}
-.nav.scrolled::before{opacity:.85}
-/* the compact pill is its own ground and does not want the wash behind it */
-.nav.compact::before{opacity:0}
 .nav.dark{color:var(--cream)}
-.nav.dark::before{background:linear-gradient(var(--navy),rgba(13,26,65,0))}
 
+/* Round 3 · one floating capsule, for the whole visit. Solid rather than
+   frosted, so it reads against any section it passes over; it flips with
+   the section's theme, and the hairline keeps its edge on a ground of the
+   same colour. */
 .nav-in{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;
-  border-radius:100px;padding:0;background:transparent;box-shadow:none;
-  transition:background var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease),
-             padding var(--t-mid) var(--ease)}
+  border-radius:100px;padding:6px 6px 6px 14px;background:var(--cream);
+  border:1px solid rgba(13,26,65,.12);
+  box-shadow:0 1px 2px rgba(8,17,46,.08),0 14px 34px -14px rgba(8,17,46,.45);
+  transition:background var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease)}
+.nav.dark .nav-in{background:var(--navy);border-color:rgba(252,247,241,.16);
+  box-shadow:0 1px 2px rgba(0,0,0,.25),0 14px 34px -14px rgba(0,0,0,.7)}
 
 .nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:0 0 auto}
 .nav-slot{width:34px;height:34px;display:grid;place-items:center;position:relative;flex:0 0 auto}
@@ -473,7 +469,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 /* the links, in their own pill with a sliding indicator */
 .nav-bar{position:relative;display:flex;align-items:center;border-radius:100px;padding:5px;
-  background:rgba(13,26,65,.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  background:rgba(13,26,65,.06);
   transition:background var(--t-mid) var(--ease)}
 .nav.dark .nav-bar{background:rgba(252,247,241,.08)}
 .nav-ind{position:absolute;z-index:0;top:5px;bottom:5px;left:0;width:0;border-radius:100px;
@@ -527,21 +523,9 @@ body:has(.pj-open) .menu a[aria-current]{color:var(--cream)}
 .nav-cta,.menu-btn{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   border:1px solid currentColor;border-radius:999px;padding:8px 14px 7px;text-decoration:none;
   white-space:nowrap}
-.menu-btn{display:none}
-
-/* --- compact: the pill closes around the mark --- */
-.nav.compact .nav-in{margin-left:auto;justify-content:flex-end;padding:5px;
-  background:rgba(252,247,241,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  box-shadow:0 10px 30px -12px rgba(8,17,46,.5)}
-.nav.compact.dark .nav-in{background:rgba(13,26,65,.92)}
-.nav.compact .nav-bar{display:none}
-.nav.compact .wordmark,
-.nav.compact .turned{display:none}
-.nav.compact .nav-brand{gap:0;padding-left:6px}
-.nav.compact .menu-btn{display:inline-block}
-.nav.compact .nav-slot::after{opacity:0}
-/* inside the pill the CTA has its own ground to read against */
-.nav.compact .nav-cta{background:var(--copper-ink);border-color:var(--copper-ink);color:var(--cream)}
+.menu-btn{background:none;color:inherit;cursor:pointer}
+/* inside the capsule the CTA has its own ground to read against */
+.nav-cta{background:var(--copper-ink);border-color:var(--copper-ink);color:var(--cream)}
 
 /* The full-screen menu owns every destination while the nav is collapsed, so
    nothing becomes unreachable by keyboard. */
@@ -832,16 +816,10 @@ section{position:relative}
   /* Below this the nav is compact at every scroll position: there is no room
      for four links, and the overlay is the better affordance anyway. */
   .nav-bar,.turned{display:none}
-  .menu-btn{display:inline-block}
-  .nav-in{margin-left:auto;justify-content:flex-end;padding:5px;
-    background:rgba(252,247,241,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-    box-shadow:0 10px 30px -12px rgba(8,17,46,.5)}
-  .nav.dark .nav-in{background:rgba(13,26,65,.92)}
-  .wordmark{display:none}
-  .nav-brand{gap:0;padding-left:6px}
+  .nav-in{padding-left:8px}
+  .nav-brand{gap:8px}
+  .wordmark{font-size:19px}
   .nav-slot::after{opacity:0}
-  .nav-cta{background:var(--copper-ink);border-color:var(--copper-ink);color:var(--cream)}
-  .nav::before{opacity:0!important}
   .sec-head{grid-template-columns:1fr}
   .ft-top{grid-template-columns:repeat(2,minmax(0,1fr))}
   /* .ft-mid stacks here rather than at 600px, and this is a fix, not a

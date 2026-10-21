@@ -1,15 +1,12 @@
 /* ============================================================================
    NUANSE — team.css · ten people
 
-   The brief builder, the lane, the scattered portraits and the hiring
-   line.
+   The brief builder, the ten portraits in one grid, and the hiring line.
 
    The portraits used to be eight unnamed roles, so the caption was one mono
    line and the grid was four across. They are ten named people now, which
    changes both: the caption carries a name in Hanken 500 with the role in
-   mono beneath it, and the scatter is five across, because the founder is
-   always pinned into the lane and nine in a four-column grid lands 4-4-1 —
-   a last row of one reads as a remainder, not as a scatter.
+   mono beneath it, and the grid is five across: ten people, two even rows.
 
    Loaded after core.css and only by team.html. The chassis — tokens, type,
    nav, cursor, opening frame, next-page link, footer — is in core.css.
@@ -27,9 +24,12 @@
   background:var(--cream);border-top:1px solid var(--navy);border-bottom:1px solid var(--navy);
   padding:clamp(28px,4vw,56px) var(--gut);margin-top:var(--gap-md);margin-bottom:var(--gap-md)}
 .team-story{margin:22px 0 0;max-width:52ch;color:var(--navy)}
-.builder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm);
-  align-items:start;border-top:1px solid var(--navy);padding-top:var(--s3)}
-.builder-q{margin:0}
+/* the brief filter heads the frame: a question on the left, the chips on
+   the right, one hairline under them and then the ten. */
+.builder{display:flex;align-items:center;justify-content:space-between;gap:12px var(--gap-sm);
+  flex-wrap:wrap;max-width:1400px;margin:0 auto var(--s3);padding-bottom:var(--s3);
+  border-bottom:1px solid rgba(13,26,65,.14)}
+.builder-q{margin:0;color:var(--copper-ink)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{border:1px solid var(--navy);border-radius:999px;padding:8px 14px 7px;font-family:var(--mono);
   font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
@@ -39,33 +39,21 @@
   .chip:hover{background:rgba(13,26,65,.08)}
   .chip[aria-pressed=true]:hover{background:var(--navy)}
 }
-/* .lane now opens .team-frame (see D-d above), so its own top border would
-   only double .team-frame's; one dashed rule marks where the lane ends and
-   the rest of the team begins, inside the one shared frame. */
-.lane{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm);
-  max-width:1400px;margin:0 auto var(--gap-md);padding-bottom:var(--s3);
-  border-bottom:1px dashed rgba(181,101,40,.7)}
-.lane-label{margin:0;color:var(--copper-ink)}
-.lane-note{margin:10px 0 0;color:var(--mute);font-size:15px;max-width:30ch}
-/* the lane holds the same card as the scatter, at the same size. It used to
-   be a 100px thumbnail strip, which made whoever was in the lane — always the
-   founder, and whoever else your brief needs — the smallest person on the
-   page. A grid of auto-filled tracks keeps one card the same width as ten. */
-.lane-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-  gap:clamp(18px,2.6vw,40px);min-height:160px;align-content:flex-start}
-/* Two precise rows, not a per-card jitter — "precisely arranged", per D-d.
-   The whole set now max-widths and centres inside .team-frame rather than
-   running the full --gut measure, so the frame reads as one composed group
-   rather than a grid stretched to fill whatever the viewport happens to be. */
+/* Round 3: one even 5x2 grid, the founder first among the ten. Even rows,
+   even gaps, no stagger: the composition is the alignment. */
 .scatter{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:clamp(18px,3vw,40px) clamp(14px,2.2vw,32px);align-items:start;
+  gap:clamp(28px,3.4vw,48px) clamp(16px,2.2vw,32px);align-items:start;
   max-width:1400px;margin:0 auto}
-.tm{margin:0;position:relative}
-.scatter .tm:nth-child(n+6){margin-top:clamp(28px,4vw,56px)}
-.lane .tm{width:auto}
-.tm-in{will-change:transform}
-.tm-ph{aspect-ratio:4/5;background:var(--cream);border:1px solid var(--navy);overflow:hidden}
+.tm{margin:0;position:relative;transition:opacity var(--t-mid) var(--ease),filter var(--t-mid) var(--ease)}
+/* the brief filter dims who it does not need rather than moving anyone */
+.tm.off{opacity:.25;filter:grayscale(1)}
+.tm-ph{aspect-ratio:4/5;background:var(--cream);border:1px solid var(--navy);overflow:hidden;position:relative}
 .tm-ph svg{width:100%;height:100%}
+/* the founder's plate carries one quiet tag, not a lane apart */
+.tm[data-i="0"] .tm-ph{border-color:var(--copper)}
+.tm[data-i="0"] .tm-ph::after{content:"Founder";position:absolute;top:8px;right:8px;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--cream);background:var(--copper-ink);padding:4px 7px 3px;border-radius:999px}
 /* a grid and not a flex row: the rule, the name and the role are three
    things in two columns, and the rule has to stay level with the first line
    of the name whatever the name wraps to. */
@@ -80,28 +68,14 @@
   line-height:1.25;letter-spacing:0;text-transform:none;min-height:1.25em;color:var(--navy)}
 .t-role{grid-column:2;grid-row:2;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
   text-transform:uppercase;line-height:1.45;color:var(--mute)}
-/* the lane card is the scatter card now, so its caption is too — name in
-   Hanken 500 with the role in mono under it. Hiding the role made sense at
-   100px and makes none at full size. */
 .hiring{margin-top:var(--gap-md);display:flex;justify-content:space-between;align-items:center;
   gap:20px;flex-wrap:wrap;border-top:1px solid var(--navy);padding-top:var(--s3)}
 .hiring p{margin:0;font-family:var(--serif);font-size:clamp(26px,3vw,40px);letter-spacing:-.03em;
   line-height:1}
 
 /* ============ RESPONSIVE ============ */
-@media (max-width:1180px){
-  .scatter{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .scatter .tm:nth-child(n+6){margin-top:0}
-  .scatter .tm:nth-child(n+4){margin-top:clamp(24px,4vw,44px)}
-}
 @media (max-width:900px){
-  .builder,.lane{grid-template-columns:1fr}
   .team-frame{padding:clamp(22px,5vw,40px) var(--gut)}
   .scatter{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .scatter .tm:nth-child(n+4){margin-top:0}
-  .scatter .tm:nth-child(2n){margin-top:32px}
   .t-name{font-size:13px}
-}
-@media (max-width:600px){
-  .lane-row{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
 }

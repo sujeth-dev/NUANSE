@@ -238,10 +238,6 @@
 
   /* ---------------------------------------------------- shared DOM handles */
   const nav = $('.nav');
-  const navIn = $('.nav-in');
-  const navBar = $('.nav-bar');
-  const navEnd = $('.nav-end');
-  const navBrand = $('.nav-brand');
   const navSlot = $('.nav-slot');
   const navSpin = $('.nav-spin');
   const navMark = $('.nav-mark');
@@ -665,45 +661,11 @@
     });
   }
 
-  /* --- expanded / compact ---
-     Requirement 4. Driven off the first frame's own height, not a pixel
-     threshold, so it stays correct when that frame's height changes — and so
-     a project page's opening frame drives it the same way the hero does.
-
-     Hysteresis is the point of the two thresholds: collapse at 62% of the
-     frame, expand again at 42%. A nav parked exactly on one boundary would
-     otherwise flicker on every small scroll. */
-  const navAnchor = $('[data-nav-anchor]');
-  let compact = false;
-  function setCompact(on) {
-    if (compact === on || !nav) return;
-    compact = on;
-    if (RM) { nav.classList.toggle('compact', on); parkInd(); return; }
-    const targets = [navIn, navBrand, navEnd, navBar, $('.wordmark'), $('.turned'), menuBtn].filter(Boolean);
-    const state = Flip.getState(targets, { props: 'padding,gap' });
-    nav.classList.toggle('compact', on);
-    Flip.from(state, {
-      duration: 0.6,
-      ease: EASE,
-      nested: true,
-      onEnter: (els) => gsap.fromTo(els, { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.4 }),
-      onLeave: (els) => gsap.to(els, { opacity: 0, scale: 0.86, duration: 0.3 })
-    });
-    /* the pill is measured after the Flip has written the new layout */
-    requestAnimationFrame(parkInd);
-  }
-  /* Focus landing inside the nav forces it open, so a keyboard user never
-     meets a collapsed pill with links they cannot reach. */
-  if (nav) {
-    nav.addEventListener('focusin', () => {
-      /* Tabbing in reveals it. The links stay in the tab order while the
-         header is hidden, so this is the path that brings it back for a
-         keyboard user rather than leaving them focused on something
-         off-screen. */
-      setAway(false);
-      if (compact && window.innerWidth > 900) setCompact(false);
-    });
-  }
+  /* Round 3: the header no longer collapses or hides on scroll. It is one
+     solid capsule for the whole visit — brand, links, the audit and Menu —
+     because the compact pill read as an empty bar. Tabbing in still reveals
+     it, for any page that calls setAway itself. */
+  if (nav) nav.addEventListener('focusin', () => setAway(false));
 
   /* --- the sliding indicator ---
      Ported from nuanse-house, where it tracked whichever section owned the
@@ -717,7 +679,7 @@
   const navInd = $('.nav-ind');
   function indTo(a) {
     if (!navInd) return;
-    if (!a || !a.offsetWidth || compact) { navInd.classList.remove('on'); return; }
+    if (!a || !a.offsetWidth) { navInd.classList.remove('on'); return; }
     navInd.classList.add('on');
     navInd.style.width = `${a.offsetWidth}px`;
     navInd.style.transform = `translateX(${a.offsetLeft}px)`;
@@ -1063,55 +1025,6 @@
        so the opening section's theme has to be set by hand. */
     const firstSec = $('.page section[data-nav]');
     if (firstSec) setNav(firstSec.dataset.nav === 'dark');
-    /* the wash behind the expanded nav */
-    ScrollTrigger.create({
-      start: 20, end: 'max',
-      onToggle: (s) => { if (nav) nav.classList.toggle('scrolled', s.isActive); }
-    });
-
-    /* --- the header's two scroll states, on one listener ---
-       A1. Rebuilt rather than patched: the old trigger here drove compact
-       alone, and the reveal/hide state has to read the same scroll position
-       in the same frame or the two can disagree for a tick and the header
-       collapses and vanishes as separate events.
-
-       Both are measured off the opening frame's own height, not a pixel
-       threshold, so a page whose first screen is a different height behaves
-       the same way.
-
-         compact  collapse at 62% of the frame, expand again at 42%. The two
-                  thresholds are the point: one boundary would flicker.
-         away     never inside the frame, so the whole first screen keeps a
-                  present, expanded header. Past it, direction decides.
-
-       Direction needs a dead zone of its own, and this is the part that is
-       easy to get wrong. Lenis does not stop a fling dead — it settles, and
-       the settle is a run of one- and two-pixel reversals. A naive
-       y > lastY test reads those as a scroll upward and the header twitches
-       back into view at the end of every single scroll. lastY therefore only
-       moves once the page has actually travelled DIR_MIN in one direction,
-       which makes a settle too small to register. 7px is above Lenis's
-       settle and below a deliberate flick of a trackpad. */
-    if (navAnchor && nav) {
-      const frame = () => navAnchor.offsetHeight || window.innerHeight;
-      const DIR_MIN = 5;
-      let lastY = window.scrollY || window.pageYOffset;
-      ScrollTrigger.create({
-        start: 0, end: 'max',
-        onUpdate: () => {
-          const y = window.scrollY || window.pageYOffset;
-          const h = frame();
-          if (!compact && y > h * 0.62) setCompact(true);
-          else if (compact && y < h * 0.42) setCompact(false);
-          if (y < h * 0.42) { lastY = y; setAway(false); return; }
-          const d = y - lastY;
-          if (Math.abs(d) < DIR_MIN) return;
-          lastY = y;
-          setAway(d > 0);
-        }
-      });
-    }
-
     /* the indicator parks on the current page's link, once layout exists */
     parkInd();
 
