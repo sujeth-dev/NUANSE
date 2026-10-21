@@ -1080,7 +1080,7 @@
         const w = setW.offsetWidth;
         if (!w) return;
         const boost = Math.min(Math.abs(vel) / 350, 2);
-        mx -= dir * (24 + 24 * boost) * dt / 1000;
+        mx -= dir * (48 + 48 * boost) * dt / 1000;
         if (mx <= -w) mx += w;
         if (mx > 0) mx -= w;
         gsap.set(mqTrack, { x: mx });
