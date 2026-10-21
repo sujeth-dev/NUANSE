@@ -3,7 +3,7 @@
 
    Loaded after core.js and only by index.html. Everything here is specific to
    this page: the hero lens, the S hand-off, the manifesto letter, the pinned
-   proof prints and their case overlay, the redline slider, the fanned service
+   proof prints and their case overlay, the before/after kit, the fanned service
    cards, the docking process panels, the team builder, and the audit.
 
    Nothing in this file is shared. If something here starts being imported by
@@ -18,7 +18,7 @@
   const NU = window.NU;
   if (!NU) return;
 
-  const { $, $$, RM, TOUCH, EASE, clamp, esc, wrapS, loopPath } = NU;
+  const { $, $$, RM, TOUCH, EASE, clamp, esc, wrapS } = NU;
 
   /* ======================================================= 1 · HERO + LENS */
   const hero = $('#top');
@@ -703,134 +703,44 @@
     rail.addEventListener('pointercancel', hold(false));
   }
 
-  /* ============================================ the annotation loop shapes
-     The loop itself is NU.loopPath: the work index draws the proof prints
-     with the same hand. */
-  function buildRedlines() {
-    $$('.ra').forEach((a) => {
-      const vertical = a.classList.contains('r');
-      const path = $('path', a);
-      path.setAttribute('d', vertical ? loopPath(20, 60, 17, 55) : loopPath(60, 20, 55, 16));
-      path.setAttribute('vector-effect', 'non-scaling-stroke');
-    });
-  }
+  /* ======================================================= 5 · BEFORE / AFTER
+     Pinned for 170% of a screen. The after kit wipes in from the right
+     behind a rule, the heading hands its weight from Before to After, and
+     once the wipe lands the doodles draw on. Reduced motion never gets
+     here: the CSS default is the still 50% split. */
+  function wireBeforeAfter() {
+    const sec = $('#before-after');
+    if (!sec || RM) return;
+    const after = $('.ba-after', sec);
+    const line = $('.ba-line', sec);
+    const wb = $('.ba-wb', sec);
+    const wa = $('.ba-wa', sec);
+    const arrow = $$('.ba-arr path', sec);
+    const doodles = $$('.ba-after .dd path', sec);
+    const draw = typeof DrawSVGPlugin !== 'undefined';
 
-  /* ======================================================= 5 · REDLINE SLIDER */
-  const stage = $('.rl-stage');
-  const after = $('.mm-after');
-  const handle = $('.rl-handle');
-  const range = $('.rl-range');
-  let annos = [];
-  let pos = 10;
-  let dragged = false;
-  let rlDrift = null;
-  let rlBase = null;
-  let rlSweeping = false;
-  let beforeFidget = null;
+    gsap.set(after, { clipPath: 'inset(0% 0% 0% 100%)' });
+    gsap.set(line, { left: '100%' });
+    gsap.set(wa, { opacity: 0.16 });
+    if (draw) gsap.set([...arrow, ...doodles], { drawSVG: '0%' });
 
-  function writeOn(a) {
-    if (a.li) a.li.classList.add('on');
-    if (RM) {
-      gsap.set(a.path, { drawSVG: '100%' });
-      a.t.textContent = a.txt;
-      gsap.to([a.badge, a.t], { opacity: 1, scale: 1, duration: 0.3, ease: 'none' });
-      return;
+    const tl = gsap.timeline({ defaults: { ease: 'none' } });
+    tl.to(after, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power1.inOut' }, 0.12)
+      .to(line, { left: '0%', duration: 1, ease: 'power1.inOut' }, 0.12)
+      .to(line, { opacity: 0, duration: 0.08 }, 1.04)
+      .to(wb, { opacity: 0.16, duration: 0.45 }, 0.6)
+      .to(wa, { opacity: 1, duration: 0.45 }, 0.6);
+    if (draw) {
+      tl.to(arrow[0], { drawSVG: '100%', duration: 0.7 }, 0.12)
+        .to(arrow.slice(1), { drawSVG: '100%', duration: 0.14 }, 0.82)
+        .to(doodles, { drawSVG: '100%', duration: 0.22, stagger: 0.035 }, 1.1);
     }
-    gsap.to(a.path, { drawSVG: '100%', duration: 0.8 });
-    gsap.to(a.badge, { opacity: 1, scale: 1, duration: 0.6, delay: 0.2 });
-    gsap.set(a.t, { opacity: 1 });
-    const o = { c: 0 };
-    gsap.to(o, {
-      c: a.txt.length, duration: 0.7, delay: 0.25, ease: 'none',
-      onUpdate: () => { a.t.textContent = a.txt.slice(0, Math.round(o.c)); }
+    tl.to({}, { duration: 0.2 });
+
+    ScrollTrigger.create({
+      trigger: sec, start: 'top top', end: '+=170%', pin: $('.ba-stage', sec),
+      scrub: 0.45, animation: tl, invalidateOnRefresh: true, onToggle: NU.pinClaim
     });
-  }
-  function unwrite(a) {
-    if (a.li) a.li.classList.remove('on');
-    gsap.killTweensOf([a.path, a.badge, a.t]);
-    gsap.to(a.path, { drawSVG: '0%', duration: 0.5 });
-    gsap.to([a.badge, a.t], { opacity: 0, duration: 0.4, onComplete: () => { a.t.textContent = ''; } });
-  }
-  function setPos(p) {
-    pos = clamp(p, 0, 100);
-    after.style.clipPath = `inset(0 ${(100 - pos).toFixed(2)}% 0 0)`;
-    handle.style.left = `${pos.toFixed(2)}%`;
-    if (range) range.value = String(Math.round(pos));
-    annos.forEach((a) => {
-      const on = pos >= a.x;
-      if (on !== a.on) { a.on = on; if (on) writeOn(a); else unwrite(a); }
-    });
-  }
-  function syncBefore() {
-    if (!beforeFidget) return;
-    if (NU.MOTION.rl && !NU.calm()) beforeFidget.play();
-    else beforeFidget.pause();
-  }
-
-  /* The home page now carries a STILL of this, not the control. The full
-     interaction moved to work/zingara.html, where it is that page's one
-     signature element and has room to be the argument rather than a widget.
-     What stays here is the part that makes the point without a control: the
-     before fidgets, the after never moves, and the redlines write on.
-
-     B6 changed what the two halves SHOW — a brand sheet with no brand design
-     and the same business structured, both invented — and nothing about how
-     the wipe, the rule or the three annotations work. The Zingara menu it
-     used to show belongs to Zingara's case page, which is where it now
-     appears and nowhere else. */
-  const isStatic = !!(stage && stage.classList.contains('rl-static'));
-
-  function wireRedline() {
-    if (!stage || !after || !handle) return;
-    annos = $$('.ra').map((a, i) => ({
-      el: a, x: +a.dataset.x, txt: a.dataset.txt, on: false,
-      path: $('path', a), badge: $('.badge', a), t: $('.t', a), li: $$('.rl-fixes li')[i]
-    }));
-    annos.forEach((a) => gsap.set(a.path, { drawSVG: '0%' }));
-    /* a split that shows enough of both to be legible at a glance */
-    setPos(isStatic ? 52 : 10);
-
-    /* The 'before' cannot sit still — four typefaces, five colours and a
-       GRAND OPENING burst. The 'after' never moves. That is the whole
-       argument, made without a word of copy.
-
-       B6 moved what fidgets along with the subject. The two logos are the
-       new ones: type stretched to fit its space is never stretched to the
-       same amount twice, which is the symptom the annotation at A is
-       pointing at, and animating the scaleX is the shortest way to say so. */
-    if (!RM) {
-      const burst = $('.mm-before .burst');
-      const logo = $('.mm-before .bt');
-      const card = $('.mm-before .bcard');
-      const chips = $$('.mm-before .bchips i');
-      beforeFidget = gsap.timeline({ repeat: -1, yoyo: true, paused: true, defaults: { ease: 'sine.inOut' } });
-      if (burst) beforeFidget.to(burst, { rotation: '+=2.6', duration: 2.2 }, 0);
-      if (logo) beforeFidget.to(logo, { scaleX: 1.5, duration: 2.6 }, 0);
-      if (card) beforeFidget.to(card, { scaleX: 1.22, duration: 3.1 }, 0);
-      chips.forEach((c, i) => {
-        beforeFidget.to(c, { x: (i % 2 ? 1 : -1) * (1.2 + i * 0.4), duration: 1.7 + i * 0.2 }, 0);
-      });
-      if (!beforeFidget.getChildren().length) beforeFidget = null;
-    }
-
-    if (isStatic) return;          /* no control, so nothing to drag */
-
-    let down = false;
-    const fromEvent = (e) => {
-      const r = stage.getBoundingClientRect();
-      return ((e.clientX - r.left) / r.width) * 100;
-    };
-    stage.addEventListener('pointerdown', (e) => {
-      if (e.target === range) return;
-      down = true;
-      dragged = true;
-      rlSweeping = false;      /* the visitor has the handle; drivers stop for good */
-      stage.setPointerCapture(e.pointerId);
-      setPos(fromEvent(e));
-    });
-    stage.addEventListener('pointermove', (e) => { if (down) setPos(fromEvent(e)); });
-    ['pointerup', 'pointercancel'].forEach((t) => stage.addEventListener(t, () => { down = false; }));
-    range.addEventListener('input', () => { dragged = true; setPos(+range.value); });
   }
 
   /* ============================================ 9 · AUDIT: annotation trail
@@ -937,8 +847,6 @@
     splitLetter();
     buildMarquee();
     buildClients();
-    buildRedlines();
-    wireRedline();
     wireTrail();
 
     heroS = $('.hero .base .hero-h .s');
@@ -1116,60 +1024,7 @@
       });
     }
 
-    /* --- 5 · the slider's automatic drivers ---
-       After the sweep the line drifts with scroll until the visitor takes
-       over, relative to where the sweep left it so there is no jump. */
-    if (stage && !isStatic) {
-      rlDrift = ScrollTrigger.create({
-        trigger: '#redline', start: 'top bottom', end: 'bottom top',
-        onUpdate: (s) => {
-          if (RM || dragged || rlSweeping || rlBase === null) return;
-          setPos(rlBase.p + (s.progress - rlBase.g) * 46);
-        },
-        onToggle: (s) => { NU.MOTION.rl = s.isActive; syncBefore(); }
-      });
-      /* An invitation, not a twitch: one slow sweep wide enough to show both
-         states and explain the control. */
-      ScrollTrigger.create({
-        trigger: '.rl-stage', start: 'top 72%', once: true,
-        onEnter: () => {
-          if (RM || dragged) { rlBase = { p: pos, g: rlDrift ? rlDrift.progress : 0 }; return; }
-          rlSweeping = true;
-          const o = { p: pos };
-          gsap.timeline({
-            onComplete: () => {
-              rlSweeping = false;
-              rlBase = { p: pos, g: rlDrift ? rlDrift.progress : 0 };
-            }
-          })
-            .to(o, { p: 72, duration: 1.4, onUpdate: () => { if (!dragged) setPos(o.p); } })
-            .to(o, { p: 34, duration: 1, onUpdate: () => { if (!dragged) setPos(o.p); } }, '+=.3');
-        }
-      });
-    }
-    if (stage) {
-      /* the fidget is the argument, with or without a control */
-      ScrollTrigger.create({
-        trigger: '#redline', start: 'top bottom', end: 'bottom top',
-        onToggle: (sT) => { NU.MOTION.rl = sT.isActive; syncBefore(); }
-      });
-    }
-
-    /* --- 5 · the still one is driven by the scroll ---
-       No handle here: the page is the control. The split travels left to
-       right as the section crosses the screen and travels back when you
-       scroll up, and setPos does the rest — it clips the after, moves the
-       rule, and writes each redline on as the split passes it and unwrites
-       it on the way back. Scrubbed on the same 0.45 the manifesto uses: it
-       still eases, but it answers the wheel rather than running a second
-       behind it. Reduced motion keeps the still 52% split it has always had. */
-    if (stage && isStatic && !RM) {
-      ScrollTrigger.create({
-        trigger: '#redline', start: 'top 75%', end: 'bottom 60%',
-        scrub: 0.45, invalidateOnRefresh: true,
-        onUpdate: (s) => setPos(8 + s.progress * 84)
-      });
-    }
+    wireBeforeAfter();
 
     /* --- the hero's ground sleeps once the hero is gone --- */
     ScrollTrigger.create({
@@ -1188,8 +1043,6 @@
       trigger: '#audit', start: 'top bottom', end: 'bottom top',
       onToggle: (s) => { NU.FOIL.setActive('audit', s.isActive); }
     });
-
-    NU.onIdleChange(syncBefore);
   });
 
   /* ------------------------------------------------------------ wiring up

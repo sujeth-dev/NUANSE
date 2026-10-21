@@ -380,159 +380,257 @@
 .rm .kw{background-size:100% 1.5px}
 
 
-/* ============ 5 · REDLINE ============ */
-.redline-sec{background:var(--cream)}
-.rl-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6vw,96px);
-  align-items:center}
-.rl-copy .lede{margin-top:22px}
-.rl-fixes{list-style:none;margin:32px 0 0;padding:0;max-width:48ch}
-.rl-fixes li{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:14px 0;
-  border-top:1px solid rgba(13,26,65,.15);transition:color var(--t-mid) var(--ease);
-  color:var(--mute)}
-.rl-fixes li b{width:24px;height:24px;border-radius:50%;border:1px solid currentColor;display:grid;
-  place-items:center;font-family:var(--mono);font-size:10.5px;font-weight:500;
-  transition:background var(--t-mid) var(--ease),color var(--t-mid) var(--ease),
-             border-color var(--t-mid) var(--ease)}
-.rl-fixes li.on{color:var(--navy)}
-.rl-fixes li.on b{background:var(--copper-ink);border-color:var(--copper-ink);color:var(--cream)}
-.rl-results{display:flex;gap:28px;margin-top:30px;flex-wrap:wrap}
-.rl-results strong{display:block;font-family:var(--serif);font-weight:400;
-  font-size:clamp(36px,3.6vw,52px);line-height:1;letter-spacing:-.03em;color:var(--ox)}
-.rl-results span{font-size:14px;color:var(--mute)}
-.rl-stage{position:relative;width:min(560px,100%);aspect-ratio:4/5;justify-self:center;
-  touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:ew-resize;
-  container-type:size;border:1px solid var(--navy)}
-.menu-mock{position:absolute;inset:0;overflow:hidden}
-/* B6 - the two mocks are a BRAND sheet now, not a menu.
+/* ============ 5 · BEFORE / AFTER ============
+   One slide: the heading, and a board of the eight pieces a brand kit is
+   made of. Both kits sit in the same grid areas so the wipe lines a piece up
+   with its own replacement. Each tile is a size container; everything inside
+   is sized in cq units, so the board scales as one picture.
 
-   Same stage, same wipe, same three annotations. The subject changed because
-   the menu was the recurring example on six screens and it is Zingara's own
-   story, which belongs on Zingara's case page. What a visitor sees here is a
-   business with no brand design at all, and the same business structured.
+   The before is built from what a small business actually has installed:
+   Times, Arial, Comic Sans, the Office palette, clip-art and file names to
+   match. Bland, not broken - every piece is a real-world default. The after
+   is its own brand, not NUANSE's: Tomato, Butter, Forest and Flour, Gloock
+   for the voice and Plex Mono for labels. */
+.ba-sec{background:var(--cream)}
+.ba-stage{height:100vh;height:100svh;display:flex;flex-direction:column;position:relative;
+  padding:clamp(84px,12vh,124px) var(--gut) clamp(16px,3vh,30px)}
+.ba-defs{position:absolute;width:0;height:0;overflow:hidden;color:#E0482F;stroke:#F3C95C}
+.ba-h{display:flex;align-items:center;justify-content:space-between;gap:clamp(12px,3vw,48px);
+  margin:0 0 clamp(12px,2.4vh,26px);font-family:var(--serif);font-weight:400;
+  font-size:clamp(44px,2.6vw + 4.6vh,116px);line-height:.9;letter-spacing:-.015em;color:var(--navy)}
+.ba-h .ba-arr{position:relative;flex:1 1 auto;max-width:min(240px,26vw);min-width:60px;height:auto}
+.ba-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.ba-board{position:relative;flex:1 1 auto;min-height:0}
+.ba-kit{position:absolute;inset:0;display:grid;gap:clamp(5px,.7vw,10px);padding:clamp(6px,.8vw,12px);
+  grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));
+  grid-template-areas:"logo logo web web web mob" "logo logo web web web mob"
+                      "pal pat mag card card mob" "ico ico mag card card mob"}
+.t-logo{grid-area:logo}.t-pal{grid-area:pal}.t-pat{grid-area:pat}.t-ico{grid-area:ico}
+.t-mag{grid-area:mag}.t-card{grid-area:card}.t-web{grid-area:web}.t-mob{grid-area:mob}
+.ba-before{z-index:0}
+.ba-after{z-index:1}
+.ba-t{position:relative;overflow:hidden;container-type:size;min-width:0;min-height:0}
+/* JS starts the after fully clipped and the rule at the right edge. This is
+   the reduced-motion and no-script frame: half of each. */
+.ba-after{clip-path:inset(0 0 0 50%)}
+.ba-line{position:absolute;top:-8px;bottom:-8px;left:50%;width:2px;margin-left:-1px;z-index:3;
+  background:var(--navy);pointer-events:none}
+.ba-line::after{content:"";position:absolute;top:50%;left:50%;width:14px;height:14px;border-radius:50%;
+  background:var(--copper);transform:translate(-50%,-50%);box-shadow:0 0 0 4px var(--cream)}
+.ba-qual{margin:clamp(10px,1.8vh,18px) 0 0}
 
-   Both halves are invented and the page says so in a .qual-note under the
-   stage. "Sample & Co." is a name that cannot be mistaken for a client: it
-   reads as a specimen on sight, which is what D3 asked for when it said
-   build it visibly fictional.
+/* the doodles: drawn strokes, one weight at any size */
+.dd{position:absolute;overflow:visible;pointer-events:none;height:auto}
+.dd path{fill:none;stroke:var(--dd,#E0482F);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
+  vector-effect:non-scaling-stroke}
+.ba-arr path{stroke:var(--copper);stroke-width:2.6}
 
-   One rule the garish half still keeps: every colour it sets TYPE in clears
-   4.5:1 on its own ground - #C1121F 5.73, #D7263D 4.57, #1D3557 11.38,
-   #5A189A 9.52, #023E8A 9.39. The three that do not (#2A9D8F 3.06, #E76F51
-   2.85, #F77F00 2.42) appear only as fills behind nothing, or as a border.
-   The before is meant to be badly DESIGNED, not unreadable; an inaccessible
-   mock would be our defect dressed up as an argument. */
-.mm-before{background:#FFF6CF;color:#C1121F;padding:6cqw;text-align:center;
-  font-family:"Trebuchet MS",Arial,sans-serif}
-/* the logo is type stretched to fit, which is the single most legible symptom
-   of no brand design. home.js fidgets this scaleX: stretched to fit is never
-   stretched to the same amount twice. */
-/* 7.5cqw and not 9: twelve characters of Arial Black at ~.62em advance is
-   56cqw, and the 1.42 stretch takes that to 79cqw against 88cqw of room
-   inside the padding. The fidget pushes the stretch to 1.5, which is 84cqw
-   and still inside it. At 9cqw the logo ran off its own sheet. */
-.mm-before .bt{font-family:"Arial Black",Impact,sans-serif;font-size:7.5cqw;letter-spacing:.06em;
-  color:#D7263D;text-shadow:.5cqw .5cqw 0 #FFB703;line-height:1;
-  transform:scaleX(1.42);transform-origin:50% 50%}
-.mm-before .bs{font-family:"Comic Sans MS","Trebuchet MS",sans-serif;font-style:italic;
-  color:#023E8A;font-size:3.4cqw;margin-top:2.6cqw;font-weight:700}
-/* five colours, no two of them related */
-.mm-before .bchips{display:flex;justify-content:center;gap:1.6cqw;margin:4.4cqw 0 0}
-.mm-before .bchips i{width:7cqw;height:4cqw;display:block}
-.mm-before .bc1{background:#D7263D}
-.mm-before .bc2{background:#FFB703}
-.mm-before .bc3{background:#2A9D8F}
-.mm-before .bc4{background:#5A189A}
-.mm-before .bc5{background:#E76F51;transform:rotate(-6deg)}
-.mm-before .bh{margin:4.6cqw 0 2cqw;font-family:"Courier New",monospace;font-weight:700;
-  font-size:4.6cqw;color:#5A189A;text-decoration:underline wavy}
-.mm-before .bp{font-family:"Times New Roman",serif;font-size:3.6cqw;color:#1D3557;
-  margin:1.6cqw 0;line-height:1.3}
-.mm-before .bp b{font-family:"Arial Black",Impact,sans-serif;font-weight:900;font-size:3.1cqw;
-  color:#C1121F}
-.mm-before .bp i{font-family:"Comic Sans MS","Trebuchet MS",sans-serif;font-style:normal;
-  color:#023E8A}
-.mm-before .bp2{font-family:"Arial Black",Impact,sans-serif;font-size:3.4cqw;color:#C1121F;
-  text-align:right;letter-spacing:.02em}
-.mm-before .bcard{margin-top:3.4cqw;border:.5cqw dotted #2A9D8F;padding:2.4cqw;
-  font-family:"Arial Black",Impact,sans-serif;font-size:3.6cqw;color:#D7263D;text-align:left;
-  transform:scaleX(1.16);transform-origin:0 50%}
-.mm-before .bcard span{display:block;font-family:"Times New Roman",serif;font-weight:400;
-  font-size:2.9cqw;color:#1D3557;margin-top:.6cqw;text-align:right}
-.mm-before .burst{position:absolute;right:3cqw;bottom:4cqw;width:21cqw;height:21cqw;
-  border-radius:50%;background:#FFB703;color:#1D3557;display:grid;place-items:center;
-  font-weight:900;font-size:3.2cqw;line-height:1.15;text-align:center;
-  font-family:"Arial Black",Impact,sans-serif;
-  transform:rotate(-14deg);border:.6cqw dotted #D7263D}
-/* The structured half. Nothing new in the palette: --ox, --blush, --navy and
-   --mute, on the same #F6ECE6 paper this mock has always used. One typeface
-   for the voice, the mono only for labels, and a mark that is drawn rather
-   than type pulled wider. */
-.mm-after{background:#F6ECE6;color:var(--ox);padding:7cqw;display:flex;flex-direction:column;
-  clip-path:inset(0 90% 0 0)}
-.mm-after .amark{width:13cqw;height:13cqw;border:.55cqw solid var(--ox);display:grid;
-  grid-template-columns:1fr 1fr;font-family:var(--serif);font-size:5.4cqw;line-height:1;
-  color:var(--ox);flex:0 0 auto}
-.mm-after .amark span{display:grid;place-items:center}
-.mm-after .amark span+span{border-left:.55cqw solid var(--ox)}
-.mm-after .at{font-family:var(--serif);font-size:11cqw;line-height:.9;letter-spacing:-.02em;
-  margin-top:4cqw}
-.mm-after .as{color:var(--mute);margin-top:1.8cqw}
-.mm-after .apal{display:flex;gap:1.2cqw;margin-top:4.4cqw}
-.mm-after .apal i{width:6cqw;height:3cqw;display:block}
-.mm-after .ap1{background:var(--ox)}
-.mm-after .ap2{background:var(--blush)}
-.mm-after .ap3{background:var(--navy)}
-.mm-after .ap4{background:#F6ECE6;box-shadow:inset 0 0 0 1px rgba(138,43,29,.45)}
-.mm-after .ah{margin-top:5cqw;padding-bottom:1.4cqw;border-bottom:1px solid currentColor;
-  display:flex;justify-content:space-between}
-.mm-after .ap-b{padding:2cqw 0;border-bottom:1px dotted rgba(138,43,29,.3);font-size:3.4cqw;
-  line-height:1.4}
-.mm-after .ap-b b{display:block;font-weight:500;color:var(--navy)}
-.mm-after .ap-b span{display:block;color:var(--mute)}
-.mm-after .acard{margin-top:auto;display:flex;align-items:center;gap:2cqw;
-  border-top:1px solid rgba(138,43,29,.3);padding-top:2.6cqw}
-.mm-after .acard .am{width:5.4cqw;height:5.4cqw;border:.4cqw solid var(--ox);flex:0 0 auto}
-.mm-after .acard b{font-family:var(--serif);font-weight:400;font-size:4cqw;color:var(--navy)}
-.mm-after .acard small{margin-left:auto;color:var(--mute);font-family:var(--mono);
-  font-size:2.6cqw;letter-spacing:.1em;text-transform:uppercase}
-.rl-handle{position:absolute;top:0;bottom:0;left:10%;width:1px;background:var(--navy);z-index:4;
-  pointer-events:none}
-.rl-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;
-  border-radius:50%;background:var(--navy);color:var(--cream);display:grid;place-items:center;
-  font-size:15px}
-.rl-tags{position:absolute;top:-28px;left:0;right:0;display:flex;justify-content:space-between;
-  color:var(--mute)}
-.rl-annos{position:absolute;inset:0;z-index:5;pointer-events:none}
-.ra{position:absolute;width:0;height:0}
-.ra svg{position:absolute;width:var(--w,30cqw);height:var(--h,12cqw);
-  left:calc(var(--w,30cqw) / -2);top:calc(var(--h,12cqw) / -2);overflow:visible}
-.ra path{fill:none;stroke:var(--copper);stroke-width:2;stroke-linecap:round}
-.ra .badge{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--copper-ink);
-  color:var(--cream);font-family:var(--mono);font-size:10.5px;display:grid;place-items:center;
-  font-weight:500;left:calc(var(--w,30cqw) / 2 - 14px);top:calc(var(--h,12cqw) / -2 - 10px);
-  opacity:0;transform:scale(.4)}
-.ra .t{position:absolute;top:calc(var(--h,12cqw) / 2 + 6px);font-family:var(--mono);font-size:9.5px;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--cream);background:var(--copper-ink);
-  padding:4px 7px 3px;white-space:nowrap;opacity:0}
-.ra.l .t{left:calc(var(--w,30cqw) / -2)}
-.ra.r .t{right:calc(var(--w,30cqw) / -2)}
-/* The three annotation positions, as classes rather than style attributes.
-   Retuned for B6's brand sheet: A loops the stretched logo at the top, B the
-   five-colour chip row, C runs down the card and the mark at the foot. */
-.ra-a{left:30%;top:12%;--w:52cqw;--h:15cqw}
-.ra-b{left:26%;top:38%;--w:44cqw;--h:8cqw}
-.ra-c{left:88%;top:56%;--w:12cqw;--h:38cqw}
-/* The home page carries a STILL. The control moved to work/zingara.html,
-   where the correction is that page's one signature element. What is kept
-   here is the half that needs no control: the before fidgets, the after
-   never moves, and the redlines write on as you reach them. */
-.rl-static{cursor:default}
-/* the specimen is labelled as a specimen, in the honesty vocabulary the rest
-   of the site already uses for a claim that needs qualifying */
-.rl-qual{margin:26px 0 0}
-.rl-tagline{position:absolute;left:0;right:0;bottom:-30px;display:flex;
-  justify-content:space-between;color:var(--mute);margin:0}
-.rl-more{margin:30px 0 0}
+/* phones: a fixed 9:19 that fits whichever way the tile is short */
+.ph{position:absolute;top:50%;left:50%;width:min(86cqw,43.6cqh);aspect-ratio:9/19;
+  transform:translate(-50%,-50%);container-type:inline-size}
+.ph-s{position:absolute;inset:3.4cqw;overflow:hidden;border-radius:10cqw}
+
+/* ---------- before ---------- */
+.ba-before{--cap:17px;background:#E7E6E6;font-family:Arial,Helvetica,sans-serif;color:#000}
+.ba-before .ba-t{background:#fff;border:1px solid #BFBFBF}
+.ba-before .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;height:var(--cap);
+  background:#F2F2F2;border-top:1px solid #D9D9D9;font:400 9px/var(--cap) Tahoma,Arial,sans-serif;
+  color:#595959;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bl,.bpat,.bico,.bmag,.bcd,.bw{position:absolute;top:0;left:0;right:0;bottom:var(--cap)}
+.bm-ph,.bw-sl em,.bm-img{border:1px solid #A6A6A6;background:
+  linear-gradient(to top right,transparent calc(50% - .6px),#A6A6A6 50%,transparent calc(50% + .6px)),
+  linear-gradient(to top left,transparent calc(50% - .6px),#A6A6A6 50%,transparent calc(50% + .6px)),#F2F2F2}
+
+.bl{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3cqmin;text-align:center}
+.bl-art{position:relative;width:22cqmin;height:22cqmin;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#BDD7EE,#2E75B6 55%,#1F4E79);
+  box-shadow:.8cqmin .8cqmin 1.4cqmin rgba(0,0,0,.35)}
+.bl-art::after{content:"";position:absolute;left:12%;right:12%;top:46%;height:12%;border-radius:50%;
+  background:#FFC000;transform:rotate(-20deg)}
+.bl b{font:700 10cqmin/1 "Times New Roman",Times,serif;color:#1F4E79;white-space:nowrap;
+  text-shadow:.5cqmin .5cqmin 0 #A6A6A6;transform:scaleX(1.25)}
+.bl i{font:italic 5cqmin/1 Arial,sans-serif;color:#7F7F7F}
+
+.bpal{position:absolute;top:14%;left:10%;right:10%;bottom:calc(var(--cap) + 14%);
+  display:grid;grid-template-columns:repeat(5,1fr);gap:6%}
+.bpal i{border:1px solid #7F7F7F;box-shadow:2px 2px 0 rgba(0,0,0,.18)}
+.bpal i:nth-child(1){background:#1F4E79}
+.bpal i:nth-child(2){background:#5B9BD5}
+.bpal i:nth-child(3){background:#A5A5A5}
+.bpal i:nth-child(4){background:#C00000}
+.bpal i:nth-child(5){background:#FFC000}
+
+.bpat{background:repeating-linear-gradient(135deg,rgba(255,255,255,.4) 0 2px,transparent 2px 10px),
+  linear-gradient(#DEEBF7,#5B9BD5)}
+
+.bico{display:flex;align-items:center;justify-content:space-evenly;flex-wrap:wrap;
+  font-family:"Segoe UI Symbol","Arial Unicode MS",Arial,sans-serif}
+.bico span{display:grid;place-items:center;line-height:1}
+.bico span:nth-child(1){font-size:24cqmin}
+.bico span:nth-child(2){font-size:15cqmin;color:#fff;background:#2E75B6;width:26cqmin;height:26cqmin}
+.bico span:nth-child(3){font-size:30cqmin;color:#70AD47}
+.bico span:nth-child(4){font-size:20cqmin;color:#FFC000;text-shadow:1px 1px 0 #7F7F7F}
+.bico span:nth-child(5){font-size:13cqmin;color:#fff;background:#C00000;border-radius:50%;
+  width:24cqmin;height:24cqmin}
+
+.bmag{padding:7cqw;display:flex;flex-direction:column;align-items:center;gap:2.4cqh;text-align:center;
+  font-family:"Times New Roman",Times,serif}
+.bmag b{font-size:10cqw;line-height:1;color:#1F4E79}
+.bm-s{font:700 8cqw/1 Arial,sans-serif;letter-spacing:.1em;color:#C00000}
+.bm-i{width:100%;font-size:5.6cqw;font-style:italic;color:#595959;padding:1cqh 0;
+  border-top:1px solid #000;border-bottom:1px solid #000}
+.bm-ph{flex:1 1 auto;width:100%;min-height:0}
+.bm-l{width:100%;font-size:6cqw;line-height:1.35;text-align:left}
+
+.bcd{background:linear-gradient(#2E75B6,#1F4E79);color:#fff;padding:4%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:2.4cqh;text-align:center;
+  font-family:"Arial Black",Arial,sans-serif;font-weight:900}
+.bcd b{font-size:9cqmin;line-height:1;text-shadow:2px 2px 0 #000}
+.bc-o{font-size:20cqmin;line-height:.9;color:#FFC000;text-shadow:3px 3px 0 #C00000}
+.bc-s{font:700 6cqmin/1 Arial,sans-serif}
+.bc-c{font-size:6cqmin;background:#FFC000;color:#C00000;padding:1.6cqmin 4cqmin;border-radius:4cqmin;
+  border:2px solid #fff}
+.bcd small{font:400 3.6cqmin/1 Arial,sans-serif;opacity:.85}
+
+.bw{display:flex;flex-direction:column;background:#fff}
+.bw-bar{flex:0 0 auto;height:3.6cqw;display:flex;align-items:center;gap:.8cqw;padding:0 1.2cqw;
+  background:#D9D9D9;border-bottom:1px solid #A6A6A6}
+.bw-bar i{width:1.4cqw;height:1.4cqw;border-radius:50%;background:#A6A6A6}
+.bw-bar span{flex:1;margin-left:1.2cqw;background:#fff;border:1px solid #BFBFBF;color:#595959;
+  font-size:1.6cqw;line-height:2.4cqw;padding:0 1cqw;white-space:nowrap;overflow:hidden}
+.bw-hd{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:2cqw;
+  padding:1.4cqw 2cqw;background:#1F4E79;color:#BDD7EE;border-bottom:.6cqw solid #FFC000;font-size:1.6cqw}
+.bw-hd b{font:700 3.2cqw/1 "Times New Roman",serif;color:#fff;text-shadow:1px 1px 0 #000;white-space:nowrap}
+.bw-hd u{color:#fff}
+.bw-wel{flex:0 0 auto;text-align:center;padding:1.4cqw 0;color:#C00000;
+  font:700 3cqw/1 "Comic Sans MS","Comic Sans",cursive}
+.bw-sl{flex:1 1 auto;min-height:0;margin:0 2cqw;display:flex;align-items:center;
+  background:#F2F2F2;border:1px solid #BFBFBF}
+.bw-sl span{font-size:2.4cqw;color:#7F7F7F;padding:0 1cqw}
+.bw-sl em{flex:1;align-self:stretch;margin:1.2cqw 0}
+.bw-cols{flex:0 0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.6cqw;padding:1.4cqw 2cqw}
+.bw-cols div{display:flex;flex-direction:column;gap:.6cqw;padding:1.2cqw;background:#F2F2F2;
+  border:1px solid #BFBFBF}
+.bw-cols b{font:700 1.9cqw/1 "Times New Roman",serif;color:#1F4E79}
+.bw-cols u{font-size:1.5cqw;color:#0563C1}
+.bw-ft{flex:0 0 auto;background:#404040;color:#BFBFBF;text-align:center;font-size:1.3cqw;padding:.9cqw}
+
+.bph{background:#111;border-radius:13%/6.2%}
+.bph .ph-s{background:#fff;padding:4cqw;display:flex;flex-direction:column;gap:3cqw;border-radius:9cqw}
+.bm-hd{margin:-4cqw -4cqw 0;padding:11cqw 0 2cqw;text-align:center;background:#1F4E79;color:#fff;
+  border-bottom:2cqw solid #FFC000;font:700 9cqw/1.3 "Times New Roman",serif}
+.bm-nav{font-size:4.6cqw;line-height:1.5;text-align:center;color:#0563C1}
+.bm-wel{font:700 7cqw/1.1 "Comic Sans MS","Comic Sans",cursive;color:#C00000;text-align:center}
+.bm-img{flex:0 0 auto;height:34cqw}
+.bph p{margin:0;font-size:4.4cqw;line-height:1.3;text-align:justify}
+.bm-btn{align-self:center;padding:3cqw 6cqw;border:1px solid #BF9000;border-radius:2cqw;
+  background:linear-gradient(#FFD966,#FFC000);font:700 5cqw/1 Arial,sans-serif}
+.bm-pop{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:2cqw;
+  padding:5cqw 5cqw 9cqw;background:#C00000;color:#fff;font:700 5cqw/1.2 Arial,sans-serif}
+
+/* ---------- after ---------- */
+.ba-after{--tom:#E0482F;--but:#F3C95C;--for:#1D3A2E;--flo:#FBF3E3;--pink:#F2B5C0;
+  background:var(--for);font-family:var(--sans);color:var(--for)}
+.ba-after .ba-t{border-radius:clamp(6px,.9vw,14px);background:var(--flo)}
+.ba-after .tg{position:absolute;right:8px;bottom:8px;z-index:2;padding:4px 7px 3px;border-radius:99px;
+  background:var(--for);color:var(--flo);font:500 9px/1 var(--mono);letter-spacing:.12em;
+  text-transform:uppercase;white-space:nowrap}
+.mk{display:block;height:auto;color:var(--tom);stroke:var(--flo);overflow:visible}
+
+.al-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2.4cqmin;text-align:center}
+.al .mk{width:30cqmin}
+.al b{font:400 13cqmin/.95 var(--serif);letter-spacing:-.02em}
+.al-in span{font:500 3.6cqmin/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--tom)}
+.dd-loop{width:48cqmin;left:50%;top:50%;transform:translate(-50%,-80%)}
+.dd-sp1{width:9cqmin;right:14%;top:13%}
+.dd-sp2{width:6cqmin;left:15%;bottom:18%;--dd:var(--for)}
+
+.ap{display:grid;grid-template-rows:repeat(4,1fr)}
+.ap i{display:flex;align-items:center;padding:0 8%;font:500 clamp(7px,9cqh,11px)/1 var(--mono);
+  font-style:normal;letter-spacing:.12em;text-transform:uppercase}
+.ap .p1{background:var(--tom);color:var(--flo)}
+.ap .p2{background:var(--but)}
+.ap .p3{background:var(--for);color:var(--flo)}
+.ap .p4{background:var(--flo)}
+
+.ba-after .apt{background:var(--but)}
+.apt-s,.aw-pt,.am-today svg{position:absolute;inset:0;width:100%;height:100%}
+
+.ai-in{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-evenly;flex-wrap:wrap;
+  padding:4%}
+.ai svg{width:min(34cqh,19cqw);height:auto;padding:min(6cqh,3.4cqw);border-radius:50%;background:var(--but);
+  fill:none;stroke:var(--for);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;
+  box-sizing:content-box}
+@container (max-width:200px){ .ai svg{width:26cqw;padding:5cqw} }
+
+.ba-after .am{background:var(--tom);color:var(--flo);display:flex;flex-direction:column;padding:7%;
+  --dd:var(--flo)}
+.am-top{display:flex;justify-content:space-between;font:500 4.6cqw/1 var(--mono);letter-spacing:.14em;
+  text-transform:uppercase}
+.am-mast{font:400 26cqw/.9 var(--serif);letter-spacing:-.03em;margin-top:3cqh}
+.am-mk{width:52cqw;margin:auto;color:var(--but);stroke:var(--tom)}
+.am-line{max-width:80%;margin-bottom:22px;font:400 7cqw/1.15 var(--serif)}
+.am-stk{position:absolute;right:6cqw;top:40%;width:24cqw;height:24cqw;border-radius:50%;display:grid;
+  place-items:center;text-align:center;background:var(--pink);color:var(--for);transform:rotate(12deg);
+  font:600 4.4cqw/1.05 var(--sans);text-transform:uppercase}
+.dd-ring{width:40cqw;left:63cqw;top:calc(40% - 5cqw)}
+
+.ba-after .ac{background:var(--pink);padding:clamp(10px,5%,24px);display:flex;flex-direction:column;
+  justify-content:space-between}
+.ac-k{font:500 4cqmin/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.ac b{position:relative;align-self:flex-start;font:400 26cqmin/.86 var(--serif);letter-spacing:-.03em}
+.ac-mk{position:absolute;right:7cqmin;top:10cqmin;width:26cqmin;transform:rotate(-10deg);stroke:var(--pink)}
+.dd-heart{width:10cqmin;right:38cqmin;top:8cqmin}
+.dd-tick{width:.42em;right:-.5em;top:.62em;--dd:var(--for)}
+
+.aw{display:flex;flex-direction:column}
+.aw-bar{flex:0 0 auto;height:3.6cqw;display:flex;align-items:center;gap:.8cqw;padding:0 1.4cqw;
+  background:#EFE5D2}
+.aw-bar i{width:1.2cqw;height:1.2cqw;border-radius:50%;background:rgba(29,58,46,.25)}
+.aw-bar span{margin:0 auto;padding:0 3cqw;border-radius:99px;background:var(--flo);
+  color:rgba(29,58,46,.7);font:500 1.5cqw/2.2cqw var(--mono)}
+.aw-nav{flex:0 0 auto;display:flex;align-items:center;gap:2.6cqw;padding:2cqw 3.4cqw;
+  font:500 1.5cqw/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.aw-nav .mk{width:4.4cqw}
+.aw-nav b{margin:0 auto 0 -1.4cqw;font:400 2.6cqw/1 var(--serif);letter-spacing:-.01em;text-transform:none}
+.aw-nav em{font-style:normal;padding:1.1cqw 2cqw;border-radius:99px;background:var(--tom);color:var(--flo)}
+.aw-hero{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.15fr 1fr;gap:3cqw;
+  padding:0 3.4cqw 3.4cqw;align-items:center}
+.aw-txt{min-width:0}
+.aw-txt b{display:block;font:400 5.4cqw/.95 var(--serif);letter-spacing:-.025em}
+.aw-u{position:relative;white-space:nowrap}
+.dd-sq{left:-2%;bottom:-.16em;width:104%;height:.24em}
+.aw-txt p{margin:2.2cqw 0 2.6cqw;max-width:34ch;font-size:1.75cqw;line-height:1.4;color:rgba(29,58,46,.8)}
+.aw-txt em{display:inline-block;font-style:normal;padding:1.3cqw 2.2cqw;border-radius:99px;
+  background:var(--for);color:var(--flo);font:500 1.5cqw/1 var(--mono);letter-spacing:.12em;
+  text-transform:uppercase}
+.aw-art{position:relative;align-self:stretch;overflow:hidden;display:grid;place-items:center;
+  border-radius:2cqw;background:var(--but)}
+.aw-pt{opacity:.55}
+.aw-art .mk{position:relative;width:42%;stroke:var(--but)}
+.aw-art span{position:absolute;left:2cqw;top:2cqw;width:9cqw;height:9cqw;border-radius:50%;display:grid;
+  place-items:center;text-align:center;background:var(--pink);transform:rotate(-12deg);
+  font:600 1.4cqw/1.05 var(--sans);text-transform:uppercase}
+@container (max-width:460px){ .aw-txt p{display:none} .aw-nav span{display:none} }
+
+.ba-after .amob{background:var(--but)}
+.aph{background:var(--for);border-radius:14%/6.6%}
+.aph .ph-s{background:var(--flo);padding:6cqw;display:flex;flex-direction:column;gap:4cqw;border-radius:9cqw}
+.am-bar{display:flex;justify-content:space-between;align-items:center;padding-top:8cqw}
+.am-bar .mk{width:14cqw}
+.am-bar i{width:9cqw;height:5cqw;border-top:1.2cqw solid var(--for);border-bottom:1.2cqw solid var(--for)}
+.aph b{margin-top:4cqw;font:400 13cqw/.95 var(--serif);letter-spacing:-.02em}
+.aph p{margin:0;font-size:5.2cqw;line-height:1.35;color:rgba(29,58,46,.8)}
+.aph em{font-style:normal;text-align:center;padding:4.4cqw;border-radius:99px;background:var(--tom);
+  color:var(--flo);font:500 4.4cqw/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.am-today{position:relative;margin-top:auto;height:34cqw;display:flex;align-items:flex-end;padding:4cqw;
+  overflow:hidden;border-radius:5cqw;background:var(--but)}
+.am-today svg{opacity:.6}
+.am-today span{position:relative;padding:2.4cqw 3.4cqw;border-radius:99px;background:var(--flo);
+  font:500 3.6cqw/1 var(--mono);letter-spacing:.06em}
+.dd-sp3{width:10cqmin;left:8%;top:3%}
+.dd-zz{width:16cqmin;left:8%;bottom:3%;--dd:var(--for)}
 
 /* ============ 4c · THE CLIENT STRIP ============
    H3 and H4 of brief/09-feedback-round.md: the page featured two clients and
@@ -635,16 +733,23 @@
 .rm .mf-stage{height:auto;padding:120px var(--gut)}
 .rm .letter{position:relative;left:auto;top:auto;transform:none;margin:0 auto}
 .rm .env-back,.rm .env-front{display:none}
-.rm .rl-fixes li{transition:color .3s!important}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:1100px){
   .an-h3{display:none}
 }
 @media (max-width:900px){
-  .rl-grid{grid-template-columns:1fr}
-  .rl-stage{margin-top:30px;margin-bottom:40px}
   .swatches,.an-eb{display:none}
+}
+/* the board re-deals for a phone: same eight pieces, four columns */
+@media (max-width:700px){
+  .ba-kit{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(7,minmax(0,1fr));
+    grid-template-areas:"logo logo mob mob" "logo logo mob mob" "pal pat mob mob"
+                        "web web web web" "web web web web" "mag card card ico" "mag card card ico"}
+  .ba-before{--cap:13px}
+  .ba-before .cap{font-size:7.5px;padding:0 4px}
+  .ba-after .tg{right:4px;bottom:4px;padding:3px 5px 2px;font-size:7px}
+  .ba-line::after{width:10px;height:10px}
 }
 @media (max-width:600px){
   /* the strip gives the mark back its chip size on a phone: at 80px square a

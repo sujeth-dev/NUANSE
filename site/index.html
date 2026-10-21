@@ -282,63 +282,144 @@
     </div>
   </section>
 
-  <!-- 4b · BEFORE AND AFTER · what brand design is, in one frame
-       B6 of brief/10-revision-round-3.md. The subject used to be Zingara's
-       menu. It moved back to work/zingara.html, where it is that client's own
-       story and not the recurring example on six screens. What replaces it is
-       the general case: a business with no brand design at all, and the same
-       business structured.
+  <!-- 4b · BEFORE AND AFTER · one whole brand kit, twice
+       A full slide: the heading, and one board of eight pieces a kit is made
+       of. The before is the kit most small businesses actually have, built
+       from defaults; the after is the same business designed. The pin wipes
+       one into the other and the doodles draw on at the end.
 
-       D3, decided: both halves are invented, and visibly so. "Sample & Co."
-       cannot be read as a client, the mock is HTML and CSS with no asset
-       pipeline behind it, and the .qual-note under the copy says plainly what
-       it is. Nothing in this section names or depicts a real client. -->
-  <section class="redline-sec sec" id="redline" data-nav="light" aria-label="Before and after: brand design">
-    <div class="rl-grid">
-      <div class="rl-copy">
-        <h2 class="h2 h-split">Most businesses never chose how they look.</h2>
-        <p class="lede ink">Default type. Four weights because four were available. A logo stretched to fit whatever space it was given, and a colour picked fresh in every file. Nobody decided any of it, and a customer reads all of it in about a second. The other half of this frame is the same business, structured.</p>
-        <p class="rl-more">
-          <a class="btn solid magnet" href="work/zingara.html" data-cursor="Read the case"><span class="btn-ar l" aria-hidden="true">→</span><span class="btn-label">Read a real case</span><span class="btn-ar r" aria-hidden="true">→</span></a>
-        </p>
-        <p class="qual-note rl-qual">Both halves are invented. &ldquo;Sample &amp; Co.&rdquo; is a specimen built in HTML and CSS &mdash; not a client, and not a client&rsquo;s work.</p>
+       D3 still holds: both kits are invented and visibly so. "Sample & Co."
+       cannot be read as a client, everything is HTML, CSS and inline SVG, and
+       the .qual-note says plainly what it is. -->
+  <section class="ba-sec" id="before-after" data-nav="light" aria-label="Before and after: one brand kit">
+    <svg class="ba-defs" aria-hidden="true" focusable="false"><defs>
+      <symbol id="ba-loaf" viewBox="0 0 64 48"><path stroke="none" fill="currentColor" d="M6 34C4 18 18 8 32 8s28 10 26 26c-1 6-6 8-12 8H18c-6 0-11-2-12-8z"/><path fill="none" stroke-width="3.2" stroke-linecap="round" d="M21 19c4 4 4 10 0 14M32 17c4 5 4 12 0 17M43 19c4 4 4 10 0 14"/></symbol>
+      <pattern id="ba-pt" width="34" height="34" patternUnits="userSpaceOnUse" patternTransform="rotate(-14)"><use href="#ba-loaf" x="2" y="4" width="18" height="14"/><circle cx="27" cy="25" r="2.2" fill="#1D3A2E"/><path d="M6 27c3-3 6 3 9 0" fill="none" stroke="#1D3A2E" stroke-width="1.6" stroke-linecap="round"/></pattern>
+    </defs></svg>
+    <div class="ba-stage">
+      <h2 class="ba-h"><span class="ba-w ba-wb">Before.</span><svg class="ba-arr dd" viewBox="0 0 160 50" aria-hidden="true"><path d="M6 36C40 10 92 6 140 26"/><path d="M124 13l17 13-19 8"/></svg><span class="ba-w ba-wa">After.</span></h2>
+      <p class="ba-sr">A brand kit for an invented bakery, Sample &amp; Co., shown twice. Before: a stretched clip-art logo, five unrelated office colours, a stock gradient, mixed clip-art icons, a newsletter, a shouting sale post, a dated website and a desktop page squeezed onto a phone. After: a drawn loaf mark, four chosen colours, a loaf pattern, one icon set, an editorial cover, a calm social post, and a website and mobile page built from the same parts.</p>
+      <div class="ba-board">
+
+        <!-- BEFORE · built from whatever was installed -->
+        <div class="ba-kit ba-before" aria-hidden="true">
+          <div class="ba-t t-logo">
+            <div class="bl"><span class="bl-art"></span><b>SAMPLE &amp; CO.</b><i>Bakery &bull; Cafe &bull; Catering</i></div>
+            <span class="cap">logo_final_v3 (2).jpg</span>
+          </div>
+          <div class="ba-t t-pal">
+            <div class="bpal"><i></i><i></i><i></i><i></i><i></i></div>
+            <span class="cap">colours.png</span>
+          </div>
+          <div class="ba-t t-pat">
+            <div class="bpat"></div>
+            <span class="cap">background2.jpg</span>
+          </div>
+          <div class="ba-t t-ico">
+            <div class="bico"><span>&#9742;&#xFE0E;</span><span>&#9993;&#xFE0E;</span><span>&#8962;</span><span>&#9733;</span><span>&#9829;&#xFE0E;</span></div>
+            <span class="cap">icons_clipart.png</span>
+          </div>
+          <div class="ba-t t-mag">
+            <div class="bmag"><b>SAMPLE &amp; CO.</b><span class="bm-s">NEWSLETTER</span><span class="bm-i">Issue 4 &ndash; Spring Edition</span><span class="bm-ph"></span><span class="bm-l">&bull; New Opening Hours!<br>&bull; Meet Our Staff<br>&bull; Recipe of the Month</span></div>
+            <span class="cap">newsletter_spring.doc</span>
+          </div>
+          <div class="ba-t t-card">
+            <div class="bcd"><b>SPECIAL OFFER!!!</b><span class="bc-o">20% OFF</span><span class="bc-s">ALL CAKES &amp; PASTRIES*</span><span class="bc-c">CALL NOW!</span><small>*Terms &amp; Conditions Apply</small></div>
+            <span class="cap">fb_post_FINAL_final.png</span>
+          </div>
+          <div class="ba-t t-web">
+            <div class="bw">
+              <div class="bw-bar"><i></i><i></i><i></i><span>http://www.sampleandco.com/index.html</span></div>
+              <div class="bw-hd"><b>SAMPLE &amp; CO.</b><span><u>Home</u> | <u>About Us</u> | <u>Products</u> | <u>Gallery</u> | <u>Contact Us</u></span></div>
+              <div class="bw-wel">Welcome to Our Website!!</div>
+              <div class="bw-sl"><span>&#9664;</span><em></em><span>&#9654;</span></div>
+              <div class="bw-cols"><div><b>Our Cakes</b><u>Read More &gt;&gt;</u></div><div><b>Our Coffee</b><u>Read More &gt;&gt;</u></div><div><b>Catering</b><u>Read More &gt;&gt;</u></div></div>
+              <div class="bw-ft">&copy; 2019 Sample &amp; Co. All Rights Reserved. | Best viewed at 1024&times;768</div>
+            </div>
+            <span class="cap">homepage_screenshot.png</span>
+          </div>
+          <div class="ba-t t-mob">
+            <div class="ph bph"><div class="ph-s">
+              <div class="bm-hd">SAMPLE &amp; CO.</div>
+              <div class="bm-nav"><u>Home</u> | <u>About Us</u> | <u>Products</u> | <u>Gallery</u> | <u>Contact</u></div>
+              <div class="bm-wel">Welcome to Our Website!!</div>
+              <div class="bm-img"></div>
+              <p>Sample &amp; Co. is a family run bakery providing quality cakes, pastries and coffee since 2019. Click here to see our full menu and price list.</p>
+              <div class="bm-btn">CLICK HERE</div>
+              <div class="bm-pop">Subscribe to our Newsletter!! <b>&times;</b></div>
+            </div></div>
+            <span class="cap">mobile_view.png</span>
+          </div>
+        </div>
+
+        <!-- AFTER · the same business, designed -->
+        <div class="ba-kit ba-after" aria-hidden="true">
+          <div class="ba-t t-logo al">
+            <div class="al-in"><svg class="mk" viewBox="0 0 64 48"><use href="#ba-loaf"/></svg><b>Sample &amp; Co.</b><span>Bakehouse &middot; Est. 2019</span></div>
+            <svg class="dd dd-loop" viewBox="0 0 120 100"><path d="M20 54C16 26 50 8 78 14s34 34 22 54-56 26-76 10C10 66 16 40 40 28c16-8 40-6 52 2"/></svg>
+            <svg class="dd dd-sp1" viewBox="0 0 40 40"><path d="M20 4c1 10 6 15 16 16-10 1-15 6-16 16-1-10-6-15-16-16 10-1 15-6 16-16z"/></svg>
+            <svg class="dd dd-sp2" viewBox="0 0 40 40"><path d="M20 4c1 10 6 15 16 16-10 1-15 6-16 16-1-10-6-15-16-16 10-1 15-6 16-16z"/></svg>
+            <span class="tg">01 Mark</span>
+          </div>
+          <div class="ba-t t-pal ap">
+            <i class="p1"><span>Tomato</span></i><i class="p2"><span>Butter</span></i><i class="p3"><span>Forest</span></i><i class="p4"><span>Flour</span></i>
+            <span class="tg">02 Colour</span>
+          </div>
+          <div class="ba-t t-pat apt">
+            <svg class="apt-s" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><rect width="200" height="200" fill="url(#ba-pt)"/></svg>
+            <span class="tg">03 Pattern</span>
+          </div>
+          <div class="ba-t t-ico ai">
+            <div class="ai-in">
+              <svg viewBox="0 0 24 24"><path d="M5 9h11v4a6 6 0 0 1-6 6h0a5 5 0 0 1-5-5zM16 10.5h1.5a2.5 2.5 0 0 1 0 5H16M8.5 3c-1 1.5 1 2.5 0 4M12.5 3c-1 1.5 1 2.5 0 4"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M4 15c-1-5 3-9 8-9s9 4 8 9c0 2-1.5 3-3 3H7c-1.5 0-3-1-3-3zM9 10c1 1.5 1 3.5 0 5M13 9.5c1 1.7 1 4 0 5.5"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 21V8M12 8C10 7 9 5 9 3c2 0 3 1.5 3 3M12 8c2-1 3-3 3-5-2 0-3 1.5-3 3M12 13.5c-2-1-3.5-2.5-3.5-4.5 2 0 3.5 1.5 3.5 3M12 13.5c2-1 3.5-2.5 3.5-4.5-2 0-3.5 1.5-3.5 3"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2"/></svg>
+            </div>
+            <span class="tg">04 Icons</span>
+          </div>
+          <div class="ba-t t-mag am">
+            <span class="am-top"><span>No. 04</span><span>Spring</span></span>
+            <b class="am-mast">Crumb.</b>
+            <svg class="mk am-mk" viewBox="0 0 64 48"><use href="#ba-loaf"/></svg>
+            <span class="am-line">The slow issue: why we wait thirty-six hours</span>
+            <span class="am-stk">Free<br>recipe</span>
+            <svg class="dd dd-ring" viewBox="0 0 120 100"><path d="M20 54C16 26 50 8 78 14s34 34 22 54-56 26-76 10C10 66 16 40 40 28c16-8 40-6 52 2"/></svg>
+            <span class="tg">05 Editorial</span>
+          </div>
+          <div class="ba-t t-card ac">
+            <span class="ac-k">Tue&ndash;Sun &middot; from 7am</span>
+            <b>Fresh<br>at 7.<svg class="dd dd-tick" viewBox="0 0 40 40"><path d="M6 28l8-7M12 37l7-10M27 36l2-12"/></svg></b>
+            <svg class="mk ac-mk" viewBox="0 0 64 48"><use href="#ba-loaf"/></svg>
+            <svg class="dd dd-heart" viewBox="0 0 40 36"><path d="M20 32C6 22 2 14 6 8s12-4 14 3c2-7 10-9 14-3s0 14-14 24z"/></svg>
+            <span class="tg">06 Social</span>
+          </div>
+          <div class="ba-t t-web aw">
+            <div class="aw-bar"><i></i><i></i><i></i><span>sampleandco.com</span></div>
+            <div class="aw-nav"><svg class="mk" viewBox="0 0 64 48"><use href="#ba-loaf"/></svg><b>Sample &amp; Co.</b><span>Menu</span><span>Story</span><span>Visit</span><em>Order ahead</em></div>
+            <div class="aw-hero">
+              <div class="aw-txt"><b>Bread worth <span class="aw-u">getting up<svg class="dd dd-sq" viewBox="0 0 200 20" preserveAspectRatio="none"><path d="M4 12C20 4 30 18 46 10s26-6 42 2 28 6 44-2 32-6 64 0"/></svg></span> for.</b><p>Slow sourdough, buns and cardamom knots, out of the oven by seven.</p><em>See today&rsquo;s bake</em></div>
+              <div class="aw-art"><svg class="aw-pt" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><rect width="200" height="200" fill="url(#ba-pt)"/></svg><svg class="mk" viewBox="0 0 64 48"><use href="#ba-loaf"/></svg><span>since<br>2019</span></div>
+            </div>
+            <span class="tg">07 Web</span>
+          </div>
+          <div class="ba-t t-mob amob">
+            <div class="ph aph"><div class="ph-s">
+              <div class="am-bar"><svg class="mk" viewBox="0 0 64 48"><use href="#ba-loaf"/></svg><i></i></div>
+              <b>Bread worth getting up for.</b>
+              <p>Out of the oven by seven, Tuesday to Sunday.</p>
+              <em>Order ahead</em>
+              <div class="am-today"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><rect width="200" height="200" fill="url(#ba-pt)"/></svg><span>Today &middot; sourdough, buns, knots</span></div>
+            </div></div>
+            <svg class="dd dd-sp3" viewBox="0 0 40 40"><path d="M20 4c1 10 6 15 16 16-10 1-15 6-16 16-1-10-6-15-16-16 10-1 15-6 16-16z"/></svg>
+            <svg class="dd dd-zz" viewBox="0 0 60 30"><path d="M4 22l8-14 8 14 8-14 8 14 8-14 8 14"/></svg>
+            <span class="tg">08 Mobile</span>
+          </div>
+        </div>
+
+        <div class="ba-line" aria-hidden="true"></div>
       </div>
-      <div class="rl-stage rl-static">
-        <div class="rl-tags mono"><span>After</span><span>Before</span></div>
-        <!-- no brand design at all: the logo is type stretched to fit, the
-             voice is whatever face was installed, and five unrelated colours
-             turn up across one sheet -->
-        <div class="menu-mock mm-before" aria-hidden="true">
-          <div class="bt">SAMPLE &amp; CO.</div>
-          <div class="bs">Quality Service Since 2019</div>
-          <div class="bchips"><i class="bc1"></i><i class="bc2"></i><i class="bc3"></i><i class="bc4"></i><i class="bc5"></i></div>
-          <div class="bh">WHO WE ARE</div>
-          <div class="bp">We are a <b>FAMILY RUN</b> business providing <i>the very best</i> service in town.</div>
-          <div class="bp bp2">CALL NOW : 080 4000 0000</div>
-          <div class="bcard">SAMPLE &amp; CO.<span>Sales Team</span></div>
-          <div class="burst">GRAND<br>OPENING</div>
-        </div>
-        <!-- the same business, structured: one typeface for the voice and the
-             mono for labels, a drawn mark instead of stretched type, four
-             colours that agree, and a grid the eye can follow down -->
-        <div class="menu-mock mm-after" aria-hidden="true">
-          <div class="amark"><span>S</span><span>C</span></div>
-          <div class="at">Sample &amp; Co.</div>
-          <div class="mono-s as">Est. 2019 · Bangalore</div>
-          <div class="apal"><i class="ap1"></i><i class="ap2"></i><i class="ap3"></i><i class="ap4"></i></div>
-          <div class="mono-s ah"><span>Who we are</span><span>01</span></div>
-          <div class="ap-b"><b>A family-run supplier.</b><span>One standard, held since 2019.</span></div>
-          <div class="mono-s ah"><span>Reach us</span><span>02</span></div>
-          <div class="ap-b"><b>080 4000 0000</b><span>Monday to Saturday, nine to six.</span></div>
-          <div class="acard"><span class="am"></span><b>Sample &amp; Co.</b><small>Sales</small></div>
-        </div>
-        <div class="rl-handle" aria-hidden="true"></div>
-        <div class="rl-annos">
-          <div class="ra l ra-a" data-x="24" data-txt="A · One typeface, not four"><svg viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path/></svg><span class="badge">A</span><span class="t"></span></div>
-          <div class="ra l ra-b" data-x="52" data-txt="B · Four colours, chosen once"><svg viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path/></svg><span class="badge">B</span><span class="t"></span></div>
-          <div class="ra r ra-c" data-x="80" data-txt="C · A mark, not stretched type"><svg viewBox="0 0 40 120" preserveAspectRatio="none" aria-hidden="true"><path/></svg><span class="badge">C</span><span class="t"></span></div>
-        </div>
-      </div>
+      <p class="qual-note ba-qual">Both kits are invented. &ldquo;Sample &amp; Co.&rdquo; is a specimen built in HTML and CSS &mdash; not a client, and not a client&rsquo;s work.</p>
     </div>
   </section>
 
