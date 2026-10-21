@@ -88,46 +88,47 @@
    14.5vw/19vh/186px, a 45% larger headline at 1440x900.
 
    The growth is not uniform, and that is the point of the item. "We design"
-   and the slot under it carry the full unit and the horizontal reach; "for
-   businesses" takes .82 and runs further right than anything above it; the
-   closing couplet drops to .46 and is the quiet half of the block. Three
-   sizes, so the block has a shape rather than a left edge.
+   and the slot under it carry the full unit; "for businesses", "that refuse
+   to" and "be ordinary." step down after it - .82, .64, .46 - a cascade
+   rather than a single quiet half. Four sizes now, not three, so the block
+   narrows toward its own foot instead of dropping once.
 
    Why the unit can grow this far and no further: the five lines now measure
-   (1 + 1 + .82 + .46 + .46) x .92 = 3.44 units tall. At 19vh that is 65vh of
-   type, which leaves 14vh of nav clearance, 7vh of floor and the 52px CTA row
-   inside one viewport with ~8vh spare. 21vh overruns a 900px window. */
+   (1 + 1 + .82 + .64 + .46) x .92 = 3.61 units tall - the couplet's middle
+   step costs .18 unit over the previous even split. At 19vh that is 68.6vh
+   of type, which leaves 14vh of nav clearance and 7vh of floor inside one
+   viewport with ~4.7vh spare rather than ~8 - tighter, and still clear of
+   the 52px CTA row at 900px. Re-measure this margin if --hu's ceiling ever
+   moves again. */
 .hero-h{--hu:clamp(46px,min(14.5vw,19vh),186px);
   font-family:var(--serif);font-weight:400;font-size:var(--hu);
   line-height:.92;letter-spacing:-.045em;margin:0}
 .hl{display:block}
 /* Nine characters at -.045em were holding themselves in, and the first pass
-   only let them go as far as -.02em. The review asked for this line longer
-   still, so the tracking opens further - to .02em, past neutral - which is
-   where the extra reach actually is: letter-spacing, not a larger unit, so
-   the five-line vertical budget in the comment above is untouched. */
-.hl-lead{letter-spacing:.02em}
-/* "for businesses" stays on the left.
+   only let them go as far as -.02em. Still not the reach asked for, so the
+   tracking opens further again - to .04em, double the first correction -
+   and stays a letter-spacing change rather than a larger --hu: the review
+   was explicit that if a line needs more room, the OTHER lines give it up,
+   not this one, which is also why the couplet below shrinks rather than
+   this line growing a second way. */
+.hl-lead{letter-spacing:.04em}
+/* "for businesses" stays on the left, and is the first step of a cascade.
 
-   The first pass set this line against the measure's right edge, reasoning
-   from the item that asked it to "extend further toward the right edge."
-   The review corrected that reading: left, not right - the line's reach is
-   in its size against the couplet below it, not in where it starts. Plain
-   left alignment, which is also what .hl already does with no rule of its
-   own, so the property is removed rather than set to a value. */
-.hl-mid{font-size:.82em}
-/* The closing couplet, brought up to the same size as the line above it and
-   given the slant the review asked for - "comparable size... a slant feel."
-
-   Gloock ships one weight and no italic cut, so an actual oblique would be
-   the browser's own faux-italic: a sheared regular face, drawn without the
-   glyph corrections a real italic has, and visibly cheap at this size. A
-   transform does the same shear deliberately and admits what it is. -8deg
-   reads as a lean rather than a tilt; transform-origin sits at the baseline
-   so the line still sets from the left edge it shares with the rest of the
-   block, not from its own centre. */
-.hl-tail{font-size:.82em;letter-spacing:-.03em;
-  transform:skewX(-8deg);transform-origin:0 100%}
+   Two readings were tried and both corrected: right-aligned (first pass),
+   then slanted and matched in size to this line (second pass). The review
+   settled it plainly - all three of this line and the couplet below start
+   at the same left edge, straight, each a size smaller than the one above:
+   "for businesses" longest and biggest, "that refuse to" next and shorter,
+   "be ordinary." shortest and smallest of the three. This is the first
+   step, at the unit's own .82. */
+.hl-mid{font-size:.64em;letter-spacing:-.065em}
+/* The closing couplet. Straight - no transform, no italic; two sizes, not
+   one, continuing the cascade .hl-mid began rather than matching it.
+   .hl-tail carries what both lines share; the -a/-b modifiers carry the one
+   thing that tells them apart. */
+.hl-tail{letter-spacing:-.03em}
+.hl-tail-a{font-size:.64em;margin-top:-.08em;margin-left:-.06em}
+.hl-tail-b{font-size:.64em}
 /* the slot: the word rides in its own mask, and the line holds its height
    whichever of the four is in it. nowrap because B2 sets the word in the mono
    face mid-flip, where it is wider than the serif it replaces - a slot
@@ -156,7 +157,7 @@
    colour changing underneath them. */
 .rot .gl{font-family:var(--mono);font-size:.86em;letter-spacing:.02em}
 .hero-eyebrow{position:relative;align-self:flex-start}
-.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.hero-foot{display:flex;justify-content:flex-end;align-items:flex-end;gap:32px;flex-wrap:wrap}
 /* a measured fact row carries the lower left, not a paragraph */
 .hero-facts{position:relative;display:flex;margin:0;color:var(--mute)}
 .hero-facts>div{padding:0 clamp(16px,1.6vw,24px);border-left:1px solid rgba(13,26,65,.18)}
