@@ -445,7 +445,7 @@
   box-shadow:.8cqmin .8cqmin 1.4cqmin rgba(0,0,0,.35)}
 .bl-art::after{content:"";position:absolute;left:12%;right:12%;top:46%;height:12%;border-radius:50%;
   background:#FFC000;transform:rotate(-20deg)}
-.bl b{font:700 10cqmin/1 "Times New Roman",Times,serif;color:#1F4E79;white-space:nowrap;
+.bl b{font:700 min(10cqmin,7.2cqw)/1 "Times New Roman",Times,serif;color:#1F4E79;white-space:nowrap;
   text-shadow:.5cqmin .5cqmin 0 #A6A6A6;transform:scaleX(1.25)}
 .bl i{font:italic 5cqmin/1 Arial,sans-serif;color:#7F7F7F}
 
