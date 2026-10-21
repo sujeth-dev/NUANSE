@@ -417,8 +417,6 @@
   background:var(--navy);pointer-events:none}
 .ba-line::after{content:"";position:absolute;top:50%;left:50%;width:14px;height:14px;border-radius:50%;
   background:var(--copper);transform:translate(-50%,-50%);box-shadow:0 0 0 4px var(--cream)}
-.ba-qual{margin:clamp(10px,1.8vh,18px) 0 0}
-
 /* the doodles: drawn strokes, one weight at any size */
 .dd{position:absolute;overflow:visible;pointer-events:none;height:auto}
 .dd path{fill:none;stroke:var(--dd,#E0482F);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
