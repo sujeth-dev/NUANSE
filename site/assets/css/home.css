@@ -102,16 +102,14 @@
    moves again. */
 .hero-h{--hu:clamp(46px,min(14.5vw,19vh),186px);
   font-family:var(--serif);font-weight:400;font-size:var(--hu);
-  line-height:.92;letter-spacing:-.045em;margin:0}
+  line-height:.92;letter-spacing:-.015em;margin:0}
+/* One tracking value for all five lines, and one fixed gap between them -
+   calc(var(--hu)*.09) rather than line-height alone, so the gap stays equal
+   even where the cascade below drops to a smaller font-size. "that refuse
+   to" keeps its own smaller gap and the subtle left nudge asked for
+   separately - the one deliberate exception to the shared rhythm. */
 .hl{display:block}
-/* Nine characters at -.045em were holding themselves in, and the first pass
-   only let them go as far as -.02em. Still not the reach asked for, so the
-   tracking opens further again - to .04em, double the first correction -
-   and stays a letter-spacing change rather than a larger --hu: the review
-   was explicit that if a line needs more room, the OTHER lines give it up,
-   not this one, which is also why the couplet below shrinks rather than
-   this line growing a second way. */
-.hl-lead{letter-spacing:.04em}
+.hl + .hl{margin-top:calc(var(--hu)*.09)}
 /* "for businesses" stays on the left, and is the first step of a cascade.
 
    Two readings were tried and both corrected: right-aligned (first pass),
@@ -121,13 +119,12 @@
    "for businesses" longest and biggest, "that refuse to" next and shorter,
    "be ordinary." shortest and smallest of the three. This is the first
    step, at the unit's own .82. */
-.hl-mid{font-size:.64em;letter-spacing:-.065em}
+.hl-mid{font-size:.64em}
 /* The closing couplet. Straight - no transform, no italic; two sizes, not
    one, continuing the cascade .hl-mid began rather than matching it.
    .hl-tail carries what both lines share; the -a/-b modifiers carry the one
    thing that tells them apart. */
-.hl-tail{letter-spacing:-.03em}
-.hl-tail-a{font-size:.64em;margin-top:-.08em;margin-left:-.06em}
+.hl-tail-a{font-size:.64em;margin-top:calc(var(--hu)*.03);margin-left:-.06em}
 .hl-tail-b{font-size:.64em}
 /* the slot: the word rides in its own mask, and the line holds its height
    whichever of the four is in it. nowrap because B2 sets the word in the mono
