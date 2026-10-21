@@ -1079,8 +1079,8 @@
         if (!NU.MOTION.mq || NU.calm()) return;     /* sleeps off-screen and under a pin */
         const w = setW.offsetWidth;
         if (!w) return;
-        const boost = Math.min(Math.abs(vel) / 350, 4);
-        mx -= dir * (46 + 46 * boost) * dt / 1000;
+        const boost = Math.min(Math.abs(vel) / 350, 3);
+        mx -= dir * (38 + 38 * boost) * dt / 1000;
         if (mx <= -w) mx += w;
         if (mx > 0) mx -= w;
         gsap.set(mqTrack, { x: mx });
