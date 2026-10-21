@@ -47,19 +47,10 @@
   background:none;color:var(--navy);cursor:pointer;display:inline-flex;align-items:baseline;
   gap:8px;transition:background var(--t-mid) var(--ease),color var(--t-mid) var(--ease)}
 .chip[aria-pressed=true]{background:var(--navy);color:var(--cream)}
-/* the count is a tone, not a faded navy: at 9.5px an opacity of .55 over
-   cream measured 2.9:1 and axe was right to fail it. --mute and --mute-d
-   are the two the palette already tests at AA on each ground. */
-.chip-n{font-style:normal;font-size:9.5px;color:var(--mute)}
-.chip[aria-pressed=true] .chip-n{color:var(--mute-d)}
 @media (hover:hover){
   .chip:hover{background:rgba(13,26,65,.08)}
   .chip[aria-pressed=true]:hover{background:var(--navy)}
 }
-/* twelve on Everything and eleven across the shelves is a discrepancy a
-   reader can see, so the page says why before they have to wonder */
-.cl-uncat{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--mute);margin:0 0 var(--s3);max-width:70ch;line-height:1.7}
 
 /* ============ THE GRID ============
    280px is the number that makes 1320px of content into four columns.

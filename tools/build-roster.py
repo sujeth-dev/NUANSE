@@ -199,34 +199,18 @@ def card(c, marks):
 
 # ----------------------------------------------------------------- the chips
 def chips(data):
-    """Everything, then one chip per shelf, with its count.
-
-    The count is the reason these are generated. A chip that says 3 over a
-    filter that shows 2 is the one error on this page nobody forgives."""
-    cl = data['clients']
-    rows = [('', 'Everything', len(cl))]
-    for key, label in data['_categories'].items():
-        rows.append((key, label, sum(1 for c in cl if c['cat'] == key)))
-    uncat = [c['name'] for c in cl if not c['cat']]
+    """Everything, then one chip per shelf. No counts: the client asked for
+    the page without them, and without counts there is no gap between
+    Everything and the shelves left to explain."""
+    rows = [('', 'Everything')] + list(data['_categories'].items())
 
     out = ['  <div class="cl-chips" role="group" aria-label="Filter clients by sector">']
-    for key, label, n in rows:
+    for key, label in rows:
         out.append('    <button type="button" class="chip%s" data-cat="%s" '
-                   'aria-pressed="%s"><span>%s</span>'
-                   '<i class="chip-n" aria-hidden="true">%02d</i></button>'
+                   'aria-pressed="%s"><span>%s</span></button>'
                    % (' on' if key == '' else '', attr(key),
-                      'true' if key == '' else 'false', esc(label), n))
+                      'true' if key == '' else 'false', esc(label)))
     out.append('  </div>')
-    if uncat:
-        # Said out loud rather than filed under a guess. Twelve on Everything
-        # and eleven across the shelves is a discrepancy a reader can see, so
-        # the page explains it before they have to wonder.
-        out.append('  <p class="cl-uncat">%s %s no published sector, so %s '
-                   'under Everything rather than filed under a guess.'
-                   '</p>' % (esc(' and '.join(uncat)),
-                             'carry' if len(uncat) > 1 else 'carries',
-                             'they appear only' if len(uncat) > 1
-                             else 'it appears only'))
     return LF.join(out)
 
 
