@@ -436,7 +436,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    fires its focusin, which reveals it — so a keyboard user slides it back
    into view rather than meeting a nav that has opted out of the tab order. */
 .nav::before{content:"";position:absolute;inset:0;
-  background:linear-gradient(var(--cream),rgba(252,247,241,0));opacity:0;
+  background:linear-gradient(var(--cream),rgba(252,247,241,0));opacity:.4;
   transition:opacity var(--t-mid) var(--ease),background var(--t-mid);pointer-events:none}
 .nav.scrolled::before{opacity:.85}
 /* the compact pill is its own ground and does not want the wash behind it */
