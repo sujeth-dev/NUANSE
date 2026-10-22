@@ -161,7 +161,9 @@
 .pv-home{position:absolute;right:calc(25% - 19px);top:calc(25% - 19px);
   width:38px;height:38px;border-radius:50%;border:1px dashed var(--accent);
   opacity:.75}
-.pv-home-label{position:absolute;right:12%;top:calc(25% - 34px);margin:0;
+/* clear of its own marker: at two lines the label's second line used to
+   run across the dashed circle it is pointing at */
+.pv-home-label{position:absolute;right:12%;top:calc(25% - 54px);margin:0;
   font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--accent-ink);text-align:right;
   line-height:1.4;max-width:44%}
@@ -180,21 +182,78 @@
 
 /* --- the lines --- */
 .pv-read{min-height:0}
-.pv-q{margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+/* --- the head: where you are, and how far that is from the brand ---
+   The column opened with a dead mono label reading "At this position",
+   which was true of every position. The quadrant is named instead, and the
+   meter beside it fills as the drift grows — both read the same --x/--y
+   the dot does, so nothing here can disagree with the pad. */
+.pv-head{display:flex;align-items:center;gap:14px;margin:0 0 var(--s3);
+  padding-bottom:14px;border-bottom:1px solid rgba(31,58,45,.2)}
+.pv-q{margin:0;flex:0 0 auto;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--accent-ink)}
-.pv-col{position:relative}
-.pv-list{list-style:none;margin:0;padding:0}
-.pv-list li{margin:0 0 10px}
-.pv-list p{margin:0;font-family:var(--serif);font-weight:400;
-  font-size:clamp(20px,2.2vw,31px);line-height:1.22;letter-spacing:-.02em}
+/* the quadrant names itself and nothing more. It used to carry a
+   "· theirs / · not theirs" suffix off the quadrant, which is the wrong
+   measure: the quadrant is still Bold + Composed a third of the way out,
+   by which point the label has already lost two of its six lines. The
+   count beside the meter is the honest reading, and it is the same number
+   the announcement uses. */
+[data-q=bc] .pv-q::after{content:"Bold + Composed"}
+[data-q=bp] .pv-q::after{content:"Bold + Playful"}
+[data-q=sc] .pv-q::after{content:"Soft + Composed"}
+[data-q=sp] .pv-q::after{content:"Soft + Playful"}
+.pv-meter{flex:1 1 auto;min-width:40px;height:1px;background:rgba(31,58,45,.26);
+  position:relative}
+.pv-meter i{position:absolute;inset:0;background:var(--accent);transform-origin:left;
+  transform:scaleX(var(--drift))}
+.pv-count{flex:0 0 auto;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  font-variant-numeric:tabular-nums;color:var(--accent-ink)}
 
-/* The cross-fade. Each layer owns half the drift range, so the two are never
-   both at full strength in the middle — a straight linear fade muddles into an
-   unreadable overlap, which is the same correction the Zingara typefaces
-   needed. The second layer is stacked on the first and takes over. */
-.pv-write{opacity:calc(1 - var(--drift) * 2)}
-.pv-dont{position:absolute;inset:0;opacity:calc((var(--drift) - .5) * 2)}
-.pv-dont .pv-list p{font-style:italic;color:#6E6257}
+/* --- the lines, one at a time ---
+   The six lines used to be two stacked blocks cross-fading as one, which
+   made drifting a single swap: the brand was either on or off. It is not
+   how a voice is actually lost. Each line now holds both states and flips
+   at its OWN point on the drift, so you watch the label give up "she wants
+   what she wants" before it gives up the rest — and, dragging back, get
+   them again in reverse.
+
+   The thresholds are evenly spread rather than tuned: no one line is a more
+   important part of the voice than another, and an uneven spread would be
+   claiming that it is. Each flips over about a tenth of the range, which is
+   sharp enough to read as a line being lost rather than as a fade. */
+.l1{--t:.10} .l2{--t:.24} .l3{--t:.38}
+.l4{--t:.52} .l5{--t:.66} .l6{--t:.80}
+
+.pv-lines{list-style:none;margin:0;padding:0}
+/* more air between them than the old stacked list had. Six lines at 10px
+   apart was a block of text; a line of a brand's voice is not a paragraph,
+   and the column has the room now that it is no longer two lists deep. */
+.pv-lines li{position:relative;display:grid;margin:0 0 clamp(13px,1.6vw,22px)}
+.pv-lines li:last-child{margin-bottom:0}
+.pv-lines .is,.pv-lines .isnt{grid-column:1;grid-row:1;
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(19px,2.1vw,29px);line-height:1.22;letter-spacing:-.02em}
+.pv-lines .is{opacity:calc((var(--t) - var(--drift)) * 9 + .5)}
+/* the refused line is set in the italic it would be written in, and in the
+   colour of something nobody chose */
+.pv-lines .isnt{font-style:italic;color:#6E6257;
+  opacity:calc((var(--drift) - var(--t)) * 9 + .5)}
+
+/* --- the way back ---
+   Inherits .btn's shape from core? No: this is one word in the chapter's
+   own idiom, and a full button next to six serif lines would be the loudest
+   thing on a slide about restraint. It appears only once there is something
+   to put back. */
+.pv-home-btn{margin:var(--s3) 0 0;padding:0 0 3px;background:none;border:0;
+  border-bottom:1px solid var(--accent);color:var(--accent-ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;
+  /* nothing to put back at the brand's own point, and not reachable then
+     either — visibility, not opacity, so it leaves the tab order with it */
+  opacity:clamp(0, calc(var(--drift) * 8), 1);
+  visibility:hidden}
+[data-drift=on] .pv-home-btn{visibility:visible}
+.pv-home-btn:focus-visible{outline:1px dashed var(--accent-ink);outline-offset:5px}
+@media (hover:hover){.pv-home-btn:hover{border-bottom-width:2px}}
 
 .pv-words{margin:clamp(22px,2.6vw,34px) 0 0;padding-top:16px;
   border-top:1px solid rgba(31,58,45,.2);font-family:var(--mono);font-size:10px;
@@ -210,7 +269,6 @@
    here we simply remove the easing so nothing slides. There is no reveal to
    forget the end state of, because the end state IS the default. */
 .rm .pv-dot{transition:none}
-.rm .pv-write,.rm .pv-dont{transition:none}
 
 @media (max-width:900px){
   .pv{grid-template-columns:1fr}

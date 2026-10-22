@@ -261,7 +261,7 @@
       <p class="mono eyebrow">02 · The fix</p>
       <div class="zm-txt">
         <h2 class="h-split">The menu, re-set.</h2>
-        <p>Drag the line. The prices find one column, the four faces become one, and the shouting stops. Nothing is removed.</p>
+        <p>Three faults, circled where they happen. Drag the line and watch them go.</p>
 
         <div class="zm-ctrl">
           <div class="zm-track" aria-hidden="true"><span class="zm-fill"></span></div>
@@ -271,10 +271,28 @@
         </div>
         <p class="zm-legend" aria-hidden="true"><b class="zm-l-before is-on">Before</b><b>Drag</b><b class="zm-l-after">After</b></p>
 
+        <!-- the three faults, each resolving at its own point on the drag,
+             numbered to the three marks on the sheet beside it -->
+        <ol class="zm-faults">
+          <li class="t1">
+            <b>01</b>
+            <span class="was">Prices wandering down the page</span>
+            <span class="now">One column, and they hold it</span>
+          </li>
+          <li class="t2">
+            <b>02</b>
+            <span class="was">Four typefaces, all shouting</span>
+            <span class="now">One, and it lets the food speak</span>
+          </li>
+          <li class="t3">
+            <b>03</b>
+            <span class="was">A starburst doing the selling</span>
+            <span class="now">Gone. It was never the dish</span>
+          </li>
+        </ol>
+
         <div class="zm-readout">
-          <div><b>189</b><span>Items kept. None cut.</span></div>
-          <div><b>4 → 1</b><span>Typefaces on the page</span></div>
-          <div><b>1</b><span>Column the prices live in</span></div>
+          <div><b>189</b><span>Items kept. Not one dish cut.</span></div>
         </div>
       </div>
 
@@ -304,6 +322,7 @@
                 <span class="zm-before">Burrata Smoked Tomato</span>
                 <span class="zm-after">Burrata</span>
               </span>
+              <span class="zm-mark zm-m-name t2" data-n="02" aria-hidden="true"></span>
               <span class="zm-price"><span class="zm-cur">Rs.</span>420<span class="zm-suf">/-</span></span>
               <small class="zm-desc">Smoked tomato, basil oil</small>
             </li>
@@ -320,7 +339,7 @@
                 <span class="zm-before">Mushroom On Toast</span>
                 <span class="zm-after">Mushroom on toast</span>
               </span>
-              <span class="zm-price"><span class="zm-cur">Rs.</span>310<span class="zm-suf">/-</span></span>
+              <span class="zm-price"><span class="zm-cur">Rs.</span>310<span class="zm-suf">/-</span><span class="zm-mark zm-m-price t1" data-n="01" aria-hidden="true"></span></span>
               <small class="zm-desc">Thyme, aged cheese</small>
             </li>
           </ol>
@@ -357,6 +376,7 @@
           </ol>
 
           <div class="zm-burst" aria-hidden="true">TODAY<br>SPECIAL</div>
+          <span class="zm-mark zm-m-burst t3" data-n="03" aria-hidden="true"></span>
         </div>
         <p class="zm-note mono">Reconstruction · the dishes are indicative</p>
       </div>

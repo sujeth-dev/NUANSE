@@ -195,7 +195,7 @@
       <p class="mono eyebrow">02 · The fix</p>
       <div class="pv-txt">
         <h2 class="h-split">The voice, held.</h2>
-        <p>Possah's guidelines put the brand at one point on a two-axis matrix. Drag it away: the six lines the label writes dissolve into the six it refuses to.</p>
+        <p>Possah's guidelines put the brand at one point. Drag it away and the label loses its lines one at a time.</p>
         <div class="pv-pad">
           <p class="pv-ax n">Composed</p>
           <p class="pv-ax s">Playful</p>
@@ -215,31 +215,35 @@
       </div>
 
       <div class="pv-read">
-        <p class="pv-q" aria-hidden="true">At this position</p>
-        <div class="pv-col">
-          <div class="pv-write">
-            <ul class="pv-list">
-              <li><p>she wants what she wants.</p></li>
-              <li><p>made to fit you.</p></li>
-              <li><p>not for trends. for you.</p></li>
-              <li><p>confidence, tailored.</p></li>
-              <li><p>the drape that holds you.</p></li>
-              <li><p>quietly, then completely.</p></li>
-            </ul>
-          </div>
-          <div class="pv-dont" aria-hidden="true">
-            <ul class="pv-list">
-              <li><p>Slay the day, queen!</p></li>
-              <li><p>Shop now, look fab tonight!</p></li>
-              <li><p>Trendy styles for every girl</p></li>
-              <li><p>Bestseller alert!!!</p></li>
-              <li><p>Don't miss out!!</p></li>
-              <li><p>OMG you will love this</p></li>
-            </ul>
-          </div>
+        <!-- the live head: where the point is, and how far that is from the
+             brand's own position. The meter is the same --drift the lines
+             read, so the page cannot say one thing and show another. -->
+        <div class="pv-head" aria-hidden="true">
+          <p class="pv-q"></p>
+          <span class="pv-meter"><i></i></span>
+          <span class="pv-count">6/6</span>
         </div>
+
+        <!-- Six pairs, not two blocks. Each line holds BOTH what the label
+             writes and what it refuses to write, and flips at its own point
+             on the drift — so the voice is lost a line at a time rather than
+             swapped wholesale, and comes back the same way. The refused line
+             is hidden from assistive tech: a screen reader should be given
+             the brand's voice, and .pv-say states the position in words. -->
+        <ol class="pv-lines">
+          <li class="l1"><span class="is">she wants what she wants.</span><span class="isnt" aria-hidden="true">Slay the day, queen!</span></li>
+          <li class="l2"><span class="is">made to fit you.</span><span class="isnt" aria-hidden="true">Shop now, look fab tonight!</span></li>
+          <li class="l3"><span class="is">not for trends. for you.</span><span class="isnt" aria-hidden="true">Trendy styles for every girl</span></li>
+          <li class="l4"><span class="is">confidence, tailored.</span><span class="isnt" aria-hidden="true">Bestseller alert!!!</span></li>
+          <li class="l5"><span class="is">the drape that holds you.</span><span class="isnt" aria-hidden="true">Don't miss out!!</span></li>
+          <li class="l6"><span class="is">quietly, then completely.</span><span class="isnt" aria-hidden="true">OMG you will love this</span></li>
+        </ol>
+
         <p class="pv-words"><b>We use</b> · considered · drape · atelier · composed · made · hers · intent<br>
           <b>We never use</b> · trendy · basic · slay · fierce · must-have · hottest · viral</p>
+        <!-- the way back. A control that can only be pushed off the brand is
+             a gotcha; this one puts it home, and says so. -->
+        <button class="pv-home-btn" type="button">Put it back</button>
         <p class="pv-say" role="status" aria-live="polite"></p>
       </div>
     </div>

@@ -41,6 +41,8 @@
   const rx = $('.pv-x', pv);
   const ry = $('.pv-y', pv);
   const say = $('.pv-say', pv);
+  const back = $('.pv-home-btn', pv);
+  const count = $('.pv-count', pv);
 
   let x = HX;
   let y = HY;
@@ -77,18 +79,35 @@
     if (rx) rx.setAttribute('aria-valuetext', x >= 0.5 ? 'Bold' : 'Soft');
     if (ry) ry.setAttribute('aria-valuetext', y >= 0.5 ? 'Composed' : 'Playful');
 
-    /* The cross-fade is silent to a screen reader, so the state is also said
-       in words — but only once the visitor has stopped moving. Announcing on
+    /* the same one-sided Chebyshev drift work/possah.css derives; if these
+       two disagree the page says one thing and shows another */
+    const drift = Math.max(0, (HX - x) / HX, (HY - y) / HY);
+
+    /* The way back is hidden, not just transparent, while there is nothing
+       to put back — a 0-opacity button still takes a tab stop, and focus
+       landing on something invisible is worse than not offering it. One
+       attribute, because the fade itself is CSS reading --drift. */
+    if (back) pv.dataset.drift = drift > 0.02 ? 'on' : 'off';
+
+    /* how much of the voice is still the label's own. The lines flip at
+       .10 .24 .38 .52 .66 .80 in work/possah.css; deriving the count from
+       the same list means the number on screen, the number announced and
+       the lines themselves cannot drift apart. */
+    const KEPT = () => [0.10, 0.24, 0.38, 0.52, 0.66, 0.80].filter((t) => drift < t).length;
+    if (count) count.textContent = KEPT() + '/6';
+
+    /* The flips are silent to a screen reader, so the state is also said in
+       words — but only once the visitor has stopped moving. Announcing on
        every pointer sample would be unusable. */
     if (say) {
-      /* the same one-sided Chebyshev drift work/possah.css derives; if these
-         two disagree the page says one thing and shows another */
-      const drift = Math.max(0, (HX - x) / HX, (HY - y) / HY);
-      const which = drift > 0.5
-        ? 'showing the lines the brand does not write'
-        : 'showing the lines the brand writes';
+      const kept = KEPT();
+      const which = kept === 6
+        ? 'all six lines are the ones the label writes'
+        : kept === 0
+          ? 'none of the six are lines the label would write'
+          : `${kept} of the six are still lines the label writes`;
       clearTimeout(sayTimer);
-      sayTimer = setTimeout(() => { say.textContent = `${label}, ${which}.`; }, 400);
+      sayTimer = setTimeout(() => { say.textContent = `${label}: ${which}.`; }, 400);
     }
   }
 
@@ -123,6 +142,23 @@
   if (ry) {
     ry.addEventListener('input', () => { claim(); setXY(x, +ry.value / 100, 'y'); });
     ry.addEventListener('pointerdown', claim);
+  }
+
+  /* --- the way back ---
+     Put the point home. Eased if GSAP is there, instant if it is not, and
+     instant under reduced motion; either way it still counts as the visitor
+     taking the control, so the invitation does not start up again after. */
+  if (back) {
+    back.addEventListener('click', () => {
+      claim();
+      if (RM || !window.gsap) { setXY(HX, HY); return; }
+      gsap.killTweensOf(auto);
+      auto.x = x; auto.y = y;
+      gsap.to(auto, {
+        x: HX, y: HY, duration: 0.7, ease: NU.EASE,
+        onUpdate: () => setXY(auto.x, auto.y)
+      });
+    });
   }
 
   /* Possah's own position, and the resting state under reduced motion. */
