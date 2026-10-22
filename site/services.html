@@ -141,20 +141,29 @@
         </div>
         <figure class="svc-fig">
           <div class="sa sa-strategy">
-          <svg viewBox="0 0 400 300" role="img" aria-label="A strategy document being redlined: the phrase “leveraging synergies” struck through in copper, and “working as one team” written in underneath.">
+          <svg viewBox="0 0 400 300" role="img" aria-label="A strategy document being redlined: the phrase “leveraging synergies” struck through in copper, “working as one team” written in underneath, and the pen resting where it struck.">
+              <defs>
+                <clipPath id="sa-w1"><rect class="sa-wipe" x="44" y="116" width="296" height="50"/></clipPath>
+                <clipPath id="sa-w2"><rect class="sa-wipe" x="44" y="172" width="296" height="50"/></clipPath>
+              </defs>
               <g class="sa-rule">
                 <line x1="48" y1="56" x2="320" y2="56"/>
                 <line x1="48" y1="74" x2="286" y2="74"/>
                 <line x1="48" y1="92" x2="304" y2="92"/>
               </g>
-              <text class="sa-ser sa-was" x="48" y="150">leveraging synergies</text>
+              <text class="sa-ser sa-was" x="48" y="150" clip-path="url(#sa-w1)">leveraging synergies</text>
               <path class="sa-draw sa-strike" d="M42 142C118 134 232 150 318 139"/>
-              <text class="sa-ser sa-now sa-rise" x="48" y="206">working as one team</text>
+              <text class="sa-ser sa-now sa-rise" x="48" y="206" clip-path="url(#sa-w2)">working as one team</text>
               <g class="sa-rule">
                 <line x1="48" y1="232" x2="320" y2="232"/>
                 <line x1="48" y1="250" x2="228" y2="250"/>
               </g>
               <text class="sa-lbl" x="48" y="278">V3 · REDLINED</text>
+              <!-- the pen that did it, parked where the strike ran out -->
+              <g class="sa-nib" transform="translate(318 139) rotate(30)">
+                <path class="nib-b" d="M0 0 L-6.5 -19 L0 -26 L6.5 -19 Z"/>
+                <path class="nib-s" d="M0 -6 V-17"/>
+              </g>
             </svg>
           </div>
           <figcaption>A real redline, from a real brief</figcaption>
@@ -176,18 +185,23 @@
         <figure class="svc-fig">
           <div class="sa sa-identity">
           <svg viewBox="0 0 400 300" role="img" aria-label="The NUANSE monogram seating onto its construction grid, with navy, copper and cream set out as three swatches below it.">
+              <defs>
+                <clipPath id="sa-w3"><rect class="sa-wipe" x="96" y="262" width="212" height="22"/></clipPath>
+              </defs>
               <g class="sa-grid sa-geo">
                 <line x1="200" y1="20" x2="200" y2="214"/>
                 <line x1="90" y1="118" x2="310" y2="118"/>
                 <circle cx="200" cy="118" r="76"/>
                 <rect x="152" y="70" width="96" height="96"/>
               </g>
+              <!-- the ink the mark spreads when it lands; at rest it is not there -->
+              <circle class="sa-seat" cx="200" cy="118" r="76"/>
               <g class="sa-chips">
                 <rect class="sa-chip navy" x="128" y="228" width="48" height="26"/>
                 <rect class="sa-chip copper" x="186" y="228" width="48" height="26"/>
                 <rect class="sa-chip cream" x="244" y="228" width="48" height="26"/>
               </g>
-              <text class="sa-lbl" x="200" y="278" text-anchor="middle">NAVY · COPPER · CREAM</text>
+              <text class="sa-lbl" x="200" y="278" text-anchor="middle" clip-path="url(#sa-w3)">NAVY · COPPER · CREAM</text>
             </svg>
             <!-- the mark is the asset, never a drawn S -->
             <img class="sa-mark" src="assets/brand/monogram-copper-256.png" width="256" height="369" alt="" loading="lazy" decoding="async">
@@ -208,7 +222,10 @@
         </div>
         <figure class="svc-fig">
           <div class="sa sa-websites">
-          <svg viewBox="0 0 400 300" role="img" aria-label="A page assembled on a baseline grid: a mark and a header rule, a headline set in the house serif, two columns of copy, and a single call to action.">
+          <svg viewBox="0 0 400 300" role="img" aria-label="A page assembled on a baseline grid, the pointer left on its button: a mark and a header rule, a headline set in the house serif, two columns of copy, and a single call to action.">
+              <defs>
+                <clipPath id="sa-w4"><rect class="sa-wipe" x="24" y="56" width="320" height="56"/></clipPath>
+              </defs>
               <g class="sa-base">
                 <line x1="28" y1="54" x2="372" y2="54"/>
                 <line x1="28" y1="76" x2="372" y2="76"/>
@@ -223,7 +240,7 @@
               <g class="sa-blocks">
                 <rect class="hdm" x="28" y="26" width="9" height="9"/>
                 <rect class="hd" x="28" y="42" width="344" height="1"/>
-                <text class="sa-hl" x="28" y="98">Read fast.</text>
+                <text class="sa-hl" x="28" y="98" clip-path="url(#sa-w4)">Read fast.</text>
                 <g class="sa-copy">
                   <rect x="28" y="130" width="150" height="2"/>
                   <rect x="28" y="144" width="150" height="2"/>
@@ -234,9 +251,15 @@
                 </g>
                 <rect class="cta" x="28" y="190" width="132" height="34" rx="17"/>
                 <text class="sa-cta-t" x="94" y="211" text-anchor="middle">START HERE</text>
+                <!-- the ring the press throws off; at rest it is not there -->
+                <rect class="sa-pulse" x="28" y="190" width="132" height="34" rx="17"/>
               </g>
               <text class="sa-lbl" x="28" y="278">ONE CALL TO ACTION</text>
               <text class="sa-lbl dim" x="372" y="278" text-anchor="end">BUILT, NOT JUST DESIGNED</text>
+              <!-- the pointer, left on the one thing there is to click -->
+              <g class="sa-cur" transform="translate(138 206) rotate(0)">
+                <path d="M0 0 L0 17.5 L4.6 13.4 L7.4 19.8 L10.6 18.4 L7.8 12 L13.6 11.6 Z"/>
+              </g>
             </svg>
           </div>
           <figcaption>Everything on a baseline, one thing to click</figcaption>

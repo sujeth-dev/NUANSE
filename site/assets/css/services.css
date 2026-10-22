@@ -70,9 +70,13 @@
 .sa-lbl.dim{fill:rgba(13,26,65,.4)}
 .sa-ser{font-family:var(--serif);font-size:27px;letter-spacing:-.02em}
 
-/* 01 · the sentence being redlined */
+/* 01 · the sentence being redlined
+   The nib is part of the finished drawing, parked where the strike ran out,
+   so the artifact still reads as a redline with nothing moving at all. */
 .sa-was{fill:var(--mute)}
 .sa-now{fill:var(--navy)}
+.sa-nib .nib-b{fill:var(--navy)}
+.sa-nib .nib-s{fill:none;stroke:var(--cream);stroke-width:1.2;stroke-linecap:round}
 
 /* 02 · the mark seating onto its construction */
 .sa-grid line,.sa-grid circle,.sa-grid rect{fill:none;stroke:var(--copper);stroke-width:1;
@@ -81,6 +85,9 @@
    the mark without having to reproduce a percentage translate in pixels */
 .sa-mark{position:absolute;left:50%;top:39.3%;translate:-50% -50%;
   width:17%;height:auto;display:block}
+/* the ink that spreads when the mark lands. Nothing at rest, which is the
+   state the markup is already in, so there is still nothing to put back. */
+.sa-seat{fill:none;stroke:var(--copper);stroke-width:1;opacity:0}
 .sa-chip.navy{fill:var(--navy)}
 .sa-chip.copper{fill:var(--copper)}
 .sa-chip.cream{fill:var(--cream);stroke:var(--navy);stroke-width:1}
@@ -98,6 +105,9 @@
 .sa-copy rect{fill:rgba(13,26,65,.32)}
 .sa-blocks .cta{fill:var(--copper)}
 .sa-cta-t{font-family:var(--mono);font-size:10px;letter-spacing:.14em;fill:var(--cream)}
+.sa-pulse{fill:none;stroke:var(--copper);stroke-width:1.6;opacity:0}
+/* cream around the arrow so it still reads where it rests, on the copper */
+.sa-cur path{fill:var(--navy);stroke:var(--cream);stroke-width:1.2;stroke-linejoin:round}
 
 /* 04 · the filmstrip, and the frame it cuts on */
 .sa-strip rect.fr{fill:none;stroke:var(--navy);stroke-width:1.4}
