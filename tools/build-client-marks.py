@@ -21,11 +21,12 @@ Output mirrors tools/build-page-images.py, deliberately:
     _markup.html; tools/build-roster.py writes the real cards now,
     straight into the page, from tools/clients.json
 
-The five clients with no file on hand — Assetly, Artizen, NAZR, Noir Velin,
-Shail Interiors — are not here and get no generated mark. They carry a set
-initial in Gloock on stone instead, which is visibly our setting rather than a
-claimed logo. Nothing is downloaded from a client's site and nothing is drawn
-from memory.
+Assetly, Artizen, NAZR, Noir Velin and Shail Interiors arrived later (round
+3) as small files, 190 to 410px wide. Two of them are transparent; those are
+flattened onto white, the one ground that claims no colour for the client.
+None of them is upscaled: where the trimmed square is smaller than 320, its
+largest file is its own size and the srcset says so. Nothing is downloaded
+from a client's site and nothing is drawn from memory.
 
 Nothing here runs at request time. Run it when the logo set changes, commit
 the output, paste the markup.
@@ -85,6 +86,19 @@ CLIENTS = [
     ('ammas-breakfast', 'ammas-breakfast.jpg', "Amma's Breakfast",
      "The Amma's Breakfast mark: a warm brown script over BREAKFAST "
      'letterspaced, a coffee cup, and "by Zingara", on cream.'),
+    ('assetly', 'assetly.png', 'Assetly',
+     'The Assetly mark: a serif lowercase a in cream over "Access · Scale · '
+     'Grow", on dark olive.'),
+    ('artizen', 'artizen.png', 'Artizen Projects',
+     'The Artizen mark: stacked green and teal bars beside the lowercase '
+     'wordmark in charcoal.'),
+    ('nazr', 'nazr.png', 'NAZR',
+     'The NAZR wordmark in condensed magenta capitals, on black.'),
+    ('noir-velin', 'noir-velin.png', 'Noir Velin',
+     'The Noir Velin wordmark in heavy black capitals with a four-point '
+     'star, on stone.'),
+    ('shail-interiors', 'shail-interiors.png', 'Shail Interiors',
+     'The Shail mark: a stacked line-drawn S beside SHAIL in brown capitals.'),
 ]
 
 
@@ -143,15 +157,25 @@ def build():
         if not os.path.exists(path):
             print('  MISSING  ' + fname, file=sys.stderr)
             continue
-        im = Image.open(path).convert('RGB')
+        im = Image.open(path)
+        # flatten only a truly transparent file (clear corner); the older
+        # PNGs carry a part-alpha ground that has always been read as RGB
+        if im.mode in ('RGBA', 'LA', 'P') and im.convert('RGBA').getpixel((0, 0))[3] == 0:
+            im = im.convert('RGBA')
+            flat = Image.new('RGBA', im.size, (255, 255, 255, 255))
+            flat.alpha_composite(im)
+            im = flat
+        im = im.convert('RGB')
         g = ground(im)
         box = ink_box(im, g)
         sq = square(im, g, box)
         hexg = '#%02X%02X%02X' % g
 
         made = {}
-        for w in WIDTHS:
-            resized = sq.resize((w, w), Image.LANCZOS)
+        # never upscale: a square smaller than a width tops out at its own size
+        widths = sorted({min(w, sq.size[0]) for w in WIDTHS})
+        for w in widths:
+            resized = sq if w == sq.size[0] else sq.resize((w, w), Image.LANCZOS)
             for ext, fmt, kw in FORMATS:
                 buf = io.BytesIO()
                 resized.save(buf, fmt, **kw)

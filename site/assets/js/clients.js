@@ -216,7 +216,7 @@ window.NU_CLIENTS = {
       "band": "live",
       "href": null,
       "site": "https://assetly.lease/",
-      "mark": false,
+      "mark": true,
       "init": "A",
       "line": "The lighter balance sheet. Operating leases that keep the equipment — and its resale risk — off the customer’s books.",
       "note": null,
@@ -228,7 +228,52 @@ window.NU_CLIENTS = {
         "Sector pages for the four industries",
         "Asset categories, from workplace fit-outs to plant and machinery"
       ],
-      "outcome": "unpublished"
+      "outcome": "unpublished",
+      "tile": {
+        "ground": "#21241A",
+        "avif": [
+          [
+            96,
+            "assetly-96.0c8c4041.avif"
+          ],
+          [
+            192,
+            "assetly-192.2cb6d2a9.avif"
+          ],
+          [
+            320,
+            "assetly-320.137b7b98.avif"
+          ]
+        ],
+        "webp": [
+          [
+            96,
+            "assetly-96.27d90087.webp"
+          ],
+          [
+            192,
+            "assetly-192.88b009be.webp"
+          ],
+          [
+            320,
+            "assetly-320.5ca2b585.webp"
+          ]
+        ],
+        "jpg": [
+          [
+            96,
+            "assetly-96.33e80f46.jpg"
+          ],
+          [
+            192,
+            "assetly-192.d4bafce4.jpg"
+          ],
+          [
+            320,
+            "assetly-320.a66dac03.jpg"
+          ]
+        ]
+      }
     },
     {
       "slug": "artizen",
@@ -238,7 +283,7 @@ window.NU_CLIENTS = {
       "band": "live",
       "href": null,
       "site": "https://artizenprojects.in/",
-      "mark": false,
+      "mark": true,
       "init": "AP",
       "line": "The Art of Building. Interior fit-outs only — turnkey, general contracting and MEP.",
       "note": null,
@@ -250,7 +295,52 @@ window.NU_CLIENTS = {
         "A clientele showcase",
         "Enquiries and careers on one contact route"
       ],
-      "outcome": "unpublished"
+      "outcome": "unpublished",
+      "tile": {
+        "ground": "#FFFFFF",
+        "avif": [
+          [
+            96,
+            "artizen-96.4b95cd53.avif"
+          ],
+          [
+            192,
+            "artizen-192.8a54a37f.avif"
+          ],
+          [
+            230,
+            "artizen-230.71c46753.avif"
+          ]
+        ],
+        "webp": [
+          [
+            96,
+            "artizen-96.70423e4c.webp"
+          ],
+          [
+            192,
+            "artizen-192.aed92eb2.webp"
+          ],
+          [
+            230,
+            "artizen-230.cbfdfe80.webp"
+          ]
+        ],
+        "jpg": [
+          [
+            96,
+            "artizen-96.d66607bf.jpg"
+          ],
+          [
+            192,
+            "artizen-192.b487d9d3.jpg"
+          ],
+          [
+            230,
+            "artizen-230.3d0de2dc.jpg"
+          ]
+        ]
+      }
     },
     {
       "slug": "nazr",
@@ -260,7 +350,7 @@ window.NU_CLIENTS = {
       "band": "live",
       "href": null,
       "site": "https://www.nazrco.in/",
-      "mark": false,
+      "mark": true,
       "init": "N",
       "line": "The world stares. Stare back. An app and a set of physical tools, sold as one system.",
       "note": null,
@@ -273,7 +363,40 @@ window.NU_CLIENTS = {
         "A verified helpline directory",
         "Field Notes, events and the legal set"
       ],
-      "outcome": "unpublished"
+      "outcome": "unpublished",
+      "tile": {
+        "ground": "#161616",
+        "avif": [
+          [
+            96,
+            "nazr-96.26be36af.avif"
+          ],
+          [
+            145,
+            "nazr-145.93f62373.avif"
+          ]
+        ],
+        "webp": [
+          [
+            96,
+            "nazr-96.b0d75ac3.webp"
+          ],
+          [
+            145,
+            "nazr-145.87773b3d.webp"
+          ]
+        ],
+        "jpg": [
+          [
+            96,
+            "nazr-96.ad9f435f.jpg"
+          ],
+          [
+            145,
+            "nazr-145.9765e62e.jpg"
+          ]
+        ]
+      }
     },
     {
       "slug": "noir-velin",
@@ -283,7 +406,7 @@ window.NU_CLIENTS = {
       "band": "live",
       "href": null,
       "site": "https://noirvelin.in/",
-      "mark": false,
+      "mark": true,
       "init": "NV",
       "line": "Drawn. Not generated. Every graphic starts as an original hand drawing.",
       "note": null,
@@ -295,7 +418,52 @@ window.NU_CLIENTS = {
         "Product pages carrying the hand-drawn and 240 GSM claims",
         "Size chart, FAQs and the policy set"
       ],
-      "outcome": "unpublished"
+      "outcome": "unpublished",
+      "tile": {
+        "ground": "#DFDBD7",
+        "avif": [
+          [
+            96,
+            "noir-velin-96.19e49e78.avif"
+          ],
+          [
+            192,
+            "noir-velin-192.eb4d69d2.avif"
+          ],
+          [
+            280,
+            "noir-velin-280.a0214a1b.avif"
+          ]
+        ],
+        "webp": [
+          [
+            96,
+            "noir-velin-96.69a96938.webp"
+          ],
+          [
+            192,
+            "noir-velin-192.664c8128.webp"
+          ],
+          [
+            280,
+            "noir-velin-280.3fcd9376.webp"
+          ]
+        ],
+        "jpg": [
+          [
+            96,
+            "noir-velin-96.7e5c34d7.jpg"
+          ],
+          [
+            192,
+            "noir-velin-192.cdf33d0c.jpg"
+          ],
+          [
+            280,
+            "noir-velin-280.b4c6b400.jpg"
+          ]
+        ]
+      }
     },
     {
       "slug": "shail-interiors",
@@ -305,7 +473,7 @@ window.NU_CLIENTS = {
       "band": "live",
       "href": null,
       "site": "https://www.shailinteriors.in/",
-      "mark": false,
+      "mark": true,
       "init": "SI",
       "line": "Crafting spaces, inspiring lives. End-to-end contracting for commercial interiors, since 2017.",
       "note": null,
@@ -316,7 +484,52 @@ window.NU_CLIENTS = {
         "Our Story, the services and a project portfolio",
         "A Get a Quote route"
       ],
-      "outcome": "unpublished"
+      "outcome": "unpublished",
+      "tile": {
+        "ground": "#FFFFFF",
+        "avif": [
+          [
+            96,
+            "shail-interiors-96.9b05a382.avif"
+          ],
+          [
+            192,
+            "shail-interiors-192.1d54325b.avif"
+          ],
+          [
+            320,
+            "shail-interiors-320.e16ada7a.avif"
+          ]
+        ],
+        "webp": [
+          [
+            96,
+            "shail-interiors-96.b44cd178.webp"
+          ],
+          [
+            192,
+            "shail-interiors-192.3b0e9d78.webp"
+          ],
+          [
+            320,
+            "shail-interiors-320.dd4ee5fd.webp"
+          ]
+        ],
+        "jpg": [
+          [
+            96,
+            "shail-interiors-96.7f35a16c.jpg"
+          ],
+          [
+            192,
+            "shail-interiors-192.7240276e.jpg"
+          ],
+          [
+            320,
+            "shail-interiors-320.4746ab04.jpg"
+          ]
+        ]
+      }
     },
     {
       "slug": "aware-acoustics",

@@ -425,5 +425,298 @@
         ]
       ]
     }
+  },
+  "assetly": {
+    "name": "Assetly",
+    "src": "assetly.png",
+    "ground": "#21241A",
+    "source_size": [
+      375,
+      411
+    ],
+    "ink_box": [
+      57,
+      61,
+      321,
+      328
+    ],
+    "square": 334,
+    "alt": "The Assetly mark: a serif lowercase a in cream over \"Access \u00b7 Scale \u00b7 Grow\", on dark olive.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "assetly-96.0c8c4041.avif"
+        ],
+        [
+          192,
+          "assetly-192.2cb6d2a9.avif"
+        ],
+        [
+          320,
+          "assetly-320.137b7b98.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "assetly-96.27d90087.webp"
+        ],
+        [
+          192,
+          "assetly-192.88b009be.webp"
+        ],
+        [
+          320,
+          "assetly-320.5ca2b585.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "assetly-96.33e80f46.jpg"
+        ],
+        [
+          192,
+          "assetly-192.d4bafce4.jpg"
+        ],
+        [
+          320,
+          "assetly-320.a66dac03.jpg"
+        ]
+      ]
+    }
+  },
+  "artizen": {
+    "name": "Artizen Projects",
+    "src": "artizen.png",
+    "ground": "#FFFFFF",
+    "source_size": [
+      187,
+      50
+    ],
+    "ink_box": [
+      2,
+      1,
+      186,
+      49
+    ],
+    "square": 230,
+    "alt": "The Artizen mark: stacked green and teal bars beside the lowercase wordmark in charcoal.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "artizen-96.4b95cd53.avif"
+        ],
+        [
+          192,
+          "artizen-192.8a54a37f.avif"
+        ],
+        [
+          230,
+          "artizen-230.71c46753.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "artizen-96.70423e4c.webp"
+        ],
+        [
+          192,
+          "artizen-192.aed92eb2.webp"
+        ],
+        [
+          230,
+          "artizen-230.cbfdfe80.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "artizen-96.d66607bf.jpg"
+        ],
+        [
+          192,
+          "artizen-192.b487d9d3.jpg"
+        ],
+        [
+          230,
+          "artizen-230.3d0de2dc.jpg"
+        ]
+      ]
+    }
+  },
+  "nazr": {
+    "name": "NAZR",
+    "src": "nazr.png",
+    "ground": "#161616",
+    "source_size": [
+      214,
+      103
+    ],
+    "ink_box": [
+      44,
+      22,
+      160,
+      78
+    ],
+    "square": 145,
+    "alt": "The NAZR wordmark in condensed magenta capitals, on black.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "nazr-96.26be36af.avif"
+        ],
+        [
+          145,
+          "nazr-145.93f62373.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "nazr-96.b0d75ac3.webp"
+        ],
+        [
+          145,
+          "nazr-145.87773b3d.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "nazr-96.ad9f435f.jpg"
+        ],
+        [
+          145,
+          "nazr-145.9765e62e.jpg"
+        ]
+      ]
+    }
+  },
+  "noir-velin": {
+    "name": "Noir Velin",
+    "src": "noir-velin.png",
+    "ground": "#DFDBD7",
+    "source_size": [
+      306,
+      73
+    ],
+    "ink_box": [
+      28,
+      14,
+      252,
+      49
+    ],
+    "square": 280,
+    "alt": "The Noir Velin wordmark in heavy black capitals with a four-point star, on stone.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "noir-velin-96.19e49e78.avif"
+        ],
+        [
+          192,
+          "noir-velin-192.eb4d69d2.avif"
+        ],
+        [
+          280,
+          "noir-velin-280.a0214a1b.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "noir-velin-96.69a96938.webp"
+        ],
+        [
+          192,
+          "noir-velin-192.664c8128.webp"
+        ],
+        [
+          280,
+          "noir-velin-280.3fcd9376.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "noir-velin-96.7e5c34d7.jpg"
+        ],
+        [
+          192,
+          "noir-velin-192.cdf33d0c.jpg"
+        ],
+        [
+          280,
+          "noir-velin-280.b4c6b400.jpg"
+        ]
+      ]
+    }
+  },
+  "shail-interiors": {
+    "name": "Shail Interiors",
+    "src": "shail-interiors.png",
+    "ground": "#FFFFFF",
+    "source_size": [
+      305,
+      94
+    ],
+    "ink_box": [
+      8,
+      10,
+      297,
+      78
+    ],
+    "square": 361,
+    "alt": "The Shail mark: a stacked line-drawn S beside SHAIL in brown capitals.",
+    "files": {
+      "avif": [
+        [
+          96,
+          "shail-interiors-96.9b05a382.avif"
+        ],
+        [
+          192,
+          "shail-interiors-192.1d54325b.avif"
+        ],
+        [
+          320,
+          "shail-interiors-320.e16ada7a.avif"
+        ]
+      ],
+      "webp": [
+        [
+          96,
+          "shail-interiors-96.b44cd178.webp"
+        ],
+        [
+          192,
+          "shail-interiors-192.3b0e9d78.webp"
+        ],
+        [
+          320,
+          "shail-interiors-320.dd4ee5fd.webp"
+        ]
+      ],
+      "jpg": [
+        [
+          96,
+          "shail-interiors-96.7f35a16c.jpg"
+        ],
+        [
+          192,
+          "shail-interiors-192.7240276e.jpg"
+        ],
+        [
+          320,
+          "shail-interiors-320.4746ab04.jpg"
+        ]
+      ]
+    }
   }
 }
