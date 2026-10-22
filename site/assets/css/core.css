@@ -759,6 +759,24 @@ section{position:relative}
 .ft-top p,.ft-top a{margin:0;font-size:16px;text-decoration:none}
 .ft-top a{border-bottom:1px solid var(--hair-c)}
 .ft-top button{border-bottom:1px solid var(--hair-c);text-align:left}
+/* Write directly: the founder's own address, with a pencilled note under it
+   and a promise on hover */
+.ft-write{position:relative}
+.ft-direct{position:relative}
+.ft-direct::after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 10px);
+  white-space:nowrap;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--navy);background:var(--copper-l);
+  padding:7px 10px 6px;border-radius:999px;opacity:0;transform:translateY(6px);
+  pointer-events:none;transition:opacity var(--t-sm) var(--ease),transform var(--t-sm) var(--ease)}
+.ft-direct:hover::after,.ft-direct:focus-visible::after{opacity:1;transform:none}
+.ft-note{display:flex;align-items:flex-start;gap:6px;margin-top:6px;color:var(--copper-l)}
+.ft-note svg{width:38px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.ft-note path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .9s var(--ease) .2s}
+.ft-note path+path{transition-delay:1s}
+.footer.ft-seen .ft-note path,.rm .ft-note path{stroke-dashoffset:0}
+.ft-note span{font-family:var(--serif);font-size:19px;letter-spacing:-.01em;
+  transform:rotate(-4deg) translateY(10px);transform-origin:0 50%}
 .ft-mid{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
 /* --fs-word tops out at 280px, not the 360px this carried before. The row
    is .ft-word beside .s3d-wrap inside a container that stops growing at

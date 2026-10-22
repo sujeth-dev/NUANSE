@@ -1112,7 +1112,7 @@
       ScrollTrigger.create({
         start: () => ScrollTrigger.maxScroll(window) - footer.offsetHeight * 0.5,
         end: 'max',
-        onEnter: () => setNav(true)
+        onEnter: () => { setNav(true); footer.classList.add('ft-seen'); }
       });
       ScrollTrigger.create({
         trigger: footer, start: 'top bottom', end: 'bottom top',

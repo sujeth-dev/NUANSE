@@ -86,6 +86,11 @@
   transition:color var(--t-mid) var(--ease)}
 .t-role{display:block;margin-top:3px;font-family:var(--mono);font-size:9.5px;
   letter-spacing:.1em;text-transform:uppercase;line-height:1.45;color:var(--mute)}
+.t-link{display:inline-flex;gap:4px;margin-top:8px;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--copper-ink);text-decoration:none;
+  border-bottom:1px solid currentColor;padding-bottom:1px}
+.t-link i{font-style:normal}
+@media (hover:hover){.t-link:hover{color:var(--navy)}}
 .hiring{margin-top:var(--gap-md);display:flex;justify-content:space-between;align-items:center;
   gap:20px;flex-wrap:wrap;border-top:1px solid var(--navy);padding-top:var(--s3)}
 .hiring p{margin:0;font-family:var(--serif);font-size:clamp(26px,3vw,40px);letter-spacing:-.03em;

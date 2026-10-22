@@ -60,6 +60,7 @@
      one of them can be reverted on its own. */
   const TEAM = [
     { name: 'Abhinav Marothia', photo: 'abhinav-marothia', role: 'Founder & Creative Director',
+      link: 'https://www.linkedin.com/in/abhinav-marothia-36925830a',
       skills: 'strategy identity websites content film performance',
       hair: 'swept-wave', brow: 'heavy', feat: 'glasses-square moustache stubble-jaw', dress: 'blazer',
       face: { rx: 36, ry: 42, jaw: 'square' }, eyes: 'round' },
@@ -546,7 +547,9 @@
       f.dataset.skills = p.skills;
       f.innerHTML = '<div class="tm-in"><div class="tm-ph">' + plate(p) + portrait(p, i) + '</div>' +
         `<figcaption><span class="t-name" data-full="${esc(p.name)}">${esc(p.name)}</span>` +
-        `<span class="t-role">${esc(p.role)}</span></figcaption></div>`;
+        `<span class="t-role">${esc(p.role)}</span>` +
+        (p.link ? `<a class="t-link mono" href="${esc(p.link)}" target="_blank" rel="noopener">LinkedIn <i aria-hidden="true">&nearr;</i></a>` : '') +
+        '</figcaption></div>';
       scatter.appendChild(f);
     });
   }
