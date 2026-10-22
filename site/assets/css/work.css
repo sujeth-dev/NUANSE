@@ -35,36 +35,18 @@
    `.pg-open,.pj-open`. What is left to a project page is the accent, which is
    the only part of the frame it actually owns. */
 
-/* ============ 2 · THE PROBLEM ============
-   Two or three sentences, plainly. The section that has to resist becoming
-   marketing copy, so it gets no decoration to hide behind.
+/* The one quiet line under the client's name. Not a second heading: it is
+   set at the verdict's size on the sans, so it reads as a caption to the
+   name rather than as a competing title. */
+.pj-open-sub{--f-min:19;--f-max:28;margin:clamp(14px,1.6vw,22px) 0 0;
+  font-size:var(--fluid);line-height:1.3;max-width:24ch;color:var(--mute-d)}
 
-   It had stopped being two or three sentences. Zingara ran to four paragraphs
-   and The Possah to three, both at clamp(19px,2vw,26px) over a 38ch measure,
-   as the second thing on the page — a full minute of reading before either
-   page showed anything.
-
-   So the section leads with the one sentence it was already building to (the
-   line each already set in strong), puts the numbers from the cut paragraphs
-   beside it as facts, and folds the rest behind a details. Nothing true is
-   deleted: "The whole of it" is the whole of it, every paragraph exactly as
-   it was written, the promoted sentence included so the long read still
-   scans as one piece of prose.
-
-   A details and not a JS disclosure: it is keyboard-reachable, screen-reader
-   correct and findable by in-page search by construction, and it works on the
-   no-GSAP path for free. */
-.pj-problem{background:var(--cream);color:var(--navy);padding:var(--sec-y) var(--gut)}
-.pj-problem-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:var(--gap-sm)}
-.pj-problem p{--f-min:19;--f-max:26;margin:0 0 18px;font-size:var(--fluid);line-height:1.45;max-width:38ch}
-.pj-problem p:last-child{margin-bottom:0}
-.pj-problem strong{font-weight:500}
-/* the line that lands. Same size the section always used — the point is that
-   it is alone, not that it is bigger. */
-.pj-lead{margin:0;max-width:30ch}
-/* the facts beside it, in the pj-meta idiom of the opening frame, re-grounded
-   for a cream section: every number here is one the cut paragraphs already
-   carried. */
+/* ============ 2 · THE FACTS BESIDE A HEADING ============
+   Three numbers in the pj-meta idiom of the opening frame. It is all that
+   survives of the old problem section: the section itself is now an
+   ordinary chapter in the slide grammar, and the four paragraphs, the
+   three-column grid they needed and the <details> holding the other three
+   are gone rather than folded. */
 .pj-facts{display:flex;flex-wrap:wrap;margin:var(--s4) 0 0;color:var(--mute)}
 .pj-facts>div{padding:0 clamp(16px,1.6vw,24px);border-left:1px solid rgba(13,26,65,.18)}
 .pj-facts>div:first-child{padding-left:0;border-left:0}
@@ -72,95 +54,23 @@
   letter-spacing:-.03em;color:var(--navy)}
 .pj-facts dd{margin:10px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
   text-transform:uppercase;max-width:19ch}
-/* --- THE PROBLEM, framed ---
-   C1: "The problem must become one slide, fully contained, with a real
-   frame and a deliberate left/right split: text and facts left, images
-   right." The default .pj-problem-in is two columns (eyebrow, text) with
-   nowhere for a third thing to go, so a page that has evidence for this
-   section opts in with .with-fig rather than the shared default growing a
-   column every page does not need. */
-.pj-problem-in.with-fig{grid-template-columns:minmax(0,.7fr) minmax(0,1.5fr) minmax(0,1.3fr)}
-.pj-problem-fig{margin:0;align-self:start}
-.pj-problem-fig .ev-frame{border-color:rgba(13,26,65,.18)}
-.pj-problem-fig figcaption{display:block;margin-top:12px;font-family:var(--sans);
-  font-size:12px;line-height:1.5;color:var(--mute);max-width:30ch}
 
-/* core's .eyebrow is display:flex with align-items:center. As a grid item it
-   stretches to the row, so its text rides to the vertical middle of whatever
-   sits beside it — which is why "The problem" used to float halfway down four
-   paragraphs. Not introduced here, but this section is short enough now that
-   it reads as a mistake rather than as air. Pinned to the top, in work.css,
-   because core.css is not this session's to touch. */
-.pj-problem .eyebrow{align-self:start}
-/* the rest, folded */
-.pj-more{margin:var(--s4) 0 0;border-top:1px solid rgba(13,26,65,.18)}
-.pj-more>summary{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--accent-ink);padding:18px 0 0;cursor:pointer;
-  list-style:none;display:flex;align-items:center;gap:12px}
-.pj-more>summary::-webkit-details-marker{display:none}
-.pj-more>summary::before{content:"";width:28px;height:1px;background:currentColor;opacity:.6}
-/* the affordance says which way it goes, and changes once it has gone
-   there. The plan asked for one "The whole of it ->", but an arrow that
-   points the same way open and shut tells the reader nothing the second
-   time they look at it. */
-.pj-more>summary::after{content:"\2193";opacity:.7;margin-left:auto}
-.pj-more[open]>summary::after{content:"\2191"}
-.pj-more>summary:focus-visible{outline:1px dashed var(--accent-ink);outline-offset:6px}
-@media (hover:hover){.pj-more>summary:hover{color:var(--navy)}}
-.pj-more[open]>summary{color:var(--mute)}
-.pj-more-in{padding-top:var(--s3)}
+.pj-facts{display:flex;flex-wrap:wrap;margin:var(--s4) 0 0;color:var(--mute)}
+.pj-facts>div{padding:0 clamp(16px,1.6vw,24px);border-left:1px solid rgba(13,26,65,.18)}
+.pj-facts>div:first-child{padding-left:0;border-left:0}
+.pj-facts dt{--f-min:30;--f-max:46;margin:0;font-family:var(--serif);font-size:var(--fluid);line-height:1;
+  letter-spacing:-.03em;color:var(--navy)}
+.pj-facts dd{margin:10px 0 0;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;max-width:19ch}
 
-/* ============ 3 · SIGNATURE ============
-   One per page. The container is shared; what goes inside is not. */
-.pj-sig{position:relative;padding:var(--sec-y) var(--gut);
-  background:var(--pj-sig-bg,var(--stone));color:var(--pj-sig-ink,var(--navy))}
-.pj-sig-head{max-width:46ch;margin-bottom:var(--gap-md)}
-/* C1's root cause, on the signature head too: this was its own clamp with
-   its own vw coefficient, reaching its ceiling at a width no other heading
-   on the page shared. --f-min/--f-max puts it on A7's one ramp instead. */
-.pj-sig-head h2{--f-min:40;--f-max:86;font-family:var(--serif);font-weight:400;
-  font-size:var(--fluid);line-height:.92;letter-spacing:-.04em;margin:14px 0 18px;
-  text-wrap:balance}
-
-/* ============ 4 · THE WORK ============
-   Evidence, not a list. The boards are presentation renders — pages of a
-   document — so they are shown as made things: framed, captioned, on their
-   own dominant-colour ground so nothing reflows while they load. */
-.pj-work{background:var(--night);color:var(--cream);padding:var(--sec-y) var(--gut)}
-.pj-ev-list{display:flex;flex-direction:column;gap:clamp(60px,9vw,130px);margin:var(--gap-md) 0 0}
-/* The board always gets the wide column and the caption always gets the
-   narrow one; what alternates is which side they are on. Placing both
-   explicitly rather than reordering one of them is what makes that true —
-   the frame comes first in the DOM, so leaving it to source order put the
-   board in the 1fr column on every odd row and shrank a full guideline page
-   to about 220px.
-
-   nth-of-type, not nth-child: a chapter can put a .pj-grid between two rows,
-   and a non-figure sibling must not flip the rhythm of the rows around it. */
-.ev{margin:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);
-  gap:clamp(20px,3vw,48px);align-items:start}
-.ev .ev-frame{grid-column:2;grid-row:1}
-.ev figcaption{grid-column:1;grid-row:1}
-.ev:nth-of-type(even){grid-template-columns:minmax(0,2.4fr) minmax(0,1fr)}
-.ev:nth-of-type(even) .ev-frame{grid-column:1}
-.ev:nth-of-type(even) figcaption{grid-column:2}
-/* C1's "it travels" and "the real test": a board's own dimensions used to
-   set the row's height, so a 1800x1800 board sat much taller than a 1200x900
-   one beside it and the "images at inconsistent sizes" complaint was the
-   frame, not the content. Every .ev board now reads against the SAME
-   aspect-ratio, same as .gv already did below — one scale, not a hundred. */
+/* The frame every board on a case page is shown in. One border, one
+   ratio — the ratio itself is chosen per box by .pj-box / .pj-trail, which
+   is what stopped a square guideline page and a wide photograph setting two
+   different scales in one row. */
 .ev-frame{position:relative;overflow:hidden;border:1px solid var(--hair-c);aspect-ratio:16/10}
 .ev-frame img{width:100%;height:100%;object-fit:cover;display:block}
-.ev figcaption{color:var(--mute-d);align-self:end}
-.ev figcaption b{display:block;color:var(--cream);font-weight:500;margin-bottom:8px}
-.ev figcaption span{display:block;font-family:var(--sans);font-size:15px;letter-spacing:0;
-  text-transform:none;line-height:1.5;margin-top:10px;max-width:34ch}
-
-/* ============ 5 · THE NUMBERS ============
-   Three results, figure and label. If a project has no defensible numbers the
-   section is omitted entirely — an omitted section is more credible than a
-   vague one. */
-.pj-numbers{background:var(--cream);color:var(--navy);padding:var(--sec-y) var(--gut)}
+.ev-frame{position:relative;overflow:hidden;border:1px solid var(--hair-c);aspect-ratio:16/10}
+.ev-frame img{width:100%;height:100%;object-fit:cover;display:block}
 .pj-nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
   background:rgba(13,26,65,.15);border:1px solid rgba(13,26,65,.15);margin-top:var(--gap-md)}
 .pj-nums div{background:var(--cream);padding:clamp(24px,3vw,40px) clamp(18px,2vw,28px)}
@@ -198,138 +108,193 @@
    The grounds alternate chapter by chapter, light and dark, so the page reads
    as chapters rather than as one long scroll. */
 
-/* --- a titled chapter inside a run of evidence --- */
-.pj-chapter{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);
-  gap:var(--gap-sm);align-items:end;margin:0 0 var(--gap-md)}
-.pj-chapter .eyebrow{margin:0;color:var(--accent-l)}
-.pj-chapter h2{--f-min:34;--f-max:68;font-family:var(--serif);font-weight:400;
-  font-size:var(--fluid);line-height:1;letter-spacing:-.035em;margin:0 0 14px}
-.pj-chapter p{margin:0;max-width:52ch}
+/* ============ THE SLIDE GRAMMAR ============
+   ONE layout for every chapter of a case page, and no exceptions: the label
+   at the top left, the heading and ONE short paragraph under it, the
+   evidence in a box on the right. Two boards, or four in a 2x2 — never six
+   at assorted sizes down the page.
 
-/* --- THE SYSTEM · the rules, on a light ground ---
-   .pj-work shows what was MADE. This shows what was DECIDED. Those are
-   different claims and they should not look the same. */
-.pj-system{background:var(--cream);color:var(--navy);padding:var(--sec-y) var(--gut)}
-.pj-system .pj-chapter .eyebrow{color:var(--accent-ink)}
-.pj-system .pj-chapter p{color:var(--mute)}
+   This replaces .pj-chapter + .pj-grid + .ev as three different ways of
+   saying the same thing, which is what "no flow" actually was: the reader
+   had to re-learn where to look in every section.
 
-/* --- documented palette ---
-   The chip is decoration; the hex is the accessible name, so the value stays
-   real text and the chip is hidden from the tree. Chip colours arrive as
-   classes setting --sw, never as style attributes: the CSP drops
-   'unsafe-inline' from style-src. */
-/* same hairline rule as .pj-specs below, and for the same reason: five
-   swatches do not fill a four-wide row either */
-.pj-swatches{list-style:none;margin:0;padding:0;display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:0;
-  border-top:1px solid rgba(13,26,65,.14);
-  border-left:1px solid rgba(13,26,65,.14)}
-.pj-swatches li{background:var(--cream);padding:clamp(18px,2vw,26px);
-  border-right:1px solid rgba(13,26,65,.14);
-  border-bottom:1px solid rgba(13,26,65,.14);
-  display:flex;flex-direction:column;gap:12px}
-.pj-swatches .sw{width:100%;height:58px;background:var(--sw,#999);
-  border:1px solid rgba(13,26,65,.14)}
-.pj-swatches b{font-weight:500;font-size:17px;display:block}
-.pj-swatches code{font-family:var(--mono);font-size:11px;letter-spacing:.1em;
-  color:var(--mute);display:block;margin-top:5px}
-.pj-swatches span{font-size:14px;line-height:1.5;color:var(--mute);max-width:30ch}
+   It is also why the copy had to come down first. At 35 words a chapter fits
+   beside its own evidence; at 300 it does not, which is how the page ended
+   up folding half of itself behind a <details>. The budget is the layout:
 
-/* --- documented numbers: tracking, minimum sizes, ratios --- */
-/* The hairlines are drawn ON the cells, not bled through a 1px gap over a
-   coloured container. auto-fit leaves empty tracks whenever the count does not
-   fill the last row - eight specs in a six-wide grid - and the bleed trick
-   paints those empty tracks as a solid slab. Per-cell borders simply stop
-   where the content stops. */
-.pj-specs{margin:0;display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,215px),1fr));
-  gap:0;border-top:1px solid rgba(13,26,65,.14);
-  border-left:1px solid rgba(13,26,65,.14)}
-.pj-specs>div{background:var(--cream);padding:clamp(18px,2vw,26px);
-  border-right:1px solid rgba(13,26,65,.14);
-  border-bottom:1px solid rgba(13,26,65,.14)}
-.pj-specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--mute);margin:0}
-.pj-specs dd{margin:10px 0 0;font-family:var(--serif);font-size:clamp(21px,2vw,29px);
-  line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
-.pj-specs dd small{display:block;font-family:var(--sans);font-size:14px;
-  letter-spacing:0;line-height:1.5;color:var(--mute);margin-top:9px}
-[data-nav=dark] .pj-swatches,[data-nav=dark] .pj-swatches li{border-color:var(--hair-c)}
-[data-nav=dark] .pj-specs{border-color:var(--hair-c)}
-[data-nav=dark] .pj-specs>div{border-color:var(--hair-c)}
-[data-nav=dark] .pj-specs>div,[data-nav=dark] .pj-swatches li{background:var(--night)}
-[data-nav=dark] .pj-specs dt,[data-nav=dark] .pj-swatches code,
-[data-nav=dark] .pj-swatches span,[data-nav=dark] .pj-specs dd small{color:var(--mute-d)}
+     body copy    <= 35 words per chapter
+     captions     <= 8 words
+     disclosures  none
+     source notes not in the body
 
-/* --- the client's own lines, quoted ---
-   brief/02 asks for the written brand lines to be used as pull quotes rather
-   than paraphrased into new copy. They are quotations, so they are marked up
-   as quotations. */
-.pj-quotes{list-style:none;margin:var(--gap-md) 0 0;padding:0;display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
-  gap:clamp(24px,3vw,44px)}
-.pj-quotes blockquote{--f-min:21;--f-max:29;margin:0;font-family:var(--serif);font-weight:400;
-  font-size:var(--fluid);line-height:1.18;letter-spacing:-.02em;
-  padding-left:18px;border-left:2px solid var(--accent)}
-.pj-system .pj-quotes blockquote{border-left-color:var(--accent-ink)}
+   A chapter carries its ground as .lt or .dk and alternates down the page,
+   so the eye gets a cut between chapters instead of one continuous scroll. */
+/* A chapter is tighter than a --sec-y section (120-220px a side). That
+   token sets the rhythm of a page whose sections are each a full argument;
+   a case page runs eight chapters, so the same air eight times over was
+   most of the "white space around the whole thing". ~127px at 1440. */
+.pj-ch{padding:clamp(76px,48px + 5.5vw,150px) var(--gut)}
+.pj-ch.lt{background:var(--cream);color:var(--navy)}
+.pj-ch.dk{background:var(--night);color:var(--cream)}
+/* the signature chapter sits on the CLIENT'S own cream, which is the one
+   place the page is allowed to borrow a ground rather than describe one */
+.pj-ch.sig{background:var(--pj-sig-bg,var(--stone));color:var(--pj-sig-ink,var(--navy))}
 
-/* --- ONE CONTAINED SLIDE ---
-   C1/C2: several chapters read as content with no layout — a frame gives a
-   section an edge, so it stops looking like it is still loading. One rule
-   only: a hairline border and the chapter's own ground padded inside it,
-   never a new colour or a new shadow system. */
-.pj-slide{border:1px solid rgba(13,26,65,.14);padding:clamp(28px,4vw,56px);
-  margin-top:var(--gap-md)}
-[data-nav=dark] .pj-slide{border-color:var(--hair-c)}
-.pj-slide>.pj-chapter,.pj-slide>.pj-sig-head{margin-top:0}
+.pj-sl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);
+  gap:clamp(26px,3.2vw,48px) clamp(34px,5vw,88px);align-items:start}
+/* the label sits at the top left of the slide, on its own row. As a grid
+   ITEM core's flex .eyebrow would stretch and ride to the middle of the
+   boards beside it — the same fault that put "The problem" halfway down
+   four paragraphs. */
+.pj-sl>.eyebrow{grid-column:1/-1;margin:0;align-self:start}
+.pj-ch.lt .pj-sl>.eyebrow{color:var(--accent-ink)}
+.pj-ch.dk .pj-sl>.eyebrow{color:var(--accent-l)}
 
-/* --- the fold, extended to dark grounds ---
-   .pj-more above was written for the problem section's cream ground only.
-   C1's system chapter and C2's naming/travels chapters fold on a dark
-   ground too, so the summary needs a visible colour and hover state there
-   as well — same mechanism, no new one. */
-[data-nav=dark] .pj-more{border-color:var(--hair-c)}
-[data-nav=dark] .pj-more>summary{color:var(--accent-l)}
-@media (hover:hover){[data-nav=dark] .pj-more>summary:hover{color:var(--cream)}}
+.pj-sl-txt{min-width:0}
+.pj-sl-txt h2{--f-min:34;--f-max:64;margin:0 0 .45em;font-family:var(--serif);
+  font-weight:400;font-size:var(--fluid);line-height:.98;letter-spacing:-.035em;
+  text-wrap:balance}
+.pj-sl-txt p{margin:0;font-size:clamp(16px,1.2vw,19px);line-height:1.55;max-width:36ch}
+.pj-ch.lt .pj-sl-txt p{color:var(--mute)}
+.pj-ch.dk .pj-sl-txt p{color:var(--mute-d)}
 
-/* --- a grid of evidence, where the 1 : 2.4 alternation is wrong ---
-   Three boards of the same kind are a set, and a set reads as a grid. The
-   explicit aspect-ratio matters: a 1208x1800 beside an 1800x1800 in one row
-   jumps the layout as they load. */
-.pj-grid{display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));
-  gap:clamp(22px,3vw,40px);margin:var(--gap-md) 0 0}
-.pj-grid.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
-.gv{margin:0}
-.gv .ev-frame{aspect-ratio:16/9;border-color:rgba(13,26,65,.18)}
-.gv .ev-frame img{width:100%;height:100%;object-fit:cover;display:block}
-.gv.tall .ev-frame{aspect-ratio:2/3}
-.gv.square .ev-frame{aspect-ratio:1}
-/* 4:5 is the campaign frames' own ratio. Giving them 2/3 would crop a
-   seventh off the width of a photograph someone composed. */
-.gv.p45 .ev-frame{aspect-ratio:4/5}
-/* --- the closing card, for a grid whose count does not fill its last row ---
-   C2: "the empty grid cell reads as a hole." auto-fit leaves that cell empty
-   rather than stretching a neighbour into it, and seven boards in boards of
-   three or four always leaves one. Rather than pad the set with an eighth
-   board that does not exist, the one board that is ALREADY a summary of the
-   rest — a contents page, a document overview — spans the full row as a
-   deliberate close, wide enough that the empty cell cannot occur. */
-.gv.cap{grid-column:1/-1}
-/* 16/9, not wider: the source boards this spans for are square, and a
-   21:9 crop on a square image kept under half its height and cut the top
-   line off a contents page. 16/9 is wide enough to read as a close without
-   losing the board's own heading. */
-.gv.cap .ev-frame{aspect-ratio:16/9}
-.gv.cap .ev-frame img{object-position:top}
-[data-nav=dark] .gv .ev-frame{border-color:var(--hair-c)}
-.gv figcaption{margin-top:14px;font-family:var(--mono);font-size:10px;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
-[data-nav=dark] .gv figcaption{color:var(--mute-d)}
-.gv figcaption b{display:block;font-weight:500;margin-bottom:7px;color:var(--navy)}
-[data-nav=dark] .gv figcaption b{color:var(--cream)}
-.gv figcaption span{display:block;font-family:var(--sans);font-size:14px;
-  letter-spacing:0;text-transform:none;line-height:1.5;margin-top:8px}
+/* --- the evidence box ---
+   One board, two, or four. The count is the whole rule: a fifth board means
+   the chapter is two chapters. Every frame reads against the same ratio, so
+   a square guideline page and a wide photograph cannot set two different
+   scales in one row. */
+.pj-box{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(10px,1.1vw,18px)}
+.pj-box.one{grid-template-columns:minmax(0,1fr)}
+.pj-box figure{margin:0;min-width:0}
+/* 16/9, which is the source boards' OWN ratio (1440x804). These are
+   documents, not photographs: a 4/3 frame cropped a seventh off each side
+   and took the first letter of the wordmark with it. */
+.pj-box .ev-frame{aspect-ratio:16/9;border-color:var(--hair-c)}
+/* A board is shown at ITS OWN ratio, because the frame is there to hold a
+   set to one scale, not to crop a document. 1440x1440 guideline boards go
+   square; a 1208x1800 web page goes 2:3; the Possah campaign frames keep
+   the 4:5 somebody composed them at. Choosing wrong is not a style slip —
+   a 16:9 frame takes half a square board away. */
+.pj-box.square .ev-frame{aspect-ratio:1}
+.pj-box.tall .ev-frame{aspect-ratio:2/3}
+.pj-box.p45 .ev-frame{aspect-ratio:4/5}
+/* One board in a box whose ratio is not its own — a square mark beside a
+   wide system page. Contained rather than cropped, onto the board's own
+   dominant colour from _placeholders.css, because a logo with its sides
+   cut off is not a logo. Per FIGURE, not per box: the other board in the
+   row does fill its frame. */
+.pj-box figure.fit img{object-fit:contain}
+/* a second row of boards in one chapter, at a ratio the first row cannot
+   share. Still one evidence column, so it is still one slide. */
+.pj-box-next{margin-top:clamp(10px,1.1vw,18px)}
+.pj-ch.lt .pj-box .ev-frame{border-color:rgba(13,26,65,.18)}
+.pj-box figcaption{margin-top:10px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase}
+.pj-ch.lt .pj-box figcaption{color:var(--mute)}
+.pj-ch.dk .pj-box figcaption{color:var(--mute-d)}
+
+/* --- the facts, under the paragraph ---
+   .pj-facts was written for the problem section's cream ground at 30-46px
+   across a full column. In the left column of a slide that wraps, so the
+   ramp comes down and the ground is no longer assumed. */
+.pj-sl .pj-facts{margin:var(--s3) 0 0;gap:0}
+.pj-sl .pj-facts dt{--f-min:26;--f-max:38}
+.pj-ch.dk .pj-facts>div{border-left-color:var(--hair-c)}
+.pj-ch.dk .pj-facts dt{color:var(--cream)}
+
+/* --- the specification, as a line and not as a document ---
+   What replaced .pj-swatches + .pj-specs + .pj-quotes + .pj-src on the
+   system chapter: the values a system chapter genuinely owes the reader —
+   the colours, the two faces, the ratio — stated once, with nothing written
+   around them. A hex with a sentence under it is not a specification, it is
+   a paragraph wearing one. */
+/* Rows, not columns. In side-by-side cells the colour cell is ~220px wide,
+   which fits three chips — so Possah's five broke 3 + 2 and read as two
+   kinds of colour. A row gives the chips the whole column and the label
+   sits beside them, which is also how a specification is actually read. */
+.pj-spec{display:grid;gap:0;margin:var(--s4) 0 0}
+.pj-spec>div{display:grid;grid-template-columns:minmax(0,76px) minmax(0,1fr);
+  gap:clamp(14px,1.6vw,24px);align-items:baseline;
+  padding:var(--s3) 0;border-top:1px solid var(--hair-c)}
+.pj-ch.lt .pj-spec>div{border-top-color:rgba(13,26,65,.18)}
+.pj-spec>div:last-child{padding-bottom:0}
+.pj-spec dt{margin:0;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase}
+.pj-ch.lt .pj-spec dt{color:var(--mute)}
+.pj-ch.dk .pj-spec dt{color:var(--mute-d)}
+.pj-spec dd{margin:0;font-size:15px;line-height:1.5}
+.pj-spec dd b{display:block;font-weight:400}
+/* the chips, and the hex beside them as real text: the chip is hidden from
+   the accessibility tree, so the value is the accessible name and nothing
+   depends on seeing the colour. Classes set --sw; style-src has no
+   'unsafe-inline'. */
+/* auto-fit, not a fixed four: Zingara documents four colours and Possah
+   five, and a fifth chip wrapping onto a line of its own would read as a
+   different kind of colour */
+.pj-chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,54px),1fr));
+  gap:10px;margin:0;padding:0;list-style:none}
+.pj-chips li{min-width:0}
+.pj-chips i{display:block;aspect-ratio:1;background:var(--sw);
+  border:1px solid var(--hair-c)}
+.pj-ch.lt .pj-chips i{border-color:rgba(13,26,65,.22)}
+/* the hex under its own chip rather than four of them run together in a
+   line that wraps after the third. It is also the accessible name: the chip
+   is out of the tree and the value is real text. */
+.pj-spec code{display:block;margin-top:7px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.04em}
+
+
+/* --- THE TRAIL · evidence that is a sequence, not a set ---
+   The applications chapter had six boards and a paragraph under each
+   explaining what a photograph of a sign is. The images were not doing any
+   interpretive work, because nothing said what ORDER they were in.
+
+   They are a route: street, room, box, traffic — the distances at which a
+   diner actually meets the brand, numbered the way the home page numbers
+   its proofs. The number and the place are the whole caption, which is
+   possible only because the sequence now carries the meaning the prose was
+   carrying. Same .pj-box geometry; what is added is the count. */
+.pj-trail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(18px,2.4vw,34px) clamp(10px,1.1vw,18px);margin:0;padding:0;list-style:none;
+  counter-reset:trail}
+/* three across rather than a 2x2: C2's "the empty grid cell reads as a
+   hole" — three steps in two columns always leaves one. */
+.pj-trail.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pj-trail.square .ev-frame{aspect-ratio:1}
+.pj-trail>li{min-width:0}
+.pj-trail figure{margin:0}
+.pj-trail .ev-frame{aspect-ratio:16/9;border-color:var(--hair-c)}
+.pj-ch.lt .pj-trail .ev-frame{border-color:rgba(13,26,65,.18)}
+.pj-trail figcaption{display:flex;align-items:baseline;gap:12px;margin-top:12px;
+  padding-top:11px;border-top:1px solid var(--hair-c)}
+.pj-ch.lt .pj-trail figcaption{border-top-color:rgba(13,26,65,.18)}
+.pj-trail figcaption b{flex:0 0 auto;font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.14em;color:var(--accent-l)}
+.pj-ch.lt .pj-trail figcaption b{color:var(--accent-ink)}
+.pj-trail figcaption span{font-family:var(--sans);font-size:15px;line-height:1.4}
+.pj-ch.dk .pj-trail figcaption span{color:var(--cream)}
+
+/* --- a slide's full-width row ---
+   The compare table and anything else that is neither the writing nor the
+   evidence takes the whole slide rather than being squeezed into the text
+   column, where two lists at 215px each are unreadable. */
+.pj-sl>.pj-compare{grid-column:1/-1;margin:0}
+/* the live link, inside the evidence box, under both frames */
+.pj-box>.pj-live{grid-column:1/-1;margin:var(--s3) 0 0;padding:var(--s3) 0 0;
+  border-bottom:0}
+
+/* the numbers, as one row inside a slide */
+.pj-sl .pj-nums{margin:0}
+/* said once, under the row, instead of the same sentence in all three cells */
+/* .pj-sl-txt p is (0,1,1) and zeroes every margin in the column, so the
+   note needs the same weight to keep its air from the paragraph above. */
+.pj-foot-note,.pj-sl-txt .pj-foot-note{margin:var(--s4) 0 0;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;line-height:1.6;color:var(--mute)}
+.pj-ch.dk .pj-foot-note{color:var(--mute-d)}
+
+/* scope follows the numbers on the same ground, so it opens with no top air */
+.pj-ch.pj-scope{padding-top:0}
 
 /* --- this, not that --- */
 .pj-compare{display:grid;
@@ -355,34 +320,38 @@
   gap:14px clamp(18px,3vw,40px);margin:var(--gap-md) 0 0;
   padding:clamp(22px,2.6vw,34px) 0;
   border-top:1px solid var(--hair-c);border-bottom:1px solid var(--hair-c)}
-.pj-system .pj-live{border-color:rgba(13,26,65,.18)}
+.pj-ch.lt .pj-live{border-color:rgba(13,26,65,.18)}
 .pj-live .mono{margin:0;color:var(--mute-d);flex:0 0 auto}
-.pj-system .pj-live .mono{color:var(--mute)}
+.pj-ch.lt .pj-live .mono{color:var(--mute)}
 .pj-live a{font-family:var(--serif);font-size:clamp(22px,2.6vw,36px);line-height:1;
   letter-spacing:-.02em;color:inherit;text-decoration:none;
   border-bottom:1px solid var(--accent);padding-bottom:4px}
 .pj-live a .ext{font-family:var(--mono);font-size:11px;letter-spacing:.1em;
   margin-left:10px;vertical-align:middle;color:var(--accent-l)}
-.pj-system .pj-live a .ext{color:var(--accent-ink)}
+.pj-ch.lt .pj-live a .ext{color:var(--accent-ink)}
 @media (hover:hover){.pj-live a:hover{border-bottom-width:2px}}
 .pj-live p{margin:0;flex:1 1 260px;min-width:0;font-size:15px;line-height:1.5;
   color:var(--mute-d)}
-.pj-system .pj-live p{color:var(--mute)}
+.pj-ch.lt .pj-live p{color:var(--mute)}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:900px){
-  .pj-problem-in,.pj-problem-in.with-fig,.pj-scope-in{grid-template-columns:1fr}
-  .ev,.ev:nth-of-type(even){grid-template-columns:1fr}
-  .ev .ev-frame,.ev:nth-of-type(even) .ev-frame{grid-column:1;grid-row:1}
-  .ev figcaption,.ev:nth-of-type(even) figcaption{grid-column:1;grid-row:2}
+  .pj-scope-in{grid-template-columns:1fr}
   .pj-nums{grid-template-columns:1fr}
   .pj-scope ul{columns:1}
-  .pj-chapter{grid-template-columns:1fr}
-  .pj-grid,.pj-grid.two{grid-template-columns:1fr}
+  /* the slide stacks: text, then its evidence box */
+  .pj-sl{grid-template-columns:1fr}
+  .pj-spec>div{grid-template-columns:1fr;gap:10px}
   .pj-live{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:600px){
   .pg-open,.pj-open{min-height:auto;padding-top:clamp(100px,16vh,150px)}
   .pg-meta,.pj-meta{flex-direction:column;gap:14px}
   .pg-meta>div,.pj-meta>div{padding:0;border-left:0}
+  .pj-box{grid-template-columns:1fr}
+  .pj-trail,.pj-trail.three{grid-template-columns:1fr}
+  /* three facts in a stacked single column read as a list, not as a row of
+     numbers with one stray border down the middle */
+  .pj-sl .pj-facts{flex-direction:column;gap:16px}
+  .pj-sl .pj-facts>div{padding:0;border-left:0}
 }

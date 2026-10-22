@@ -119,12 +119,30 @@
      because this reaches 1 along either axis alone, which is the honest
      reading: drifting on one axis is already drifting. */
   --drift:max(0, calc((.75 - var(--x)) / .75), calc((.75 - var(--y)) / .75));
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:clamp(28px,4vw,64px);align-items:start;
-  margin:var(--gap-md) 0 0}
+  /* THE SLIDE. Same grammar as every other chapter and as Zingara's menu:
+     the label on its own row, the writing and the CONTROL on the left, what
+     the control does on the right. .pv stays the grid itself because the
+     script sets --x and --y here and the whole matrix interpolates off
+     them. The heading used to sit in a .pj-sig-head above the element, so
+     the chapter was a block of prose and then, separately, a toy. */
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  gap:clamp(26px,3.2vw,48px) clamp(34px,5vw,88px);align-items:start;margin:0}
+.pv>.eyebrow{grid-column:1/-1;margin:0;align-self:start;color:var(--accent-ink)}
+.pv-txt{min-width:0}
+.pv-txt h2{--f-min:40;--f-max:74;margin:0 0 .4em;font-family:var(--serif);
+  font-weight:400;font-size:var(--fluid);line-height:.95;letter-spacing:-.04em;
+  text-wrap:balance}
+.pv-txt>p{margin:0 0 var(--s4);font-size:clamp(16px,1.2vw,19px);line-height:1.55;
+  max-width:34ch;color:var(--mute)}
+.pv-note{margin:14px 0 0;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mute)}
 
 /* --- the pad --- */
-.pv-pad{position:relative;aspect-ratio:1;border:1px solid rgba(31,58,45,.28);
+/* capped. At the full width of the writing column the square ran to 575px
+   and the chapter became a pad with a sentence beside it; the matrix is the
+   control, not the chapter. */
+.pv-pad{position:relative;aspect-ratio:1;max-width:400px;
+  border:1px solid rgba(31,58,45,.28);
   background:var(--pj-sig-bg);touch-action:none;cursor:grab}
 .pv-pad:active{cursor:grabbing}
 .pv-pad::before,.pv-pad::after{content:"";position:absolute;background:rgba(31,58,45,.22)}

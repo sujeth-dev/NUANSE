@@ -60,8 +60,31 @@
 .sw-z-cream{--sw:#F5EDD8}
 .sw-z-gold{--sw:#C9933A}
 
-.zm{--p:0;position:relative;max-width:900px;margin:0 auto;user-select:none;
-  -webkit-user-select:none}
+/* THE SLIDE. .zm is the grid, not a centred block: the writing, the control
+   and the count on the left, the sheet on the right. It carries --p because
+   the script writes it here and everything below reads it.
+
+   The sheet is NARROW on purpose. A menu is a tall object and a 900px-wide
+   one is a placemat; at ~420px the eye runs down it the way it runs down a
+   real menu, which is also what makes the prices sliding into one column
+   legible as a correction rather than as a wide row of things moving. */
+.zm{--p:0;position:relative;display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,.86fr);
+  gap:clamp(26px,3.2vw,48px) clamp(34px,5vw,88px);align-items:start;
+  user-select:none;-webkit-user-select:none}
+.zm>.eyebrow{grid-column:1/-1;margin:0;align-self:start;color:var(--accent-ink)}
+.zm-txt{min-width:0}
+.zm-txt h2{--f-min:40;--f-max:74;margin:0 0 .4em;font-family:var(--serif);
+  font-weight:400;font-size:var(--fluid);line-height:.95;letter-spacing:-.04em;
+  text-wrap:balance}
+.zm-txt>p{margin:0;font-size:clamp(16px,1.2vw,19px);line-height:1.55;max-width:34ch;
+  color:var(--mute)}
+.zm-sheet{min-width:0;justify-self:end;width:100%;max-width:440px}
+/* one line, and it says the one thing a reconstruction owes the reader. The
+   paragraph it replaces also re-listed the three facts standing two inches
+   above it in the readout. */
+.zm-note{margin:14px 0 0;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mute)}
 
 /* Per-row price offsets — how far each price had wandered from the column.
    Classes rather than style attributes, because style-src has no
@@ -75,8 +98,10 @@
 .w6{--wander:12}
 .w7{--wander:-47}
 
+/* container-type:inline-size is what lets the sheet keep its own typographic
+   scale at 440px that it had at 900: every size inside is in cqi. */
 .zm-stage{position:relative;background:#FFFDF6;border:1px solid rgba(28,26,24,.22);
-  padding:clamp(26px,4.6vw,64px) clamp(22px,4vw,56px);overflow:hidden;
+  padding:clamp(24px,6cqi,40px) clamp(20px,5cqi,34px);overflow:hidden;
   container-type:inline-size;cursor:ew-resize;touch-action:pan-y}
 
 /* the sheet discolours as it is corrected: a yellowed print becoming paper */
@@ -183,12 +208,6 @@
   opacity:calc(1 - var(--p));
   transform:rotate(calc(-14deg + var(--p) * 26deg)) scale(calc(1 - var(--p) * .35));
   pointer-events:none}
-
-.zm-foot{position:relative;display:flex;justify-content:space-between;gap:16px;
-  margin-top:clamp(18px,3cqi,30px);font-family:var(--mono);
-  font-size:clamp(9px,1.5cqi,11px);letter-spacing:.14em;text-transform:uppercase;
-  color:#746F66;opacity:var(--p)}
-
 /* ---- the control ---- */
 .zm-ctrl{position:relative;margin-top:26px}
 .zm-track{position:relative;height:1px;background:rgba(28,26,24,.22)}
@@ -207,16 +226,27 @@
 .zm-legend .is-on{color:var(--accent-ink)}
 
 /* the running count of what the correction touches */
-.zm-readout{display:flex;gap:clamp(20px,4vw,52px);flex-wrap:wrap;margin-top:28px;
-  padding-top:22px;border-top:1px solid rgba(28,26,24,.16)}
-.zm-readout div{min-width:0}
+/* the count, in the .pj-facts idiom so it is the same object as the facts
+   on the problem slide rather than a third way of setting three numbers */
+.zm-readout{display:flex;flex-wrap:wrap;margin-top:var(--s4);padding-top:var(--s3);
+  border-top:1px solid rgba(28,26,24,.16)}
+.zm-readout div{min-width:0;padding:0 clamp(16px,1.6vw,24px);
+  border-left:1px solid rgba(28,26,24,.18)}
+.zm-readout div:first-child{padding-left:0;border-left:0}
 .zm-readout b{display:block;font-family:var(--serif);font-weight:400;
-  font-size:clamp(26px,3.4vw,44px);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
-.zm-readout span{display:block;margin-top:8px;font-size:14px;color:var(--mute)}
+  font-size:clamp(26px,2.6vw,38px);line-height:1;letter-spacing:-.03em;color:var(--accent-ink)}
+.zm-readout span{display:block;margin-top:10px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;max-width:17ch;color:var(--mute)}
 
+@media (max-width:900px){
+  .zm{grid-template-columns:1fr}
+  .zm-sheet{justify-self:start;max-width:520px}
+}
 @media (max-width:600px){
   .zm-after{white-space:normal}
   .zm-burst{top:auto;bottom:clamp(60px,14cqi,110px)}
+  .zm-readout{flex-direction:column;gap:16px}
+  .zm-readout div{padding:0;border-left:0}
 }
 /* Reduced motion: no scrub theatre. The corrected state is the useful one,
    so the page simply presents it, and the control still works if used. */
