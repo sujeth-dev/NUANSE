@@ -366,6 +366,18 @@
     if (MOTION.pin < 0) MOTION.pin = 0;
     syncIdle();
   }
+  /* A pin is a sticky stage, not ScrollTrigger's pin. Switching a stage to
+     position:fixed is read by Chrome as a full-screen layout shift (CLS 1
+     per pin, every visit), and sticky is composited, so it holds still
+     under Lenis and under native touch scrolling alike. The section grows
+     by the run; the trigger spans it top to bottom. `run` is in viewport
+     heights, as the old '+=115%' ends were. */
+  function stickPin(sec, stage, run) {
+    sec.classList.add('stuck-run');
+    stage.classList.add('stuck-stage');
+    sec.style.setProperty('--run', run);
+    return { trigger: sec, start: 'top top', end: 'bottom bottom', onToggle: pinClaim };
+  }
 
   /* ---------------------------------------------------------------- Lenis */
   let lenis = null;
@@ -1267,7 +1279,7 @@
     /* text */
     wrapS, wrapWords, markS, watchTurns,
     /* motion */
-    MOTION, calm, pinClaim, onIdleChange, syncIdle, FOIL,
+    MOTION, calm, pinClaim, stickPin, onIdleChange, syncIdle, FOIL,
     /* scroll */
     lenis, stopScroll, startScroll, jumpTo,
     /* chrome */

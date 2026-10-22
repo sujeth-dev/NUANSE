@@ -1,0 +1,16 @@
+# Build intermediates that live beside the site but are never served.
+# The case-page sources (tools/expand-figures.py reads them), the figure
+# markup and ratio tables the tools write, and the brand folder's notes.
+work/_*.src.html
+assets/work/*/_markup.html
+assets/**/_manifest.json
+assets/work/_ratios-*.json
+assets/brand/README.md
+**/.gitkeep
+
+# build-page-images.py writes a JPEG at every width, but the pages only
+# fall back to JPEG at the largest one; AVIF and WebP carry the rest.
+assets/work/possah/*-480.*.jpg
+assets/work/possah/*-960.*.jpg
+assets/work/zingara/*-480.*.jpg
+assets/work/zingara/*-960.*.jpg

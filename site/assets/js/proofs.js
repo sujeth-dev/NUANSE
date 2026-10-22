@@ -237,8 +237,8 @@
       });
       wtl.to({}, { duration: 0.3 });
       ScrollTrigger.create({
-        trigger: sec, start: 'top top', end: '+=120%', pin: $('.work-stage', sec),
-        scrub: 1, animation: wtl, invalidateOnRefresh: true, onToggle: NU.pinClaim
+        ...NU.stickPin(sec, $('.work-stage', sec), 1.2),
+        scrub: 1, animation: wtl, invalidateOnRefresh: true
       });
     }
   });

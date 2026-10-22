@@ -300,8 +300,18 @@
   function setCat(cat) {
     chips.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === cat)));
     const state = HAS && window.Flip ? Flip.getState(cards) : null;
+    const grid = cards[0] && cards[0].parentElement;
+    const from = grid ? grid.offsetHeight : 0;
     cards.forEach((li) => { li.hidden = !!cat && li.dataset.cat !== cat; });
     if (state) {
+      /* absolute:true lifts every card out of flow for the move, so the grid
+         would collapse to nothing and the footer band would jump up the page
+         and back. Hold the height and ease it to the new one instead. */
+      if (grid && !RM) {
+        gsap.fromTo(grid, { height: from }, {
+          height: grid.offsetHeight, duration: 0.55, ease: EASE, clearProps: 'height'
+        });
+      }
       Flip.from(state, {
         duration: RM ? 0 : 0.55, ease: EASE, absolute: true, scale: false,
         onEnter: (els) => (RM

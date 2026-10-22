@@ -783,8 +783,8 @@
     tl.to({}, { duration: 0.2 });
 
     ScrollTrigger.create({
-      trigger: sec, start: 'top top', end: '+=170%', pin: $('.ba-stage', sec),
-      scrub: 0.45, animation: tl, invalidateOnRefresh: true, onToggle: NU.pinClaim
+      ...NU.stickPin(sec, $('.ba-stage', sec), 1.7),
+      scrub: 0.45, animation: tl, invalidateOnRefresh: true
     });
   }
 
@@ -934,8 +934,8 @@
          smoothing on top of that; two lags stacked is what reads as stuck.
          .45 still feels eased but answers you. */
       ScrollTrigger.create({
-        trigger: '#manifesto', start: 'top top', end: '+=115%', pin: '.mf-stage',
-        scrub: 0.45, animation: mtl, invalidateOnRefresh: true, onToggle: NU.pinClaim
+        ...NU.stickPin($('#manifesto'), $('.mf-stage'), 1.15),
+        scrub: 0.45, animation: mtl, invalidateOnRefresh: true
       });
     } else if (RM && words.length) {
       /* reduced motion still has to reach the final state */

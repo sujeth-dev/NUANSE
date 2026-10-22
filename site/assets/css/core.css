@@ -909,3 +909,9 @@ section{position:relative}
     padding-top:clamp(108px,15vh,132px);padding-bottom:clamp(44px,7vh,64px)}
   .pg-title{font-size:clamp(54px,16vw,76px)}
 }
+
+/* Sticky pins (NU.stickPin): the section is the stage plus the run, the
+   stage holds at the top while the run scrolls past. Set from JS only, so
+   reduced motion and a failed GSAP load keep the plain, unpinned section. */
+.stuck-run{height:calc(100vh * (1 + var(--run)));height:calc(100svh * (1 + var(--run)))}
+.stuck-run .stuck-stage{position:sticky;top:0}

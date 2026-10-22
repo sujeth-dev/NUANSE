@@ -40,6 +40,7 @@ site/                  the deployable site — Vercel's root directory
     brand/             the NUANSE marks
     work/              per-project imagery
   vercel.json          CSP, caching, clean URLs
+  .vercelignore        build intermediates kept out of the deploy
   robots.txt  sitemap.xml  site.webmanifest
 
 brief/                 what to build and why — read 00 first

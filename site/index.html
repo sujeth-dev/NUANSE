@@ -31,6 +31,25 @@
 <meta name="twitter:description" content="For businesses that refuse to be ordinary.">
 <meta name="twitter:image" content="https://www.thenuanse.com/assets/brand/og-default.png">
 
+<!-- Structured data for search. A data block, not a script, so the CSP's
+     script-src never applies to it. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "NUANSE",
+  "url": "https://www.thenuanse.com/",
+  "logo": "https://www.thenuanse.com/assets/brand/favicon-512.png",
+  "image": "https://www.thenuanse.com/assets/brand/og-default.png",
+  "description": "A Bangalore brand studio. Strategy, identity, websites, content, film and performance for businesses that refuse to be ordinary.",
+  "email": "abhinav@thenuanse.com",
+  "foundingDate": "2025",
+  "address": { "@type": "PostalAddress", "addressLocality": "Bangalore", "addressRegion": "Karnataka", "addressCountry": "IN" },
+  "areaServed": "Worldwide",
+  "knowsAbout": ["Brand strategy", "Brand identity", "Web design", "Content and film", "Performance marketing"]
+}
+</script>
+
 <!-- The fonts are ours now, so they are same-origin and can be preloaded
      without a third-party handshake. Only the two faces the first screen
      actually paints in: the display face for the headline and the body face
@@ -40,10 +59,10 @@
 
 <!-- GSAP gates the first paint: the loader holds the page until it boots, so
      opening the jsdelivr connection early is the single biggest load win. -->
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" crossorigin>
-<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" crossorigin>
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js">
 
 <!-- Capability flags before first paint. External, not inline, so the CSP can
      drop 'unsafe-inline' from script-src. See the note in boot.js. -->
