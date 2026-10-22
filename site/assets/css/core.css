@@ -190,7 +190,7 @@ body{margin:0;font-family:var(--sans);font-size:17px;line-height:1.55;color:var(
 html.loading body{overflow:hidden}
 img,svg{display:block;max-width:100%}
 a{color:inherit}
-button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:var(--cur-press)}
 ::selection{background:var(--copper);color:var(--cream)}
 :focus-visible{outline:1px dashed var(--copper);outline-offset:4px}
 .sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -337,22 +337,22 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    copper disc with a label over a [data-cursor] target. The follow stays on
    GSAP quickTo, which is smoother than the reference's; only the state
    machine comes across. */
+/* The pointer is the system's own arrow, redrawn in the house hand: cream
+   with a navy line, so it reads on every ground, and a copper pencil tick at
+   the tip. Over anything you can press it fills copper. */
+:root{--cur-press:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M5 4L5.4 22.5L10.2 18L13.6 25.4L17 23.8L13.7 16.6L20.4 16.2Z' fill='%23D58A4E' stroke='%230D1A41' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M2 8.5L3.2 3.6M7.8 2L10.6 1' fill='none' stroke='%23B56528' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") 5 4,pointer}
+html{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M5 4L5.4 22.5L10.2 18L13.6 25.4L17 23.8L13.7 16.6L20.4 16.2Z' fill='%23FCF7F1' stroke='%230D1A41' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M2 8.5L3.2 3.6M7.8 2L10.6 1' fill='none' stroke='%23B56528' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") 5 4,auto}
+a,button,summary,label,select,[role=button],[data-cursor],[data-goto]{cursor:var(--cur-press)}
+input:not([type=range]):not([type=checkbox]):not([type=radio]),textarea,[contenteditable=true]{cursor:text}
 .cur{position:fixed;left:0;top:0;z-index:400;pointer-events:none;display:none;opacity:1;
   transition:opacity var(--t-sm) var(--ease)}
-/* The small state is a pencilled loop in cream with a navy line and a copper
-   dot: cream reads on navy, the line reads on cream and stone, so it holds on
-   every ground. It sits on ::before, so it can wobble on its own while the
-   breath keeps the transform on i, and it fades out as the disc swells. */
+/* No ring of its own: away from a [data-cursor] target the system pointer
+   is the cursor, and only the labelled disc is drawn. */
 .cur i{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;
   border:1px solid transparent;
   transition:width var(--t-sm) var(--ease),height var(--t-sm) var(--ease),
              margin var(--t-sm) var(--ease),background var(--t-sm) var(--ease),
              border-color var(--t-sm) var(--ease)}
-.cur i::before{content:"";position:absolute;inset:-3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cpath d='M22 6C32 5 39 12 38 22S30 39 21 38 5 30 6 21 13 6 24 7' fill='%23FCF7F1' fill-opacity='.95' stroke='%230D1A41' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M36 4l-2 4M41 9l-4 2M40 3l-3 3' fill='none' stroke='%23B56528' stroke-width='1.4' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='2.2' fill='%23B56528'/%3E%3C/svg%3E") center/contain no-repeat;
-  transition:opacity var(--t-sm) var(--ease);animation:cur-pencil 6s steps(1) infinite}
-/* redrawn by hand three times over: the loop never sits quite still */
-@keyframes cur-pencil{0%{transform:rotate(0)}33%{transform:rotate(118deg) scale(.97)}66%{transform:rotate(236deg) scale(1.02)}}
-.cur.big i::before{opacity:0}
 .cur b{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-weight:500;
   font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);opacity:0;
   transition:opacity .25s var(--ease);white-space:nowrap}
@@ -398,7 +398,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* No GSAP: nothing is going to drive x and y, so the centring is done with
    left/top and the ring rests there rather than in the corner. */
 .cur.cur-dead{left:50%;top:50%}
-@media (prefers-reduced-motion:reduce){.cur.rest i,.cur i::before{animation:none}}
+@media (prefers-reduced-motion:reduce){.cur.rest i{animation:none}}
 @media (pointer:fine){.cur{display:block}}
 /* reduced motion has no cursor at all — not a disc, and not a rest ring */
 .rm .cur,.touch .cur{display:none!important}
@@ -539,7 +539,7 @@ body:has(.pj-open) .menu a[aria-current]{color:var(--cream)}
 .nav-cta,.menu-btn{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   border:1px solid currentColor;border-radius:999px;padding:8px 14px 7px;text-decoration:none;
   white-space:nowrap}
-.menu-btn{background:none;color:inherit;cursor:pointer}
+.menu-btn{background:none;color:inherit;cursor:var(--cur-press)}
 /* inside the capsule the CTA has its own ground to read against */
 .nav-cta{background:var(--copper-ink);border-color:var(--copper-ink);color:var(--cream)}
 

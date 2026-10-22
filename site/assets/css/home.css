@@ -302,7 +302,7 @@
 /* The controls are the exception, in CSS as in home.js: the lens yields over
    a button and the native pointer comes back with it, because a control you
    cannot see yourself aiming at is worse than a second cursor. */
-@media (pointer:fine){.hero{cursor:none}.hero .btn,.hero .lens-toggle{cursor:pointer}}
+@media (pointer:fine){.hero{cursor:none}.hero .btn,.hero .lens-toggle{cursor:var(--cur-press)}}
 .touch .hero-hint,.rm .hero-hint{display:none}
 
 /* ============ 2 · MARQUEE ============ */
@@ -839,7 +839,7 @@
 @keyframes fe-run{to{transform:none}}
 .fe-arrows{display:flex;gap:10px}
 .fe-arrows button{width:48px;height:48px;border-radius:50%;border:1px solid rgba(252,247,241,.35);
-  background:none;color:var(--cream);font-size:18px;cursor:pointer;
+  background:none;color:var(--cream);font-size:18px;cursor:var(--cur-press);
   transition:background var(--t-sm) var(--ease),border-color var(--t-sm) var(--ease),color var(--t-sm) var(--ease)}
 .fe-arrows button:hover,.fe-arrows button:focus-visible{background:var(--cream);color:var(--navy);border-color:var(--cream)}
 .rm .fe-slide{transform:none;transition:opacity .3s,visibility 0s linear .3s}

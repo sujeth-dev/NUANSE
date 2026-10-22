@@ -44,7 +44,7 @@
 .cl-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 var(--s3)}
 .chip{border:1px solid var(--navy);border-radius:999px;padding:8px 14px 7px;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
-  background:none;color:var(--navy);cursor:pointer;display:inline-flex;align-items:baseline;
+  background:none;color:var(--navy);cursor:var(--cur-press);display:inline-flex;align-items:baseline;
   gap:8px;transition:background var(--t-mid) var(--ease),color var(--t-mid) var(--ease)}
 .chip[aria-pressed=true]{background:var(--navy);color:var(--cream)}
 @media (hover:hover){
@@ -84,7 +84,7 @@
    label-content-name-mismatch failures on cards whose aria-label did not
    contain what they said on screen. */
 .cl-hit{flex:1 1 auto;display:flex;flex-direction:column;align-items:stretch;
-  text-align:left;font:inherit;color:inherit;text-decoration:none;cursor:pointer;
+  text-align:left;font:inherit;color:inherit;text-decoration:none;cursor:var(--cur-press);
   background:none;border:0;padding:0;overflow:hidden}
 .cl-feat .cl-hit{display:grid;grid-template-columns:minmax(0,34%) minmax(0,1fr);
   grid-template-rows:minmax(0,1fr) auto;align-items:stretch}
@@ -199,7 +199,7 @@
 .cl-ov-ctl{margin-left:auto;display:flex;align-items:center;gap:7px;flex:0 0 auto}
 .cl-ov-step,.cl-ov-wide,.cl-ov-close{border:1px solid var(--navy);background:none;
   color:var(--navy);border-radius:999px;padding:7px 13px 6px;font-family:var(--mono);
-  font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;white-space:nowrap;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:var(--cur-press);white-space:nowrap;
   transition:background var(--t-sm) var(--ease),color var(--t-sm) var(--ease)}
 /* the arrows are square-ish, so they do not read as two more words */
 .cl-ov-step{padding:7px 10px 6px;letter-spacing:0;font-size:12px;line-height:1}
