@@ -652,7 +652,20 @@
    reduced-motion and file:// path: twelve clients as a block, all readable,
    nothing moving, no second markup. */
 .clients{background:var(--stone);padding:var(--sec-y) 0;overflow:hidden}
-.cl-head{padding:0 var(--gut);margin-bottom:var(--gap-md)}
+.cl-head{padding:0 var(--gut);margin-bottom:var(--gap-md);position:relative}
+/* Round 3 · the proof pen: one copper stroke weight at any size, as the
+   before/after doodles. The loop is placed by home.js over "every one."; it
+   stays hidden until it has been placed, so it never shows in the wrong spot. */
+.cl-ring{position:absolute;left:0;top:0;width:0;height:0;overflow:visible;pointer-events:none;
+  visibility:hidden}
+.cl-ring.is-placed{visibility:visible}
+.cl-ring path,.cl-arrow path{fill:none;stroke:var(--copper);stroke-width:2.4;stroke-linecap:round;
+  stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.cl-note{position:absolute;right:var(--gut);bottom:calc(var(--gap-md) * -1 + 4px);margin:0;
+  display:flex;flex-direction:column;align-items:flex-start;gap:6px;pointer-events:none}
+.cl-note span{font-family:var(--serif);font-size:clamp(22px,2vw,30px);line-height:1;
+  letter-spacing:-.02em;color:var(--copper-ink);transform:rotate(-4deg);transform-origin:left center}
+.cl-arrow{width:64px;height:80px;margin-left:12px}
 .cl-head .lede{margin-top:22px}
 .cl-rail{position:relative;overflow:hidden}
 .cl-track{display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,64px);padding:0 var(--gut)}
@@ -754,6 +767,8 @@
   /* the strip gives the mark back its chip size on a phone: at 80px square a
      cell is most of the screen and two clients at a time is not a roster */
   .cl-mark{flex-basis:56px;width:56px;height:56px}
+  .cl-note{position:static;margin-top:var(--s3);flex-direction:row;align-items:flex-end}
+  .cl-arrow{width:40px;height:50px}
   .cl-init{font-size:22px}
   .hero-foot{flex-direction:column;align-items:flex-start;gap:22px}
   .letter-meta span:last-child{display:none}

@@ -703,6 +703,50 @@
     rail.addEventListener('pointercancel', hold(false));
   }
 
+  /* ===================================================== 4c · THE PROOF PEN
+     Round 3. The copper loop goes round the last two words of "Named, every
+     one." Those words only exist as boxes after core.js has split the
+     heading, so the loop is measured onto them here, and again on every
+     refresh, because the heading is fluid. Then the loop, the arrow and the
+     note draw on once, when the strip comes into view. */
+  function wireClientPen() {
+    const head = $('.cl-head');
+    const ring = head && $('.cl-ring', head);
+    if (!ring) return;
+    const note = $('.cl-note', head);
+    const place = () => {
+      const ws = $$('.h2 .w', head).slice(-2);
+      if (ws.length < 2) return;
+      const box = head.getBoundingClientRect();
+      const a = ws[0].getBoundingClientRect();
+      const b = ws[1].getBoundingClientRect();
+      const l = Math.min(a.left, b.left), r = Math.max(a.right, b.right);
+      const t = Math.min(a.top, b.top), btm = Math.max(a.bottom, b.bottom);
+      const px = (r - l) * 0.06, py = (btm - t) * 0.14;
+      gsap.set(ring, { left: l - box.left - px, top: t - box.top - py,
+        width: r - l + px * 2, height: btm - t + py * 2 });
+      ring.classList.add('is-placed');
+    };
+    place();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+    ScrollTrigger.addEventListener('refresh', place);
+
+    if (RM || typeof DrawSVGPlugin === 'undefined') return;
+    const loop = $$('path', ring);
+    const arrow = note ? $$('.cl-arrow path', note) : [];
+    const words = note ? $('span', note) : null;
+    gsap.set([...loop, ...arrow], { drawSVG: '0%' });
+    if (words) gsap.set(words, { opacity: 0, y: 8 });
+    const tl = gsap.timeline({ paused: true })
+      .to(loop, { drawSVG: '100%', duration: 0.9, ease: 'power2.inOut' }, 0.35);
+    if (words) tl.to(words, { opacity: 1, y: 0, duration: 0.5 }, 1.05);
+    if (arrow.length) {
+      tl.to(arrow[0], { drawSVG: '100%', duration: 0.55, ease: 'power1.inOut' }, 1.2)
+        .to(arrow.slice(1), { drawSVG: '100%', duration: 0.2 }, 1.7);
+    }
+    ScrollTrigger.create({ trigger: head, start: 'top 70%', once: true, onEnter: () => tl.play() });
+  }
+
   /* ======================================================= 5 · BEFORE / AFTER
      Pinned for 170% of a screen. The after kit wipes in from the right
      behind a rule, the heading hands its weight from Before to After, and
@@ -1025,6 +1069,7 @@
     }
 
     wireBeforeAfter();
+    wireClientPen();
 
     /* --- the hero's ground sleeps once the hero is gone --- */
     ScrollTrigger.create({
