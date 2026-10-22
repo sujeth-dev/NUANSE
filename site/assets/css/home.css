@@ -318,7 +318,9 @@
 /* ============ 3 · MANIFESTO ============ */
 .manifesto{background:var(--stone)}
 .mf-stage{height:100vh;height:100svh;position:relative;overflow:hidden;display:grid;place-items:center}
-.mf-label{position:absolute;top:clamp(86px,12vh,120px);left:var(--gut);z-index:5}
+.mf-label{position:absolute;top:clamp(86px,12vh,120px);left:var(--gut);z-index:0;margin:0;
+  display:flex;align-items:center;gap:12px;color:var(--mute)}
+.mf-label::before{content:"";width:28px;height:1px;background:var(--copper)}
 .mf-note{position:absolute;top:clamp(86px,12vh,120px);right:var(--gut);z-index:5;color:var(--mute);
   text-align:right}
 /* B5 - the envelope holds, so it has to leave the letter room.
@@ -771,6 +773,10 @@
   .cl-arrow{width:40px;height:50px}
   .cl-init{font-size:22px}
   .hero-foot{flex-direction:column;align-items:flex-start;gap:22px}
+  /* Round 3: a bigger headline on a phone, so the hero is type and not a
+     gap. 17.5vw keeps "identities" inside the gutter even mid-flip, when it
+     is set in the wider mono face. */
+  .hero-h{--hu:min(17.5vw,10.5vh)}
   .letter-meta span:last-child{display:none}
   .mf-note{display:none}
   .env-back,.env-front{height:38vh}

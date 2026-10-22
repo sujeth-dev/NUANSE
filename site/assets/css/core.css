@@ -841,6 +841,9 @@ section{position:relative}
      word is 558px in 694px and the footer's own height is unchanged at
      every viewport height tested. */
   .ft-mid{flex-direction:column-reverse;align-items:flex-start}
+  /* Round 3: the draggable mark is a desktop toy; on a phone it was a
+     block of footer with nothing to do in it */
+  .s3d-wrap{display:none}
   .pg-next-in,.pj-next-in{grid-template-columns:1fr}
 }
 @media (max-width:600px){
@@ -857,4 +860,11 @@ section{position:relative}
      viewport directly rather than to a rung. Anything else off the ramp is a
      bug; this is a decision. */
   .ft-word{font-size:22vw}
+  /* Round 3: on a phone the opening frame was 92svh of navy with the title
+     at the top and the facts at the bottom, and a dead band between them.
+     Here it is as tall as what it holds, with one fixed gap and a title
+     big enough to own the screen. */
+  .pg-open{min-height:0;justify-content:flex-start;gap:clamp(48px,9vh,80px);
+    padding-top:clamp(108px,15vh,132px);padding-bottom:clamp(44px,7vh,64px)}
+  .pg-title{font-size:clamp(54px,16vw,76px)}
 }
