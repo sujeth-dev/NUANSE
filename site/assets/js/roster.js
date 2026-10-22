@@ -333,6 +333,14 @@
     btn.addEventListener('click', () => open(li.dataset.slug, li));
   });
 
+  /* the home strip links here as /work#slug: that card's sheet opens on
+     arrival, once the page has settled under it */
+  const deep = cards.find((li) => '#' + li.dataset.slug === location.hash);
+  if (deep && deep.querySelector('button.cl-hit')) {
+    deep.scrollIntoView({ block: 'center' });
+    setTimeout(() => open(deep.dataset.slug, deep), 600);
+  }
+
   if (closeBtn) closeBtn.addEventListener('click', close);
   $$('.cl-ov-step').forEach((b) => {
     b.addEventListener('click', () => step(+b.dataset.step));

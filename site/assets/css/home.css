@@ -679,7 +679,7 @@
    is twelve cells wide, and .cl-rail would clip seven of them. */
 .cl-set{display:flex;align-items:center;gap:clamp(28px,4vw,64px);flex:0 0 auto;flex-wrap:nowrap}
 .cl-track:not(.is-rolling) .cl-set{flex:1 1 100%;width:100%;flex-wrap:wrap}
-.cl-cell{display:flex;align-items:center;gap:14px;flex:0 0 auto}
+.cl-cell{display:flex;align-items:center;gap:14px;flex:0 0 auto;color:inherit;text-decoration:none}
 /* 80px and not the roster's 44px. On /work a mark is a chip identifying a row
    that already carries the client's name, sector and line; here it is half of
    what the section is for, and a lockup trimmed to its ink needs the size to
@@ -697,7 +697,7 @@
   filter:none;opacity:1}
 .cl-name{font-family:var(--serif);font-weight:400;font-size:clamp(21px,2.3vw,34px);
   line-height:1;letter-spacing:-.025em;color:var(--navy);white-space:nowrap}
-@media (hover:hover){.cl-cell:hover .cl-mark{filter:none;opacity:1}}
+@media (hover:hover){.cl-cell:hover .cl-mark{filter:none;opacity:1}.cl-cell:hover .cl-name{color:var(--copper-ink)}}
 .cl-all{padding:0 var(--gut);margin:var(--gap-md) 0 0}
 
 /* ============ 9 · AUDIT ============ */

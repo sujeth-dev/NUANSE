@@ -684,6 +684,7 @@
     if (!set) return;
     const twin = set.cloneNode(true);
     twin.setAttribute('aria-hidden', 'true');
+    $$('a', twin).forEach((a) => { a.tabIndex = -1; });
     clTrack.appendChild(twin);
     clTrack.classList.add('is-rolling');
     /* Pause, and why it is two pairs of events rather than one.
