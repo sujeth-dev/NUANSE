@@ -56,14 +56,14 @@
      we would say out loud, and it is what the visitor takes away if they
      read nothing else. Carried over unchanged from home.js §9. */
   const QS = [
-    ['Could a stranger tell what you sell in five seconds?', 'Your name and logo don’t say what you sell yet.'],
-    ['Do your menu, packaging and site use the same two typefaces?', 'Typefaces change from one surface to the next.'],
-    ['Do your delivery listings match your storefront?', 'Your listings look like a different business.'],
+    ['Could a stranger tell what you do in five seconds?', 'Your name and logo don’t say what you do yet.'],
+    ['Do your website, documents and social posts use the same two typefaces?', 'Typefaces change from one surface to the next.'],
+    ['Do your online listings and profiles match your website?', 'Your listings look like a different business.'],
     ['Are your prices presented as a decision, not an apology?', 'Prices are presented apologetically.'],
     ['Has someone outside the team repeated your homepage headline back correctly?', 'Your headline isn’t being understood.'],
-    ['Do your product photos share one light and one background?', 'Photos don’t share one light or background.'],
-    ['Do you know last month’s cost per order or cost per reservation from ads?', 'Ad spend isn’t tied to orders yet.'],
-    ['Would you charge 15% more if the brand looked as good as the product?', 'The brand is holding your pricing back.']
+    ['Do your photos share one light and one style?', 'Photos don’t share one light or style.'],
+    ['Do you know last month’s cost per lead or per sale from ads?', 'Ad spend isn’t tied to results yet.'],
+    ['Would you charge 15% more if the brand looked as good as the work?', 'The brand is holding your pricing back.']
   ];
 
   let qi = 0;

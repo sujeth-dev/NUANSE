@@ -1044,6 +1044,12 @@
     /* the indicator parks on the current page's link, once layout exists */
     parkInd();
 
+    /* the header hides on the way down and comes back on the way up */
+    ScrollTrigger.create({
+      start: 0, end: 'max',
+      onUpdate: (s) => setAway(s.direction === 1 && s.scroll() > 120)
+    });
+
     /* the nav mark rotates with scroll progress */
     if (!RM && navSpin) {
       ScrollTrigger.create({

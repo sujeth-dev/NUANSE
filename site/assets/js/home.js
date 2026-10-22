@@ -804,12 +804,12 @@
       ['−0.02em', ''], ['Kerning', ''], ['46ch', '']]],
     ['colour', [['#B56528', ''], ['Copper · 3%', ''], ['#0D1A41', ''],
       ['60 / 20 / 10', ''], ['✓', 'big']]],
-    ['app', [['Menu', ''], ['Packaging', ''], ['Signage', ''],
-      ['Delivery bag', ''], ['Card · 20mm', ''], ['Favicon 32px', '']]],
+    ['app', [['Website', ''], ['Packaging', ''], ['Signage', ''],
+      ['Pitch deck', ''], ['Card · 20mm', ''], ['Favicon 32px', '']]],
     ['design', [['Clear space', ''], ['Optical centre', ''], ['Grid · 12', ''],
       ['Baseline', ''], ['→', 'big']]],
-    ['listing', [['Google Maps', ''], ['Swiggy', ''], ['Zomato', ''],
-      ['Petpooja', ''], ['A', 'ring'], ['B', 'ring'], ['C', 'ring']]]
+    ['listing', [['Google Maps', ''], ['LinkedIn', ''], ['Instagram', ''],
+      ['Search', ''], ['A', 'ring'], ['B', 'ring'], ['C', 'ring']]]
   ];
   function wireTrail() {
     const auditSec = $('#audit');

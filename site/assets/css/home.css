@@ -132,7 +132,10 @@
    allowed to wrap would move the three lines under it, which is the one thing
    the verification forbids. */
 .hl-rot{color:var(--copper);white-space:nowrap}
-.hl-rot .w{display:block}
+.hl-rot .w{display:block;padding-bottom:.3em;margin-bottom:-.3em}
+/* campaigns carries a p and a g: the mask runs deep enough for both
+   descenders, and the line below sits clear of them */
+.hl-rot + .hl{margin-top:calc(var(--hu)*.17)}
 .rot{display:inline-block}
 /* B2 - the glyph noise.
 

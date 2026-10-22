@@ -231,6 +231,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    so both directions are eased, and no JS holds any state. */
 .s{display:inline-block;transition:transform .7s var(--ease),color var(--t-sm) var(--ease)}
 .rev{display:inline-block;transform:scaleX(-1)}
+/* Mirrored, the S's ink lands outside its own advance and the tight heading
+   tracking let it touch the letter beside it (Proofs, runs, Possah). A hair
+   of room on each side keeps the turned S clear. */
+.h-split .s,.hero-h .s,h1 .s,h2 .s{margin-inline:.045em}
 
 /* The hero headline is the one exception, and it is deliberate. There the
    turn is per-glyph: you hover one S and that S turns, nothing else. A hero
@@ -467,16 +471,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .nav.dark .nav-mark{filter:brightness(1.22)}
 .wordmark{font-family:var(--serif);font-size:22px;letter-spacing:.02em;line-height:1;white-space:nowrap}
 
-/* the links, in their own pill with a sliding indicator */
-.nav-bar{position:relative;display:flex;align-items:center;border-radius:100px;padding:5px;
-  background:rgba(13,26,65,.06);
-  transition:background var(--t-mid) var(--ease)}
-.nav.dark .nav-bar{background:rgba(252,247,241,.08)}
-.nav-ind{position:absolute;z-index:0;top:5px;bottom:5px;left:0;width:0;border-radius:100px;
-  background:rgba(13,26,65,.1);opacity:0;
+/* the links, with a sliding copper underline */
+.nav-bar{position:relative;display:flex;align-items:center;padding:5px}
+.nav-ind{position:absolute;z-index:0;bottom:4px;height:1px;left:0;width:0;clip-path:inset(0 16px);
+  background:var(--copper-ink);opacity:0;
   transition:transform .7s var(--ease),width .7s var(--ease),opacity var(--t-sm) var(--ease)}
 .nav-ind.on{opacity:1}
-.nav.dark .nav-ind{background:rgba(252,247,241,.14)}
+.nav.dark .nav-ind{background:var(--copper-l)}
 .nav-links{display:flex;align-items:center}
 .nav-links a{position:relative;z-index:1;padding:9px 16px;border-radius:100px;text-decoration:none;
   font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
@@ -531,8 +532,12 @@ body:has(.pj-open) .menu a[aria-current]{color:var(--cream)}
    nothing becomes unreachable by keyboard. */
 .menu{position:fixed;inset:0;z-index:95;background:var(--navy);color:var(--cream);display:flex;
   flex-direction:column;justify-content:flex-end;padding:96px var(--gut) 40px;
-  clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease);visibility:hidden}
-.menu.open{clip-path:inset(0 0 0 0);visibility:visible}
+  clip-path:inset(0 0 100% 0);visibility:hidden;
+  /* closing slides back up with the same ease it dropped with; visibility
+     waits for the slide to finish rather than cutting it off */
+  transition:clip-path .9s var(--ease),visibility 0s linear .9s}
+.menu.open{clip-path:inset(0 0 0 0);visibility:visible;
+  transition:clip-path .9s var(--ease),visibility 0s}
 .menu a{font-family:var(--serif);font-size:var(--fs-menu);line-height:1.02;
   letter-spacing:-.04em;text-decoration:none;display:block}
 .menu .mono{margin-top:28px;color:var(--mute-d)}
