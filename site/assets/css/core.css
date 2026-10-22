@@ -782,7 +782,11 @@ section{position:relative}
    is the copper master under brightness(), because the set ships no dark tint
    and a filter gets there exactly. Every layer points at one of two files, so
    it is two downloads rather than eighteen. */
-.s3d-l{position:absolute;inset:0;backface-visibility:visible}
+/* the layers never take the pointer: an <img> under a press starts the
+   browser's own image drag, which cancels the pointer before the S moves */
+.s3d-l{position:absolute;inset:0;backface-visibility:visible;pointer-events:none}
+.s3d{user-select:none;-webkit-user-select:none}
+.s3d img{-webkit-user-drag:none}
 /* Absolute centring, not grid. Inside a grid the single implicit row is
    auto-sized, which makes BOTH height:100% and max-height:100% on the image
    circular — the row sizes to the image and the image sizes to the row. The

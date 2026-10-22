@@ -935,6 +935,7 @@
       img.alt = '';
       img.setAttribute('aria-hidden', 'true');
       img.decoding = 'async';
+      img.draggable = false;
       img.width = 256;
       img.height = 369;
       if (i === n - 1) {
