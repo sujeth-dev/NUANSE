@@ -77,7 +77,9 @@
 /* 02 · the mark seating onto its construction */
 .sa-grid line,.sa-grid circle,.sa-grid rect{fill:none;stroke:var(--copper);stroke-width:1;
   stroke-dasharray:4 5;opacity:.7}
-.sa-mark{position:absolute;left:50%;top:39.3%;transform:translate(-50%,-50%);
+/* centred on `translate`, not inside `transform`, so services.js can scale
+   the mark without having to reproduce a percentage translate in pixels */
+.sa-mark{position:absolute;left:50%;top:39.3%;translate:-50% -50%;
   width:17%;height:auto;display:block}
 .sa-chip.navy{fill:var(--navy)}
 .sa-chip.copper{fill:var(--copper)}

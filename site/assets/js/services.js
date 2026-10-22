@@ -37,60 +37,102 @@
   const ART = {};
 
   /* --- 01 · STRATEGY · a sentence being redlined ---
-     The page settles, the strike is drawn through it by hand, and the
-     replacement is written in underneath. The order is the argument: you read
-     the bad line before it is struck. */
+     The page rules itself, the bad line is written out in full, the strike
+     goes through it in one fast stroke, and the replacement rises up
+     underneath. The order is the argument: you read the bad line before it is
+     struck, and the strike is the quickest thing on the card because that is
+     what a redline feels like. */
   ART.strategy = (sa, tl) => {
-    const rules = $$('.sa-rule line', sa);
+    const groups = $$('.sa-rule', sa);
+    const top = $$('line', groups[0]);
+    const bot = $$('line', groups[1]);
+    const was = $('.sa-was', sa);
     const strike = $('.sa-strike', sa);
     const now = $('.sa-rise', sa);
-    gsap.set(rules, { opacity: 0 });
+    const lbl = $('.sa-lbl', sa);
+    gsap.set([...top, ...bot], { drawSVG: '0%' });
+    gsap.set(was, { opacity: 0, y: 10 });
     gsap.set(strike, { drawSVG: '0%' });
-    gsap.set(now, { opacity: 0, y: 16 });
-    tl.to(rules, { opacity: 1, duration: 0.4, stagger: 0.05 }, 0)
-      .to(strike, { drawSVG: '100%', duration: 0.5 }, 0.3)
-      .to(now, { opacity: 1, y: 0, duration: 0.6 }, 0.65);
+    gsap.set(now, { opacity: 0, y: 26 });
+    gsap.set(lbl, { opacity: 0, scale: 1.22, svgOrigin: '48 278' });
+    tl.to(top, { drawSVG: '100%', duration: 0.45, stagger: 0.07 }, 0)
+      .to(was, { opacity: 1, y: 0, duration: 0.45 }, 0.3)
+      /* in, not the house curve: a strike accelerates away from the hand */
+      .to(strike, { drawSVG: '100%', duration: 0.3, ease: 'power2.in' }, 0.78)
+      /* the pen shoves the phrase and it settles back where it was authored */
+      .to(was, { x: -2.5, duration: 0.12, yoyo: true, repeat: 1 }, 0.82)
+      .to(now, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.4)' }, 1.0)
+      .to(bot, { drawSVG: '100%', duration: 0.4, stagger: 0.06 }, 1.05)
+      .to(lbl, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2)' }, 1.3);
   };
 
   /* --- 02 · IDENTITY · the mark seats onto its construction ---
      Grid first, then the mark, then the palette: the order a real identity
-     gets built in.
+     gets built in. The construction converges onto the centre the mark is
+     about to land on, and the mark resolves out of a blur onto it, which is
+     the moment the card is for.
 
-     The mark fades rather than scales on purpose. It is an <img> centred by
-     `transform:translate(-50%,-50%)` in CSS, and handing that transform to
-     GSAP would have it resolve the percentages to pixels once, at whatever
-     size the box happened to be. It would then be wrong at every other size. */
+     The geometry is scaled rather than drawn. DrawSVG owns an element's
+     stroke-dasharray and leaves it owned at 100%, so drawing this group
+     ended it solid and threw away the 4/5 dash that says "construction".
+     Scaling the group leaves the dash alone.
+
+     The mark is an <img> centred in CSS. That centring is on the `translate`
+     property, not inside `transform`, precisely so GSAP can have `transform`
+     to itself here - handed a percentage translate, GSAP would resolve it to
+     pixels once, at whatever size the box happened to be, and it would be
+     wrong at every other size. */
   ART.identity = (sa, tl) => {
-    const geo = $$('.sa-geo > *', sa);
+    const geo = $('.sa-geo', sa);
     const mark = $('.sa-mark', sa);
     const chips = $$('.sa-chip', sa);
     const lbl = $('.sa-lbl', sa);
-    gsap.set(geo, { drawSVG: '0%' });
-    gsap.set([mark, lbl], { opacity: 0 });
-    gsap.set(chips, { opacity: 0, y: 12 });
-    tl.to(geo, { drawSVG: '100%', duration: 0.55, stagger: 0.09 }, 0)
-      .to(mark, { opacity: 1, duration: 0.5 }, 0.5)
-      .to(chips, { opacity: 1, y: 0, duration: 0.45, stagger: 0.07 }, 0.75)
-      .to(lbl, { opacity: 1, duration: 0.4 }, 0.95);
+    gsap.set(geo, { opacity: 0, scale: 1.16, svgOrigin: '200 118' });
+    gsap.set(mark, { opacity: 0, scale: 1.12, filter: 'blur(14px)' });
+    gsap.set(chips, { opacity: 0, y: 16 });
+    gsap.set(lbl, { opacity: 0 });
+    tl.to(geo, { opacity: 1, scale: 1, duration: 0.75 }, 0)
+      .to(mark, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.75 }, 0.45)
+      .to(chips, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'back.out(1.6)' }, 0.95)
+      .to(lbl, { opacity: 1, duration: 0.4 }, 1.25);
   };
 
   /* --- 03 · WEBSITES · the page assembles onto its baseline ---
-     The grid arrives before the blocks, because that is the claim: the grid
-     is what the blocks are being held to. The one copper block is the one
-     thing to click. */
+     The grid unfolds down the card before anything sits on it, because that
+     is the claim: the grid is what the blocks are being held to. Then the
+     page builds in reading order, the copy wiping in left to right the way it
+     would be read, and the one copper block pops in last because it is the
+     one thing to click.
+
+     The baseline is scaled open rather than drawn for the same reason the
+     construction grid in 02 is: those lines are dashed, and DrawSVG would
+     end them solid. */
   ART.websites = (sa, tl) => {
-    const base = $$('.sa-base line', sa);
-    /* `> *` rather than `rect`: the page is drawn with text and a group in
-       it now, and a selector that only saw rectangles would leave the
-       headline and the button label at opacity 0 forever. */
-    const blocks = $$('.sa-blocks > *', sa);
+    const base = $('.sa-base', sa);
+    const mark = $('.sa-blocks .hdm', sa);
+    const rule = $('.sa-blocks .hd', sa);
+    const head = $('.sa-hl', sa);
+    const copy = $$('.sa-copy rect', sa);
+    const cta = $('.sa-blocks .cta', sa);
+    const ctaT = $('.sa-cta-t', sa);
     const lbls = $$('.sa-lbl', sa);
-    gsap.set(base, { opacity: 0 });
-    gsap.set(blocks, { opacity: 0, y: 14 });
-    gsap.set(lbls, { opacity: 0 });
-    tl.to(base, { opacity: 1, duration: 0.3, stagger: 0.02 }, 0)
-      .to(blocks, { opacity: 1, y: 0, duration: 0.45, stagger: 0.07 }, 0.25)
-      .to(lbls, { opacity: 1, duration: 0.4 }, 0.8);
+    gsap.set(base, { opacity: 0, scaleY: 0.02, svgOrigin: '200 54' });
+    gsap.set(mark, { opacity: 0, scale: 0, svgOrigin: '32.5 30.5' });
+    gsap.set(rule, { opacity: 0, scaleX: 0, svgOrigin: '28 42' });
+    gsap.set(head, { opacity: 0, y: 20 });
+    /* each hairline wipes from its own left edge, so the two columns read as
+       two columns rather than as one sweep across the card */
+    gsap.set(copy, { opacity: 0, scaleX: 0, svgOrigin: (i, t) => t.getAttribute('x') + ' ' + t.getAttribute('y') });
+    gsap.set(cta, { opacity: 0, scale: 0.55, svgOrigin: '94 207' });
+    gsap.set([ctaT, ...lbls], { opacity: 0 });
+    tl.to(base, { opacity: 1, scaleY: 1, duration: 0.6 }, 0)
+      .to(mark, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2.2)' }, 0.35)
+      .to(rule, { opacity: 1, scaleX: 1, duration: 0.5 }, 0.4)
+      .to(head, { opacity: 1, y: 0, duration: 0.55 }, 0.55)
+      .to(copy, { opacity: 1, scaleX: 1, duration: 0.45, stagger: 0.06 }, 0.8)
+      .to(cta, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' }, 1.05)
+      .to(ctaT, { opacity: 1, duration: 0.35 }, 1.25)
+      .to(lbls, { opacity: 1, duration: 0.4 }, 1.3);
   };
 
   /* --- 04 · CONTENT & FILM · the strip advances, one frame holds ---
