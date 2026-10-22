@@ -179,6 +179,13 @@
 .pj-box.square .ev-frame{aspect-ratio:1}
 .pj-box.tall .ev-frame{aspect-ratio:2/3}
 .pj-box.p45 .ev-frame{aspect-ratio:4/5}
+/* A LONE square board. One board in the evidence column is ~780px at 1440,
+   and a square at that width carries twice the area of any 2-up board on
+   the page — the chapter would read as the loudest one in the set purely
+   because it has the fewest pictures. Capped, and flush to the right so the
+   page keeps one right margin: the slack falls into the gutter, which is
+   already slack. */
+.pj-box.one.square{grid-template-columns:minmax(0,min(100%,620px));justify-content:end}
 /* One board in a box whose ratio is not its own — a square mark beside a
    wide system page. Contained rather than cropped, onto the board's own
    dominant colour from _placeholders.css, because a logo with its sides
