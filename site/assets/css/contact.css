@@ -17,7 +17,7 @@
 .ct-sec .h2{--f-min:30;--f-max:50;font-size:var(--fluid)}
 
 /* ============ ROUTE ONE · THE BRIEF ============ */
-.ct-brief{background:var(--cream)}
+.ct-brief{background:var(--cream);padding-bottom:clamp(64px,40px + 4vw,104px)}
 
 /* The picks on the left, the mail on the right, and the proportion is the
    argument: the mail is the wider column because it is the thing being made.
