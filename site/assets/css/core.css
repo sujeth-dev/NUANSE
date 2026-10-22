@@ -472,7 +472,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .wordmark{font-family:var(--serif);font-size:22px;letter-spacing:.02em;line-height:1;white-space:nowrap}
 
 /* the links, with a sliding copper underline */
-.nav-bar{position:relative;display:flex;align-items:center;padding:5px}
+/* the bar carries brand, audit and Menu only; the menu holds every page */
+.nav-bar{display:none}
 .nav-ind{position:absolute;z-index:0;bottom:4px;height:1px;left:0;width:0;clip-path:inset(0 16px);
   background:var(--copper-ink);opacity:0;
   transition:transform .7s var(--ease),width .7s var(--ease),opacity var(--t-sm) var(--ease)}
