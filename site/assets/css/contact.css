@@ -14,7 +14,7 @@
 .ct-sec{padding:var(--sec-y) var(--gut)}
 /* the two section heads are a step down from the chassis .h2 here: this page
    is a working page and the headings label the tools, not the other way. */
-.ct-sec .h2{--f-min:36;--f-max:68;font-size:var(--fluid)}
+.ct-sec .h2{--f-min:30;--f-max:50;font-size:var(--fluid)}
 
 /* ============ ROUTE ONE · THE BRIEF ============ */
 .ct-brief{background:var(--cream)}
