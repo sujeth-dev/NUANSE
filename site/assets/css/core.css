@@ -338,10 +338,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:var(
    GSAP quickTo, which is smoother than the reference's; only the state
    machine comes across. */
 /* The pointer is the system's own arrow, redrawn in the house hand: cream
-   with a navy line, so it reads on every ground, and a copper pencil tick at
-   the tip. Over anything you can press it fills copper. */
-:root{--cur-press:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M5 4L5.4 22.5L10.2 18L13.6 25.4L17 23.8L13.7 16.6L20.4 16.2Z' fill='%23D58A4E' stroke='%230D1A41' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M2 8.5L3.2 3.6M7.8 2L10.6 1' fill='none' stroke='%23B56528' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") 5 4,pointer}
-html{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M5 4L5.4 22.5L10.2 18L13.6 25.4L17 23.8L13.7 16.6L20.4 16.2Z' fill='%23FCF7F1' stroke='%230D1A41' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M2 8.5L3.2 3.6M7.8 2L10.6 1' fill='none' stroke='%23B56528' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") 5 4,auto}
+   with a navy line, so it reads on every ground. Over anything you can press
+   it fills copper. */
+:root{--cur-press:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M5 4L5.4 22.5L10.2 18L13.6 25.4L17 23.8L13.7 16.6L20.4 16.2Z' fill='%23D58A4E' stroke='%230D1A41' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") 5 4,pointer}
+html{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M5 4L5.4 22.5L10.2 18L13.6 25.4L17 23.8L13.7 16.6L20.4 16.2Z' fill='%23FCF7F1' stroke='%230D1A41' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") 5 4,auto}
 a,button,summary,label,select,[role=button],[data-cursor],[data-goto]{cursor:var(--cur-press)}
 input:not([type=range]):not([type=checkbox]):not([type=radio]),textarea,[contenteditable=true]{cursor:text}
 .cur{position:fixed;left:0;top:0;z-index:400;pointer-events:none;display:none;opacity:1;
