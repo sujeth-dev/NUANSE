@@ -192,7 +192,7 @@
         (vis.length < TOTAL ? ` · ${at + 1} of ${vis.length} shown` : '');
     }
     sheet.scrollTop = 0;
-    ov.setAttribute('aria-label', c.name + ' — client detail');
+    ov.setAttribute('aria-label', c.name + ', client detail');
     if (el) openFrom = el;
   }
   const pad = (n) => (n < 10 ? '0' + n : String(n));

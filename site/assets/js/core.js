@@ -87,12 +87,19 @@
      Domain-warped fbm noise ramped through the palette, drifting slowly. One
      shader source, one GL context per canvas — contexts cannot share a
      program. Deliberately above the GSAP guard: it needs no animation library,
-     and it is gated off on touch and reduced motion, where a GPU canvas is
-     not worth the battery. */
+     and it now runs everywhere the page has a ground to show. On touch it
+     draws at half resolution and 30fps, which the soft noise hides; under
+     reduced motion it draws one still frame and never moves. Where WebGL is
+     missing or fails, the canvas stays up empty and its CSS background, a
+     still of the same ground, shows through: it is never just gone. Only the
+     opener and the loupe stay desktop-only (EVERYWHERE below). */
   const FOIL = (() => {
     const VS = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}';
     const FS = [
-      'precision highp float;',
+      /* highp is optional in fragment shaders and some Android GPUs lack it;
+         asking for it there fails the compile and the ground was simply gone */
+      '#ifdef GL_FRAGMENT_PRECISION_HIGH', 'precision highp float;',
+      '#else', 'precision mediump float;', '#endif',
       'uniform vec2 uRes; uniform float uT,uWarp,uScale,uGrain;',
       'uniform vec3 cA,cB,cC,cD;',
       'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}',
@@ -138,12 +145,14 @@
 
     function fit(cv) {
       const r = cv.getBoundingClientRect();
-      const d = Math.min(window.devicePixelRatio || 1, 1.25);
+      const d = TOUCH ? 0.5 : Math.min(window.devicePixelRatio || 1, 1.25);
       const w = Math.max(2, (r.width * d) | 0);
       const h = Math.max(2, (r.height * d) | 0);
       if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
     }
 
+    /* the grounds that must show on every device; the rest are desktop extras */
+    const EVERYWHERE = { hero: 1, audit: 1 };
     const rigs = [];
     let running = false;
     let last = 0;
@@ -151,13 +160,13 @@
     function add(sel, name) {
       const cv = $(sel);
       if (!cv) return null;
-      if (TOUCH || RM) { cv.style.display = 'none'; return null; }
+      if (!EVERYWHERE[name] && (TOUCH || RM)) { cv.style.display = 'none'; return null; }
 
       let gl = null;
       try {
         gl = cv.getContext('webgl', { antialias: false, alpha: false, depth: false, powerPreference: 'low-power' });
       } catch (e) {}
-      const bail = () => { cv.style.display = 'none'; return null; };
+      const bail = () => (EVERYWHERE[name] ? null : (cv.style.display = 'none', null));
       if (!gl) return bail();
 
       const sh = (ty, src) => {
@@ -208,14 +217,16 @@
         }
       };
       cv.addEventListener('webglcontextlost', (e) => {
-        e.preventDefault(); g.on = false; cv.style.display = 'none';
+        e.preventDefault(); g.on = false; if (!EVERYWHERE[name]) cv.style.display = 'none';
       });
       g.draw();                        /* one frame now, so nothing starts blank */
+      if (RM) return g;                /* the still frame is all reduced motion gets */
       rigs.push(g);
       return g;
     }
 
     function tick(now) {
+      if (TOUCH && last && now - last < 31) { requestAnimationFrame(tick); return; }
       const dt = last ? Math.min(now - last, 60) : 16.7;
       last = now;
       for (const g of rigs) { if (g.on) { g.t += dt / 1000; g.draw(); } }
