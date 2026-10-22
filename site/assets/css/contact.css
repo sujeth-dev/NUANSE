@@ -139,6 +139,12 @@
 .ct-gets b{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.15;color:var(--cream)}
 .ct-gets span{font-size:14px;line-height:1.45;color:var(--mute-d)}
 .ct-audit .audit-meta{color:var(--mute-d);margin:var(--s2) 0 0}
+.ct-mails{display:flex;flex-wrap:wrap;gap:var(--s2) clamp(32px,5vw,80px);margin:clamp(56px,7vw,96px) 0 0;
+  padding-top:var(--s3);border-top:1px solid rgba(252,247,241,.16)}
+.ct-mails dt{color:var(--copper-l);margin:0 0 8px}
+.ct-mails dd{margin:0}
+.ct-mails a{color:var(--cream);text-decoration:underline;text-decoration-color:rgba(252,247,241,.35);text-underline-offset:4px}
+.ct-mails a:hover{text-decoration-color:var(--copper-l)}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:900px){
