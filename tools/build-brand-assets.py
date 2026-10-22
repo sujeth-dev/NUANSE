@@ -19,7 +19,7 @@ def widths(im, base, ws):
         save(im.resize((w, h), Image.LANCZOS), f"{base}-{w}.png")
 
 # ---- wordmark: flat 2-colour RGBA, navy letters + copper S ----
-wm = Image.open(os.path.join(SRC, "Nuanse assets", "logo main-Recovered.png")).convert("RGBA")
+wm = Image.open(os.path.join(SRC, "logo main - png.png")).convert("RGBA")
 # tight crop to the ink
 wm = wm.crop(wm.getchannel("A").getbbox())
 widths(wm, "wordmark-navy", [1600, 800, 400])
@@ -34,18 +34,9 @@ for y in range(cm.size[1]):
             cpx[x, y] = CREAM + (a,)
 widths(cm, "wordmark-cream", [1600, 800, 400])
 
-# ---- monogram: cream baked into a JPG, key it out to alpha ----
-mg = Image.open(os.path.join(SRC, "Nuanse assets", "nuanse logo only -.jpg")).convert("RGB")
-w, h = mg.size
-alpha = Image.new("L", (w, h))
-ap = alpha.load(); mp = mg.load()
-# coverage = how far the pixel has travelled from cream toward copper
-dmax = sum(abs(CREAM[i] - COPPER[i]) for i in range(3))
-for y in range(h):
-    for x in range(w):
-        r, g, b = mp[x, y]
-        d = sum(abs(CREAM[i] - v) for i, v in enumerate((r, g, b)))
-        ap[x, y] = min(255, round(255 * d / dmax))
+# ---- monogram: the inverted S master, transparent PNG; its alpha is the mark ----
+mg = Image.open(os.path.join(SRC, "nuanse logo only - inverted s - png.png")).convert("RGBA")
+alpha = mg.getchannel("A")
 box = alpha.getbbox()
 alpha = alpha.crop(box)
 for name, col in (("copper", COPPER), ("cream", CREAM), ("navy", NAVY)):

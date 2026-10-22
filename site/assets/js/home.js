@@ -1033,6 +1033,51 @@
     });
   });
 
+  /* ------------------------------------------------------------ FEATURED
+     One slide on at a time. The timer is the copper line under the active
+     dot: its CSS animation ending is what moves the show on, so pausing the
+     animation on hover pauses the show with no second clock to keep in step.
+     Off screen it holds, so it never turns while nobody is looking. */
+  function wireFeatured() {
+    const fe = $('.fe');
+    if (!fe) return;
+    const slides = $$('.fe-slide', fe);
+    const dots = $$('.fe-dots i', fe);
+    const num = $('.fe-n b', fe);
+    let at = 0;
+    function go(n) {
+      at = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => s.classList.toggle('on', i === at));
+      dots.forEach((d, i) => {
+        d.classList.remove('on');
+        d.classList.toggle('done', i < at);
+      });
+      void fe.offsetWidth; // restart the line even when the same dot stays on
+      dots[at].classList.add('on');
+      num.textContent = String(at + 1).padStart(2, '0');
+    }
+    dots.forEach((d) => d.addEventListener('animationend', () => go(at + 1)));
+    $('.fe-prev', fe).addEventListener('click', () => go(at - 1));
+    $('.fe-next', fe).addEventListener('click', () => go(at + 1));
+    fe.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') fe.classList.add('hold'); });
+    fe.addEventListener('pointerleave', () => fe.classList.remove('hold'));
+    fe.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') go(at - 1);
+      if (e.key === 'ArrowRight') go(at + 1);
+    });
+    let x0 = null;
+    fe.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
+    fe.addEventListener('pointerup', (e) => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 50) go(at + (dx < 0 ? 1 : -1));
+    });
+    new IntersectionObserver(([en]) => fe.classList.toggle('hold', !en.isIntersecting))
+      .observe(fe);
+  }
+  wireFeatured();
+
   /* ------------------------------------------------------------ wiring up
      The audit modal's wiring was here and is now the tail of audit.js. */
 

@@ -230,7 +230,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    it turns; leave, they turn back over .7s. The transition sits on .s itself
    so both directions are eased, and no JS holds any state. */
 .s{display:inline-block;transition:transform .7s var(--ease),color var(--t-sm) var(--ease)}
-.rev{display:inline-block;transform:scaleX(-1)}
+/* NUANSE is never set in type: the header, the letter's signature and the
+   footer all carry the logo itself (assets/brand/wordmark-*), sized to the
+   cap height of the text it replaced and sat on the baseline. */
+.wm{display:inline-block;height:.72em;width:auto;vertical-align:baseline}
+.wm-c,.nav.dark .wm-n{display:none}
+.nav.dark .wm-c{display:inline-block}
 /* Mirrored, the S's ink lands outside its own advance and the tight heading
    tracking let it touch the letter beside it (Proofs, runs, Possah). A hair
    of room on each side keeps the turned S clear. */
@@ -334,11 +339,20 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    machine comes across. */
 .cur{position:fixed;left:0;top:0;z-index:400;pointer-events:none;display:none;opacity:1;
   transition:opacity var(--t-sm) var(--ease)}
+/* The small state is a pencilled loop in cream with a navy line and a copper
+   dot: cream reads on navy, the line reads on cream and stone, so it holds on
+   every ground. It sits on ::before, so it can wobble on its own while the
+   breath keeps the transform on i, and it fades out as the disc swells. */
 .cur i{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;
-  border:1px solid var(--copper);
+  border:1px solid transparent;
   transition:width var(--t-sm) var(--ease),height var(--t-sm) var(--ease),
              margin var(--t-sm) var(--ease),background var(--t-sm) var(--ease),
              border-color var(--t-sm) var(--ease)}
+.cur i::before{content:"";position:absolute;inset:-3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cpath d='M22 6C32 5 39 12 38 22S30 39 21 38 5 30 6 21 13 6 24 7' fill='%23FCF7F1' fill-opacity='.95' stroke='%230D1A41' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M36 4l-2 4M41 9l-4 2M40 3l-3 3' fill='none' stroke='%23B56528' stroke-width='1.4' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='22' r='2.2' fill='%23B56528'/%3E%3C/svg%3E") center/contain no-repeat;
+  transition:opacity var(--t-sm) var(--ease);animation:cur-pencil 6s steps(1) infinite}
+/* redrawn by hand three times over: the loop never sits quite still */
+@keyframes cur-pencil{0%{transform:rotate(0)}33%{transform:rotate(118deg) scale(.97)}66%{transform:rotate(236deg) scale(1.02)}}
+.cur.big i::before{opacity:0}
 .cur b{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-weight:500;
   font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);opacity:0;
   transition:opacity .25s var(--ease);white-space:nowrap}
@@ -384,7 +398,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* No GSAP: nothing is going to drive x and y, so the centring is done with
    left/top and the ring rests there rather than in the corner. */
 .cur.cur-dead{left:50%;top:50%}
-@media (prefers-reduced-motion:reduce){.cur.rest i{animation:none}}
+@media (prefers-reduced-motion:reduce){.cur.rest i,.cur i::before{animation:none}}
 @media (pointer:fine){.cur{display:block}}
 /* reduced motion has no cursor at all — not a disc, and not a rest ring */
 .rm .cur,.touch .cur{display:none!important}
@@ -787,7 +801,6 @@ section{position:relative}
    actually composed at. */
 .ft-word{font-family:var(--serif);font-size:var(--fs-word);line-height:.8;
   letter-spacing:-.045em;white-space:nowrap}
-.ft-word .rev{color:var(--copper-l)}
 /* Width capped to the mark's own, and the caption centred under it rather
    than setting the column's width. "Drag it. It comes back." is 187px of
    11px mono on one line, while the mark below it is 130-220px — so the

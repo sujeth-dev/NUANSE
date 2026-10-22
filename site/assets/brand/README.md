@@ -1,7 +1,7 @@
 # NUANSE brand assets
 
-Generated from the masters in `website-n-assets/Website/Nuanse assets/` by
-`tools/build-brand-assets.py`. Re-run that script rather than editing these by
+Generated from the masters in `assets/` (`logo main - png.png`, `nuanse logo only - inverted s - png.png`) by
+`python tools/build-brand-assets.py assets site/assets/brand`. Re-run that script rather than editing these by
 hand.
 
 ## Colours — sampled from the logo, exact

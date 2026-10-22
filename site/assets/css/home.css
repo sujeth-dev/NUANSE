@@ -807,3 +807,46 @@
   .letter-meta{margin-bottom:12px}
   .letter-sign{margin-top:12px}
 }
+
+/* ------------------------------------------------------------- 4b+ FEATURED
+   One piece at a time on navy. The slides stack in one cell and cross-fade;
+   each image is contained, so a portrait poster and a wide board share the
+   same stage without cropping either. The copper line under the active dot
+   is the timer, and it stops while the pointer is on the show. */
+.feat{background:var(--navy);color:var(--cream);padding:var(--sec-y) var(--gut)}
+.fe-head{margin-bottom:var(--gap-md)}
+.fe{position:relative;touch-action:pan-y}
+.fe-stage{display:grid;height:clamp(320px,60vh,680px)}
+.fe-slide{grid-area:1/1;margin:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:16px;min-height:0;opacity:0;visibility:hidden;transform:scale(1.03);
+  transition:opacity .9s var(--ease),transform 1.2s var(--ease),visibility 0s linear .9s}
+.fe-slide.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.fe-slide picture{display:flex;justify-content:center;min-height:0;flex:1 1 auto;width:100%}
+.fe-slide img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.fe-slide figcaption{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;justify-content:center;text-align:center}
+.fe-slide figcaption b{font-family:var(--serif);font-weight:400;font-size:22px}
+.fe-slide figcaption span{font-size:12px;opacity:.7}
+.fe-ctl{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:28px}
+.fe-n{margin:0;font-size:12px}
+.fe-n b{color:var(--copper-l);font-weight:500}
+.fe-dots{display:flex;gap:8px;flex:1 1 auto;max-width:320px}
+.fe-dots i{flex:1;height:1px;background:rgba(252,247,241,.25);position:relative;overflow:hidden}
+.fe-dots i::after{content:"";position:absolute;inset:0;background:var(--copper-l);transform:scaleX(0);transform-origin:left}
+.fe-dots i.done::after{transform:none}
+.fe-dots i.on::after{animation:fe-run var(--fe-t,5s) linear forwards}
+.fe.hold .fe-dots i.on::after{animation-play-state:paused}
+@keyframes fe-run{to{transform:none}}
+.fe-arrows{display:flex;gap:10px}
+.fe-arrows button{width:48px;height:48px;border-radius:50%;border:1px solid rgba(252,247,241,.35);
+  background:none;color:var(--cream);font-size:18px;cursor:pointer;
+  transition:background var(--t-sm) var(--ease),border-color var(--t-sm) var(--ease),color var(--t-sm) var(--ease)}
+.fe-arrows button:hover,.fe-arrows button:focus-visible{background:var(--cream);color:var(--navy);border-color:var(--cream)}
+.rm .fe-slide{transform:none;transition:opacity .3s,visibility 0s linear .3s}
+.rm .fe-slide.on{transition-delay:0s}
+.rm .fe-dots i.on::after{animation:none;transform:none}
+@media (max-width:640px){
+  .fe-stage{height:clamp(300px,64vh,560px)}
+  .fe-slide figcaption b{font-size:18px}
+  .fe-arrows button{width:44px;height:44px}
+}
