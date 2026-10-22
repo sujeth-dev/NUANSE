@@ -15,7 +15,7 @@
 
 /* ============ 7 · PROCESS ============ */
 .process{background:var(--cream)}
-.pr-body{display:grid;grid-template-columns:40px minmax(0,1fr) 230px;gap:clamp(16px,3vw,48px);
+.pr-body{display:grid;grid-template-columns:40px minmax(0,1fr);gap:clamp(16px,3vw,48px);
   position:relative}
 .pr-rail{position:relative}
 .pr-line{position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(13,26,65,.16)}
@@ -66,6 +66,34 @@
 .rm .stage-panel{opacity:1;transition:none}
 
 
+/* ============ THE FIGURES ============
+   Each stage gets a pen drawing in the half its panel leaves empty: the audit
+   under a loupe, the brief being signed, a redline on a pair of letters, the
+   monthly numbers. Navy hairlines, copper for the marks a person made. They
+   follow the panel's lead: quiet until their stage is the one being read. */
+.stage-art{position:absolute;top:50%;margin:0;width:min(340px,calc(100% - 620px - 48px));
+  transform:translate(-50%,-50%);opacity:.45;transition:opacity var(--t-mid) var(--ease);pointer-events:none}
+.stage:nth-child(odd) .stage-art{left:calc(620px + (100% - 620px) / 2)}
+.stage:nth-child(even) .stage-art{left:calc((100% - 620px) / 2)}
+.stage.active .stage-art{opacity:1}
+.stage-art svg{display:block;width:100%;height:auto;overflow:visible}
+.stage-art figcaption{margin-top:10px;text-align:center;color:var(--mute)}
+.stage-art path,.stage-art circle{fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.stage-art .nv{stroke:rgba(13,26,65,.5)}
+.stage-art .cu{stroke:var(--copper)}
+.stage-art .ln{stroke-dasharray:1;stroke-dashoffset:0}
+.stage-art .sa-thick{stroke-width:3}
+.stage-art .sa-dash{stroke-dasharray:4 6}
+.stage-art .sa-fillc{fill:var(--copper)}
+.stage-art .sa-slit{stroke:var(--cream);stroke-width:1.4}
+.stage-art .sa-sign{stroke-width:2.2;stroke-dasharray:1}
+.stage-art .sa-swash{stroke-width:2}
+.stage-art .sa-bar{fill:rgba(13,26,65,.1)}
+.stage-art .sa-dot{fill:var(--copper);stroke:none}
+.stage-art .sa-n{font-family:var(--serif);font-size:20px;fill:var(--copper-ink)}
+.stage-art .sa-av{font-family:var(--serif);font-size:150px;letter-spacing:-.02em;fill:var(--navy)}
+.stage-art .sa-seal-t{font-family:var(--mono);font-size:9px;letter-spacing:.2em;fill:var(--copper-ink)}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width:1100px){
   .pr-body{grid-template-columns:32px minmax(0,1fr)}
@@ -74,4 +102,11 @@
   .pr-readout .rk,.pr-readout .rmeta{margin:0;border:0;padding:0}
   .pr-readout .rmeta{display:none}
   .stage-dot{left:calc(-1 * (clamp(16px,3vw,48px) + 16px))}
+}
+/* under 1000px there is no empty half to fill: the figure follows its panel,
+   small, on the side the panel does not sit */
+@media (max-width:1000px){
+  .stage-art{position:static;transform:none;width:min(220px,62%);margin:18px 0 0;opacity:1}
+  .stage:nth-child(odd) .stage-art{margin-left:auto}
+  .stage:nth-child(even) .stage-art{margin-right:auto}
 }
