@@ -772,6 +772,21 @@
       goAnchor(t);
     });
   });
+  /* A mailto does nothing visible on a machine with no mail app set up, so
+     every mail link also copies the address and says so. The link itself is
+     never prevented: where a mail app exists it still opens. */
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="mailto:"]');
+    if (!a) return;
+    const addr = decodeURIComponent(a.getAttribute('href').slice(7).split('?')[0]);
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(addr).then(
+        () => toast(`Opening your mail app · ${addr} copied`),
+        () => toast(`Opening your mail app · ${addr}`));
+    } else {
+      toast(`Opening your mail app · ${addr}`);
+    }
+  });
   document.addEventListener('click', (e) => {
     const a = e.target.closest && e.target.closest('a[href]');
     if (!a || a.hasAttribute('data-goto') || a.dataset.noCurtain === '1') return;

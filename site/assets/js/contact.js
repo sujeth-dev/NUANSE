@@ -113,6 +113,12 @@
     const p = picks();
     const subj = subject(p);
     subjectEl.textContent = subj;
+    /* a step that has an answer gets its number in copper */
+    $$('.ct-field').forEach((f) => {
+      const done = $$('.ct-chip[aria-pressed=true]', f).length > 0 ||
+        $$('.ct-input', f).some((i) => i.value.trim());
+      f.classList.toggle('done', done);
+    });
     if (!dirty) draft.value = body(p);
     sendEl.href = `mailto:${TO}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(draft.value)}`;
   }

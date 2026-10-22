@@ -12,6 +12,9 @@
    ========================================================================== */
 
 .ct-sec{padding:var(--sec-y) var(--gut)}
+/* the two section heads are a step down from the chassis .h2 here: this page
+   is a working page and the headings label the tools, not the other way. */
+.ct-sec .h2{--f-min:36;--f-max:68;font-size:var(--fluid)}
 
 /* ============ ROUTE ONE · THE BRIEF ============ */
 .ct-brief{background:var(--cream)}
@@ -23,9 +26,23 @@
 .ct-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
   gap:var(--gap-md) var(--gap-lg);align-items:start}
 
-.ct-picks{display:flex;flex-direction:column;gap:var(--gap-sm)}
-.ct-field{display:block}
-.ct-label{display:block;color:var(--mute);margin:0 0 14px}
+/* Round 3: the picks are a numbered panel on stone, five steps under one
+   hairline each, so the left reads as a sequence to work through and not as
+   a plain form. The white mail sheet on the right stays the one paper
+   object; the stone panel is the desk it is being written on. */
+.ct-picks{counter-reset:step;background:var(--stone);border:1px solid rgba(13,26,65,.16);
+  padding:var(--s2) var(--s3) var(--s3)}
+.ct-field{counter-increment:step;display:grid;grid-template-columns:52px minmax(0,1fr);
+  gap:0 var(--s2);padding:var(--s3) 0 0;margin-top:var(--s3);border-top:1px solid rgba(13,26,65,.16)}
+.ct-field:first-child{margin-top:0;border-top:0}
+.ct-field::before{content:counter(step,decimal-leading-zero);grid-row:1 / span 2;
+  font-family:var(--serif);font-size:34px;line-height:1;letter-spacing:-.03em;color:rgba(13,26,65,.28);
+  transition:color var(--t-mid) var(--ease)}
+/* contact.js marks a step answered; its number turns copper */
+.ct-field.done::before{color:var(--copper)}
+.ct-field>:not(.ct-label){grid-column:2}
+.ct-label{display:block;grid-column:2;margin:0 0 14px;font-family:var(--serif);font-size:22px;
+  line-height:1.15;letter-spacing:-.01em;text-transform:none;color:var(--navy)}
 /* The hint sits inside the label so it is part of the accessible name — "Pick
    as many as apply" is instruction, not decoration, and a screen reader
    should hear it with the question rather than after everything else. */
@@ -36,7 +53,8 @@
    distinguished from the label it sits inside by case — the label is
    uppercase mono, the hint is not — so the opacity was buying a distinction
    that was already there, at the price of the only thing that mattered. */
-.ct-hint{text-transform:none;letter-spacing:.04em;color:var(--mute)}
+.ct-hint{display:block;margin-top:6px;font-family:var(--mono);font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--mute)}
 
 .ct-chips{display:flex;flex-wrap:wrap;gap:10px}
 .ct-chip{border:1px solid rgba(13,26,65,.28);border-radius:999px;padding:11px 17px 10px;
@@ -53,7 +71,7 @@
 .ct-chip[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:var(--cream)}
 
 .ct-input{display:block;width:100%;font-family:var(--sans);font-size:16px;line-height:1.5;
-  color:var(--navy);background:var(--cream);border:0;border-bottom:1px solid rgba(13,26,65,.28);
+  color:var(--navy);background:transparent;border:0;border-bottom:1px solid rgba(13,26,65,.28);
   border-radius:0;padding:10px 0 11px;
   transition:border-color var(--t-sm) var(--ease)}
 .ct-input::placeholder{color:var(--mute);opacity:.72}
@@ -99,11 +117,24 @@
    rather than a second paragraph of the first. No canvas here — one moving
    thing per screen, and on this page that budget belongs to nothing at all. */
 .ct-audit{background:var(--night);color:var(--cream)}
-.ct-audit-in{max-width:52ch}
+/* Round 3: copy on the left, the offer card on the right. The button used to
+   sit under the lede with half the slide empty beside it. */
+.ct-audit-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:var(--gap-md) var(--gap-lg);align-items:center;max-width:1400px;margin:0 auto}
 .ct-audit .eyebrow{color:var(--copper-l);margin-bottom:20px}
 .ct-audit .h2{margin-bottom:var(--s3)}
-.ct-audit .lede{margin-bottom:var(--s4);max-width:52ch}
-.ct-audit .audit-meta{color:var(--mute-d);margin:var(--s3) 0 0}
+.ct-audit .lede{max-width:44ch}
+.ct-audit-card{border:1px solid rgba(252,247,241,.16);background:rgba(252,247,241,.04);
+  padding:var(--s3);display:flex;flex-direction:column;align-items:flex-start}
+.ct-audit-card-h{color:var(--copper-l);margin:0 0 var(--s2)}
+.ct-gets{list-style:none;margin:0 0 var(--s3);padding:0;width:100%;counter-reset:get}
+.ct-gets li{counter-increment:get;display:grid;grid-template-columns:40px minmax(0,1fr);
+  gap:2px 0;padding:14px 0;border-top:1px solid rgba(252,247,241,.12)}
+.ct-gets li::before{content:counter(get,decimal-leading-zero);grid-row:1 / span 2;
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--copper-l);padding-top:5px}
+.ct-gets b{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.15;color:var(--cream)}
+.ct-gets span{font-size:14px;line-height:1.45;color:var(--mute-d)}
+.ct-audit .audit-meta{color:var(--mute-d);margin:var(--s2) 0 0}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:900px){
@@ -112,9 +143,15 @@
      overlaps the thing below it. */
   .ct-grid{grid-template-columns:1fr}
   .ct-mail{position:static}
+  .ct-audit-in{grid-template-columns:1fr}
 }
 @media (max-width:600px){
   .ct-sheet{padding:var(--s2)}
+  .ct-picks{padding:var(--s1) var(--s2) var(--s3)}
+  .ct-field{grid-template-columns:36px minmax(0,1fr);gap:0 12px}
+  .ct-field::before{font-size:24px}
+  .ct-label{font-size:19px}
+  .ct-audit-card{padding:var(--s2)}
   .ct-head>div{grid-template-columns:60px minmax(0,1fr)}
   /* 16px, not smaller: iOS Safari zooms the page on focus for any font-size
      below 16px, and a page that jumps when you tap a field is a worse defect
