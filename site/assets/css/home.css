@@ -341,16 +341,6 @@
 .env-back,.env-front{position:absolute;left:50%;width:min(780px,94vw);
   margin-left:calc(min(780px,94vw) / -2);bottom:-4vh;height:34vh;pointer-events:none}
 @media (max-width:760px){.env-back,.env-front{height:26vh}}
-/* The flight container. The envelope's last act is to travel out of the
-   manifesto and into the work section's night-blue field, which means
-   escaping .mf-stage - it both clips its children and carries a transform
-   once ScrollTrigger has unpinned it, and a transformed ancestor is a
-   containing block for a fixed child. So home.js reparents the two halves
-   into this, on the body, for the flight only, and puts them back on the way
-   up. inset:0 over the viewport is the same box .mf-stage occupies at the
-   moment the pin releases, so the swap has nothing to show.
-   z-index 60 is above the work section and below the nav, where it belongs. */
-.env-fly{position:fixed;inset:0;z-index:60;pointer-events:none}
 .env-back{background:var(--night);z-index:1}
 .env-back::before{content:"";position:absolute;left:0;right:0;top:-46%;height:46%;
   background:var(--royal);clip-path:polygon(0 100%,100% 100%,50% 0)}

@@ -914,15 +914,10 @@
       else gsap.set(words, { opacity: 0.12 });
       const envs = [$('.env-back'), $('.env-front')];
       const mtl = gsap.timeline({ defaults: { ease: EASE } });
-      /* B5 · the envelope does not vanish any more.
-
-         It used to travel 78% of the window downwards as the letter rose,
-         which cleared the letter by removing the envelope from the screen.
-         Now it settles by exactly the distance that clears the letter's own
-         box — envSettle() measures it — and holds there for the whole read.
-         Same timing, same curve, a destination instead of an exit. */
+      /* the envelope clears as the letter seats, not after it: it drops out
+         of the stage while the letter rises, and is gone by the read */
       mtl.fromTo(letter, { y: () => window.innerHeight * 0.46, rotation: -2 }, { y: 0, rotation: 0, duration: 0.85 }, 0)
-        .fromTo(envs, { y: 0 }, { y: envSettle, duration: 0.75 }, 0.25);
+        .fromTo(envs, { y: 0, opacity: 1 }, { y: () => window.innerHeight * 0.78, opacity: 0, duration: 0.75 }, 0.25);
       /* The reading starts before the letter has finished landing, so the two
          overlap and nothing ever stops moving — hence .6 over 1.15s rather
          than .75 over 1.6s. */
@@ -942,59 +937,6 @@
         trigger: '#manifesto', start: 'top top', end: '+=115%', pin: '.mf-stage',
         scrub: 0.45, animation: mtl, invalidateOnRefresh: true, onToggle: NU.pinClaim
       });
-
-      /* B5, the second half · scrolling on, it travels into the next
-         section's blue field and disappears there.
-
-         The next section is .work, on --night. Getting there means leaving
-         .mf-stage, which clips its children AND carries a transform once
-         ScrollTrigger has unpinned it — and a transformed ancestor is the
-         containing block for a fixed descendant, so position:fixed alone
-         would not escape it. So the two halves are reparented into a fixed
-         container on the body for the flight, and put back on the way up.
-
-         The seam is free: 'bottom bottom' on #manifesto is the same scroll
-         position as the pin's own release, because the pin spacer makes the
-         section 115% taller than the viewport and the stage is exactly one
-         viewport tall. At that instant .mf-stage's top IS the viewport top,
-         so a fixed box at inset:0 is the same box the stage was, and the swap
-         has nothing to show.
-
-         The wrapper is what moves, not the halves — they are still holding
-         the y that mtl gave them, and two timelines fighting over one
-         transform is how a seam like this usually breaks. */
-      const envFly = document.createElement('div');
-      envFly.className = 'env-fly';
-      envFly.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(envFly);
-      const stageEl = $('.mf-stage');
-      const back = envs[0];
-      const front = envs[1];
-      if (stageEl && back && front) {
-        /* captured before anything moves: where each half goes home to */
-        const afterBack = back.nextSibling;
-        const afterFront = front.nextSibling;
-        let flying = false;
-        const toFly = (on) => {
-          if (!!on === flying) return;
-          flying = !!on;
-          if (flying) { envFly.appendChild(back); envFly.appendChild(front); }
-          else {
-            stageEl.insertBefore(back, afterBack);
-            stageEl.insertBefore(front, afterFront);
-          }
-        };
-        const ftl = gsap.timeline({ paused: true })
-          .fromTo(envFly, { y: 0, opacity: 1 },
-            { y: () => window.innerHeight * 0.78, duration: 1, ease: 'none' }, 0)
-          /* it reaches the blue before it goes, rather than fading on the way */
-          .to(envFly, { opacity: 0, duration: 0.45, ease: 'none' }, 0.55);
-        ScrollTrigger.create({
-          trigger: '#manifesto', start: 'bottom bottom', end: 'bottom top',
-          scrub: 0.45, animation: ftl, invalidateOnRefresh: true,
-          onToggle: (sT) => toFly(sT.isActive)
-        });
-      }
     } else if (RM && words.length) {
       /* reduced motion still has to reach the final state */
       gsap.set(words, { opacity: 1, filter: 'none' });
