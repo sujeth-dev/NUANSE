@@ -41,6 +41,7 @@
 
   /* ============================================================ 10 · TEAM
      name  — as published
+     photo — the slug of the plate in site/assets/team/, or absent for none
      role  — as published, verbatim
      skills— the chips this role answers to (D4)
      hair  — one silhouette per person, never two the same
@@ -58,43 +59,43 @@
      them apart. Each axis is optional and falls back to the old value, so any
      one of them can be reverted on its own. */
   const TEAM = [
-    { name: 'Abhinav Marothia', role: 'Founder & Creative Director',
+    { name: 'Abhinav Marothia', photo: 'abhinav-marothia', role: 'Founder & Creative Director',
       skills: 'strategy identity websites content film performance',
       hair: 'swept-wave', brow: 'heavy', feat: 'glasses-square moustache stubble-jaw', dress: 'blazer',
       face: { rx: 36, ry: 42, jaw: 'square' }, eyes: 'round' },
-    { name: 'Harshit R.', role: 'Full-Stack Development & 3D',
+    { name: 'Harshit R.', photo: 'harshit-r', role: 'Full-Stack Development & 3D',
       skills: 'websites',
       hair: 'curls-mid', brow: 'heavy', feat: 'glasses-round stubble-jaw', dress: 'crew',
       face: { rx: 34, ry: 44, jaw: 'square' }, eyes: 'round', pose: 'three-quarter', turn: 1, dx: 4 },
-    { name: 'Sujeeth', role: 'UI/UX & Web Design',
+    { name: 'Sujeeth', photo: 'sujeeth', role: 'UI/UX & Web Design',
       skills: 'websites identity',
       hair: 'curls-tall', brow: 'heavy', feat: 'moustache stubble', dress: 'collar',
       face: { rx: 36, ry: 41, jaw: 'soft' }, eyes: 'round' },
-    { name: 'Likhita R. Jain', role: 'Sustainable Materials & Arts',
+    { name: 'Likhita R. Jain', photo: 'likhita-r-jain', role: 'Sustainable Materials & Arts',
       skills: 'identity',
       hair: 'waves-long', brow: 'soft', feat: 'smile-open', dress: 'round',
       face: { rx: 36, ry: 41, jaw: 'soft' }, eyes: 'smiling' },
-    { name: 'Manish S.', role: 'Performance Marketing',
+    { name: 'Manish S.', photo: 'manish-s', role: 'Performance Marketing',
       skills: 'performance',
       hair: 'quiff', brow: 'heavy', feat: 'stubble-jaw moustache', dress: 'crew',
       face: { rx: 32, ry: 45, jaw: 'square' }, eyes: 'smiling', pose: 'three-quarter', turn: -1, dx: 4 },
-    { name: 'Varun KS', role: 'Photography & Videography',
+    { name: 'Varun KS', photo: 'varun-ks', role: 'Photography & Videography',
       skills: 'film content',
       hair: 'curls-volume', brow: 'heavy', feat: 'moustache', dress: 'crew',
       face: { rx: 37, ry: 40, jaw: 'square' }, eyes: 'hooded' },
-    { name: 'Yusra', role: 'Client Acquisition',
+    { name: 'Yusra', photo: 'yusra', role: 'Client Acquisition',
       skills: 'strategy',
       hair: 'sleek-part', brow: 'soft', feat: 'earring', dress: 'blazer',
       face: { rx: 31, ry: 43, jaw: 'tapered' }, eyes: 'wide' },
-    { name: 'Manasi', role: 'Business Development',
+    { name: 'Manasi', photo: 'manasi', role: 'Business Development',
       skills: 'strategy',
       hair: 'side-swept', brow: 'soft', feat: 'earring smile-open', dress: 'collar-open',
       face: { rx: 34, ry: 40, jaw: 'soft' }, eyes: 'smiling', pose: 'three-quarter', turn: -1, dx: 5 },
-    { name: 'Hari T.', role: 'Relationship Manager',
+    { name: 'Hari T.', photo: 'hari-t', role: 'Relationship Manager',
       skills: 'strategy',
       hair: 'short', brow: 'heavy', feat: 'beard-light moustache smile-open', dress: 'collar',
       face: { rx: 37, ry: 43, jaw: 'square' }, eyes: 'smiling', pose: 'three-quarter', turn: -1, dx: 6 },
-    { name: 'Manideep Chilukuri', role: 'Application Development',
+    { name: 'Manideep Chilukuri', photo: 'manideep-chilukuri', role: 'Application Development',
       skills: 'websites',
       hair: 'curls-crop', brow: 'heavy', feat: 'beard-light moustache', dress: 'collar',
       face: { rx: 32, ry: 45, jaw: 'tapered' }, eyes: 'hooded' }
@@ -491,10 +492,11 @@
        size in every portrait — rendered into the SVG, where no grep of the
        markup would ever find it. Matches the "Proof 01" idiom on /work. */
     const n = ('0' + (i + 1)).slice(-2);
-    /* role=img with a label, not a decorative image: the caption carries the
-       name and the role as live text, so the drawing says what it is and
-       stops there. */
-    return `<svg viewBox="0 0 200 250" role="img" aria-label="Drawn portrait of ${esc(p.name)}">` +
+    /* aria-hidden, because the drawing is the hover state now. The plate
+       underneath is the portrait of record and the caption carries the name
+       and the role as live text; a second announced portrait of the same
+       person would just be said twice. */
+    return `<svg viewBox="0 0 200 250" aria-hidden="true" focusable="false">` +
       `<defs><clipPath id="${clip}"><path d="${faceD}"/></clipPath></defs>` +
       `<g stroke="${N}" stroke-width=".7" opacity=".12">${hatch}</g>` +
       `<path d="M28 252 C34 190 70 170 100 170 C130 170 166 190 172 252Z" fill="${N}"/>` +
@@ -517,6 +519,23 @@
       `<text x="10" y="18" font-family="IBM Plex Mono, monospace" font-size="9" fill="${N}" letter-spacing="1.5">${n}</text></svg>`;
   }
 
+  /* The photograph, out of the record tools/build-team-photos.py writes.
+     It sits under the drawing and is what the card shows at rest; the
+     drawing comes up over it on hover. No plate, no <picture>, and that
+     person simply keeps the drawing - which is why this returns '' rather
+     than reaching for a placeholder. */
+  const SIZES = '(max-width:900px) 44vw, 230px';
+  function plate(p) {
+    const set = (window.NU_TEAM_PHOTOS || {})[p.photo];
+    if (!set) return '';
+    return '<picture>' +
+      `<source type="image/avif" srcset="${set.avif}" sizes="${SIZES}">` +
+      `<source type="image/webp" srcset="${set.webp}" sizes="${SIZES}">` +
+      `<img class="tm-img" src="${set.src}" srcset="${set.jpg}" sizes="${SIZES}"` +
+      ` width="240" height="300" alt="" loading="lazy" decoding="async">` +
+      '</picture>';
+  }
+
   const scatter = $('.scatter');
   function buildTeam() {
     if (!scatter) return;
@@ -525,7 +544,7 @@
       f.className = 'tm';
       f.dataset.i = String(i);
       f.dataset.skills = p.skills;
-      f.innerHTML = '<div class="tm-in"><div class="tm-ph">' + portrait(p, i) + '</div>' +
+      f.innerHTML = '<div class="tm-in"><div class="tm-ph">' + plate(p) + portrait(p, i) + '</div>' +
         `<figcaption><span class="t-name" data-full="${esc(p.name)}">${esc(p.name)}</span>` +
         `<span class="t-role">${esc(p.role)}</span></figcaption></div>`;
       scatter.appendChild(f);

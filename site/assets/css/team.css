@@ -39,35 +39,53 @@
   .chip:hover{background:rgba(13,26,65,.08)}
   .chip[aria-pressed=true]:hover{background:var(--navy)}
 }
-/* Round 3: one even 5x2 grid, the founder first among the ten. Even rows,
-   even gaps, no stagger: the composition is the alignment. */
+/* Round 4: the plates are photographs now. The layout is the one the owner
+   specified: a rounded plate per cell, a hairline standing between the
+   cells, and the caption flush under the plate rather than indented off a
+   dash. Still one even 5x2 grid with the founder first among the ten.
+
+   The drawing is not retired. It comes up over the photograph on hover, so
+   the card holds both - what the person looks like, and how the studio
+   draws them. */
 .scatter{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:clamp(28px,3.4vw,48px) clamp(16px,2.2vw,32px);align-items:start;
-  max-width:1400px;margin:0 auto}
-.tm{margin:0;position:relative;transition:opacity var(--t-mid) var(--ease),filter var(--t-mid) var(--ease)}
+  gap:clamp(30px,3.4vw,48px) 0;align-items:start;max-width:1400px;margin:0 auto}
+/* the divider is a cell border, not a gap rule: it has to be exactly as tall
+   as the cell it stands beside, caption included, and only a border is. */
+.tm{margin:0;position:relative;padding:0 clamp(12px,1.5vw,22px);
+  border-left:1px solid rgba(13,26,65,.14);
+  transition:opacity var(--t-mid) var(--ease),filter var(--t-mid) var(--ease)}
+.tm:nth-child(5n){border-right:1px solid rgba(13,26,65,.14)}
 /* the brief filter dims who it does not need rather than moving anyone */
 .tm.off{opacity:.25;filter:grayscale(1)}
-.tm-ph{aspect-ratio:4/5;background:var(--cream);border:1px solid var(--navy);overflow:hidden;position:relative}
-.tm-ph svg{width:100%;height:100%}
-/* the founder's plate carries one quiet tag, not a lane apart */
-.tm[data-i="0"] .tm-ph{border-color:var(--copper)}
+.tm-ph{aspect-ratio:4/5;background:var(--cream);border-radius:clamp(10px,1.1vw,16px);
+  overflow:hidden;position:relative}
+.tm-ph picture,.tm-ph img,.tm-ph svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.tm-img{object-fit:cover}
+/* the drawing is given the same ground the photograph sits on, so at full
+   opacity it covers the plate outright and the swap ends with no ghost of a
+   face underneath it. */
+.tm-ph svg{background:var(--cream);opacity:0;
+  transition:opacity var(--t-mid) var(--ease)}
+@media (hover:hover){
+  .tm:hover .tm-ph svg{opacity:1}
+  .tm:hover .t-name{color:var(--copper-ink)}
+}
+/* the founder's plate carries one quiet tag, not a lane apart. An outline
+   rather than a border: it follows the radius and costs the plate no width. */
+.tm[data-i="0"] .tm-ph{outline:1px solid var(--copper);outline-offset:0}
 .tm[data-i="0"] .tm-ph::after{content:"Founder";position:absolute;top:8px;right:8px;
   font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--cream);background:var(--copper-ink);padding:4px 7px 3px;border-radius:999px}
-/* a grid and not a flex row: the rule, the name and the role are three
-   things in two columns, and the rule has to stay level with the first line
-   of the name whatever the name wraps to. */
-.tm figcaption{margin-top:12px;min-height:3.4em;display:grid;
-  grid-template-columns:14px minmax(0,1fr);gap:3px 8px;align-items:start}
-.tm figcaption::before{content:"";height:1px;background:var(--copper);margin-top:.62em;
-  grid-column:1;grid-row:1}
+/* name over role, both flush with the plate's left edge */
+.tm figcaption{margin-top:14px;min-height:3.4em}
 /* the name is the content now, so it is set in the body face, not in mono.
-   min-height holds the line while typeNames() writes it on from empty —
+   min-height holds the line while typeNames() writes it on from empty -
    without it every caption jumps as its first character lands. */
-.t-name{grid-column:2;grid-row:1;font-family:var(--sans);font-weight:500;font-size:14px;
-  line-height:1.25;letter-spacing:0;text-transform:none;min-height:1.25em;color:var(--navy)}
-.t-role{grid-column:2;grid-row:2;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
-  text-transform:uppercase;line-height:1.45;color:var(--mute)}
+.t-name{display:block;font-family:var(--sans);font-weight:500;font-size:14px;
+  line-height:1.25;letter-spacing:0;text-transform:none;min-height:1.25em;color:var(--navy);
+  transition:color var(--t-mid) var(--ease)}
+.t-role{display:block;margin-top:3px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.1em;text-transform:uppercase;line-height:1.45;color:var(--mute)}
 .hiring{margin-top:var(--gap-md);display:flex;justify-content:space-between;align-items:center;
   gap:20px;flex-wrap:wrap;border-top:1px solid var(--navy);padding-top:var(--s3)}
 .hiring p{margin:0;font-family:var(--serif);font-size:clamp(26px,3vw,40px);letter-spacing:-.03em;
@@ -77,5 +95,7 @@
 @media (max-width:900px){
   .team-frame{padding:clamp(22px,5vw,40px) var(--gut)}
   .scatter{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tm:nth-child(5n){border-right:0}
+  .tm:nth-child(2n){border-right:1px solid rgba(13,26,65,.14)}
   .t-name{font-size:13px}
 }

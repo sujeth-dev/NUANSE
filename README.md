@@ -388,6 +388,16 @@ a different path through the site than a browser does — see the note about
   page**, at 80px on a moving strip carrying all twelve clients, from the same
   files and the same `_grounds.css`. The home page's initial plates sit on
   `--cream` and not `--stone`, because that section's own ground is stone.
+- ~~The ten portraits on `/team` are drawn, because no team photography is on
+  file.~~ **Done, 2026-10-22.** It is on file now: `assets/people/` holds ten
+  matched studio frames, black and white on one grey ground, every one 4:5.
+  `tools/build-team-photos.py` writes them to `site/assets/team/` as AVIF,
+  WebP and JPEG at 240 and 480, content-hashed, and writes the srcsets to
+  `site/assets/js/team-photos.js` for `team.js` to read - the same shape as
+  the generated `clients.js`. The photograph is what each card shows at rest;
+  the drawn portrait is still built and comes up over it on hover, so the
+  drawings are not retired. A record with no `photo` slug keeps the drawing
+  and nothing else changes.
 - `/services`, `/process`, `/team` and `/work` share `assets/brand/og-default.png`.
   `tools/build-og-cards.py` can give each a card of its own.
 - `assets/zingara/food/possah-insta-2-5.jpg` is a Possah frame filed under
