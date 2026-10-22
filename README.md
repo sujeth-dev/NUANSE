@@ -11,7 +11,7 @@ in a browser and it runs.
 ## Layout
 
 ```
-site/                  the deployable site — Vercel's root directory
+site/                  the deployable site — what Vercel publishes
   index.html           home
   services.html        the five disciplines, one drawn artifact each
   process.html         the four stages
@@ -39,9 +39,10 @@ site/                  the deployable site — Vercel's root directory
     fonts/             self-hosted Gloock, Hanken Grotesk, IBM Plex Mono
     brand/             the NUANSE marks
     work/              per-project imagery
-  vercel.json          CSP, caching, clean URLs
-  .vercelignore        build intermediates kept out of the deploy
   robots.txt  sitemap.xml  site.webmanifest
+
+vercel.json            CSP, caching, clean URLs, publishes site/
+.vercelignore          what stays out of the deploy
 
 brief/                 what to build and why — read 00 first
   PROMPT.md            the kickoff prompt
@@ -86,8 +87,11 @@ npx serve site
 
 ## Deploying
 
-Vercel, as a static site. No build command, no framework preset. **Set the
-project's Root Directory to `site`** — `vercel.json` lives there.
+Vercel, as a static site. `vercel.json` at the repo root does the setup, so
+the project's dashboard settings do not matter: no framework, no install, no
+build, and `outputDirectory: site` publishes only the site. Leave the
+project's Root Directory empty (the repo root); `.vercelignore` beside it keeps
+the source assets, tools and build intermediates out of the upload.
 
 ```
 npx vercel          # preview

@@ -1,16 +1,24 @@
 # Build intermediates that live beside the site but are never served.
+# The repo root is the Vercel root; only site/ is published (vercel.json).
 # The case-page sources (tools/expand-figures.py reads them), the figure
 # markup and ratio tables the tools write, and the brand folder's notes.
-work/_*.src.html
-assets/work/*/_markup.html
-assets/**/_manifest.json
-assets/work/_ratios-*.json
-assets/brand/README.md
+site/work/_*.src.html
+site/assets/work/*/_markup.html
+site/assets/**/_manifest.json
+site/assets/work/_ratios-*.json
+site/assets/brand/README.md
 **/.gitkeep
 
 # build-page-images.py writes a JPEG at every width, but the pages only
 # fall back to JPEG at the largest one; AVIF and WebP carry the rest.
-assets/work/possah/*-480.*.jpg
-assets/work/possah/*-960.*.jpg
-assets/work/zingara/*-480.*.jpg
-assets/work/zingara/*-960.*.jpg
+site/assets/work/possah/*-480.*.jpg
+site/assets/work/possah/*-960.*.jpg
+site/assets/work/zingara/*-480.*.jpg
+site/assets/work/zingara/*-960.*.jpg
+
+# Source material and tooling: in the repo, never in the deploy.
+/assets/
+/brief/
+/reference/
+/tools/
+/*.md
