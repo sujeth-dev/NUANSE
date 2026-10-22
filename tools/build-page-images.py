@@ -90,7 +90,7 @@ PAGES = {
          'lockup carrying "Not Your Usual Biryani", and a Z monogram with a '
          'star-anise flourish; eight colour versions; clear space set to the '
          'height of the Z; minimum sizes of 50, 30 and 15 millimetres; and '
-         'three do-nots — do not stretch, do not recolour, do not rotate.',
+         'three do-nots: do not stretch, do not recolour, do not rotate.',
          'grid'),
         ('specimen',
          'zingara/identity/1-4.jpg',
@@ -102,9 +102,9 @@ PAGES = {
          'grid'),
         ('icons',
          'zingara/identity/in-a-minimalist-graphic-design-style-a.jpg',
-         'Twelve line icons in two colourways — mortar and pestle, steam, '
+         'Twelve line icons in two colourways: mortar and pestle, steam, '
          'cardamom, handi, fire, star anise, nutmeg, cinnamon, the numeral '
-         '19, a covered dish, cutlery, and a Zingara Mysore roundel — with '
+         '19, a covered dish, cutlery, and a Zingara Mysore roundel, with '
          'rule dividers and corner ornaments.',
          'grid'),
 
@@ -119,7 +119,7 @@ PAGES = {
          'zingara/identity/in-a-dark-luxurious-packaging-design-style-a.jpg',
          'The packaging system: a charcoal presentation box with a gold seal, '
          'a patterned carrier bag, a delivery container with a red wax-seal '
-         'label reading Mysore White Biryani, and spice jars — shown beside '
+         'label reading Mysore White Biryani, and spice jars, shown beside '
          'the four palette chips they are built from.'),
         ('signage',
          'zingara/identity/a-restaurant-exterior-at-night-is-presented.jpg',
@@ -216,8 +216,8 @@ PAGES = {
         ('typography',
          'possah/identity/this-typographic-guide-showcases-font-families.jpg',
          'The Possah type specification on a forest-green ground: three '
-         'families — a hand-drawn display sans, a grotesque for body and a '
-         'monospace accent — with a weight spectrum, a seven-step scale from '
+         'families, a hand-drawn display sans, a grotesque for body and a '
+         'monospace accent, with a weight spectrum, a seven-step scale from '
          '72pt display to a 9pt label, and the tracking, leading and minimum '
          'size rules.'),
         ('ratios',
@@ -230,28 +230,28 @@ PAGES = {
         ('scale',
          'possah/identity/in-a-clean-minimalist-style-this-graphic.jpg',
          'The sizing page: the lockup drawn at four sizes with a measuring '
-         'rule under each - large for print and signage at a minimum of 60 '
+         'rule under each: large for print and signage at a minimum of 60 '
          'millimetres, medium for lookbook and packaging at 35, small for a '
          'business card or hangtag at 20, and minimum digital for an Instagram '
-         'avatar or favicon at 24 pixels - then the symbol alone at avatar, '
+         'avatar or favicon at 24 pixels, then the symbol alone at avatar, '
          'favicon and app-icon sizes, with the instruction to pixel-snap it to '
          'the grid and never render it below 24 pixels or use the full lockup '
          'at favicon scale.',
          'grid'),
         ('patterns',
          'possah/identity/in-a-graphic-design-style-the-image-displays-a.jpg',
-         'The pattern system: three tessellations drawn from the brand mark - '
+         'The pattern system: three tessellations drawn from the brand mark: '
          'Pattern A in dusty rose on ivory for tissue paper, Pattern B in deep '
          'forest green for lookbook endpapers, and Pattern C in the '
-         'orange-to-gold gradient for the hero campaign band - under the line '
-         '"Inspired by the brand mark, repeated as a quiet textile rhythm - '
+         'orange-to-gold gradient for the hero campaign band, under the line '
+         '"Inspired by the brand mark, repeated as a quiet textile rhythm, '
          'never overpowering."',
          'grid'),
         ('icons',
          'possah/identity/in-a-minimalist-graphic-design-style-a-grid-of.jpg',
-         'Sixteen hairline icons on a 24-pixel grid — atelier, drape, fit, '
+         'Sixteen hairline icons on a 24-pixel grid: atelier, drape, fit, '
          'tailoring, embroidery, fabric, hanger, garment bag, shipping, care, '
-         'iron, hand-wash, concierge, appointment, gift and sustainability — '
+         'iron, hand-wash, concierge, appointment, gift and sustainability, '
          'for product care, web interface and packaging callouts.',
          'grid'),
         ('moodboard',
@@ -266,7 +266,7 @@ PAGES = {
          'Taglines and naming: the master line "she wants what she wants." '
          'with three supporting lines; the collection convention POSSAH, '
          'season, year, theme word, worked through as Spring 26 Veil, '
-         'Festive 26 Ember and Resort 27 Drift; and four sub-lines — The '
+         'Festive 26 Ember and Resort 27 Drift; and four sub-lines: The '
          'Atelier for couture, The Edit for ready-to-wear, The Drape for '
          'sarees, The Vault for archive.',
          'half'),
@@ -312,8 +312,8 @@ PAGES = {
          'grid'),
         ('reels',
          'possah/identity/three-distinct-mobile-screens-display-reel-covers-nzihtsv.jpg',
-         'Three reel covers — The Drape Series, Behind the Stitch, and She '
-         'Wears Possah — each a campaign still with the title set over it and '
+         'Three reel covers: The Drape Series, Behind the Stitch, and She '
+         'Wears Possah, each a campaign still with the title set over it and '
          'the mark at the foot.',
          'grid'),
     ],

@@ -333,6 +333,19 @@
     btn.addEventListener('click', () => open(li.dataset.slug, li));
   });
 
+  /* the doodles draw themselves in once, as each card arrives */
+  const pen = cards.filter((li) => li.querySelector('.cl-doodle'));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((rows) => rows.forEach((r) => {
+      if (!r.isIntersecting) return;
+      r.target.classList.add('is-drawn');
+      io.unobserve(r.target);
+    }), { threshold: 0.45 });
+    pen.forEach((li) => io.observe(li));
+  } else {
+    pen.forEach((li) => li.classList.add('is-drawn'));
+  }
+
   /* the home strip links here as /work#slug: that card's sheet opens on
      arrival, once the page has settled under it */
   const deep = cards.find((li) => '#' + li.dataset.slug === location.hash);

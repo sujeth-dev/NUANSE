@@ -36,7 +36,7 @@
     "h": 1600,
     "ground": "#D8C1A5",
     "src": "possah/campaign/rose-gold-mandarin-3.jpg",
-    "alt": "The rose-gold mandarin-collar top over an ivory bias skirt, on a warm seamless ground - the palette's dusty rose and warm ivory worn together.",
+    "alt": "The rose-gold mandarin-collar top over an ivory bias skirt, on a warm seamless ground, the palette's dusty rose and warm ivory worn together.",
     "kind": "grid"
   },
   "contents": {
@@ -76,7 +76,7 @@
     "h": 1440,
     "ground": "#25392C",
     "src": "possah/identity/this-typographic-guide-showcases-font-families.jpg",
-    "alt": "The Possah type specification on a forest-green ground: three families \u2014 a hand-drawn display sans, a grotesque for body and a monospace accent \u2014 with a weight spectrum, a seven-step scale from 72pt display to a 9pt label, and the tracking, leading and minimum size rules.",
+    "alt": "The Possah type specification on a forest-green ground: three families: a hand-drawn display sans, a grotesque for body and a monospace accent, with a weight spectrum, a seven-step scale from 72pt display to a 9pt label, and the tracking, leading and minimum size rules.",
     "kind": "ev"
   },
   "ratios": {
@@ -92,7 +92,7 @@
     "h": 1440,
     "ground": "#F2ECDC",
     "src": "possah/identity/in-a-clean-minimalist-style-this-graphic.jpg",
-    "alt": "The sizing page: the lockup drawn at four sizes with a measuring rule under each - large for print and signage at a minimum of 60 millimetres, medium for lookbook and packaging at 35, small for a business card or hangtag at 20, and minimum digital for an Instagram avatar or favicon at 24 pixels - then the symbol alone at avatar, favicon and app-icon sizes, with the instruction to pixel-snap it to the grid and never render it below 24 pixels or use the full lockup at favicon scale.",
+    "alt": "The sizing page: the lockup drawn at four sizes with a measuring rule under each: large for print and signage at a minimum of 60 millimetres, medium for lookbook and packaging at 35, small for a business card or hangtag at 20, and minimum digital for an Instagram avatar or favicon at 24 pixels, then the symbol alone at avatar, favicon and app-icon sizes, with the instruction to pixel-snap it to the grid and never render it below 24 pixels or use the full lockup at favicon scale.",
     "kind": "grid"
   },
   "patterns": {
@@ -100,7 +100,7 @@
     "h": 1440,
     "ground": "#E6D6C0",
     "src": "possah/identity/in-a-graphic-design-style-the-image-displays-a.jpg",
-    "alt": "The pattern system: three tessellations drawn from the brand mark - Pattern A in dusty rose on ivory for tissue paper, Pattern B in deep forest green for lookbook endpapers, and Pattern C in the orange-to-gold gradient for the hero campaign band - under the line \"Inspired by the brand mark, repeated as a quiet textile rhythm - never overpowering.\"",
+    "alt": "The pattern system: three tessellations drawn from the brand mark: Pattern A in dusty rose on ivory for tissue paper, Pattern B in deep forest green for lookbook endpapers, and Pattern C in the orange-to-gold gradient for the hero campaign band, under the line \"Inspired by the brand mark, repeated as a quiet textile rhythm - never overpowering.\"",
     "kind": "grid"
   },
   "icons": {
@@ -108,7 +108,7 @@
     "h": 1440,
     "ground": "#F1EFE2",
     "src": "possah/identity/in-a-minimalist-graphic-design-style-a-grid-of.jpg",
-    "alt": "Sixteen hairline icons on a 24-pixel grid \u2014 atelier, drape, fit, tailoring, embroidery, fabric, hanger, garment bag, shipping, care, iron, hand-wash, concierge, appointment, gift and sustainability \u2014 for product care, web interface and packaging callouts.",
+    "alt": "Sixteen hairline icons on a 24-pixel grid: atelier, drape, fit, tailoring, embroidery, fabric, hanger, garment bag, shipping, care, iron, hand-wash, concierge, appointment, gift and sustainability, for product care, web interface and packaging callouts.",
     "kind": "grid"
   },
   "moodboard": {
@@ -124,7 +124,7 @@
     "h": 1440,
     "ground": "#EAE2D2",
     "src": "possah/identity/in-a-minimalist-graphic-design-style-this-3.jpg",
-    "alt": "Taglines and naming: the master line \"she wants what she wants.\" with three supporting lines; the collection convention POSSAH, season, year, theme word, worked through as Spring 26 Veil, Festive 26 Ember and Resort 27 Drift; and four sub-lines \u2014 The Atelier for couture, The Edit for ready-to-wear, The Drape for sarees, The Vault for archive.",
+    "alt": "Taglines and naming: the master line \"she wants what she wants.\" with three supporting lines; the collection convention POSSAH, season, year, theme word, worked through as Spring 26 Veil, Festive 26 Ember and Resort 27 Drift; and four sub-lines: The Atelier for couture, The Edit for ready-to-wear, The Drape for sarees, The Vault for archive.",
     "kind": "half"
   },
   "stationery": {
@@ -180,7 +180,7 @@
     "h": 1440,
     "ground": "#BEB3A3",
     "src": "possah/identity/three-distinct-mobile-screens-display-reel-covers-nzihtsv.jpg",
-    "alt": "Three reel covers \u2014 The Drape Series, Behind the Stitch, and She Wears Possah \u2014 each a campaign still with the title set over it and the mark at the foot.",
+    "alt": "Three reel covers: The Drape Series, Behind the Stitch, and She Wears Possah, each a campaign still with the title set over it and the mark at the foot.",
     "kind": "grid"
   }
 }

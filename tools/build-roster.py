@@ -140,6 +140,59 @@ def tile(c, marks):
 
 
 # ----------------------------------------------------------------- the cards
+# ------------------------------------------------------------- the doodles
+# A copper pen sketch in the corner of every card that is not a full case,
+# one per trade, so a card with no case behind it still has a hand on it.
+# pathLength=1 on each stroke lets work-index.css draw them in with a plain
+# dash offset when the card scrolls into view - no library, no inline style.
+DOODLES = {
+    # a chair: furniture and joinery made in their own facility
+    'velmont': ['M34 12 C30 30 30 52 32 58', 'M32 58 H72 L74 88',
+                'M34 60 L32 90', 'M40 34 H54'],
+    # a key on a tag: an asset you use but do not own
+    'assetly': ['M20 50 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0',
+                'M48 50 H90', 'M78 50 v12', 'M86 50 v8', 'M28 50 h0.1'],
+    # a set square and its rule: fit-outs drawn before they are built
+    'artizen': ['M16 86 L16 18 L84 86 Z', 'M28 72 L28 48 L52 72 Z',
+                'M16 92 H84', 'M30 92 v-4 M44 92 v-4 M58 92 v-4 M72 92 v-4'],
+    # an eye that stares back
+    'nazr': ['M8 50 C28 22 72 22 92 50 C72 78 28 78 8 50 Z',
+             'M50 37 a13 13 0 1 0 0.1 0', 'M50 46 a4 4 0 1 0 0.1 0',
+             'M30 24 l-5 -9 M50 18 v-10 M70 24 l5 -9'],
+    # a pencil mid-scribble: drawn, not generated
+    'noir-velin': ['M26 78 L70 30 L80 40 L36 88 Z', 'M26 78 L20 94 L36 88',
+                   'M64 36 L74 46', 'M8 30 c8 -10 16 8 24 0 s16 8 24 0'],
+    # an arched doorway: spaces you walk into
+    'shail-interiors': ['M26 88 V46 a24 24 0 0 1 48 0 V88', 'M14 88 H86',
+                        'M50 22 V88', 'M44 60 h0.1 M56 60 h0.1'],
+    # a source and three rings of sound
+    'aware-acoustics': ['M24 50 h0.1', 'M36 36 q12 14 0 28',
+                        'M48 24 q22 26 0 52', 'M60 12 q32 38 0 76'],
+    # a four-point spark: a mark and nothing else on file
+    'nuozone-studio': ['M50 10 C52 40 60 48 90 50 C60 52 52 60 50 90 '
+                       'C48 60 40 52 10 50 C40 48 48 40 50 10 Z',
+                       'M80 14 v12 M74 20 h12'],
+    # a tulip, for Tulipss
+    'tulipss': ['M50 92 V50',
+                'M50 50 C32 48 28 30 32 18 L42 30 L50 14 L58 30 L68 18 '
+                'C72 30 68 48 50 50 Z',
+                'M50 78 C38 76 32 66 30 58 C40 60 48 66 50 78'],
+    # a cup with the steam still on it: breakfast
+    'ammas-breakfast': ['M20 52 H72 V62 a26 26 0 0 1 -52 0 Z',
+                        'M72 56 c14 0 14 18 0 18',
+                        'M38 42 c-6 -8 6 -12 0 -22', 'M54 42 c-6 -8 6 -12 0 -22'],
+}
+
+
+def doodle(c):
+    paths = DOODLES.get(c['slug'])
+    if not paths:
+        return ''
+    return ('      <svg class="cl-doodle" viewBox="0 0 100 100" aria-hidden="true" '
+            'focusable="false">%s</svg>'
+            % ''.join('<path pathLength="1" d="%s"/>' % d for d in paths))
+
+
 def card(c, marks):
     """One <li>.
 
@@ -187,8 +240,10 @@ def card(c, marks):
         out += ['    <button type="button" class="cl-hit" data-cursor="Open">',
                 inner,
                 '      <span class="cl-go mono">Details '
-                '<i aria-hidden="true">&rarr;</i></span>',
-                '    </button>']
+                '<i aria-hidden="true">&rarr;</i></span>']
+        if DOODLES.get(c['slug']):
+            out.append(doodle(c))
+        out.append('    </button>')
     if c['site'] and not c['href']:
         out.append('    <a class="cl-site mono" href="%s" target="_blank" '
                    'rel="noopener">%s <i aria-hidden="true">&nearr;</i></a>'
