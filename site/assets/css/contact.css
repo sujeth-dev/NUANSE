@@ -109,7 +109,11 @@
   .ct-reset:hover{color:var(--copper-ink);border-bottom-color:var(--copper-ink)}
 }
 
-.ct-send{margin-top:var(--s1)}
+.ct-send,.ct-gmail{margin:var(--s1) 8px 0 0;vertical-align:top}
+/* the direct route sits on the right of the section head, level with the lede */
+.ct-brief .sec-head{grid-template-columns:minmax(0,1fr) auto}
+.ct-direct{justify-self:end;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.ct-direct-h{margin:0;color:var(--mute)}
 
 /* ============ ROUTE TWO · THE AUDIT ============
    The night ground is doing the work the home page's audit section does with
@@ -144,6 +148,8 @@
   .ct-grid{grid-template-columns:1fr}
   .ct-mail{position:static}
   .ct-audit-in{grid-template-columns:1fr}
+  .ct-brief .sec-head{grid-template-columns:1fr}
+  .ct-direct{justify-self:start}
 }
 @media (max-width:600px){
   .ct-sheet{padding:var(--s2)}

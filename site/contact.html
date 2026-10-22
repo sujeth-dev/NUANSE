@@ -130,6 +130,11 @@
         <h2 class="h2 h-split" id="brief-h">The brief writes itself.</h2>
         <p class="lede ink">Pick what you need. The mail composes as you go, and nothing is sent until you send it from your own account.</p>
       </div>
+      <!-- the direct route: no picks, just an empty mail to us -->
+      <div class="ct-direct">
+        <p class="mono ct-direct-h">Rather just write?</p>
+        <a class="btn magnet" href="mailto:hello@nuanse.studio" data-cursor="Opens your mail app"><span class="btn-ar l" aria-hidden="true">&rarr;</span><span class="btn-label">Mail hello@nuanse.studio</span><span class="btn-ar r" aria-hidden="true">&rarr;</span></a>
+      </div>
     </div>
 
     <div class="ct-grid">
@@ -201,6 +206,9 @@
              with JS off or GSAP blocked; contact.js replaces it with the
              composed one on every change. -->
         <a class="btn solid magnet ct-send" id="ct-send" href="mailto:hello@nuanse.studio" data-cursor="Opens your mail app"><span class="btn-ar l" aria-hidden="true">&rarr;</span><span class="btn-label">Open this in my mail app</span><span class="btn-ar r" aria-hidden="true">&rarr;</span></a>
+        <!-- No mail app set up? The same composed mail, in Gmail in the
+             browser. contact.js keeps its subject and body in step. -->
+        <a class="btn ct-gmail" id="ct-gmail" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hello@nuanse.studio" target="_blank" rel="noopener" data-cursor="Opens Gmail"><span class="btn-label">Open in Gmail</span></a>
         <p class="qual-note">Nothing is sent from this page and nothing is stored. The button hands the composed mail to your own mail app, where you send it yourself.</p>
         <p class="src-note">Prefer to write it yourself? <a href="mailto:hello@nuanse.studio">hello@nuanse.studio</a> reaches the same place.</p>
       </div>

@@ -41,6 +41,7 @@
   const sendEl = $('#ct-send');
   const whoEl = $('#ct-who');
   const noticedEl = $('#ct-noticed');
+  const gmailEl = $('#ct-gmail');
   /* not the contact page */
   if (!draft || !sendEl || !subjectEl) return;
 
@@ -121,6 +122,8 @@
     });
     if (!dirty) draft.value = body(p);
     sendEl.href = `mailto:${TO}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(draft.value)}`;
+    if (gmailEl) gmailEl.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${TO}` +
+      `&su=${encodeURIComponent(subj)}&body=${encodeURIComponent(draft.value)}`;
   }
 
   /* ------------------------------------------------------------- the chips
@@ -157,7 +160,8 @@
   /* The draft going dirty is a one-way door, and only a real edit opens it:
      an input event fires for typing and pasting but not for the programmatic
      assignment in compose(), so this cannot trip itself. */
-  draft.addEventListener('input', () => { dirty = true; });
+  /* compose() after it, so the send links carry the visitor's own edits */
+  draft.addEventListener('input', () => { dirty = true; compose(); });
 
   /* A visitor who has rewritten the draft and then changes their mind can get
      the composed version back. Without this the dirty flag would be a trap. */
