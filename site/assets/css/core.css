@@ -552,6 +552,9 @@ body:has(.pj-open) .menu a[aria-current]{color:var(--cream)}
 .menu a{font-family:var(--serif);font-size:var(--fs-menu);line-height:1.02;
   letter-spacing:.025em;text-decoration:none;display:block}
 .menu .mono{margin-top:28px;color:var(--mute-d)}
+/* the address under the links is a line of the footnote, not a destination */
+.menu .mono a{display:inline;font:inherit;letter-spacing:.04em;text-transform:none;line-height:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px}
+.menu .mono a:hover{color:var(--copper-l)}
 
 /* ============ BUTTONS (arrow-swap) ============ */
 .btn{--h:52px;display:inline-flex;align-items:stretch;height:var(--h);border:1px solid currentColor;
