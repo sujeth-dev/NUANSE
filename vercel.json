@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "echo \"static site, nothing to install\"",
-  "buildCommand": "echo \"static site, nothing to build\"",
+  "buildCommand": "[ -d site ] || { cp -R . /tmp/nuanse-site && mv /tmp/nuanse-site site; }",
   "outputDirectory": "site",
   "cleanUrls": true,
   "trailingSlash": false,
