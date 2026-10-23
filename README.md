@@ -93,6 +93,10 @@ build, and `outputDirectory: site` publishes only the site. Leave the
 project's Root Directory empty (the repo root); `.vercelignore` beside it keeps
 the source assets, tools and build intermediates out of the upload.
 
+A project whose Root Directory is set to `site` reads `site/vercel.json`
+instead, which `python tools/sync-vercel.py` writes from the root file. Edit
+the root one and re-run the script; never edit the copy.
+
 ```
 npx vercel          # preview
 npx vercel --prod   # production
