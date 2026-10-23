@@ -17,7 +17,7 @@
 .ct-sec .h2{--f-min:30;--f-max:50;font-size:var(--fluid)}
 
 /* ============ ROUTE ONE · THE BRIEF ============ */
-.ct-brief{background:var(--cream);padding-bottom:clamp(64px,40px + 4vw,104px)}
+.ct-brief{background:var(--cream)}
 
 /* The picks on the left, the mail on the right, and the proportion is the
    argument: the mail is the wider column because it is the thing being made.
@@ -139,12 +139,6 @@
 .ct-gets b{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.15;color:var(--cream)}
 .ct-gets span{font-size:14px;line-height:1.45;color:var(--mute-d)}
 .ct-audit .audit-meta{color:var(--mute-d);margin:var(--s2) 0 0}
-.ct-mails{display:flex;flex-wrap:wrap;gap:var(--s2) clamp(32px,5vw,80px);margin:clamp(56px,7vw,96px) 0 0;
-  padding-top:var(--s3);border-top:1px solid rgba(13,26,65,.16)}
-.ct-mails dt{color:var(--accent-ink);margin:0 0 8px}
-.ct-mails dd{margin:0;font-size:clamp(15px,1.25vw,18px);letter-spacing:.02em;text-transform:none}
-.ct-mails a{color:var(--navy);text-decoration:underline;text-decoration-color:rgba(13,26,65,.35);text-underline-offset:4px}
-.ct-mails a:hover{text-decoration-color:var(--accent)}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:900px){

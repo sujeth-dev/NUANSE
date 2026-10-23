@@ -32,12 +32,6 @@
   const RM = html.classList.contains('rm');
   const TOUCH = html.classList.contains('touch');
 
-  /* The opener plays on every fresh arrival: a first visit, a refresh, a
-     typed address. A page reached through the curtain (boot.js marks it
-     .via) does not replay it; it lifts the curtain it arrived under, so a
-     click through the site is one continuous move rather than an opener
-     per page. */
-  const VIA = html.classList.contains('via');
 
   /* ------------------------------------------------------------- S wrapping
      Wraps every s/S in a text node in a <span class="s">, keeping whole words
@@ -715,9 +709,6 @@
   const cmNavy = $('.cm-navy');
   const cmCopper = $('.cm-copper');
   const dim = $('.page-dim');
-  const cMarks = $('.curtain-marks');
-  const cLabel = $('.curtain-label');
-  const cRule = $('.cl-rule');
   let busy = false;
 
   /* The mark on the curtain is two stacked copies of the real asset, and
@@ -767,10 +758,7 @@
     busy = true;
     FOIL.setActive('open', true);
     markOnNavy();
-    const leave = () => {
-      try { sessionStorage.setItem('nu-via', '1'); } catch (e) {}
-      window.location.href = url;
-    };
+    const leave = () => { window.location.href = url; };
     if (RM) {
       gsap.timeline({ onComplete: leave })
         .set(curtain, { yPercent: 0, opacity: 0, visibility: 'visible' })
@@ -898,48 +886,20 @@
         .add(() => FOIL.setActive('open', false));
       return;
     }
-    /* Through the curtain: the page starts under the same navy, foil and
-       copper mark the last one left on, holds a beat so the ground is seen
-       moving, and the curtain carries on up the way it came. A fade here
-       read as a flash, which was the glitch on every page change. */
-    if (VIA) {
-      markOnNavy();
-      gsap.set(cover, { display: 'none' });
-      introRan = true;
-      gsap.timeline({ onComplete: done })
-        .to(cmFlip, { rotation: 360, duration: 0.7 }, 0)
-        .to(curtain, { yPercent: -100, duration: 0.6 }, 0.22)
-        .add(() => { introHooks.forEach((fn) => fn()); }, 0.4)
-        .set(curtain, { visibility: 'hidden' })
-        .set(cmFlip, { rotation: 0 })
-        .add(() => FOIL.setActive('open', false));
-      return;
-    }
+    /* Every arrival, a refresh included, is the same drawer a page change
+       plays: the page starts under the navy, the moving foil and the copper
+       mark, the mark turns once, and the curtain carries on up the way it
+       came. One transition for the whole site, so a refresh never looks
+       like a different site from a click. */
+    markOnNavy();
+    gsap.set(cover, { display: 'none' });
     introRan = true;
-    /* The opener: the cream cover lifts off a copper-foil navy ground, the
-       mark turns, then four pre-press crop marks and a measuring rule
-       appear — the page is being registered on press before it prints.
-
-       The mark is the real asset now, so the turn runs the other way round
-       from the old typographic version: the asset IS the reversed S, so it
-       starts mirrored (reading as a conventional S) and rotates to true,
-       cross-fading navy to copper as it lands. Same beat, real logo. */
-    gsap.set(cmFlip, { scaleX: -1 });
     gsap.timeline({ onComplete: done })
-      .to(cmFlip, { scaleX: 1, duration: 0.45 }, 0.05)
-      .to(cmNavy, { opacity: 0, duration: 0.45 }, 0.05)
-      .to(cmCopper, { opacity: 1, duration: 0.45 }, 0.05)
-      .to(cover, { yPercent: -100, duration: 0.5 }, 0.28)
-      .to(cMarks, { opacity: 1, duration: 0.28, ease: 'none' }, 0.46)
-      .to(cLabel, { opacity: 1, duration: 0.28, ease: 'none' }, 0.52)
-      .to(cRule, { scaleX: 1, duration: 0.42 }, 0.52)
-      .to(curtain, { yPercent: -100, duration: 0.5 }, 0.72)
-      .add(() => { introHooks.forEach((fn) => fn()); }, 0.85)
+      .to(cmFlip, { rotation: 360, duration: 0.7 }, 0)
+      .to(curtain, { yPercent: -100, duration: 0.6 }, 0.22)
+      .add(() => { introHooks.forEach((fn) => fn()); }, 0.4)
       .set(curtain, { visibility: 'hidden' })
-      .set(cover, { display: 'none' })
-      .set($('.curtain-mark'), { scale: 0.5 })
-      .set([cMarks, cLabel], { opacity: 0 })
-      .set(cRule, { scaleX: 0 })
+      .set(cmFlip, { rotation: 0 })
       .add(() => FOIL.setActive('open', false));
   }
   const introHooks = [];
@@ -1274,7 +1234,7 @@
      belongs here; anything only one page needs stays in that page's script. */
   window.NU = {
     /* flags and helpers */
-    RM, TOUCH, VIA, EASE, $, $$, clamp, esc,
+    RM, TOUCH, EASE, $, $$, clamp, esc,
     /* text */
     wrapS, wrapWords, markS, watchTurns,
     /* motion */

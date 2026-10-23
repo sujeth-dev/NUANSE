@@ -33,7 +33,7 @@
 .dock-r{margin-left:auto}
 .stage-panel .sn{display:flex;justify-content:space-between;color:var(--mute);margin-bottom:26px}
 .stage-panel h3{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5vw,64px);
-  line-height:.92;letter-spacing:-.01em;margin:0 0 18px}
+  line-height:.92;letter-spacing:.025em;margin:0 0 18px}
 .stage-panel p{margin:0;max-width:48ch;color:var(--navy)}
 .stage-panel .out{margin-top:24px;padding-top:14px;border-top:1px dashed rgba(181,101,40,.6);
   display:flex;gap:10px;color:var(--copper-ink)}

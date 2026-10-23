@@ -203,9 +203,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:var(
 /* ============ TYPE ============ */
 .mono{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em;
   text-transform:uppercase;line-height:1.5}
-.display{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:.92;text-wrap:balance}
+.display{font-family:var(--serif);font-weight:400;letter-spacing:.025em;line-height:.92;text-wrap:balance}
 .h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);line-height:.9;
-  letter-spacing:-.01em;margin:0;text-wrap:balance}
+  letter-spacing:.025em;margin:0;text-wrap:balance}
 .lede{max-width:46ch;margin:0;color:var(--mute)}
 [data-nav=dark] .lede{color:var(--mute-d)}
 .eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 18px}
@@ -298,11 +298,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:var(
 /* The two tints sit on top of one another and cross-fade, so the turn is one
    transform plus one opacity rather than a filter animating through mud. */
 .cm-flip .mark{grid-area:1/1}
-.cm-copper{opacity:0}
-/* arrived through the curtain: no cream cover, copper mark, from first paint */
-.via .curtain-cover{display:none}
-.via .cm-navy{opacity:0}
-.via .cm-copper{opacity:1}
+/* every load starts on the navy drawer with the copper mark, from first
+   paint: the same frame a page change leaves on, so a refresh matches it */
+.curtain-cover{display:none}
+.cm-navy{opacity:0}
 .curtain-foil{position:absolute;inset:0;z-index:0;width:100%;height:100%;display:block;opacity:.42;
   pointer-events:none}
 .touch .curtain-foil,.rm .curtain-foil{display:none}
@@ -551,7 +550,7 @@ body:has(.pj-open) .menu a[aria-current]{color:var(--cream)}
 .menu.open{clip-path:inset(0 0 0 0);visibility:visible;
   transition:clip-path .9s var(--ease),visibility 0s}
 .menu a{font-family:var(--serif);font-size:var(--fs-menu);line-height:1.02;
-  letter-spacing:-.01em;text-decoration:none;display:block}
+  letter-spacing:.025em;text-decoration:none;display:block}
 .menu .mono{margin-top:28px;color:var(--mute-d)}
 
 /* ============ BUTTONS (arrow-swap) ============ */
@@ -620,10 +619,10 @@ section{position:relative}
 .pg-open-eyebrow::before,.pj-open-eyebrow::before{content:"";width:28px;height:1px;
   background:currentColor}
 .pg-title,.pj-title{font-family:var(--serif);font-weight:400;font-size:var(--fs-title);
-  line-height:.88;letter-spacing:-.01em;margin:clamp(20px,4vh,44px) 0 0;max-width:11ch;
+  line-height:.88;letter-spacing:.025em;margin:clamp(20px,4vh,44px) 0 0;max-width:12.5ch;
   text-wrap:balance}
-.pg-verdict,.pj-verdict{font-family:var(--serif);font-size:var(--fs-verdict);line-height:1.1;
-  letter-spacing:-.025em;margin:0;max-width:22ch;text-wrap:balance}
+.pg-verdict,.pj-verdict{font-family:var(--serif);font-size:var(--fs-verdict);line-height:1.28;
+  letter-spacing:.04em;margin:0;max-width:27ch;text-wrap:balance}
 .pg-open-foot,.pj-open-foot{display:flex;justify-content:space-between;align-items:flex-end;
   gap:clamp(24px,5vw,64px);flex-wrap:wrap}
 /* sector / year / role, as a measured row rather than a paragraph */
@@ -653,7 +652,7 @@ section{position:relative}
    against 124px serif, which is hierarchy enough. */
 .pg-next .mono,.pj-next .mono{margin:0}
 .pg-next b,.pj-next b{display:block;font-family:var(--serif);font-weight:400;
-  font-size:var(--fs-next);line-height:.92;letter-spacing:-.01em;margin-top:14px;
+  font-size:var(--fs-next);line-height:.92;letter-spacing:.025em;margin-top:14px;
   max-width:14ch}
 .pg-next .go,.pj-next .go{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
   text-transform:uppercase;border:1px solid currentColor;border-radius:100px;padding:14px 22px;
@@ -764,7 +763,7 @@ section{position:relative}
 .ft-band{display:flex;align-items:center;justify-content:space-between;gap:var(--gap-sm);
   flex-wrap:wrap;padding-bottom:var(--s4);border-bottom:1px solid var(--hair-c)}
 .ft-band-line{font-family:var(--serif);font-weight:400;font-size:var(--fs-sub);line-height:1.14;
-  letter-spacing:-.025em;margin:0;max-width:34ch;text-wrap:balance}
+  letter-spacing:.025em;margin:0;max-width:36ch;text-wrap:balance}
 /* Four columns spread edge to edge with equal space between them, so Back to
    the top lands on the right margin. Each column is a subgrid of the same two
    rows, which puts every label on one line and every link on the next. */
@@ -772,13 +771,15 @@ section{position:relative}
   justify-content:space-between;gap:0 24px}
 .ft-top>div{display:grid;grid-template-rows:subgrid;grid-row:span 3;align-content:start}
 .ft-top>div>*{grid-column:1}
+/* Back to the top stands on the label line, level with Studio and the rest */
 .ft-up{justify-items:end}
+.ft-up .to-top{grid-row:1;align-self:center}
 .ft-top .mono{color:var(--mute-d);margin:0 0 8px}
 .ft-top p,.ft-top a{margin:0;font-size:16px;text-decoration:none}
 .ft-top a{border-bottom:1px solid var(--hair-c)}
 .ft-top button{border-bottom:1px solid var(--hair-c);text-align:left}
 .to-top{display:inline-flex;align-items:center;gap:10px;align-self:start}
-.to-top-ar{font-style:normal;display:inline-block;color:var(--copper-l);
+.to-top-ar{font-style:normal;display:inline-block;color:var(--copper-l);font-size:1.45em;line-height:1;
   animation:to-top-bob 2.4s var(--ease) infinite}
 @keyframes to-top-bob{0%,100%{transform:translateY(1px)}50%{transform:translateY(-3px)}}
 .to-top:hover .to-top-ar{animation-duration:1.1s}
@@ -862,7 +863,6 @@ section{position:relative}
   .ft-top>div:nth-child(2){grid-area:write}
   .ft-top>div:nth-child(3){grid-area:start}
   .ft-top>div:nth-child(4){grid-area:up}
-  .ft-up>.mono{display:none}
   /* the index drops to two columns and the footer changes shape once, here,
      where the nav collapses too */
   .ft-mid{flex-direction:column-reverse;align-items:flex-start}

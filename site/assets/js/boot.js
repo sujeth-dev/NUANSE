@@ -21,13 +21,5 @@
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('rm');
     if (window.matchMedia('(hover: none), (pointer: coarse)').matches) d.classList.add('touch');
   } catch (e) {}
-  /* Arrived through the curtain: the last page left on the navy ground with
-     the copper mark, so this one has to start there too, before first paint,
-     or the cream cover flashes in between. Read once; a refresh after this
-     is a fresh arrival and gets the opener. */
-  try {
-    if (sessionStorage.getItem('nu-via') === '1') d.classList.add('via');
-    sessionStorage.removeItem('nu-via');
-  } catch (e) {}
   d.classList.add('js', 'loading');
 })();

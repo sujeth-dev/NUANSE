@@ -105,7 +105,7 @@
    moves again. */
 .hero-h{--hu:clamp(46px,min(14.5vw,19vh),186px);
   font-family:var(--serif);font-weight:400;font-size:var(--hu);
-  line-height:.92;letter-spacing:-.01em;margin:0}
+  line-height:.92;letter-spacing:.025em;margin:0}
 /* One tracking value for all five lines, and one fixed gap between them -
    calc(var(--hu)*.09) rather than line-height alone, so the gap stays equal
    even where the cascade below drops to a smaller font-size. "that refuse
@@ -399,7 +399,7 @@
 .ba-defs{position:absolute;width:0;height:0;overflow:hidden;color:#E0482F;stroke:#F3C95C}
 .ba-h{display:flex;align-items:center;justify-content:space-between;gap:clamp(12px,3vw,48px);
   margin:0 0 clamp(12px,2.4vh,26px);font-family:var(--serif);font-weight:400;
-  font-size:clamp(44px,2.6vw + 4.6vh,116px);line-height:.9;letter-spacing:-.01em;color:var(--navy)}
+  font-size:clamp(44px,2.6vw + 4.6vh,116px);line-height:.9;letter-spacing:.025em;color:var(--navy)}
 /* A ruled arrow, not a pen stroke: one hairline from a dot to a fine head,
    drawn left to right as the after wipes in. */
 .ba-h .ba-arr{position:relative;flex:1 1 auto;max-width:min(420px,34vw);min-width:72px;height:auto;
@@ -781,6 +781,10 @@
   .cl-mark{flex-basis:56px;width:56px;height:56px}
   .cl-note{position:static;margin-top:var(--s3);flex-direction:row;align-items:flex-end}
   .cl-arrow{width:48px;height:60px}
+  /* Before, the arrow and After share one line at any width: the words
+     scale with the screen and the arrow gives way first, down to a stub */
+  .ba-h{font-size:min(9.6vw,46px);gap:10px}
+  .ba-h .ba-arr{min-width:32px}
   .cl-init{font-size:22px}
   .hero-foot{flex-direction:column;align-items:flex-start;gap:22px}
   /* Round 3: a bigger headline on a phone, so the hero is type and not a
