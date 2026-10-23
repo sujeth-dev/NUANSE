@@ -130,7 +130,7 @@
 .pv>.eyebrow{grid-column:1/-1;margin:0;align-self:start;color:var(--accent-ink)}
 .pv-txt{min-width:0}
 .pv-txt h2{--f-min:40;--f-max:74;margin:0 0 .4em;font-family:var(--serif);
-  font-weight:400;font-size:var(--fluid);line-height:.95;letter-spacing:-.04em;
+  font-weight:400;font-size:var(--fluid);line-height:.95;letter-spacing:-.01em;
   text-wrap:balance}
 .pv-txt>p{margin:0 0 var(--s4);font-size:clamp(16px,1.2vw,19px);line-height:1.55;
   max-width:34ch;color:var(--mute)}

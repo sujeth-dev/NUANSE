@@ -37,7 +37,7 @@
 .svc-n{display:flex;gap:14px;margin:0 0 18px;color:var(--mute)}
 .svc-n b{color:var(--copper-ink);font-weight:500}
 .svc-h{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.4vw,76px);
-  line-height:.92;letter-spacing:-.04em;margin:0}
+  line-height:.92;letter-spacing:-.01em;margin:0}
 .svc-lede{margin:18px 0 0;max-width:34ch;color:var(--navy)}
 .svc-del{list-style:none;margin:var(--s3) 0 0;padding:0;columns:2;column-gap:clamp(18px,2.4vw,34px)}
 .svc-del li{break-inside:avoid;padding:8px 0;border-top:1px solid rgba(13,26,65,.15);

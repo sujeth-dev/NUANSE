@@ -105,7 +105,7 @@
    moves again. */
 .hero-h{--hu:clamp(46px,min(14.5vw,19vh),186px);
   font-family:var(--serif);font-weight:400;font-size:var(--hu);
-  line-height:.92;letter-spacing:-.015em;margin:0}
+  line-height:.92;letter-spacing:-.01em;margin:0}
 /* One tracking value for all five lines, and one fixed gap between them -
    calc(var(--hu)*.09) rather than line-height alone, so the gap stays equal
    even where the cascade below drops to a smaller font-size. "that refuse
@@ -306,6 +306,10 @@
    a button and the native pointer comes back with it, because a control you
    cannot see yourself aiming at is worse than a second cursor. */
 @media (pointer:fine){.hero{cursor:none}.hero .btn,.hero .lens-toggle{cursor:var(--cur-press)}}
+/* Latched open, the lens covers the whole hero and is no longer following
+   anything, so the pointer comes back: without it there was no cursor at all
+   until you left the hero. */
+@media (pointer:fine){.hero.lens-on{cursor:inherit}}
 .touch .hero-hint,.rm .hero-hint{display:none}
 
 /* ============ 2 · MARQUEE ============ */
@@ -395,8 +399,11 @@
 .ba-defs{position:absolute;width:0;height:0;overflow:hidden;color:#E0482F;stroke:#F3C95C}
 .ba-h{display:flex;align-items:center;justify-content:space-between;gap:clamp(12px,3vw,48px);
   margin:0 0 clamp(12px,2.4vh,26px);font-family:var(--serif);font-weight:400;
-  font-size:clamp(44px,2.6vw + 4.6vh,116px);line-height:.9;letter-spacing:-.015em;color:var(--navy)}
-.ba-h .ba-arr{position:relative;flex:1 1 auto;max-width:min(240px,26vw);min-width:60px;height:auto}
+  font-size:clamp(44px,2.6vw + 4.6vh,116px);line-height:.9;letter-spacing:-.01em;color:var(--navy)}
+/* A ruled arrow, not a pen stroke: one hairline from a dot to a fine head,
+   drawn left to right as the after wipes in. */
+.ba-h .ba-arr{position:relative;flex:1 1 auto;max-width:min(420px,34vw);min-width:72px;height:auto;
+  align-self:center;margin-top:.08em}
 .ba-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .ba-board{position:relative;flex:1 1 auto;min-height:0}
 .ba-kit{position:absolute;inset:0;display:grid;gap:clamp(5px,.7vw,10px);padding:clamp(6px,.8vw,12px);
@@ -419,7 +426,11 @@
 .dd{position:absolute;overflow:visible;pointer-events:none;height:auto}
 .dd path{fill:none;stroke:var(--dd,#E0482F);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
   vector-effect:non-scaling-stroke}
-.ba-arr path{stroke:var(--copper);stroke-width:2.6}
+/* scaling stroke on purpose: drawSVG measures in the viewBox, and a
+   non-scaling stroke would repeat the dash along a stretched rule */
+.ba-arr path{stroke:var(--copper);stroke-width:1;stroke-linecap:butt;vector-effect:none}
+.ba-arr path+path{stroke-linecap:round}
+.ba-arr circle{fill:var(--copper)}
 
 /* phones: a fixed 9:19 that fits whichever way the tile is short */
 .ph{position:absolute;top:50%;left:50%;width:min(86cqw,43.6cqh);aspect-ratio:9/19;
@@ -659,11 +670,14 @@
 .cl-ring.is-placed{visibility:visible}
 .cl-ring path,.cl-arrow path{fill:none;stroke:var(--copper);stroke-width:2.4;stroke-linecap:round;
   stroke-linejoin:round;vector-effect:non-scaling-stroke}
+/* the pointer under "Take a look" is the one stroke here that has to be
+   found at a glance, so it is drawn heavier and in the darker ink */
+.cl-arrow path{stroke:var(--copper-ink);stroke-width:3}
 .cl-note{position:absolute;right:var(--gut);bottom:calc(var(--gap-md) * -1 + 4px);margin:0;
   display:flex;flex-direction:column;align-items:flex-start;gap:6px;pointer-events:none}
 .cl-note span{font-family:var(--serif);font-size:clamp(22px,2vw,30px);line-height:1;
   letter-spacing:-.02em;color:var(--copper-ink);transform:rotate(-4deg);transform-origin:left center}
-.cl-arrow{width:64px;height:80px;margin-left:12px}
+.cl-arrow{width:76px;height:96px;margin-left:14px;overflow:visible}
 .cl-head .lede{margin-top:22px}
 .cl-rail{position:relative;overflow:hidden}
 .cl-track{display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,64px);padding:0 var(--gut)}
@@ -766,7 +780,7 @@
      cell is most of the screen and two clients at a time is not a roster */
   .cl-mark{flex-basis:56px;width:56px;height:56px}
   .cl-note{position:static;margin-top:var(--s3);flex-direction:row;align-items:flex-end}
-  .cl-arrow{width:40px;height:50px}
+  .cl-arrow{width:48px;height:60px}
   .cl-init{font-size:22px}
   .hero-foot{flex-direction:column;align-items:flex-start;gap:22px}
   /* Round 3: a bigger headline on a phone, so the hero is type and not a
@@ -811,65 +825,84 @@
   .letter-sign{margin-top:12px}
 }
 
-/* ------------------------------------------------------------- 4b+ FEATURED
-   A feature spread on navy. Each slide is a two-column page: folio, kind,
-   title and standfirst on the left, the plate on the right. The plate is the
-   image mounted on a cream mat with a copper hairline inside it, sized to the
-   image so a tall poster, a wide board and a square all sit framed rather
-   than letterboxed. Slides stack in one cell and cross-fade with a short
-   rise; the copper line under the active dot is the timer. */
-.feat{--fe-h:clamp(340px,calc(100vh - 290px),620px);--fe-p:clamp(12px,1.4vw,20px);background:var(--navy);
-  color:var(--cream);padding:clamp(56px,9vh,104px) var(--gut)}
-.fe-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:0 24px;margin-bottom:clamp(24px,4vh,40px);
+/* A gallery wall in perspective. The plate in focus hangs square to you
+   under a picture light; its neighbours hang either side, turned away along
+   the wall and dimmed, and the one behind waits out of sight. Changing plate
+   moves every frame along the wall at once, so the next one comes forward
+   while the last one steps back: one continuous move rather than a fade.
+
+   The figures are display:contents, so each plate joins one shared room
+   (row 1) and each caption one shared line under it (row 2), while every
+   slide stays one figure with its own caption for a screen reader. home.js
+   sets data-pos on each: 0 in focus, 1 and -1 beside it, 2 behind. */
+.feat{--fe-h:clamp(280px,calc(100vh - 480px),540px);--fe-p:clamp(10px,1.2vw,18px);
+  --fe-off:clamp(240px,31vw,480px);background:var(--navy);
+  color:var(--cream);padding:clamp(56px,9vh,104px) var(--gut);overflow:hidden}
+.fe-head{display:grid;grid-template-columns:1fr;align-items:end;gap:0 24px;margin-bottom:clamp(20px,3vh,36px);
   padding-bottom:18px;border-bottom:1px solid rgba(252,247,241,.18)}
-.fe-head .eyebrow{grid-column:1/-1}
 .fe-head .eyebrow{margin-bottom:10px}
 .fe-head .h2{margin:0;font-size:clamp(40px,4.6vw,72px)}
-.fe-mast{margin:0;font-size:11px;letter-spacing:.14em;opacity:.65;text-align:right}
 .fe{position:relative;touch-action:pan-y}
-.fe-stage{display:grid;height:calc(var(--fe-h) + 2 * var(--fe-p))}
-.fe-slide{grid-area:1/1;margin:0;display:grid;grid-template-columns:minmax(260px,1fr) 2.6fr;
-  gap:clamp(24px,3.4vw,56px);align-items:center;min-height:0;opacity:0;visibility:hidden;transform:translateY(14px);
-  transition:opacity .9s var(--ease),transform 1.1s var(--ease),visibility 0s linear .9s}
-.fe-slide.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
-.fe-txt{display:flex;flex-direction:column;gap:10px;align-self:end;padding-bottom:78px}
-.fe-no{font-family:var(--serif);font-size:clamp(56px,6.4vw,104px);line-height:.8;color:var(--copper-l)}
-.fe-kind{font-size:11px;letter-spacing:.14em;opacity:.7;margin-top:10px}
-.fe-txt b{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,38px);line-height:1.05;letter-spacing:-.01em}
-.fe-line{font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.4;opacity:.8;max-width:30ch}
-.fe-plate{justify-self:center;display:inline-flex;padding:var(--fe-p);background:var(--cream);
-  position:relative;box-shadow:0 40px 70px -40px rgba(0,0,0,.75),0 2px 0 rgba(0,0,0,.08)}
-.fe-plate::after{content:"";position:absolute;inset:clamp(6px,.8vw,11px);border:1px solid rgba(181,101,40,.45);pointer-events:none}
+.fe-stage{position:relative;display:grid;grid-template-columns:minmax(0,1fr);
+  grid-template-rows:calc(var(--fe-h) + 2 * var(--fe-p) + 28px) auto;
+  perspective:1700px;perspective-origin:50% 42%}
+/* the picture light, and the floor it falls on */
+.fe-stage::before{content:"";position:absolute;left:50%;top:-6%;width:min(980px,90%);height:96%;
+  transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(50% 46% at 50% 26%,rgba(252,247,241,.10),rgba(252,247,241,0) 72%)}
+.fe-slide{display:contents;margin:0}
+.fe-plate{grid-row:1;grid-column:1;place-self:center;display:inline-flex;padding:var(--fe-p);
+  background:var(--cream);position:relative;max-width:min(62%,880px);cursor:var(--cur-press);
+  box-shadow:0 50px 80px -46px rgba(0,0,0,.85),0 2px 0 rgba(0,0,0,.08);
+  -webkit-box-reflect:below 14px linear-gradient(transparent 78%,rgba(255,255,255,.09));
+  transform:translate3d(0,0,-760px) scale(.82);opacity:0;filter:brightness(.4);z-index:1;
+  transition:transform 1.3s cubic-bezier(.65,0,.18,1),opacity 1s cubic-bezier(.65,0,.18,1),
+             filter 1.1s cubic-bezier(.65,0,.18,1);will-change:transform}
+.fe-plate::after{content:"";position:absolute;inset:clamp(5px,.7vw,10px);border:1px solid rgba(181,101,40,.45);pointer-events:none}
 .fe-plate picture{display:block}
 .fe-plate img{display:block;width:auto;height:auto;max-width:100%;max-height:var(--fe-h)}
-.fe-plate{max-width:100%;max-height:100%}
-.fe-ctl{position:absolute;left:0;bottom:0;width:calc((100% - clamp(24px,3.4vw,56px)) / 3.6);
-  display:flex;flex-wrap:wrap;align-items:center;gap:16px 18px}
-.fe-n{margin:0;font-size:12px}
+.fe-slide[data-pos="0"] .fe-plate{transform:none;opacity:1;filter:none;z-index:3;cursor:inherit}
+.fe-slide[data-pos="1"] .fe-plate{transform:translate3d(var(--fe-off),0,-380px) rotateY(-36deg);
+  opacity:.62;filter:brightness(.5) saturate(.8);z-index:2}
+.fe-slide[data-pos="-1"] .fe-plate{transform:translate3d(calc(-1 * var(--fe-off)),0,-380px) rotateY(36deg);
+  opacity:.62;filter:brightness(.5) saturate(.8);z-index:2}
+.fe-slide[data-pos="1"] .fe-plate:hover,.fe-slide[data-pos="-1"] .fe-plate:hover{filter:brightness(.72) saturate(.9);opacity:.85}
+/* the caption line under the plate in focus */
+.fe-txt{grid-row:2;grid-column:1;justify-self:center;display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:8px;margin-top:clamp(14px,2.2vh,26px);opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .5s var(--ease),transform .7s var(--ease),visibility 0s linear .5s}
+.fe-slide.on .fe-txt{opacity:1;visibility:visible;transform:none;
+  transition:opacity .7s var(--ease) .45s,transform .9s var(--ease) .45s,visibility 0s}
+.fe-no{display:none}
+.fe-kind{font-size:11px;letter-spacing:.14em;opacity:.7}
+.fe-txt b{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.2vw,34px);line-height:1.05;letter-spacing:-.005em}
+.fe-line{font-family:var(--serif);font-style:italic;font-size:16px;line-height:1.4;opacity:.8;max-width:40ch}
+.fe-ctl{display:flex;align-items:center;justify-content:center;gap:16px 22px;margin:clamp(18px,3vh,30px) auto 0;
+  width:min(520px,100%)}
+.fe-n{margin:0;font-size:12px;order:2}
 .fe-n b{color:var(--copper-l);font-weight:500}
-.fe-dots{display:flex;gap:6px;flex:1 1 80px}
+.fe-dots{display:flex;gap:6px;flex:1 1 80px;order:3}
 .fe-dots i{flex:1;height:1px;background:rgba(252,247,241,.25);position:relative;overflow:hidden}
 .fe-dots i::after{content:"";position:absolute;inset:0;background:var(--copper-l);transform:scaleX(0);transform-origin:left}
 .fe-dots i.done::after{transform:none}
-.fe-dots i.on::after{animation:fe-run var(--fe-t,5s) linear forwards}
+.fe-dots i.on::after{animation:fe-run var(--fe-t,5.5s) linear forwards}
 .fe.hold .fe-dots i.on::after{animation-play-state:paused}
 @keyframes fe-run{to{transform:none}}
-.fe-arrows{display:flex;gap:10px}
-.fe-arrows button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(252,247,241,.35);
+.fe-arrows{display:contents}
+.fe-prev{order:1}
+.fe-next{order:4}
+.fe-arrows button{width:46px;height:46px;flex:0 0 auto;border-radius:50%;border:1px solid rgba(252,247,241,.35);
   background:none;color:var(--cream);font-size:18px;
   transition:background var(--t-sm) var(--ease),border-color var(--t-sm) var(--ease),color var(--t-sm) var(--ease)}
 .fe-arrows button:hover,.fe-arrows button:focus-visible{background:var(--cream);color:var(--navy);border-color:var(--cream)}
-.rm .fe-slide{transform:none;transition:opacity .3s,visibility 0s linear .3s}
-.rm .fe-slide.on{transition-delay:0s}
+.rm .fe-plate{transform:none!important;transition:opacity .3s;filter:none}
+.rm .fe-slide:not([data-pos="0"]) .fe-plate{opacity:0}
+.rm .fe-txt{transition:opacity .3s}
 .rm .fe-dots i.on::after{animation:none;transform:none}
 @media (max-width:900px){
-  .feat{--fe-h:52vh}
-  .fe-stage{height:auto}
-  .fe-head{grid-template-columns:1fr}
-  .fe-mast{text-align:left;margin-top:12px}
-  .fe-slide{grid-template-columns:1fr;gap:22px;align-items:start}
-  .fe-txt{order:2;padding-bottom:0;gap:8px}
-  .fe-no{display:none}
-  .fe-kind{margin-top:0}
-  .fe-ctl{position:static;width:auto;margin-top:26px;flex-wrap:nowrap}
+  .feat{--fe-h:46vh;--fe-off:64vw}
+  .fe-plate{max-width:76%}
+  .fe-slide[data-pos="1"] .fe-plate{transform:translate3d(var(--fe-off),0,-300px) rotateY(-30deg)}
+  .fe-slide[data-pos="-1"] .fe-plate{transform:translate3d(calc(-1 * var(--fe-off)),0,-300px) rotateY(30deg)}
+  .fe-ctl{gap:14px}
 }

@@ -96,44 +96,26 @@
 .g-strike{position:relative;color:var(--mute-d);display:inline-block}
 .g-strike::after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:.6cqw;
   background:var(--copper-l);transform:rotate(-2deg)}
-.g-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4cqw;margin-top:auto}
-.g-cols span{border:1px solid rgba(252,247,241,.35);height:20cqw;padding:2cqw;
-  font-family:var(--mono);font-size:2.2cqw;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--mute-d)}
-
-/* ============ CASE OVERLAY ============ */
-.case-ov{position:fixed;inset:0;z-index:250;background:var(--cream);overflow-y:auto;
-  overscroll-behavior:contain;visibility:hidden;clip-path:inset(50% 50% 50% 50%)}
-.case-ov.open{visibility:visible}
-.case-close{position:fixed;top:18px;right:var(--gut);z-index:2;border:1px solid var(--navy);
-  border-radius:999px;padding:9px 14px 8px;background:var(--cream)}
-.case-in{max-width:1180px;margin:0 auto;padding:clamp(90px,12vh,130px) var(--gut-in) 90px}
-.case-in .case-x{opacity:0}
-.case-top{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:var(--s4);
-  align-items:end;border-bottom:1px solid var(--navy);padding-bottom:var(--s4)}
-.case-title{font-family:var(--serif);font-weight:400;font-size:clamp(44px,7vw,92px);line-height:.92;
-  letter-spacing:-.04em;margin:10px 0 0;color:var(--cc)}
-.case-brief{margin:0;color:var(--mute)}
-.case-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--gap-md);
-  padding:var(--s5) 0}
-.fixes{list-style:none;margin:0;padding:0}
-.fixes li{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:16px 0;
-  border-top:1px solid rgba(13,26,65,.15)}
-.fixes li b{width:26px;height:26px;border-radius:50%;border:1px solid var(--copper-ink);
-  color:var(--copper-ink);display:grid;place-items:center;font-family:var(--mono);font-size:11px;
-  font-weight:500}
-.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
-  background:rgba(13,26,65,.15);border:1px solid rgba(13,26,65,.15)}
-.results div{background:var(--cream);padding:22px 18px}
-.results strong{display:block;white-space:nowrap;font-family:var(--serif);font-weight:400;
-  font-size:clamp(30px,3.4vw,48px);line-height:1;letter-spacing:-.03em;color:var(--cc)}
-.results span{display:block;margin-top:10px;font-size:14px;color:var(--mute)}
-.scope{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
-.scope span{border:1px solid var(--navy);border-radius:999px;padding:6px 12px 5px;
-  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
-.case-scope-h{margin-top:28px}
-.case-next{margin-top:36px}
-.case-swatch{height:10px;background:var(--cc);margin-top:28px;width:100%}
+/* Proof 03 is still in progress, so it carries two small figures from the
+   brief instead of a route: the jargon count per draft, and six teams
+   joining into one name system. */
+.g-data{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.6cqw;margin-top:auto}
+.g-fig{margin:0;border:1px solid rgba(252,247,241,.28);padding:2.4cqw 2.4cqw 2cqw;
+  display:flex;flex-direction:column;gap:1.6cqw}
+.g-fig svg{display:block;width:100%;height:auto;overflow:visible}
+.g-fig figcaption{color:var(--mute-d);font-size:2.1cqw}
+.g-fig text{font-family:var(--mono);font-size:7px;letter-spacing:.06em;fill:rgba(252,247,241,.62);
+  text-anchor:middle;text-transform:uppercase}
+.g-fig .g-v{font-family:var(--serif);font-size:13px;letter-spacing:0;fill:var(--cream)}
+.g-base{stroke:rgba(252,247,241,.38);stroke-width:1}
+.g-b1{fill:var(--copper-l)}
+.g-b0{fill:var(--cream)}
+.g-ln{fill:none;stroke:rgba(252,247,241,.5);stroke-width:1.1}
+.g-dt{fill:var(--cream)}
+.g-nd{fill:var(--copper-l)}
+/* in progress: shown, marked up, and not a link */
+.print.is-wip{cursor:inherit}
+.print-top .wip{font-style:normal;color:var(--copper-l)}
 
 /* ============ REDUCED MOTION ============ */
 .rm .work-stage{height:auto;grid-template-columns:1fr;overflow:visible}

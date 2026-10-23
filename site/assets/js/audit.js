@@ -100,7 +100,7 @@
     mBody.innerHTML = `<div class="result-score">${yes}<small>/8</small></div>` +
       `<p class="result-line">${esc(line)}</p>` +
       (flags ? `<p class="mono flags-h">Details we would look at first</p><ul class="flags">${flags}</ul>` : '') +
-      `<a class="btn solid" href="mailto:hello@nuanse.studio?subject=${encodeURIComponent(`Paid audit: scored ${yes}/8`)}">` +
+      `<a class="btn solid" href="mailto:abhinav@thenuanse.com?subject=${encodeURIComponent(`Paid audit: scored ${yes}/8`)}">` +
       '<span class="btn-ar l" aria-hidden="true">→</span>' +
       `<span class="btn-label">${wrapS('Book the paid audit')}</span>` +
       '<span class="btn-ar r" aria-hidden="true">→</span></a>';

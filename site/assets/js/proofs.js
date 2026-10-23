@@ -1,16 +1,15 @@
 /* ============================================================================
    NUANSE — proofs.js · the proofs, marked up
 
-   The three pinned proof prints, and the case overlay the two unnamed ones
-   open. Shared by the home page and work/index.html: both carry the same
-   section.work markup, and the stack swaps print for print in one place as
-   you scroll.
+   The three pinned proof prints. Shared by the home page and
+   work/index.html: both carry the same section.work markup, and the stack
+   swaps print for print in one place as you scroll.
 
-   A print carrying data-href is a route to a real case page and goes there
-   instead; the overlay is for the cases that have no page of their own.
+   A print carrying data-href is a route to a real case page. One without it
+   is a case still in progress, and goes nowhere.
 
    Loaded after core.js. Everything shared — the loader, nav, cursor, scroll,
-   footer, the focus trap — is core's. It registers through NU rather than
+   footer — is core's. It registers through NU rather than
    racing core's boot: NU.onBuild for anything that creates a ScrollTrigger,
    NU.onReady for after the curtain has lifted.
    ========================================================================== */
@@ -19,7 +18,7 @@
   const NU = window.NU;
   if (!NU) return;
 
-  const { $, $$, RM, EASE, clamp, esc, wrapS, wrapWords, loopPath } = NU;
+  const { $, $$, RM, EASE, clamp, loopPath } = NU;
 
   /* ---------------------------------------------- real images on the prints
      Needs no animation library, so it runs on the no-GSAP path too: if a
@@ -38,122 +37,6 @@
       host.insertBefore(img, host.firstChild);
       host.classList.add('has-img');
     });
-  }
-
-  /* =================================================== 4 · CASE OVERLAY
-     Copy is lifted from the reference build, not rewritten. Every figure in
-     here came with it; brief/02-project-pages.md says to lift rather than
-     rewrite, and brief/05-conventions.md says never to invent one.
-
-     NOTE for the content pass: these three figures are live on the current
-     site and are carried forward unchanged, but they have not been confirmed
-     back to a source in this round. If any one of them cannot be attributed,
-     it becomes a NEEDS placeholder — the markup for which is already here. */
-  const CASES = [
-    {
-      no: 2, name: '24 SKUs. One shoot.', sector: 'D2C fashion · India', cc: '#3F4A2E',
-      title: 'One light. One day. Every SKU.',
-      brief: 'A fabric-first label with product people kept and photos nobody shared. Every SKU had been shot on a different day in a different light, so the store looked like a marketplace of its own.',
-      fixes: [
-        'One light, one angle logic, one background, planned before anyone picked up a camera.',
-        'Ad creative cut from the same shoot, so the click lands on the photo it promised.',
-        'Product pages rewritten so the second line of a caption carries the fabric story.'
-      ],
-      results: [['24', 'SKUs shot in one day'], ['2.4×', 'Return on ad spend'], ['+38%', 'Product page conversion']],
-      scope: ['Shoot direction', 'Product photography', 'Reels', 'Shopify product pages', 'Meta ads']
-    },
-    {
-      no: 3, name: 'A GCC, Bangalore', sector: 'Global capability centre', cc: '#16245A',
-      title: 'We redlined “leveraging synergies”.',
-      brief: 'A new global capability centre needed a strategy people could repeat, a name system for six teams and a website that helps it hire. The first draft of the strategy used “leveraging synergies” four times.',
-      fixes: [
-        'A name system that scales from one team to sixty without a new logo each time.',
-        'Strategy cut to one sentence a new hire can say back on day one.',
-        '“Leveraging synergies” became “working as one team”. Every page was held to the same test.'
-      ],
-      results: [['1', 'Name system for 6 teams'], ['4 wks', 'Brief to live site'], ['0', 'Uses of “synergies”']],
-      scope: ['Strategy', 'Name system', 'Identity', 'Website', 'Hiring content']
-    }
-  ];
-
-  const ov = $('.case-ov');
-  const ovIn = $('.case-in');
-  const ovClose = $('.case-close');
-  let openFrom = null;
-  let lastFocus = null;
-
-  /* A figure we do not have renders as a visible placeholder, never as a
-     plausible number. Call it as NEEDS('average order value, Zingara'). */
-  const NEEDS = (what) => `<span class="needs">[[NEEDS: ${esc(what)}]]</span>`;
-  const cell = (v) => (v && v.needs ? NEEDS(v.needs) : esc(v));
-
-  function renderCase(i) {
-    const c = CASES[i];
-    ov.style.setProperty('--cc', c.cc);
-    ovIn.innerHTML =
-      `<div class="case-top case-x"><div><p class="mono">Case 0${c.no} · ${esc(c.sector)}</p>` +
-      `<h2 class="case-title">${wrapWords(c.title)}</h2></div>` +
-      `<p class="case-brief">${esc(c.brief)}</p></div>` +
-      '<div class="case-grid case-x"><div><p class="mono">The redline</p><ol class="fixes">' +
-      c.fixes.map((f, k) => `<li><b>${'ABC'[k]}</b><span>${esc(f)}</span></li>`).join('') +
-      '</ol></div>' +
-      '<div><p class="mono">Results</p><div class="results">' +
-      c.results.map((r) => `<div><strong>${cell(r[0])}</strong><span>${esc(r[1])}</span></div>`).join('') +
-      '</div>' +
-      '<p class="mono case-scope-h">Scope</p><div class="scope">' +
-      c.scope.map((s) => `<span>${esc(s)}</span>`).join('') + '</div></div></div>' +
-      '<div class="case-x"><div class="case-swatch"></div><div class="case-next">' +
-      '<button class="btn solid next-case"><span class="btn-ar l" aria-hidden="true">→</span>' +
-      `<span class="btn-label">${wrapS('Next case')}</span>` +
-      '<span class="btn-ar r" aria-hidden="true">→</span></button></div></div>';
-
-    $('.next-case', ovIn).addEventListener('click', () => {
-      const n = (i + 1) % CASES.length;
-      gsap.to($$('.case-x', ovIn), {
-        opacity: 0, y: -20, duration: 0.5, stagger: 0.04,
-        onComplete: () => { renderCase(n); ov.scrollTop = 0; showCaseBits(); }
-      });
-    });
-  }
-  function showCaseBits() {
-    gsap.fromTo($$('.case-x', ovIn),
-      { opacity: 0, y: RM ? 0 : 30 },
-      { opacity: 1, y: 0, duration: RM ? 0.3 : 0.9, stagger: 0.08, delay: RM ? 0 : 0.1 });
-  }
-  function rectInset(el) {
-    const r = el.getBoundingClientRect();
-    const W = window.innerWidth;
-    const H = window.innerHeight;
-    return `inset(${r.top}px ${W - r.right}px ${H - r.bottom}px ${r.left}px)`;
-  }
-  function openCase(i, el) {
-    lastFocus = document.activeElement;
-    openFrom = el;
-    renderCase(i);
-    ov.scrollTop = 0;
-    NU.stopScroll();
-    NU.cursorRest();
-    ov.classList.add('open');
-    if (RM) {
-      gsap.fromTo(ov, { clipPath: 'inset(0px 0px 0px 0px)', opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none' });
-    } else {
-      gsap.fromTo(ov, { clipPath: rectInset(el) }, { clipPath: 'inset(0px 0px 0px 0px)', duration: 1.1 });
-    }
-    showCaseBits();
-    ovClose.focus({ preventScroll: true });
-  }
-  function closeCase() {
-    if (!ov || !ov.classList.contains('open')) return;
-    const done = () => {
-      ov.classList.remove('open');
-      NU.startScroll();
-      if (lastFocus) lastFocus.focus({ preventScroll: true });
-    };
-    if (RM || !openFrom) {
-      gsap.to(ov, { opacity: 0, duration: 0.3, ease: 'none', onComplete: () => { gsap.set(ov, { opacity: 1 }); done(); } });
-    } else {
-      gsap.to(ov, { clipPath: rectInset(openFrom), duration: 1, onComplete: done });
-    }
   }
 
   /* ------------------------------------------- the redlines on the prints
@@ -246,17 +129,15 @@
   /* ------------------------------------------------------------ wiring up */
   /* The control is .print-go inside the card, not the card: a card whose
      visible text is a whole drawn menu cannot carry "Read the case" as its
-     accessible name without lying to a screen reader. Keyboard support is
-     native now — Enter on the link, Enter and Space on the two buttons — and
-     proof 01's link still routes with this file blocked. The card keeps its
-     own click handler, so the whole print is still a target for the mouse,
-     and stands aside when the click came from the control so nothing fires
-     twice. */
-  $$('.print').forEach((p) => {
-    const open = () => {
-      if (p.dataset.href) { NU.goPage(p.dataset.href); return; }
-      openCase(+p.dataset.case, p);
-    };
+     accessible name without lying to a screen reader. The links route with
+     this file blocked too. The card keeps its own click handler, so the whole
+     print is still a target for the mouse, and stands aside when the click
+     came from the link so nothing fires twice.
+
+     A print with no data-href is a case still in progress: it is shown,
+     marked up like the others, and goes nowhere. */
+  $$('.print[data-href]').forEach((p) => {
+    const open = () => NU.goPage(p.dataset.href);
     const go = $('.print-go', p);
     if (go) go.addEventListener('click', (e) => { e.preventDefault(); open(); });
     p.addEventListener('click', (e) => {
@@ -264,7 +145,4 @@
       open();
     });
   });
-  if (ovClose) ovClose.addEventListener('click', closeCase);
-  if (ov) NU.trap(ov);
-  NU.onEsc(closeCase);
 })();

@@ -45,7 +45,7 @@
   /* not the contact page */
   if (!draft || !sendEl || !subjectEl) return;
 
-  const TO = 'hello@nuanse.studio';
+  const TO = 'abhinav@thenuanse.com';
 
   /* The visitor's own words, once they have written any. Set on the first
      real keystroke in the draft and never cleared: from that point the picks

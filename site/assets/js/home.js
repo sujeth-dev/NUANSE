@@ -358,7 +358,7 @@
         if (!LR.locked) LR.tr = pressing ? lensR() * 1.1 : lensR();
         lensAuto = false;
         lastInput = performance.now();
-        cursorOff(true);
+        cursorOff(!LR.locked);
         bubble(true);
       });
       /* pressing grows it a tenth — the reference's one gesture */
@@ -450,6 +450,8 @@
         if (lensOn) lensFirstUse();
         lensToggle.setAttribute('aria-pressed', String(lensOn));
         lensToggle.classList.toggle('on', lensOn);
+        hero.classList.toggle('lens-on', lensOn);
+        cursorOff(false);
         $('span', lensToggle).textContent = lensOn ? 'Close' : 'Click here';
         const b = hero.getBoundingClientRect();
         if (RM) {
@@ -510,29 +512,29 @@
   }
 
   /* ======================================= the S hand-off, hero -> nav slot
-     The one place the live letter and the real mark meet. The flyer starts as
-     the hero's glyph and cross-fades to the asset at 0.45s of a 1.1s travel —
-     mid-flight, under cover of the scale change. Swapping at the endpoint
-     pops, because the two silhouettes are not the same shape. */
-  const flyer = $('.flyer');
-  const flyIn = $('.fly-in');
-  const flyLo = $('.fly-lo');
-  const flyUp = $('.fly-up');
+     It used to fly: a copy of the headline's S travelled to the nav slot,
+     turning into the mark on the way. But the header now slides away as
+     you scroll down, so the flight was aiming at a target that was leaving,
+     and it landed in a header that had gone. That was the glitch.
+
+     Now it is a settle, played early, while the header is still there: the
+     mark drops into its slot from just above, small to full, the dashed
+     ring it was waiting in fades, and the headline's S answers with one
+     quiet turn. Nothing crosses the screen. Scrolling back to the top lifts
+     the mark out again. */
   const navSlot = NU.navSlot;
   const navMark = NU.navMark;
   let markState = 'hero';
   let flyTl = null;
 
-  const spinRot = () => (NU.navSpin ? +gsap.getProperty(NU.navSpin, 'rotation') || 0 : 0);
-
-  /* The flight belongs to the screens that have a wordmark beside the slot.
+  /* The settle belongs to the screens that have a wordmark beside the slot.
      Below 900px core.css hides the wordmark, the mark is the entire brand,
      and a slot that stays empty until you scroll is simply a nav with no logo
      in it. Same line as the media query in core.css. */
   const flies = () => window.innerWidth > 900;
 
   function fly(toNav) {
-    if (!heroS || !flyer || !navSlot || !navMark) return;
+    if (!navSlot || !navMark) return;
     if (!flies()) {
       markState = toNav ? 'nav' : 'hero';
       navMark.style.opacity = 1;
@@ -550,53 +552,21 @@
       return;
     }
 
-    const r1 = heroS.getBoundingClientRect();
-    const r2 = navSlot.getBoundingClientRect();
-    const fs = parseFloat(getComputedStyle(heroS).fontSize);
-    const sc = (r2.height * 1.15) / r1.height;
-    const heroPos = { x: r1.left, y: r1.top, scale: 1, rotation: 0 };
-    const navPos = {
-      x: r2.left + r2.width / 2 - r1.width / 2,
-      y: r2.top + r2.height / 2 - r1.height / 2,
-      scale: sc, rotation: spinRot()
-    };
-    gsap.set(flyer, { display: 'block', width: r1.width, height: r1.height, fontSize: fs });
-
     flyTl = gsap.timeline();
     if (toNav) {
-      heroS.style.visibility = 'hidden';
-      navMark.style.opacity = 0;
-      gsap.set(flyer, heroPos);
-      gsap.set(flyIn, { scaleX: 1 });
-      gsap.set(flyer, { color: getComputedStyle(heroS).color });
-      gsap.set(flyLo, { opacity: 1 });
-      gsap.set(flyUp, { opacity: 0 });
-      flyTl
-        .to(flyer, { x: navPos.x, y: navPos.y, scale: navPos.scale, rotation: navPos.rotation, duration: 1.1 })
-        .to(flyIn, { scaleX: -1, duration: 0.8 }, 0.15)
-        .to(flyLo, { opacity: 0, duration: 0.4 }, 0.45)
-        .to(flyUp, { opacity: 1, duration: 0.4 }, 0.45)
-        .add(() => {
-          navMark.style.opacity = 1;
-          navSlot.classList.add('filled');
-          gsap.set(flyer, { display: 'none' });
-        });
+      navSlot.classList.add('filled');
+      flyTl.fromTo(navMark,
+        { opacity: 0, yPercent: -38, scale: 0.6 },
+        { opacity: 1, yPercent: 0, scale: 1, duration: 0.75, ease: 'power3.out' });
+      /* the turn is the .s transition already in core.css, so it is a class
+         and not a tween: a tween on transform would fight that transition */
+      if (heroS) {
+        heroS.classList.add('s-nod');
+        flyTl.add(() => heroS.classList.remove('s-nod'), 0.7);
+      }
     } else {
-      navMark.style.opacity = 0;
-      navSlot.classList.remove('filled');
-      gsap.set(flyer, navPos);
-      gsap.set(flyIn, { scaleX: -1 });
-      gsap.set(flyLo, { opacity: 0 });
-      gsap.set(flyUp, { opacity: 1 });
-      flyTl
-        .to(flyer, { x: heroPos.x, y: heroPos.y, scale: 1, rotation: 0, duration: 1.1 })
-        .to(flyIn, { scaleX: 1, duration: 0.8 }, 0.15)
-        .to(flyUp, { opacity: 0, duration: 0.4 }, 0.45)
-        .to(flyLo, { opacity: 1, duration: 0.4 }, 0.45)
-        .add(() => {
-          heroS.style.visibility = '';
-          gsap.set(flyer, { display: 'none' });
-        });
+      flyTl.to(navMark, { opacity: 0, yPercent: -30, scale: 0.7, duration: 0.4, ease: 'power2.in' })
+        .add(() => navSlot.classList.remove('filled'), 0.15);
     }
   }
 
@@ -749,9 +719,11 @@
   }
 
   /* ======================================================= 5 · BEFORE / AFTER
-     Pinned for 170% of a screen. The after kit wipes in from the right
-     behind a rule, the heading hands its weight from Before to After, and
-     once the wipe lands the doodles draw on. Reduced motion never gets
+     Pinned for 170% of a screen. The after kit already shows its last 30%
+     when the section arrives, so there is something to compare from the
+     first frame; the rest wipes in from there behind a rule, the heading
+     hands its weight from Before to After, and once the wipe lands the
+     doodles draw on. Reduced motion never gets
      here: the CSS default is the still 50% split. */
   function wireBeforeAfter() {
     const sec = $('#before-after');
@@ -764,10 +736,12 @@
     const doodles = $$('.ba-after .dd path', sec);
     const draw = typeof DrawSVGPlugin !== 'undefined';
 
-    gsap.set(after, { clipPath: 'inset(0% 0% 0% 100%)' });
-    gsap.set(line, { left: '100%' });
+    gsap.set(after, { clipPath: 'inset(0% 0% 0% 70%)' });
+    gsap.set(line, { left: '70%' });
     gsap.set(wa, { opacity: 0.16 });
-    if (draw) gsap.set([...arrow, ...doodles], { drawSVG: '0%' });
+    /* the arrow's rule starts as far along as the wipe: 30% */
+    if (draw) gsap.set([...arrow.slice(1), ...doodles], { drawSVG: '0%' });
+    if (draw && arrow[0]) gsap.set(arrow[0], { drawSVG: '0% 30%' });
 
     const tl = gsap.timeline({ defaults: { ease: 'none' } });
     tl.to(after, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power1.inOut' }, 0.12)
@@ -776,8 +750,8 @@
       .to(wb, { opacity: 0.16, duration: 0.45 }, 0.6)
       .to(wa, { opacity: 1, duration: 0.45 }, 0.6);
     if (draw) {
-      tl.to(arrow[0], { drawSVG: '100%', duration: 0.7 }, 0.12)
-        .to(arrow.slice(1), { drawSVG: '100%', duration: 0.14 }, 0.82)
+      tl.to(arrow[0], { drawSVG: '0% 100%', duration: 0.7 }, 0.12)
+        .to(arrow.slice(1), { drawSVG: '100%', duration: 0.14 }, 0.8)
         .to(doodles, { drawSVG: '100%', duration: 0.22, stagger: 0.035 }, 1.1);
     }
     tl.to({}, { duration: 0.2 });
@@ -954,7 +928,7 @@
 
     /* --- the S hand-off --- */
     ScrollTrigger.create({
-      start: () => window.innerHeight * 0.22, end: 'max',
+      start: 40, end: 'max',
       onEnter: () => fly(true), onLeaveBack: () => fly(false)
     });
 
@@ -1044,10 +1018,21 @@
     const slides = $$('.fe-slide', fe);
     const dots = $$('.fe-dots i', fe);
     const num = $('.fe-n b', fe);
+    const n = slides.length;
     let at = 0;
-    function go(n) {
-      at = (n + slides.length) % slides.length;
-      slides.forEach((s, i) => s.classList.toggle('on', i === at));
+    /* each plate's place on the wall, counted from the one in focus: 0 in
+       front, 1 and -1 either side, anything further waits behind */
+    function place() {
+      slides.forEach((s, i) => {
+        let d = ((i - at) % n + n) % n;
+        if (d > n / 2) d -= n;
+        s.dataset.pos = String(d);
+        s.classList.toggle('on', d === 0);
+      });
+    }
+    function go(k) {
+      at = (k + n) % n;
+      place();
       dots.forEach((d, i) => {
         d.classList.remove('on');
         d.classList.toggle('done', i < at);
@@ -1057,6 +1042,12 @@
       num.textContent = String(at + 1).padStart(2, '0');
     }
     dots.forEach((d) => d.addEventListener('animationend', () => go(at + 1)));
+    /* a plate beside the one in focus is a way to it */
+    slides.forEach((s, i) => {
+      const pl = $('.fe-plate', s);
+      if (pl) pl.addEventListener('click', () => { if (i !== at) go(i); });
+    });
+    place();
     $('.fe-prev', fe).addEventListener('click', () => go(at - 1));
     $('.fe-next', fe).addEventListener('click', () => go(at + 1));
     fe.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') fe.classList.add('hold'); });
@@ -1085,12 +1076,11 @@
   NU.onIntro(heroIntro);
   NU.onReady(() => {
     /* a deep link or a restored scroll position lands past the hand-off */
-    if (window.pageYOffset > window.innerHeight * 0.22) fly(true);
+    if (window.pageYOffset > 40) fly(true);
     /* the slot starts turning once the curtain is up, not under it */
     if (rotSync) rotSync();
   });
   NU.onResize(() => {
-    /* the flyer's endpoints were measured at the old size */
     if (markState === 'nav' && navMark) navMark.style.opacity = 1;
     /* crossing 900px either way: below it the mark is always there, and above
        it the mark belongs to whichever side of the hand-off we are on */

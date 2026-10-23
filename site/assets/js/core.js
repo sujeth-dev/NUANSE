@@ -32,14 +32,12 @@
   const RM = html.classList.contains('rm');
   const TOUCH = html.classList.contains('touch');
 
-  /* The curtain theatre plays once per session, not on every page view. With
-     real page navigation now in play this matters more than it did: without
-     it, every click through the site would replay the full opener. */
-  let SEEN = false;
-  try {
-    SEEN = sessionStorage.getItem('nu-seen') === '1';
-    sessionStorage.setItem('nu-seen', '1');
-  } catch (e) {}
+  /* The opener plays on every fresh arrival: a first visit, a refresh, a
+     typed address. A page reached through the curtain (boot.js marks it
+     .via) does not replay it; it lifts the curtain it arrived under, so a
+     click through the site is one continuous move rather than an opener
+     per page. */
+  const VIA = html.classList.contains('via');
 
   /* ------------------------------------------------------------- S wrapping
      Wraps every s/S in a text node in a <span class="s">, keeping whole words
@@ -296,12 +294,12 @@
 
   /* ------------------------------------------------------- THE NAV'S MARK
      The slot holds the logo on every page. The home page is the exception and
-     it is the reason the slot exists: there, the hero's S flies up into it on
-     scroll, so the mark starts invisible and the dashed ring stands empty
-     until it lands. A page that flies it is a page with a .flyer; everything
-     else simply has its logo, ring filled, from the first frame — which is
-     also what the no-GSAP path below has always done. */
-  if (nav && $('.flyer')) {
+     it is the reason the slot exists: there, the mark settles into it as you
+     start to scroll, so it starts invisible and the dashed ring stands empty
+     until it lands. That page says so with data-mark-settles on <body>;
+     every other page simply has its logo, ring filled, from the first frame,
+     which is also what the no-GSAP path below has always done. */
+  if (nav && document.body.hasAttribute('data-mark-settles')) {
     nav.classList.add('mark-flies');
   } else if (navSlot) {
     navSlot.classList.add('filled');
@@ -330,7 +328,6 @@
        because transform here belongs to the breath. */
     const curEl = $('.cur');
     if (curEl) curEl.classList.add('rest', 'cur-dead');
-    buildS3D();          /* decorative, but an empty 220px box is worse */
     window.NU = { RM, TOUCH, $, $$, clamp, esc, wrapS, wrapWords, markS, dead: true };
     return;
   }
@@ -770,7 +767,10 @@
     busy = true;
     FOIL.setActive('open', true);
     markOnNavy();
-    const leave = () => { window.location.href = url; };
+    const leave = () => {
+      try { sessionStorage.setItem('nu-via', '1'); } catch (e) {}
+      window.location.href = url;
+    };
     if (RM) {
       gsap.timeline({ onComplete: leave })
         .set(curtain, { yPercent: 0, opacity: 0, visibility: 'visible' })
@@ -886,17 +886,36 @@
   window.addEventListener('pageshow', (e) => { if (e.persisted) restoreChrome(); });
 
   /* ---------------------------------------------------------------- LOADER */
+  let introRan = false;
   function loader(done) {
     if (!curtain) { done(); return; }
-    if (RM || SEEN) {
+    if (RM) {
       markOnNavy();
       gsap.timeline({ onComplete: done })
-        .to(curtain, { opacity: 0, duration: RM ? 0.5 : 0.3, ease: 'none' }, RM ? 0.2 : 0)
+        .to(curtain, { opacity: 0, duration: 0.5, ease: 'none' }, 0.2)
         .set(curtain, { visibility: 'hidden', opacity: 1 })
         .set(cover, { display: 'none' })
         .add(() => FOIL.setActive('open', false));
       return;
     }
+    /* Through the curtain: the page starts under the same navy, foil and
+       copper mark the last one left on, holds a beat so the ground is seen
+       moving, and the curtain carries on up the way it came. A fade here
+       read as a flash, which was the glitch on every page change. */
+    if (VIA) {
+      markOnNavy();
+      gsap.set(cover, { display: 'none' });
+      introRan = true;
+      gsap.timeline({ onComplete: done })
+        .to(cmFlip, { rotation: 360, duration: 0.7 }, 0)
+        .to(curtain, { yPercent: -100, duration: 0.6 }, 0.22)
+        .add(() => { introHooks.forEach((fn) => fn()); }, 0.4)
+        .set(curtain, { visibility: 'hidden' })
+        .set(cmFlip, { rotation: 0 })
+        .add(() => FOIL.setActive('open', false));
+      return;
+    }
+    introRan = true;
     /* The opener: the cream cover lifts off a copper-foil navy ground, the
        mark turns, then four pre-press crop marks and a measuring rule
        appear — the page is being registered on press before it prints.
@@ -929,115 +948,96 @@
   /* ---------------------------------------------------------------- FOOTER */
   const page = $('.page');
   const footer = $('.footer');
+  /* The footer is revealed from under the page, which only works while it
+     fits the screen: fixed to the bottom, anything taller than the window is
+     cut off at the top and can never be scrolled to. On a short phone it is,
+     so there it simply follows the page instead. */
   function sizeFooter() {
-    if (page && footer) page.style.marginBottom = `${footer.offsetHeight}px`;
+    if (!page || !footer) return;
+    footer.classList.remove('ft-flow');
+    const tall = footer.offsetHeight > window.innerHeight + 1;
+    footer.classList.toggle('ft-flow', tall);
+    page.style.marginBottom = tall ? '' : `${footer.offsetHeight}px`;
   }
 
-  /* The 3D mark: eighteen stacked copies of the real asset, ramped from dark
-     through copper to a cream highlight. Built here rather than in markup so
-     the layer count can drop under reduced motion, and so no `style`
-     attribute is ever written into innerHTML — the CSP would block it. */
-  const s3dObj = $('.s3d-obj');
-  /* Queries its own host rather than closing over the const above, so it can
-     also be called from the no-GSAP branch, which runs earlier. Building the
-     mark needs no animation library — it is img elements and a transform. */
-  function buildS3D() {
-    const host = $('.s3d-obj');
-    if (!host) return;
-    const base = host.dataset.copper;
-    const tip = host.dataset.cream;
-    if (!base || !tip) return;
-    const n = RM ? 6 : 18;
-    const frag = document.createDocumentFragment();
-    for (let i = 0; i < n; i++) {
-      const t = i / (n - 1);
-      const layer = document.createElement('div');
-      layer.className = 's3d-l';
-      const img = document.createElement('img');
-      img.className = 'mark';
-      img.alt = '';
-      img.setAttribute('aria-hidden', 'true');
-      img.decoding = 'async';
-      img.draggable = false;
-      img.width = 256;
-      img.height = 369;
-      if (i === n - 1) {
-        img.src = tip;                                 /* cream front face */
-      } else {
-        img.src = base;
-        /* 0.386 lands the copper master on the dark brown the design used at
-           the back of the stack; the last few layers lift past 1 to reach
-           copper-light before the cream face. */
-        const b = i > n - 4 ? 1.18 : 0.386 + t * 0.614;
-        img.style.filter = `brightness(${b.toFixed(3)})`;
-      }
-      layer.style.transform = `translateZ(${((i - (n - 1) / 2) * 2.2).toFixed(1)}px)`;
-      layer.appendChild(img);
-      frag.appendChild(layer);
-    }
-    host.replaceChildren(frag);
-  }
-
-  function wireS3D() {
-    const s3d = $('.s3d');
-    if (!s3d || !s3dObj) return;
+  /* The footer's S. The wordmark is cut in two by tools/build-brand-assets.py,
+     the letters and the copper S, and the S is laid back over its own gap so
+     the mark reads whole. At rest it floats, barely: a few percent of lift
+     and a degree or two of lean, only while the footer is on screen and
+     nothing else owns the stage. Hovered, it swells a little and its
+     outline draws round it (the outline is CSS, so it also answers focus).
+     Pulled, it follows the pointer at half the distance and springs home on
+     release. The outline sits a few pixels off the S's own contour and the
+     nearest letter is further than the swell plus the outline, so the two
+     never touch the N or the E. */
+  function wireFtS() {
+    const s = $('.ft-s');
+    if (!s || RM) return;
     let idle = null;
     let dragging = false;
-    if (!RM) {
-      idle = gsap.to(s3dObj, {
-        rotationY: 16, rotationX: -4, duration: 3.2,
-        yoyo: true, repeat: -1, ease: 'sine.inOut', paused: true
-      });
-      gsap.set(s3dObj, { rotationY: -16 });
-    }
-    /* the mark only sways while the footer is in view and nothing else owns
-       the stage */
+    let over = false;
+    idle = gsap.to(s, {
+      yPercent: -2.2, rotation: 1.6, duration: 2.9,
+      yoyo: true, repeat: -1, ease: 'sine.inOut', paused: true
+    });
     const sync = () => {
-      if (!idle) return;
-      if (MOTION.ft && !calm() && !dragging) idle.play();
+      if (MOTION.ft && !calm() && !dragging && !over) idle.play();
       else idle.pause();
     };
     onIdleChange(sync);
 
-    const spring = () => {
-      gsap.to(s3dObj, {
-        x: 0, y: 0, rotationX: 0, rotationY: 0,
-        duration: RM ? 0.3 : 1.8,
-        ease: RM ? 'none' : 'elastic.out(1,0.32)',
-        onComplete: () => { if (idle) { gsap.set(s3dObj, { rotationY: -16 }); idle.restart(); sync(); } }
+    const swell = (on) => gsap.to(s, {
+      scale: on ? 1.07 : 1, duration: on ? 0.7 : 0.5,
+      ease: on ? 'elastic.out(1,0.5)' : 'power3.out', overwrite: 'auto'
+    });
+    const home = () => {
+      s.classList.remove('drag');
+      gsap.to(s, {
+        x: 0, y: 0, rotation: 0, duration: 1.5,
+        ease: 'elastic.out(1,0.34)', overwrite: 'auto',
+        onComplete: sync
       });
+      swell(over);
     };
+
+    s.addEventListener('pointerenter', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      over = true; sync(); swell(true);
+    });
+    s.addEventListener('pointerleave', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      over = false;
+      if (!dragging) { swell(false); sync(); }
+    });
 
     let sx = 0;
     let sy = 0;
-    s3d.addEventListener('pointerdown', (e) => {
+    s.addEventListener('pointerdown', (e) => {
       dragging = true; sx = e.clientX; sy = e.clientY;
-      s3d.setPointerCapture(e.pointerId);
+      s.setPointerCapture(e.pointerId);
+      s.classList.add('drag');
       sync();
-      gsap.killTweensOf(s3dObj, 'x,y');
+      gsap.killTweensOf(s, 'x,y,rotation');
+      gsap.to(s, { scale: 1.1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' });
     });
-    s3d.addEventListener('pointermove', (e) => {
+    s.addEventListener('pointermove', (e) => {
       if (!dragging) return;
       const dx = e.clientX - sx;
       const dy = e.clientY - sy;
-      gsap.set(s3dObj, {
-        x: dx * 0.55, y: dy * 0.55,
-        rotationY: clamp(dx * 0.6, -80, 80),
-        rotationX: clamp(-dy * 0.6, -60, 60)
-      });
+      gsap.set(s, { x: dx * 0.5, y: dy * 0.5, rotation: clamp(dx * 0.06, -12, 12) });
     });
-    const release = () => { if (dragging) { dragging = false; spring(); } };
-    s3d.addEventListener('pointerup', release);
-    s3d.addEventListener('pointercancel', release);
-    /* keyboard gets the same spring, so the toy is not mouse-only */
-    s3d.addEventListener('keydown', (e) => {
-      const k = { ArrowLeft: [-40, 0], ArrowRight: [40, 0], ArrowUp: [0, -40], ArrowDown: [0, 40] }[e.key];
+    const release = () => { if (dragging) { dragging = false; home(); } };
+    s.addEventListener('pointerup', release);
+    s.addEventListener('pointercancel', release);
+    /* the keyboard gets the same pull and spring, so the toy is not mouse-only */
+    s.addEventListener('keydown', (e) => {
+      const k = { ArrowLeft: [-36, 0], ArrowRight: [36, 0], ArrowUp: [0, -36], ArrowDown: [0, 36] }[e.key];
       if (!k) return;
       e.preventDefault();
-      if (idle) idle.pause();
+      idle.pause();
       gsap.timeline()
-        .to(s3dObj, { x: k[0], y: k[1], rotationY: k[0], rotationX: -k[1], duration: 0.3 })
-        .add(spring);
+        .to(s, { x: k[0], y: k[1], rotation: k[0] * 0.2, scale: 1.08, duration: 0.3, ease: 'power3.out' })
+        .add(home);
     });
   }
 
@@ -1124,7 +1124,7 @@
     if (footer) {
       if (!RM) {
         gsap.fromTo('.ft-in',
-          { y: () => -window.innerHeight * 0.25, opacity: 0.3 },
+          { y: () => (footer.classList.contains('ft-flow') ? 0 : -window.innerHeight * 0.25), opacity: 0.3 },
           { y: 0, opacity: 1, ease: 'none',
             scrollTrigger: {
               start: () => ScrollTrigger.maxScroll(window) - footer.offsetHeight,
@@ -1160,8 +1160,7 @@
     booted = true;
     markPage();
     sizeFooter();
-    buildS3D();
-    wireS3D();
+    wireFtS();
     watchTurns();
     buildHooks.forEach((fn) => fn());      /* page scripts register their pins */
     buildCoreScroll();
@@ -1169,7 +1168,7 @@
     ScrollTrigger.refresh();
     loader(() => {
       html.classList.remove('loading');
-      if (RM || SEEN) introHooks.forEach((fn) => fn());
+      if (!introRan) introHooks.forEach((fn) => fn());
       startScroll();
       ScrollTrigger.refresh();
       readyHooks.forEach((fn) => fn());
@@ -1275,7 +1274,7 @@
      belongs here; anything only one page needs stays in that page's script. */
   window.NU = {
     /* flags and helpers */
-    RM, TOUCH, SEEN, EASE, $, $$, clamp, esc,
+    RM, TOUCH, VIA, EASE, $, $$, clamp, esc,
     /* text */
     wrapS, wrapWords, markS, watchTurns,
     /* motion */

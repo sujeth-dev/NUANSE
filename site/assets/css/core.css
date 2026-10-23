@@ -119,7 +119,6 @@
   --fs-h2:clamp(46px,24.46px + 5.524vw,104px);      /* .h2 */
   --fs-next:clamp(44px,14.29px + 7.619vw,124px);    /* .pg-next b */
   --fs-title:clamp(54px,10.91px + 11.05vw,170px);   /* .pg-title, .pj-title */
-  --fs-word:clamp(80px,5.714px + 19.05vw,280px);    /* .ft-word */
 
   --gut-in:clamp(22px,6.4px + 4vw,64px);
   --gut:max(clamp(22px,6.4px + 4vw,64px), (100vw - var(--maxw)) / 2);
@@ -204,9 +203,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:var(
 /* ============ TYPE ============ */
 .mono{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em;
   text-transform:uppercase;line-height:1.5}
-.display{font-family:var(--serif);font-weight:400;letter-spacing:-.04em;line-height:.92;text-wrap:balance}
+.display{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:.92;text-wrap:balance}
 .h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);line-height:.9;
-  letter-spacing:-.04em;margin:0;text-wrap:balance}
+  letter-spacing:-.01em;margin:0;text-wrap:balance}
 .lede{max-width:46ch;margin:0;color:var(--mute)}
 [data-nav=dark] .lede{color:var(--mute-d)}
 .eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 18px}
@@ -300,6 +299,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:var(
    transform plus one opacity rather than a filter animating through mud. */
 .cm-flip .mark{grid-area:1/1}
 .cm-copper{opacity:0}
+/* arrived through the curtain: no cream cover, copper mark, from first paint */
+.via .curtain-cover{display:none}
+.via .cm-navy{opacity:0}
+.via .cm-copper{opacity:1}
 .curtain-foil{position:absolute;inset:0;z-index:0;width:100%;height:100%;display:block;opacity:.42;
   pointer-events:none}
 .touch .curtain-foil,.rm .curtain-foil{display:none}
@@ -319,17 +322,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:var(
   transform:scaleX(0);transform-origin:left}
 .page-dim{position:fixed;inset:0;background:var(--night);opacity:0;pointer-events:none;z-index:120}
 
-/* ============ THE FLYER ============
-   The hero headline's S flies into the nav slot. It starts as the live glyph
-   and swaps to the asset partway through the travel, under cover of the scale
-   change — not at the endpoint, where the two silhouettes differ enough to
-   pop. */
-.flyer{position:fixed;top:0;left:0;z-index:150;pointer-events:none;font-family:var(--serif);
-  line-height:.9;display:none;transform-origin:50% 50%;color:var(--navy)}
-.fly-in{display:grid;place-items:center;width:100%;height:100%}
-.fly-lo,.fly-up{grid-area:1/1}
-.fly-up{opacity:0;display:grid;place-items:center;width:100%;height:100%}
-.fly-up .mark{width:auto;height:100%}
+/* ============ THE S SETTLE ============
+   On the home page the nav mark settles into its slot as you start to
+   scroll, and the headline's S turns once in answer (home.js fly()). */
+.hero-h .s.s-nod{transform:scaleX(-1);color:var(--copper)}
 
 /* ============ CURSOR ============
    Requirement 2, ported from nuanse-house. The cursor is always present and
@@ -355,7 +351,8 @@ input:not([type=range]):not([type=checkbox]):not([type=radio]),textarea,[content
              border-color var(--t-sm) var(--ease)}
 .cur b{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-weight:500;
   font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);opacity:0;
-  transition:opacity .25s var(--ease);white-space:nowrap}
+  transition:opacity .25s var(--ease);width:84px;text-align:center;line-height:1.35;
+  text-wrap:balance}
 .cur.big i{width:100px;height:100px;margin:-50px 0 0 -50px;background:var(--copper-ink);
   border-color:var(--copper-ink)}
 .cur.big b{opacity:1}
@@ -554,7 +551,7 @@ body:has(.pj-open) .menu a[aria-current]{color:var(--cream)}
 .menu.open{clip-path:inset(0 0 0 0);visibility:visible;
   transition:clip-path .9s var(--ease),visibility 0s}
 .menu a{font-family:var(--serif);font-size:var(--fs-menu);line-height:1.02;
-  letter-spacing:-.04em;text-decoration:none;display:block}
+  letter-spacing:-.01em;text-decoration:none;display:block}
 .menu .mono{margin-top:28px;color:var(--mute-d)}
 
 /* ============ BUTTONS (arrow-swap) ============ */
@@ -623,7 +620,7 @@ section{position:relative}
 .pg-open-eyebrow::before,.pj-open-eyebrow::before{content:"";width:28px;height:1px;
   background:currentColor}
 .pg-title,.pj-title{font-family:var(--serif);font-weight:400;font-size:var(--fs-title);
-  line-height:.88;letter-spacing:-.045em;margin:clamp(20px,4vh,44px) 0 0;max-width:11ch;
+  line-height:.88;letter-spacing:-.01em;margin:clamp(20px,4vh,44px) 0 0;max-width:11ch;
   text-wrap:balance}
 .pg-verdict,.pj-verdict{font-family:var(--serif);font-size:var(--fs-verdict);line-height:1.1;
   letter-spacing:-.025em;margin:0;max-width:22ch;text-wrap:balance}
@@ -656,7 +653,7 @@ section{position:relative}
    against 124px serif, which is hierarchy enough. */
 .pg-next .mono,.pj-next .mono{margin:0}
 .pg-next b,.pj-next b{display:block;font-family:var(--serif);font-weight:400;
-  font-size:var(--fs-next);line-height:.92;letter-spacing:-.035em;margin-top:14px;
+  font-size:var(--fs-next);line-height:.92;letter-spacing:-.01em;margin-top:14px;
   max-width:14ch}
 .pg-next .go,.pj-next .go{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
   text-transform:uppercase;border:1px solid currentColor;border-radius:100px;padding:14px 22px;
@@ -768,11 +765,26 @@ section{position:relative}
   flex-wrap:wrap;padding-bottom:var(--s4);border-bottom:1px solid var(--hair-c)}
 .ft-band-line{font-family:var(--serif);font-weight:400;font-size:var(--fs-sub);line-height:1.14;
   letter-spacing:-.025em;margin:0;max-width:34ch;text-wrap:balance}
-.ft-top{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+/* Four columns spread edge to edge with equal space between them, so Back to
+   the top lands on the right margin. Each column is a subgrid of the same two
+   rows, which puts every label on one line and every link on the next. */
+.ft-top{display:grid;grid-template-columns:repeat(4,auto);grid-template-rows:auto auto auto;
+  justify-content:space-between;gap:0 24px}
+.ft-top>div{display:grid;grid-template-rows:subgrid;grid-row:span 3;align-content:start}
+.ft-top>div>*{grid-column:1}
+.ft-up{justify-items:end}
 .ft-top .mono{color:var(--mute-d);margin:0 0 8px}
 .ft-top p,.ft-top a{margin:0;font-size:16px;text-decoration:none}
 .ft-top a{border-bottom:1px solid var(--hair-c)}
 .ft-top button{border-bottom:1px solid var(--hair-c);text-align:left}
+.to-top{display:inline-flex;align-items:center;gap:10px;align-self:start}
+.to-top-ar{font-style:normal;display:inline-block;color:var(--copper-l);
+  animation:to-top-bob 2.4s var(--ease) infinite}
+@keyframes to-top-bob{0%,100%{transform:translateY(1px)}50%{transform:translateY(-3px)}}
+.to-top:hover .to-top-ar{animation-duration:1.1s}
+/* taller than the window: follows the page rather than hiding under it */
+.footer.ft-flow{position:relative;min-height:0}
+.footer.ft-flow .ft-in{min-height:0}
 /* Write directly: the founder's own address, with a pencilled note under it
    and a promise on hover */
 .ft-write{position:relative}
@@ -791,51 +803,29 @@ section{position:relative}
 .footer.ft-seen .ft-note path,.rm .ft-note path{stroke-dashoffset:0}
 .ft-note span{font-family:var(--serif);font-size:19px;letter-spacing:-.01em;
   transform:rotate(-4deg) translateY(10px);transform-origin:0 50%}
-.ft-mid{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
-/* --fs-word tops out at 280px, not the 360px this carried before. The row
-   is .ft-word beside .s3d-wrap inside a container that stops growing at
-   1440px, the word is nowrap, and .footer is overflow:hidden — so the last
-   80px of that ramp were spent pushing NUANSE off the side of its own
-   footer on every screen wider than about 1500px, silently. 280px is the
-   value the old ramp reached at 1440, which is the widest it was ever
-   actually composed at. */
-.ft-word{font-family:var(--serif);font-size:var(--fs-word);line-height:.8;
-  letter-spacing:-.045em;white-space:nowrap}
-/* Width capped to the mark's own, and the caption centred under it rather
-   than setting the column's width. "Drag it. It comes back." is 187px of
-   11px mono on one line, while the mark below it is 130-220px — so the
-   caption, not the mark, was deciding how much of .ft-mid's row the 3D block
-   took, and it took 57px more than it needed. That difference is what pushed
-   .ft-word out of the row on every viewport between 900 and about 1090. */
-.s3d-wrap{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:10px;
-  width:clamp(130px,15vw,220px);text-align:center;
-  color:var(--mute-d)}
-.s3d{width:clamp(130px,15vw,220px);height:clamp(150px,17vw,250px);perspective:900px;display:grid;
-  place-items:center;touch-action:none;cursor:grab;outline:none}
-.s3d:active{cursor:grabbing}
-.s3d-obj{position:relative;width:100%;height:100%;transform-style:preserve-3d}
-/* Eighteen stacked copies of the real mark make the extrusion. The ramp runs
-   dark, through copper, to a cream highlight on the front face; the dark end
-   is the copper master under brightness(), because the set ships no dark tint
-   and a filter gets there exactly. Every layer points at one of two files, so
-   it is two downloads rather than eighteen. */
-/* the layers never take the pointer: an <img> under a press starts the
-   browser's own image drag, which cancels the pointer before the S moves */
-.s3d-l{position:absolute;inset:0;backface-visibility:visible;pointer-events:none}
-.s3d{user-select:none;-webkit-user-select:none}
-.s3d img{-webkit-user-drag:none}
-/* Absolute centring, not grid. Inside a grid the single implicit row is
-   auto-sized, which makes BOTH height:100% and max-height:100% on the image
-   circular — the row sizes to the image and the image sizes to the row. The
-   browser resolves that to auto, the image takes its intrinsic 256x369
-   capped only by max-width, and renders ~64px taller than its layer, landing
-   on top of the "Drag it" caption below.
-
-   inset:0 with margin:auto centres an absolutely positioned replaced element
-   on both axes, and the percentage caps then resolve against .s3d-l, whose
-   height is definite because it is itself inset:0 in a sized parent. */
-.s3d-l .mark{position:absolute;inset:0;margin:auto;
-  width:auto;height:auto;max-width:100%;max-height:100%}
+.ft-mid{display:flex;align-items:flex-end;justify-content:flex-start;gap:20px}
+/* With the separate 3D mark gone, the wordmark is the whole row: it runs
+   from gutter to gutter, and the S rides on top of it. */
+.ft-word{position:relative;width:100%}
+.ft-word .wm{display:block;width:100%;height:auto}
+/* The S, laid back over its own gap. The figures are where
+   tools/build-brand-assets.py found it in the mark (it prints them), and
+   the outline image is padded by the figures it prints for the ring. */
+.ft-s{position:absolute;left:70.07%;top:0;width:13.34%;height:99.73%;display:block;
+  cursor:grab;touch-action:none;outline:none;user-select:none;-webkit-user-select:none;
+  transform-origin:50% 55%}
+.ft-s.drag{cursor:grabbing}
+.ft-s img{position:absolute;display:block;pointer-events:none;-webkit-user-drag:none;max-width:none}
+.ft-s-mark{inset:0;width:100%;height:100%}
+/* The outline draws round the S, starting at the top: a conic mask sweeps
+   open. --sweep is registered so it can be transitioned at all. */
+@property --sweep{syntax:'<angle>';inherits:false;initial-value:0deg}
+.ft-s-ring{left:-11.3%;top:-7.87%;width:122.6%;height:115.74%;opacity:0;
+  -webkit-mask:conic-gradient(from 0deg,#000 var(--sweep),transparent 0);
+  mask:conic-gradient(from 0deg,#000 var(--sweep),transparent 0);
+  transition:--sweep .9s var(--ease),opacity .25s var(--ease)}
+.ft-s:hover .ft-s-ring,.ft-s.drag .ft-s-ring,.ft-s:focus-visible .ft-s-ring{--sweep:360deg;opacity:1}
+.rm .ft-s-ring{-webkit-mask:none;mask:none}
 .ft-bot{display:flex;justify-content:space-between;gap:16px;color:var(--mute-d);
   border-top:1px solid var(--hair-c);padding-top:var(--s3);flex-wrap:wrap}
 
@@ -862,29 +852,20 @@ section{position:relative}
   .wordmark{font-size:19px}
   .nav-slot::after{opacity:0}
   .sec-head{grid-template-columns:1fr}
-  .ft-top{grid-template-columns:repeat(2,minmax(0,1fr))}
-  /* .ft-mid stacks here rather than at 600px, and this is a fix, not a
-     preference. Side by side, the row is .ft-word plus .s3d-wrap: at 768px
-     the word is 558px, the gap 20px and the wrap 187px — 765px of content in
-     694px of .ft-in. .footer is overflow:hidden, so NUANSE was being cut off
-     on the right on every viewport from about 640px to 900px.
-
-     Measured on both ramps, because the honest question was whether A7
-     caused it: at 768px the old clamp overflowed .ft-mid by 50px and the new
-     rung by 72px. So it is a pre-existing clip that A7 made about 15px
-     worse, not one it introduced — and either way it is in a file this
-     session owns, and A7's own acceptance test says nothing may be clipped
-     at the five widths.
-
-     900px is the right place for it because it is where the nav collapses
-     and .ft-top already drops to two columns, so the footer now changes
-     shape once rather than at three different widths. Stacked at 768 the
-     word is 558px in 694px and the footer's own height is unchanged at
-     every viewport height tested. */
+  /* Two short facts side by side, then the address on a line of its own
+     so it never breaks, then the way back up: every label on one line and
+     every link starting at the same edge. */
+  .ft-top{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;
+    grid-template-areas:"studio start" "write write" "up up";justify-content:stretch;gap:30px 24px}
+  .ft-top>div{grid-template-rows:none;grid-row:auto;justify-items:start}
+  .ft-top>div:nth-child(1){grid-area:studio}
+  .ft-top>div:nth-child(2){grid-area:write}
+  .ft-top>div:nth-child(3){grid-area:start}
+  .ft-top>div:nth-child(4){grid-area:up}
+  .ft-up>.mono{display:none}
+  /* the index drops to two columns and the footer changes shape once, here,
+     where the nav collapses too */
   .ft-mid{flex-direction:column-reverse;align-items:flex-start}
-  /* Round 3: the draggable mark is a desktop toy; on a phone it was a
-     block of footer with nothing to do in it */
-  .s3d-wrap{display:none}
   .pg-next-in,.pj-next-in{grid-template-columns:1fr}
 }
 @media (max-width:600px){
@@ -894,13 +875,6 @@ section{position:relative}
   .btn{--h:48px}
   .btn-label{padding:0 16px}
   .ft-band{gap:var(--s3);padding-bottom:var(--s3)}
-  /* The one declared exception to A7's ramp, and the reason it is allowed:
-     below 600px .ft-mid stacks, so the word no longer shares its row with
-     the 3D mark and is free to run the full width. It is the single element
-     on the site meant to touch both gutters, so here it is keyed to the
-     viewport directly rather than to a rung. Anything else off the ramp is a
-     bug; this is a decision. */
-  .ft-word{font-size:22vw}
   /* Round 3: on a phone the opening frame was 92svh of navy with the title
      at the top and the facts at the bottom, and a dead band between them.
      Here it is as tall as what it holds, with one fixed gap and a title

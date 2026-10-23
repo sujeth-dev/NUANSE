@@ -95,7 +95,7 @@
   <a href="../team.html">Team</a>
   <a href="../contact.html">Contact</a>
   <a href="../contact.html#audit">Audit</a>
-  <p class="mono">Bangalore · hello@nuanse.studio</p>
+  <p class="mono">Bangalore · <a href="mailto:abhinav@thenuanse.com">abhinav@thenuanse.com</a></p>
 </div>
 
 <main class="page pj pj-possah" id="page">
@@ -469,15 +469,20 @@
       <div><p class="mono">Studio</p><p>Bangalore, India</p></div>
       <div class="ft-write"><p class="mono">Write directly</p><a class="ft-direct" href="mailto:abhinav@thenuanse.com" data-tip="He will take care of you, personally.">abhinav@thenuanse.com</a><span class="ft-note" aria-hidden="true"><svg viewBox="0 0 64 34" focusable="false"><path pathLength="1" d="M58 30C46 31 30 28 20 20S8 6 10 2"/><path pathLength="1" d="M4 9L10 2L16 8"/></svg><span>to the founder</span></span></div>
       <div><p class="mono">Start</p><a href="../contact.html#audit">The two-minute audit</a></div>
-      <div><button class="to-top" data-goto="#top">Back to the top</button></div>
+      <div class="ft-up"><p class="mono" aria-hidden="true">&nbsp;</p><button class="to-top" data-goto="#top">Back to the top<i class="to-top-ar" aria-hidden="true">&uarr;</i></button></div>
     </div>
     <div class="ft-mid">
-      <div class="ft-word"><img class="wm " src="../assets/brand/wordmark-cream-1600.png" width="1600" height="307" alt="NUANSE" decoding="async"></div>
-      <div class="s3d-wrap">
-        <div class="s3d" tabindex="0" role="img" aria-label="The NUANSE mark in three dimensions. Drag it; it springs back.">
-          <div class="s3d-obj" data-copper="../assets/brand/monogram-copper-256.png" data-cream="../assets/brand/monogram-cream-256.png"></div>
-        </div>
-        <span class="mono">Drag it. It comes back.</span>
+      <!-- The wordmark in two parts: the letters, and the copper S on its own
+           so it can move. The S sits back exactly where it is in the mark,
+           floats a little at rest, swells and draws its outline on hover, and
+           can be pulled; let go and it springs home. tools/build-brand-assets.py
+           cuts the two halves and the outline. -->
+      <div class="ft-word">
+        <img class="wm" src="../assets/brand/wordmark-cream-nos-1600.png" width="1600" height="307" alt="NUANSE" decoding="async">
+        <span class="ft-s" tabindex="0" role="img" aria-label="The reversed S of NUANSE. Pull it; it springs back.">
+          <img class="ft-s-ring" src="../assets/brand/wordmark-s-ring-262.png" width="262" height="355" alt="" decoding="async" draggable="false">
+          <img class="ft-s-mark" src="../assets/brand/wordmark-s-213.png" width="213" height="306" alt="" decoding="async" draggable="false">
+        </span>
       </div>
     </div>
     <div class="ft-bot mono"><span>© 2026 NUANSE</span></div>

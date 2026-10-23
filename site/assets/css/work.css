@@ -152,7 +152,7 @@
 
 .pj-sl-txt{min-width:0}
 .pj-sl-txt h2{--f-min:34;--f-max:64;margin:0 0 .45em;font-family:var(--serif);
-  font-weight:400;font-size:var(--fluid);line-height:.98;letter-spacing:-.035em;
+  font-weight:400;font-size:var(--fluid);line-height:.98;letter-spacing:-.01em;
   text-wrap:balance}
 .pj-sl-txt p{margin:0;font-size:clamp(16px,1.2vw,19px);line-height:1.55;max-width:36ch}
 .pj-ch.lt .pj-sl-txt p{color:var(--mute)}

@@ -37,8 +37,15 @@ in both, which is correct — it is the one constant in the mark.
 - **cream** on dark grounds
 - **navy** where copper would be too loud
 
-Pick by slot: the 34px nav mark takes the 128, the footer 3D S at up to 220px
-takes the 512.
+Pick by slot: the 34px nav mark takes the 128, the curtain mark the 512.
+
+### The footer wordmark, split
+
+`wordmark-cream-nos-1600.png` is the cream wordmark with the S cut out,
+`wordmark-s-213.png` is that S on its own, and `wordmark-s-ring-262.png` is
+the hand-drawn outline that rings it on hover. The script prints where the S
+sits in the mark and how far the outline is padded; `.ft-s` and
+`.ft-s-ring` in core.css use those figures.
 
 ### Icons and social
 
