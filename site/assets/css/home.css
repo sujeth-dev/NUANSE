@@ -111,7 +111,7 @@
    even where the cascade below drops to a smaller font-size. "that refuse
    to" keeps its own smaller gap and the subtle left nudge asked for
    separately - the one deliberate exception to the shared rhythm. */
-.hl{display:block}
+.hl{display:block;white-space:nowrap}
 .hl + .hl{margin-top:calc(var(--hu)*.09)}
 /* "for businesses" stays on the left, and is the first step of a cascade.
 
@@ -127,7 +127,7 @@
    one, continuing the cascade .hl-mid began rather than matching it.
    .hl-tail carries what both lines share; the -a/-b modifiers carry the one
    thing that tells them apart. */
-.hl-tail-a{font-size:.64em;margin-top:calc(var(--hu)*.03);margin-left:-.06em}
+.hl-tail-a{font-size:.64em;margin-top:calc(var(--hu)*.03)}
 .hl-tail-b{font-size:.64em}
 /* the slot: the word rides in its own mask, and the line holds its height
    whichever of the four is in it. nowrap because B2 sets the word in the mono
@@ -143,11 +143,12 @@
 /* B2 - the glyph noise.
 
    A character mid-flip is set in the mono face, so the word visibly dissolves
-   into type-specimen noise and resolves out of it rather than sliding. .86em
+   into type-specimen noise and resolves out of it rather than sliding. .74em
    is a width decision, not a style one: IBM Plex Mono advances .6em per glyph
-   against Gloock's ~.52em, and "identities" at ten mono glyphs and the full
-   unit overruns the gutter at 390px. At .86 it clears, and the denser texture
-   is what noise should look like next to the serif anyway.
+   against Gloock's ~.52em, so at a larger size a ten-glyph frame mid-flip ran
+   wider than the word itself and past the gutter on a phone. At .74 no frame
+   is wider than the word it becomes, and the denser texture is what noise
+   should look like next to the serif anyway.
 
    NO COLOUR OF ITS OWN, and that is a correction. The noise was set in
    --copper-l to separate it from the resolved word. Measured against the
@@ -158,7 +159,7 @@
    word it is dissolving, which measures 3.95:1 under the slot and is the
    better design besides: the flip is about the glyphs changing, not about the
    colour changing underneath them. */
-.rot .gl{font-family:var(--mono);font-size:.86em;letter-spacing:.02em}
+.rot .gl{font-family:var(--mono);font-size:.74em;letter-spacing:.02em}
 .hero-eyebrow{position:relative;align-self:flex-start}
 .hero-foot{display:flex;justify-content:flex-end;align-items:flex-end;gap:32px;flex-wrap:wrap}
 /* a measured fact row carries the lower left, not a paragraph */
@@ -787,10 +788,11 @@
   .ba-h .ba-arr{min-width:32px}
   .cl-init{font-size:22px}
   .hero-foot{flex-direction:column;align-items:flex-start;gap:22px}
-  /* Round 3: a bigger headline on a phone, so the hero is type and not a
-     gap. 17.5vw keeps "identities" inside the gutter even mid-flip, when it
-     is set in the wider mono face. */
-  .hero-h{--hu:min(17.5vw,10.5vh)}
+  /* A big headline on a phone, so the hero is type and not a gap, sized so
+     the widest line, the slot mid-flip in the mono face, stays inside the
+     gutter with the opened-up tracking. Every line is nowrap, so nothing
+     can re-wrap and move the lines under it. */
+  .hero-h{--hu:min(15.2vw,10.5vh)}
   .letter-meta span:last-child{display:none}
   .mf-note{display:none}
   .env-back,.env-front{height:38vh}
