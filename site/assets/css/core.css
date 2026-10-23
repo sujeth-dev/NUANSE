@@ -776,7 +776,7 @@ section{position:relative}
 .ft-up .to-top{grid-row:1;align-self:center}
 .ft-top .mono{color:var(--mute-d);margin:0 0 8px}
 .ft-top p,.ft-top a{margin:0;font-size:16px;text-decoration:none}
-.ft-top a{border-bottom:1px solid var(--hair-c)}
+.ft-top a{border-bottom:1px solid var(--hair-c);white-space:nowrap}
 .ft-top button{border-bottom:1px solid var(--hair-c);text-align:left}
 .to-top{display:inline-flex;align-items:center;gap:10px;align-self:start}
 .to-top-ar{font-style:normal;display:inline-block;color:var(--copper-l);font-size:1.45em;line-height:1;
