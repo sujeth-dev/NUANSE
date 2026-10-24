@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.thenuanse.com/sitemap.xml
+Sitemap: https://thenuanse.com/sitemap.xml
